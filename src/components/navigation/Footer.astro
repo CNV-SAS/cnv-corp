@@ -1,0 +1,117 @@
+---
+import { getLangFromUrl, useTranslations } from '../../i18n';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+const systemLinks = [
+  { href: lang === 'es' ? '/paradigma' : '/en/paradigm', label: t.nav.paradigma },
+  { href: lang === 'es' ? '/operacion' : '/en/operations', label: 'CNV Care — ' + t.nav.operacion },
+  { href: lang === 'es' ? '/formacion' : '/en/training', label: 'CNV Learning — ' + t.nav.formacion },
+  { href: lang === 'es' ? '/investigacion' : '/en/research', label: 'CNV Research — ' + t.nav.investigacion },
+  { href: lang === 'es' ? '/nosotros' : '/en/about', label: t.nav.nosotros },
+];
+---
+
+<footer class="bg-cnv-core text-white">
+  <!-- Top border accent -->
+  <div class="h-1 w-full flex">
+    <div class="flex-1 bg-cnv-execute"></div>
+    <div class="flex-1 bg-cnv-transfer"></div>
+    <div class="flex-1 bg-cnv-generate"></div>
+    <div class="flex-1 bg-cnv-bio"></div>
+  </div>
+
+  <div class="max-w-7xl mx-auto px-6 lg:px-8 py-16">
+    <div class="grid grid-cols-1 md:grid-cols-12 gap-12">
+
+      <!-- Brand col -->
+      <div class="md:col-span-4">
+        <img
+          src="/images/logo-horizontal-dark.png"
+          alt="Connected Nutrition Ventures"
+          class="h-8 mb-6"
+        />
+        <p class="text-sm text-white/60 leading-relaxed max-w-xs">
+          {t.footer.tagline}
+        </p>
+        <div class="mt-8">
+          <p class="text-xs font-700 tracking-[0.2em] uppercase text-white/30 mb-3">
+            {t.footer.ecosystem_title}
+          </p>
+          <div class="flex flex-col gap-2">
+            <a href="https://atlas.cnvcorp.com" target="_blank" rel="noopener"
+              class="text-xs text-white/50 hover:text-cnv-bio transition-colors flex items-center gap-2">
+              <span class="w-1.5 h-1.5 rounded-full bg-cnv-execute flex-shrink-0"></span>
+              {t.footer.subdomain_atlas}
+            </a>
+            <a href="https://academia.cnvcorp.com" target="_blank" rel="noopener"
+              class="text-xs text-white/50 hover:text-cnv-bio transition-colors flex items-center gap-2">
+              <span class="w-1.5 h-1.5 rounded-full bg-cnv-transfer flex-shrink-0"></span>
+              {t.footer.subdomain_academy}
+            </a>
+            <a href="https://obbia.cnvcorp.com" target="_blank" rel="noopener"
+              class="text-xs text-white/50 hover:text-cnv-bio transition-colors flex items-center gap-2">
+              <span class="w-1.5 h-1.5 rounded-full bg-cnv-generate flex-shrink-0"></span>
+              {t.footer.subdomain_obbia}
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Navigation -->
+      <div class="md:col-span-3 md:col-start-6">
+        <p class="text-xs font-700 tracking-[0.2em] uppercase text-white/30 mb-6">
+          {t.footer.links_system}
+        </p>
+        <div class="flex flex-col gap-3">
+          {systemLinks.map((link) => (
+            <a
+              href={link.href}
+              class="text-sm text-white/60 hover:text-white transition-colors"
+            >
+              {link.label}
+            </a>
+          ))}
+        </div>
+      </div>
+
+      <!-- CTA col -->
+      <div class="md:col-span-3 md:col-start-10">
+        <p class="text-xs font-700 tracking-[0.2em] uppercase text-white/30 mb-6">
+          {lang === 'es' ? 'Acceso' : 'Access'}
+        </p>
+        <a
+          href={lang === 'es' ? '/contacto' : '/en/contact'}
+          class="inline-flex items-center gap-2 px-6 py-3 border-2 border-white/20 text-sm font-600 text-white hover:border-cnv-generate hover:text-cnv-generate transition-all duration-300"
+        >
+          {t.nav.cta}
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+            <path d="M1 7h12M8 2l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
+        <div class="mt-8">
+          <a href={lang === 'es' ? '/en/' : '/'}
+            class="text-xs font-700 tracking-widest text-white/30 hover:text-white/60 transition-colors">
+            {lang === 'es' ? 'View in English →' : 'Ver en Español →'}
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom bar -->
+    <div class="mt-16 pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+      <p class="text-xs text-white/30">
+        {t.footer.copyright}
+      </p>
+      <div class="flex gap-6">
+        <a href="#" class="text-xs text-white/30 hover:text-white/60 transition-colors">
+          {lang === 'es' ? 'Política de privacidad' : 'Privacy policy'}
+        </a>
+        <a href="#" class="text-xs text-white/30 hover:text-white/60 transition-colors">
+          {lang === 'es' ? 'Términos de uso' : 'Terms of use'}
+        </a>
+      </div>
+    </div>
+  </div>
+</footer>

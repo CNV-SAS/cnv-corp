@@ -1,0 +1,58 @@
+---
+import { getLangFromUrl, useTranslations } from '../../i18n';
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+---
+
+<section class="py-section bg-slate-50" id="unirse">
+  <div class="max-w-7xl mx-auto px-6 lg:px-8">
+    
+    <div class="text-center max-w-2xl mx-auto mb-16">
+      <div class="flex justify-center mb-6">
+        <span class="inline-flex items-center gap-2 text-xs font-700 tracking-[0.2em] uppercase text-cnv-generate">
+          <span class="inline-block w-5 h-0.5 bg-cnv-generate"></span>
+          {t.audiences.tag}
+          <span class="inline-block w-5 h-0.5 bg-cnv-generate"></span>
+        </span>
+      </div>
+      <h2 class="text-headline font-800 text-cnv-core mb-6 text-balance animate-on-scroll">
+        {t.audiences.title}
+      </h2>
+      <p class="text-base text-cnv-core/50 animate-on-scroll">
+        {t.audiences.subtitle}
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      {t.audiences.profiles.map((profile, i) => (
+        <a
+          href={`/contacto?perfil=${profile.id}`}
+          class={`block group p-8 border transition-all duration-300 animate-on-scroll ${
+            profile.highlight
+              ? 'border-cnv-core bg-cnv-core text-white hover:bg-cnv-core-alt'
+              : 'border-cnv-core/10 bg-white hover:bg-slate-50 hover:border-cnv-core/30'
+          }`}
+          style={`animation-delay: ${i * 0.1}s`}
+        >
+          <div class="text-3xl mb-6">{profile.icon}</div>
+          
+          <h3 class={`text-lg font-800 mb-4 ${profile.highlight ? 'text-white' : 'text-cnv-core'}`}>
+            {profile.title}
+          </h3>
+          
+          <p class={`text-sm leading-relaxed mb-8 ${profile.highlight ? 'text-white/70' : 'text-cnv-core/50'}`}>
+            {profile.description}
+          </p>
+          
+          <div class={`flex items-center gap-2 text-xs font-700 transition-all duration-200 group-hover:gap-3 ${profile.highlight ? 'text-cnv-bio' : 'text-cnv-execute'}`}>
+            {profile.cta}
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+              <path d="M1 6h10M7 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+        </a>
+      ))}
+    </div>
+    
+  </div>
+</section>

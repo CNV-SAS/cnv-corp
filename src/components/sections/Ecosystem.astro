@@ -1,0 +1,71 @@
+---
+import { getLangFromUrl, useTranslations } from '../../i18n';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+---
+
+<section class="py-section">
+  <div class="max-w-7xl mx-auto px-6 lg:px-8">
+    <div class="max-w-2xl mb-16">
+      <div class="section-tag mb-6">{t.ecosystem.tag}</div>
+      <h2 class="text-headline font-800 text-cnv-core mb-6 text-balance animate-on-scroll">
+        {t.ecosystem.title}
+      </h2>
+      <p class="text-base text-cnv-core/50 animate-on-scroll">
+        {t.ecosystem.subtitle}
+      </p>
+    </div>
+
+    <div class="mb-12 flex items-center gap-4 overflow-x-auto pb-4 animate-on-scroll hide-scrollbar">
+      <div class="flex-shrink-0 text-center">
+        <div class="w-16 h-16 rounded-full bg-cnv-core flex items-center justify-center mx-auto mb-2">
+          <span class="text-white text-xs font-700 tracking-wider">CORE</span>
+        </div>
+        <div class="text-xs text-cnv-core/40 font-600">CNV Data</div>
+      </div>
+      <div class="flex-shrink-0 text-cnv-core/20 font-300 text-2xl">→</div>
+      
+      {t.ecosystem.lines.map((line, i) => (
+        <>
+          <div class="flex-shrink-0 text-center">
+            <div class="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-2 border-2"
+              style={`border-color: ${line.color}; background-color: ${line.color}15`}>
+              <span class="text-xs font-700" style={`color: ${line.color}`}>{line.id.toUpperCase().slice(0,3)}</span>
+            </div>
+            <div class="text-xs font-600" style={`color: ${line.color}`}>{line.role}</div>
+          </div>
+          {i < t.ecosystem.lines.length - 1 && (
+            <div class="flex-shrink-0 text-cnv-core/20 font-300 text-2xl">↔</div>
+          )}
+        </>
+      ))}
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-0 border border-cnv-core/10">
+      {t.ecosystem.lines.map((line, i) => (
+        <a
+          href={line.link}
+          class="block group p-8 bg-white transition-all duration-300 hover:bg-slate-50 border-b md:border-b-0 md:border-r last:border-0 border-cnv-core/10"
+        >
+          <div class="flex items-center gap-3 mb-6">
+            <div class="w-3 h-3 rounded-full flex-shrink-0" style={`background-color: ${line.color}`}></div>
+            <span class="text-xs font-700 tracking-[0.2em] uppercase" style={`color: ${line.color}`}>
+              {line.role}
+            </span>
+          </div>
+          <h3 class="text-lg font-800 text-cnv-core mb-4">{line.name}</h3>
+          <p class="text-sm text-cnv-core/50 leading-relaxed mb-6">{line.description}</p>
+          <div class="flex items-center gap-2 text-xs font-700 transition-all duration-200 group-hover:gap-3"
+            style={`color: ${line.color}`}>
+            {/* OJO: Aquí podrías pasar estos textos a tu archivo de traducción también */}
+            {i === 0 ? 'Conocer CNV Care' : i === 1 ? 'Conocer CNV Learning' : 'Conocer CNV Research'}
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+              <path d="M1 6h10M7 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+        </a>
+      ))}
+    </div>
+  </div>
+</section>

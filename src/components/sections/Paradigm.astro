@@ -1,0 +1,52 @@
+---
+import { getLangFromUrl, useTranslations } from '../../i18n';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+---
+
+<section class="py-section bg-cnv-core text-white">
+  <div class="max-w-7xl mx-auto px-6 lg:px-8">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+
+      <div class="lg:col-span-7">
+        <div class="mb-6 inline-flex items-center gap-2 text-xs font-700 tracking-[0.2em] uppercase text-[#00a388]">
+          <span class="inline-block w-5 h-0.5 bg-[#00a388]"></span>
+          {t.paradigm.tag}
+        </div>
+        
+        <h2 class="text-headline font-800 mb-6 text-balance animate-on-scroll">
+          {t.paradigm.title}
+        </h2>
+        <p class="text-base text-white/60 leading-relaxed mb-8 max-w-xl animate-on-scroll">
+          {t.paradigm.body}
+        </p>
+        <a href="/paradigma" class="btn-ghost text-[#00a388]">
+          {t.paradigm.link}
+        </a>
+      </div>
+
+      <div class="lg:col-span-4 lg:col-start-9">
+        <div class="flex flex-col gap-6">
+          <div class="p-8 border border-white/10 animate-on-scroll">
+            <div class="text-5xl font-900 mb-2 text-[#78be34]">
+              {t.paradigm.metric1_val}
+            </div>
+            <div class="text-xs font-600 text-white/50 leading-relaxed uppercase tracking-wider">
+              {t.paradigm.metric1_label}
+            </div>
+          </div>
+          <div class="p-8 border border-white/10 animate-on-scroll [animation-delay:100ms]">
+            <div class="text-5xl font-900 mb-2 text-[#00a388]">
+              {t.paradigm.metric2_val}
+            </div>
+            <div class="text-xs font-600 text-white/50 leading-relaxed uppercase tracking-wider">
+              {t.paradigm.metric2_label}
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>

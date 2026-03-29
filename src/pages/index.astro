@@ -1,17 +1,34 @@
 ---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { useTranslations } from '../i18n';
 
+// Secciones
+import Hero from '../components/sections/Hero.astro';
+import Paradigm  from '../components/sections/Paradigm.astro';
+import AnibiseModel from '../components/sections/AnibiseModel.astro';
+import Ecosystem from '../components/sections/Ecosystem.astro';
+import Audiences from '../components/sections/Audiences.astro';
+import Benefits from '../components/sections/Benefits.astro';
+import Partners from '../components/sections/Partners.astro';
+import Process from '../components/sections/Process.astro';
+import FinalCTA from '../components/sections/FinalCTA.astro';
+
+// Nota: No pasamos 't' a cada componente si no es necesario.
+// Es más limpio que cada componente importe su propia instancia de traducción internamente.
+const t = useTranslations('es');
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<BaseLayout
+  title={t.seo.title}
+  description={t.seo.description}
+>
+  <Hero />
+  <Paradigm />
+  <AnibiseModel />
+  <Ecosystem />
+  <Audiences />
+  <Benefits />
+  <Process />
+  <Partners />
+  <FinalCTA />
+</BaseLayout>

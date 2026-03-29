@@ -1,0 +1,77 @@
+---
+import { getLangFromUrl, useTranslations } from '../../i18n';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+---
+
+<section class="relative min-h-[92vh] flex items-center overflow-hidden grid-lines">
+  <!-- Background accent -->
+  <div class="absolute inset-0 pointer-events-none">
+    <div class="absolute top-0 right-0 w-1/2 h-full opacity-[0.03] bg-[radial-gradient(ellipse_at_top_right,#2563eb_0%,transparent_70%)]"></div>
+    <div class="absolute bottom-0 left-0 w-1/3 h-1/2 opacity-[0.05] bg-[radial-gradient(ellipse_at_bottom_left,#00a388_0%,transparent_70%)]"></div>
+  </div>
+
+  <div class="max-w-7xl mx-auto px-6 lg:px-8 w-full py-20 lg:py-0">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+      
+      <!-- Text -->
+      <div class="lg:col-span-7">
+        <div class="section-tag mb-8 animate-on-scroll">{t.hero.tag}</div>
+
+        <h1 class="text-display font-900 text-cnv-core leading-tight text-balance mb-8 animate-on-scroll [animation-delay:100ms]">
+          {t.hero.title}
+        </h1>
+
+        <p class="text-subhead font-400 text-cnv-core/60 max-w-xl leading-relaxed mb-12 animate-on-scroll [animation-delay:200ms]">
+          {t.hero.subtitle}
+        </p>
+
+        <div class="flex flex-wrap gap-4 animate-on-scroll [animation-delay:300ms]">
+          <a href="/contacto" class="btn-primary">
+            {t.hero.cta_primary}
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+              <path d="M1 7h12M8 2l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </a>
+          <a href="#modelo" class="btn-secondary">
+            {t.hero.cta_secondary}
+          </a>
+        </div>
+      </div>
+
+      <!-- Hero visual / image slot -->
+      <div class="lg:col-span-5 animate-on-scroll [animation-delay:400ms]">
+        <div class="relative">
+          <div class="aspect-[4/3] bg-cnv-core/5 border border-cnv-core/10 overflow-hidden">
+            <img
+              src="/images/hero-bis.jpg"
+              alt="Profesional aplicando Bioimpedancia Espectroscópica"
+              class="w-full h-full object-cover"
+              onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+            />
+            <!-- Placeholder if no image -->
+            <div class="hidden w-full h-full items-center justify-center text-cnv-core/20 text-sm font-600 text-center p-8">
+              <div>
+                <div class="text-4xl mb-4">📷</div>
+                <div>hero-bis.jpg</div>
+                <div class="text-xs mt-2 opacity-50">Reemplaza con tu imagen</div>
+              </div>
+            </div>
+          </div>
+          <!-- Decorative corner tag -->
+          <div class="absolute -bottom-4 -left-4 bg-cnv-generate text-white px-4 py-2 text-xs font-700 tracking-widest uppercase">
+            ANI-BIS-E
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Scroll indicator -->
+  <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 animate-on-scroll [animation-delay:600ms]">
+    <div class="w-px h-12 bg-cnv-core/20"></div>
+    <div class="text-xs font-600 tracking-widest uppercase text-cnv-core/30">Deslizar</div>
+  </div>
+</section>

@@ -1,0 +1,51 @@
+---
+import { getLangFromUrl, useTranslations } from '../../i18n';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+---
+
+<section class="py-section bg-cnv-core text-white">
+  <div class="max-w-7xl mx-auto px-6 lg:px-8">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-16">
+
+      <div class="lg:col-span-4">
+        <span class="inline-flex items-center gap-2 text-xs font-700 tracking-[0.2em] uppercase text-cnv-generate mb-6 block">
+          <span class="inline-block w-5 h-0.5 bg-cnv-generate"></span>
+          {t.process.tag}
+        </span>
+        <h2 class="text-headline font-800 mb-6 animate-on-scroll">
+          {t.process.title}
+        </h2>
+        <p class="text-sm text-white/50 leading-relaxed mb-10 animate-on-scroll">
+          El proceso está diseñado para validar la idoneidad del profesional y garantizar una implementación rigurosa del modelo.
+        </p>
+        <a href={lang === 'es' ? '/contacto' : '/en/contact'} class="inline-flex items-center gap-2 px-6 py-3 border-2 border-white/20 text-sm font-700 text-white hover:border-cnv-generate hover:text-cnv-generate transition-all duration-300">
+          {t.nav.cta}
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+            <path d="M1 7h12M8 2l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
+      </div>
+
+      <div class="lg:col-span-7 lg:col-start-6">
+        <div class="flex flex-col">
+          {t.process.steps.map((step, i) => (
+            <div class={`process-step animate-on-scroll`} style={`animation-delay: ${i * 0.1}s`}>
+              <div class="flex items-start gap-6">
+                <div class="flex-shrink-0 w-9 h-9 rounded-full border-2 border-white/20 flex items-center justify-center">
+                  <span class="text-xs font-900 text-white/40">{step.num}</span>
+                </div>
+                <div class="pt-1">
+                  <h3 class="text-base font-700 text-white mb-2">{step.title}</h3>
+                  <p class="text-sm text-white/50 leading-relaxed">{step.body}</p>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
