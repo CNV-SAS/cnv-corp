@@ -3,9 +3,6 @@ import { getI18n } from '../../i18n';
 
 const lang = Astro.currentLocale || 'es';
 const t = getI18n(lang);
-
-const contactUrl = lang === 'es' ? '/contacto' : '/en/contact';
-const paradigmUrl = lang === 'es' ? '/paradigma' : '/en/paradigm';
 ---
 
 <section class="py-32 bg-white">
@@ -21,14 +18,14 @@ const paradigmUrl = lang === 'es' ? '/paradigma' : '/en/paradigm';
     </p>
     
     <div class="flex flex-wrap gap-4 justify-center animate-on-scroll">
-      <a href={contactUrl} class="btn-primary px-8 py-4 text-base">
+      <a href={t.routes.contact} class="btn-primary px-8 py-4 text-base">
         {t.final_cta.button}
         <svg width="16" height="16" viewBox="0 0 14 14" fill="none">
           <path d="M1 7h12M8 2l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
       </a>
       
-      <a href={paradigmUrl} class="btn-secondary px-8 py-4 text-base">
+      <a href={t.routes.paradigm} class="btn-secondary px-8 py-4 text-base">
         {t.final_cta.secondary_button}
       </a>
     </div>

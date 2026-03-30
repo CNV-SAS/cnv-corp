@@ -3,9 +3,6 @@ import { getI18n } from '../../i18n';
 
 const lang = Astro.currentLocale || 'es';
 const t = getI18n(lang);
-
-// Resolvemos las rutas internamente para no ensuciar el HTML
-const contactUrl = lang === 'es' ? '/contacto' : '/en/contact';
 ---
 
 <section class="relative min-h-[92vh] flex items-center overflow-hidden grid-lines">
@@ -31,7 +28,7 @@ const contactUrl = lang === 'es' ? '/contacto' : '/en/contact';
         </p>
 
         <div class="flex flex-wrap gap-4 animate-on-scroll [animation-delay:300ms]">
-          <a href={contactUrl} class="btn-primary">
+          <a href={t.routes.contact} class="btn-primary">
             {t.hero.cta_primary}
             <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
               <path d="M1 7h12M8 2l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
