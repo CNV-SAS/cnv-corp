@@ -1,20 +1,24 @@
 ---
-import { getLangFromUrl, useTranslations } from '../../i18n';
+import { getI18n, getRouteInOtherLang } from '../../i18n';
 
-const lang = getLangFromUrl(Astro.url);
-const t = useTranslations(lang);
+interface Props {
+  lang: string;
+}
+
+const { lang } = Astro.props;
+const t = getI18n(lang);
+const otherLangHref = getRouteInOtherLang(Astro.url);
 
 const systemLinks = [
-  { href: lang === 'es' ? '/paradigma' : '/en/paradigm', label: t.nav.paradigma },
-  { href: lang === 'es' ? '/operacion' : '/en/operations', label: 'CNV Care — ' + t.nav.operacion },
-  { href: lang === 'es' ? '/formacion' : '/en/training', label: 'CNV Learning — ' + t.nav.formacion },
-  { href: lang === 'es' ? '/investigacion' : '/en/research', label: 'CNV Research — ' + t.nav.investigacion },
-  { href: lang === 'es' ? '/nosotros' : '/en/about', label: t.nav.nosotros },
+  { href: t.routes.paradigm, label: t.nav.paradigma },
+  { href: t.routes.operations, label: 'CNV Care — ' + t.nav.operacion },
+  { href: t.routes.training, label: 'CNV Learning — ' + t.nav.formacion },
+  { href: t.routes.research, label: 'CNV Research — ' + t.nav.investigacion },
+  { href: t.routes.about, label: t.nav.nosotros },
 ];
 ---
 
 <footer class="bg-cnv-core text-white">
-  <!-- Top border accent -->
   <div class="h-1 w-full flex">
     <div class="flex-1 bg-cnv-execute"></div>
     <div class="flex-1 bg-cnv-transfer"></div>
@@ -25,7 +29,6 @@ const systemLinks = [
   <div class="max-w-7xl mx-auto px-6 lg:px-8 py-16">
     <div class="grid grid-cols-1 md:grid-cols-12 gap-12">
 
-      <!-- Brand col -->
       <div class="md:col-span-4">
         <img
           src="/images/logo-horizontal-dark.png"
@@ -40,17 +43,17 @@ const systemLinks = [
             {t.footer.ecosystem_title}
           </p>
           <div class="flex flex-col gap-2">
-            <a href="https://atlas.cnvcorp.com" target="_blank" rel="noopener"
+            <a href={t.external_links.atlas} target="_blank" rel="noopener"
               class="text-xs text-white/50 hover:text-cnv-bio transition-colors flex items-center gap-2">
               <span class="w-1.5 h-1.5 rounded-full bg-cnv-execute flex-shrink-0"></span>
               {t.footer.subdomain_atlas}
             </a>
-            <a href="https://academia.cnvcorp.com" target="_blank" rel="noopener"
+            <a href={t.external_links.academy} target="_blank" rel="noopener"
               class="text-xs text-white/50 hover:text-cnv-bio transition-colors flex items-center gap-2">
               <span class="w-1.5 h-1.5 rounded-full bg-cnv-transfer flex-shrink-0"></span>
               {t.footer.subdomain_academy}
             </a>
-            <a href="https://obbia.cnvcorp.com" target="_blank" rel="noopener"
+            <a href={t.external_links.obbia} target="_blank" rel="noopener"
               class="text-xs text-white/50 hover:text-cnv-bio transition-colors flex items-center gap-2">
               <span class="w-1.5 h-1.5 rounded-full bg-cnv-generate flex-shrink-0"></span>
               {t.footer.subdomain_obbia}
@@ -59,7 +62,6 @@ const systemLinks = [
         </div>
       </div>
 
-      <!-- Navigation -->
       <div class="md:col-span-3 md:col-start-6">
         <p class="text-xs font-700 tracking-[0.2em] uppercase text-white/30 mb-6">
           {t.footer.links_system}
@@ -76,13 +78,12 @@ const systemLinks = [
         </div>
       </div>
 
-      <!-- CTA col -->
       <div class="md:col-span-3 md:col-start-10">
         <p class="text-xs font-700 tracking-[0.2em] uppercase text-white/30 mb-6">
-          {lang === 'es' ? 'Acceso' : 'Access'}
+          {t.footer.access_title}
         </p>
         <a
-          href={lang === 'es' ? '/contacto' : '/en/contact'}
+          href={t.routes.contact}
           class="inline-flex items-center gap-2 px-6 py-3 border-2 border-white/20 text-sm font-600 text-white hover:border-cnv-generate hover:text-cnv-generate transition-all duration-300"
         >
           {t.nav.cta}
@@ -91,7 +92,7 @@ const systemLinks = [
           </svg>
         </a>
         <div class="mt-8">
-          <a href={lang === 'es' ? '/en/' : '/'}
+          <a href={otherLangHref}
             class="text-xs font-700 tracking-widest text-white/30 hover:text-white/60 transition-colors">
             {lang === 'es' ? 'View in English →' : 'Ver en Español →'}
           </a>
@@ -99,17 +100,16 @@ const systemLinks = [
       </div>
     </div>
 
-    <!-- Bottom bar -->
     <div class="mt-16 pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
       <p class="text-xs text-white/30">
         {t.footer.copyright}
       </p>
       <div class="flex gap-6">
-        <a href="#" class="text-xs text-white/30 hover:text-white/60 transition-colors">
-          {lang === 'es' ? 'Política de privacidad' : 'Privacy policy'}
+        <a href={t.routes.privacy} class="text-xs text-white/30 hover:text-white/60 transition-colors">
+          {t.footer.privacy}
         </a>
-        <a href="#" class="text-xs text-white/30 hover:text-white/60 transition-colors">
-          {lang === 'es' ? 'Términos de uso' : 'Terms of use'}
+        <a href={t.routes.terms} class="text-xs text-white/30 hover:text-white/60 transition-colors">
+          {t.footer.terms}
         </a>
       </div>
     </div>

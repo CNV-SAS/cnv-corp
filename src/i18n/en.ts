@@ -2,6 +2,34 @@ import type { Translations } from './es';
 
 export const en: Translations = {
 
+  // 1. RUTAS INTERNAS (Para navegación e i18n)
+  routes: {
+    home: '/en/',
+    paradigm: '/en/paradigm',
+    operations: '/en/care',
+    training: '/en/learning',
+    research: '/en/research',
+    about: '/en/about',
+    contact: '/en/contact',
+    privacy: '/en/privacy-policy',
+    terms: '/en/terms',
+  },
+
+  // 2. ENLACES EXTERNOS (Subdominios estáticos)
+  external_links: {
+    atlas: 'https://atlas.cnvcorp.com',
+    academy: 'https://lms.cnvcorp.com',
+    obbia: 'https://obbia.cnvcorp.com',
+  },
+
+  // 3. PÁGINA 404 (No encontrada)
+  not_found: {
+    title: '404',
+    subtitle: 'Page not found',
+    body: 'The ANI-BIS-E model is accurate, but it appears this route does not exist within our ecosystem.',
+    back_home: 'Back to homepage',
+  },
+
   // SEO
   seo: {
     title: 'Connected Nutrition Ventures — New Health Paradigm',
@@ -60,6 +88,7 @@ export const en: Translations = {
         role: 'Operations',
         description: 'Operational line responsible for implementing, supporting, and controlling the ANI-BIS-E model in real care contexts.',
         link: '/en/operations',
+        cta: 'Learn about CNV Care',
       },
       {
         id: 'learning',
@@ -68,6 +97,7 @@ export const en: Translations = {
         role: 'Training',
         description: 'Academic line responsible for training, certification, and standardizing the talent that operates the new paradigm.',
         link: '/en/training',
+        cta: 'Learn about CNV Learning',
       },
       {
         id: 'research',
@@ -76,6 +106,7 @@ export const en: Translations = {
         role: 'Research',
         description: 'Scientific line and technical authority of the ecosystem. Design, validation and evolution of the ANI-BIS-E model.',
         link: '/en/research',
+        cta: 'Learn about CNV Research',
       },
     ],
   },
@@ -127,6 +158,7 @@ export const en: Translations = {
   process: {
     tag: 'Onboarding process',
     title: 'Four structured steps',
+    subtitle: 'The process is designed to validate the professionals suitability and ensure rigorous implementation of the model.',
     steps: [
       { num: '01', title: 'Application', body: 'Submit your practice information and current patient reach for evaluation.' },
       { num: '02', title: 'Profile evaluation', body: 'Our team verifies whether you meet the baseline requirements to successfully operate the model.' },
@@ -174,7 +206,10 @@ export const en: Translations = {
       message_institution: 'Tell us about your organization',
       message_patient: 'What are you looking for?',
       submit: 'Send request',
+      sending: 'Sending...',
+      response_time: '< 48h response',
       success: 'Request received. We will be in touch shortly.',
+      success_subtitle: 'We will respond within 48 hours.',
       error: 'Something went wrong. Please try again.',
     },
   },

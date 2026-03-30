@@ -1,31 +1,35 @@
 ---
-import { getLangFromUrl, useTranslations } from '../../i18n';
-const lang = getLangFromUrl(Astro.url);
-const t = useTranslations(lang);
+import { getI18n } from '../../i18n';
+
+const lang = Astro.currentLocale || 'es';
+const t = getI18n(lang);
+
+const contactUrl = lang === 'es' ? '/contacto' : '/en/contact';
+const paradigmUrl = lang === 'es' ? '/paradigma' : '/en/paradigm';
 ---
 
 <section class="py-32 bg-white">
   <div class="max-w-4xl mx-auto px-6 lg:px-8 text-center">
     
     <h2 class="text-display font-900 text-cnv-core mb-8 animate-on-scroll text-balance">
-      El sistema está listo.<br/>
-      <span style="color: var(--color-cnv-generate);">¿Lo estás tú?</span>
+      {t.final_cta.title}<br/>
+      <span class="text-cnv-generate">{t.final_cta.highlight}</span>
     </h2>
     
     <p class="text-subhead text-cnv-core/50 mb-12 animate-on-scroll max-w-2xl mx-auto">
-      La red de operadores CNV crece bajo criterios estrictos de rigor científico y compromiso profesional.
+      {t.final_cta.subtitle}
     </p>
     
     <div class="flex flex-wrap gap-4 justify-center animate-on-scroll">
-      <a href={lang === 'es' ? '/contacto' : '/en/contact'} class="btn-primary px-8 py-4 text-base">
-        {t.nav.cta}
+      <a href={contactUrl} class="btn-primary px-8 py-4 text-base">
+        {t.final_cta.button}
         <svg width="16" height="16" viewBox="0 0 14 14" fill="none">
           <path d="M1 7h12M8 2l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
       </a>
       
-      <a href={lang === 'es' ? '/paradigma' : '/en/paradigm'} class="btn-secondary px-8 py-4 text-base">
-        {lang === 'es' ? 'Conocer el paradigma' : 'Discover the paradigm'}
+      <a href={paradigmUrl} class="btn-secondary px-8 py-4 text-base">
+        {t.final_cta.secondary_button}
       </a>
     </div>
     

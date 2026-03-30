@@ -1,15 +1,15 @@
 ---
-import { getLangFromUrl, useTranslations } from '../../i18n';
+import { getI18n } from '../../i18n';
 
-const lang = getLangFromUrl(Astro.url);
-const t = useTranslations(lang);
+const lang = Astro.currentLocale || 'es';
+const t = getI18n(lang);
 ---
 
 <section class="py-20 border-b border-slate-100">
   <div class="max-w-7xl mx-auto px-6 lg:px-8">
     <div class="text-center mb-12">
       <p class="text-xs font-700 tracking-[0.2em] uppercase text-cnv-core/30">
-        {t.partners?.tag || (lang === 'es' ? 'Aliados institucionales' : 'Institutional partners')}
+        {t.partners.tag}
       </p>
     </div>
     <div class="flex flex-wrap items-center justify-center gap-12 opacity-40">

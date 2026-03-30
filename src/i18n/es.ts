@@ -1,5 +1,33 @@
 export const es = {
 
+  // 1. RUTAS INTERNAS (Para navegación e i18n)
+  routes: {
+    home: '/',
+    paradigm: '/paradigma',
+    operations: '/operacion',
+    training: '/formacion',
+    research: '/investigacion',
+    about: '/nosotros',
+    contact: '/contacto',
+    privacy: '/politica-de-privacidad',
+    terms: '/terminos-de-uso',
+  },
+
+  // 2. ENLACES EXTERNOS (Subdominios estáticos)
+  external_links: {
+    atlas: 'https://atlas.cnvcorp.com',
+    academy: 'https://lms.cnvcorp.com',
+    obbia: 'https://obbia.cnvcorp.com',
+  },
+
+  // 3. PÁGINA 404 (No encontrada)
+  not_found: {
+    title: '404',
+    subtitle: 'Página no encontrada',
+    body: 'El modelo ANI-BIS-E es preciso, pero parece que esta ruta no existe dentro de nuestro ecosistema.',
+    back_home: 'Volver al inicio',
+  },
+
   // SEO
   seo: {
   title: 'Connected Nutrition Ventures — Nuevo Paradigma en Salud',
@@ -63,6 +91,7 @@ export const es = {
         role: 'Operación',
         description: 'Línea operativa responsable de la implementación, soporte y control del modelo ANI-BIS-E en contextos reales de atención.',
         link: '/operacion',
+        cta: 'Conocer CNV Care',
       },
       {
         id: 'learning',
@@ -71,6 +100,7 @@ export const es = {
         role: 'Formación',
         description: 'Línea académica encargada de la formación, certificación y estandarización del talento humano que opera el nuevo paradigma.',
         link: '/formacion',
+        cta: 'Conocer CNV Learning',
       },
       {
         id: 'research',
@@ -79,6 +109,7 @@ export const es = {
         role: 'Investigación',
         description: 'Línea científica y autoridad técnica del ecosistema. Diseño, validación y evolución del modelo ANI-BIS-E.',
         link: '/investigacion',
+        cta: 'Conocer CNV Research',
       },
     ],
   },
@@ -133,6 +164,7 @@ export const es = {
   process: {
     tag: 'Proceso de incorporación',
     title: 'Cuatro pasos estructurados',
+    subtitle: 'El proceso está diseñado para validar la idoneidad del profesional y garantizar una implementación rigurosa del modelo.',
     steps: [
       { num: '01', title: 'Aplicación', body: 'Postula tu consultorio o institución enviando información sobre tu práctica actual y alcance de pacientes.' },
       { num: '02', title: 'Evaluación del perfil', body: 'Nuestro equipo verifica si cumples con los requerimientos base para operar el modelo exitosamente.' },
@@ -182,7 +214,10 @@ export const es = {
       message_institution: 'Cuéntanos sobre tu organización',
       message_patient: '¿Qué estás buscando?',
       submit: 'Enviar solicitud',
+      sending: 'Enviando...',
+      response_time: '< 48h respuesta',
       success: 'Solicitud recibida. Nos comunicamos pronto.',
+      success_subtitle: 'Responderemos en menos de 48 horas.',
       error: 'Algo salió mal. Intenta de nuevo.',
     },
   },

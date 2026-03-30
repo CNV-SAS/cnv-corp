@@ -1,8 +1,6 @@
 ---
 import '../styles/global.css';
-import { getRelativeLocaleUrl } from 'astro:i18n';
-import { es } from '../i18n/es';
-import { en } from '../i18n/en';
+import { getI18n } from '../i18n/index';
 
 import Navbar from '../components/navigation/Navbar.astro';
 import Footer from '../components/navigation/Footer.astro';
@@ -14,16 +12,16 @@ interface Props {
 }
 
 const currentLang = Astro.currentLocale || 'es';
-const t = currentLang === 'es' ? es : en;
+const t = getI18n(currentLang);
 
 const {
-  title = t.seo.title,
-  description = t.seo.description,
+  title = t.seo?.title || 'Connected Nutrition Ventures',
+  description = t.seo?.description || 'CNV Ecosistema',
   ogImage = '/og-image.png',
 } = Astro.props;
 
-// Fallback por si Astro.site no está definido en astro.config.mjs
-const canonicalURL = new URL(Astro.url.pathname, Astro.site || Astro.url.origin);
+// Como restauramos "site" en el config, Astro.site es seguro de usar
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 ---
 
 <!doctype html>
@@ -49,13 +47,13 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site || Astro.url.origin)
   </head>
   <body class="flex flex-col min-h-screen">
     
-    <Navbar />
+    <Navbar lang={currentLang} />
 
     <main class="flex-grow">
       <slot />
     </main>
 
-    <Footer />
+    <Footer lang={currentLang} />
 
     <script>
       const observer = new IntersectionObserver(
@@ -63,12 +61,13 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site || Astro.url.origin)
           entries.forEach((entry) => {
             if (entry.isIntersecting) {
               entry.target.classList.add('visible');
+              // Optimización: Dejar de observar una vez que ya es visible para ahorrar recursos
+              observer.unobserve(entry.target);
             }
           });
         },
         { threshold: 0.1, rootMargin: '0px 0px -50px 0px' }
       );
-
       // Usamos requestAnimationFrame para asegurar que el DOM pintó antes de observar
       requestAnimationFrame(() => {
         document.querySelectorAll('.animate-on-scroll').forEach((el) => {

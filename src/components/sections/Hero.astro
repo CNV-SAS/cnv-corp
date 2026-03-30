@@ -1,8 +1,11 @@
 ---
-import { getLangFromUrl, useTranslations } from '../../i18n';
+import { getI18n } from '../../i18n';
 
-const lang = getLangFromUrl(Astro.url);
-const t = useTranslations(lang);
+const lang = Astro.currentLocale || 'es';
+const t = getI18n(lang);
+
+// Resolvemos las rutas internamente para no ensuciar el HTML
+const contactUrl = lang === 'es' ? '/contacto' : '/en/contact';
 ---
 
 <section class="relative min-h-[92vh] flex items-center overflow-hidden grid-lines">
@@ -28,7 +31,7 @@ const t = useTranslations(lang);
         </p>
 
         <div class="flex flex-wrap gap-4 animate-on-scroll [animation-delay:300ms]">
-          <a href="/contacto" class="btn-primary">
+          <a href={contactUrl} class="btn-primary">
             {t.hero.cta_primary}
             <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
               <path d="M1 7h12M8 2l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -72,6 +75,8 @@ const t = useTranslations(lang);
   <!-- Scroll indicator -->
   <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 animate-on-scroll [animation-delay:600ms]">
     <div class="w-px h-12 bg-cnv-core/20"></div>
-    <div class="text-xs font-600 tracking-widest uppercase text-cnv-core/30">Deslizar</div>
+    <div class="text-xs font-600 tracking-widest uppercase text-cnv-core/30">
+      {lang === 'es' ? 'Deslizar' : 'Scroll'} 
+    </div>
   </div>
 </section>

@@ -1,7 +1,8 @@
 ---
-import { getLangFromUrl, useTranslations } from '../../i18n';
-const lang = getLangFromUrl(Astro.url);
-const t = useTranslations(lang);
+import { getI18n } from '../../i18n';
+
+const lang = Astro.currentLocale || 'es';
+const t = getI18n(lang);
 ---
 
 <section class="py-section bg-slate-50" id="unirse">

@@ -1,6 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { useTranslations } from '../i18n';
+import { getI18n } from '../i18n/index';
 
 // Secciones
 import Hero from '../components/sections/Hero.astro';
@@ -13,9 +13,10 @@ import Partners from '../components/sections/Partners.astro';
 import Process from '../components/sections/Process.astro';
 import FinalCTA from '../components/sections/FinalCTA.astro';
 
-// Nota: No pasamos 't' a cada componente si no es necesario.
-// Es más limpio que cada componente importe su propia instancia de traducción internamente.
-const t = useTranslations('es');
+// Usamos el locale de Astro, y fallback a 'es'. 
+// Mucho más dinámico que hardcodear 'es' en cada página.
+const lang = Astro.currentLocale || 'es';
+const t = getI18n(lang);
 ---
 
 <BaseLayout

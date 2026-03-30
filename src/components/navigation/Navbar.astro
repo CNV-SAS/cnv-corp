@@ -1,17 +1,23 @@
 ---
-import { getLangFromUrl, useTranslations, getRouteInOtherLang } from '../../i18n';
+import { getI18n, getRouteInOtherLang } from '../../i18n';
 
-const lang = getLangFromUrl(Astro.url);
-const t = useTranslations(lang);
+interface Props {
+  lang: string;
+}
+
+const { lang } = Astro.props;
+const t = getI18n(lang);
+
 const otherLang = lang === 'es' ? 'EN' : 'ES';
 const otherLangHref = getRouteInOtherLang(Astro.url);
 
+// Consumimos las rutas limpiamente desde el diccionario
 const navLinks = [
-  { href: lang === 'es' ? '/paradigma' : '/en/paradigm', label: t.nav.paradigma },
-  { href: lang === 'es' ? '/operacion' : '/en/operations', label: t.nav.operacion },
-  { href: lang === 'es' ? '/formacion' : '/en/training', label: t.nav.formacion },
-  { href: lang === 'es' ? '/investigacion' : '/en/research', label: t.nav.investigacion },
-  { href: lang === 'es' ? '/nosotros' : '/en/about', label: t.nav.nosotros },
+  { href: t.routes.paradigm, label: t.nav.paradigma },
+  { href: t.routes.operations, label: t.nav.operacion },
+  { href: t.routes.training, label: t.nav.formacion },
+  { href: t.routes.research, label: t.nav.investigacion },
+  { href: t.routes.about, label: t.nav.nosotros },
 ];
 
 const currentPath = Astro.url.pathname;
@@ -24,8 +30,7 @@ const currentPath = Astro.url.pathname;
   <div class="max-w-7xl mx-auto px-6 lg:px-8">
     <nav class="flex items-center justify-between h-18 lg:h-20">
 
-      <!-- Logo -->
-      <a href={lang === 'es' ? '/' : '/en/'} class="flex items-center gap-3 flex-shrink-0">
+      <a href={t.routes.home} class="flex items-center gap-3 flex-shrink-0">
         <img
           src="/images/logo-horizontal-dark.png"
           alt="Connected Nutrition Ventures"
@@ -40,13 +45,12 @@ const currentPath = Astro.url.pathname;
         />
       </a>
 
-      <!-- Desktop nav -->
       <div class="hidden lg:flex items-center gap-8">
         {navLinks.map((link) => (
           <a
             href={link.href}
             class={`text-sm font-600 tracking-wide transition-colors duration-200 nav-link ${
-              currentPath === link.href
+              currentPath === link.href || currentPath === link.href + '/'
                 ? 'text-cnv-execute'
                 : 'text-cnv-core hover:text-cnv-execute'
             }`}
@@ -56,7 +60,6 @@ const currentPath = Astro.url.pathname;
         ))}
       </div>
 
-      <!-- Right side -->
       <div class="hidden lg:flex items-center gap-4">
         <a
           href={otherLangHref}
@@ -65,7 +68,7 @@ const currentPath = Astro.url.pathname;
           {otherLang}
         </a>
         <a
-          href={lang === 'es' ? '/contacto' : '/en/contact'}
+          href={t.routes.contact}
           class="btn-primary text-xs py-2.5 px-5"
         >
           {t.nav.cta}
@@ -75,7 +78,6 @@ const currentPath = Astro.url.pathname;
         </a>
       </div>
 
-      <!-- Mobile menu button -->
       <button
         id="menu-toggle"
         class="lg:hidden flex flex-col gap-1.5 p-2"
@@ -88,7 +90,6 @@ const currentPath = Astro.url.pathname;
     </nav>
   </div>
 
-  <!-- Mobile menu -->
   <div
     id="mobile-menu"
     class="lg:hidden hidden absolute top-full left-0 right-0 bg-white border-t border-slate-100 shadow-xl"
@@ -104,7 +105,7 @@ const currentPath = Astro.url.pathname;
       ))}
       <div class="pt-4 border-t border-slate-100 flex flex-col gap-4">
         <a
-          href={lang === 'es' ? '/contacto' : '/en/contact'}
+          href={t.routes.contact}
           class="btn-primary text-sm justify-center"
         >
           {t.nav.cta}
@@ -120,29 +121,25 @@ const currentPath = Astro.url.pathname;
   </div>
 </header>
 
-<!-- Spacer -->
 <div class="h-18 lg:h-20"></div>
 
 <script>
-  const navbar = document.getElementById('navbar')!;
-  const menuToggle = document.getElementById('menu-toggle')!;
-  const mobileMenu = document.getElementById('mobile-menu')!;
+  // En Astro, los scripts se ejecutan por componente, es mejor evitar null assertions (!) si la página cambia
+  const navbar = document.getElementById('navbar');
+  const menuToggle = document.getElementById('menu-toggle');
+  const mobileMenu = document.getElementById('mobile-menu');
 
-  // Scroll behavior
-  let lastScroll = 0;
-  window.addEventListener('scroll', () => {
-    const currentScroll = window.scrollY;
+  if (navbar && menuToggle && mobileMenu) {
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 50) {
+        navbar.classList.add('bg-white/95', 'backdrop-blur-sm', 'shadow-sm', 'border-b', 'border-slate-100/80');
+      } else {
+        navbar.classList.remove('bg-white/95', 'backdrop-blur-sm', 'shadow-sm', 'border-b', 'border-slate-100/80');
+      }
+    });
 
-    if (currentScroll > 50) {
-      navbar.classList.add('bg-white/95', 'backdrop-blur-sm', 'shadow-sm', 'border-b', 'border-slate-100/80');
-    } else {
-      navbar.classList.remove('bg-white/95', 'backdrop-blur-sm', 'shadow-sm', 'border-b', 'border-slate-100/80');
-    }
-    lastScroll = currentScroll;
-  });
-
-  // Mobile menu
-  menuToggle.addEventListener('click', () => {
-    mobileMenu.classList.toggle('hidden');
-  });
+    menuToggle.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+    });
+  }
 </script>

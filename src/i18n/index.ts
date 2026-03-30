@@ -1,25 +1,42 @@
 import { es } from './es';
 import { en } from './en';
 
-export const languages = { es, en };
+export const languages = { es, en } as const;
 export type Lang = keyof typeof languages;
 
-export function getLangFromUrl(url: URL): Lang {
-  const [, lang] = url.pathname.split('/');
-  if (lang in languages) return lang as Lang;
-  return 'es';
+export function getI18n(lang: string | undefined) {
+  if (lang && lang in languages) {
+    return languages[lang as Lang];
+  }
+  return languages['es'];
 }
 
-export function useTranslations(lang: Lang) {
-  return languages[lang];
-}
+// Mapa bidireccional de rutas para el switcher de idiomas
+const routeMap: Record<string, string> = {
+  '/paradigma': '/paradigm',
+  '/operacion': '/operations',
+  '/formacion': '/training',
+  '/investigacion': '/research',
+  '/nosotros': '/about',
+  '/contacto': '/contact',
+  '/politica-de-privacidad': '/privacy-policy',
+  '/terminos-de-uso': '/terms-of-use'
+};
 
 export function getRouteInOtherLang(url: URL): string {
-  const lang = getLangFromUrl(url);
-  const path = url.pathname;
-  if (lang === 'es') {
-    return '/en' + path;
+  // Limpiamos la ruta actual (quitamos trailing slash si lo hay)
+  let path = url.pathname.replace(/\/$/, '') || '/';
+  const isEnglish = path.startsWith('/en');
+
+  if (isEnglish) {
+    // Estamos en EN, vamos a ES
+    const pathWithoutEn = path.replace(/^\/en/, '') || '/';
+    // Buscamos cuál era la ruta en español que corresponde a este valor en inglés
+    const esPath = Object.keys(routeMap).find(key => routeMap[key] === pathWithoutEn) || pathWithoutEn;
+    return esPath;
   } else {
-    return path.replace(/^\/en/, '') || '/';
+    // Estamos en ES, vamos a EN
+    const enPath = routeMap[path] || path;
+    return '/en' + (enPath === '/' ? '' : enPath);
   }
 }

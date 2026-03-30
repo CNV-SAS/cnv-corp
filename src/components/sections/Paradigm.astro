@@ -1,8 +1,8 @@
 ---
-import { getLangFromUrl, useTranslations } from '../../i18n';
+import { getI18n } from '../../i18n';
 
-const lang = getLangFromUrl(Astro.url);
-const t = useTranslations(lang);
+const lang = Astro.currentLocale || 'es';
+const t = getI18n(lang);
 ---
 
 <section class="py-section bg-cnv-core text-white">
@@ -21,7 +21,7 @@ const t = useTranslations(lang);
         <p class="text-base text-white/60 leading-relaxed mb-8 max-w-xl animate-on-scroll">
           {t.paradigm.body}
         </p>
-        <a href="/paradigma" class="btn-ghost text-[#00a388]">
+        <a href={t.routes.paradigm} class="btn-ghost text-[#00a388]">
           {t.paradigm.link}
         </a>
       </div>

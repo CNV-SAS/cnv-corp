@@ -1,8 +1,8 @@
 ---
-import { getLangFromUrl, useTranslations } from '../../i18n';
+import { getI18n } from '../../i18n';
 
-const lang = getLangFromUrl(Astro.url);
-const t = useTranslations(lang);
+const lang = Astro.currentLocale || 'es';
+const t = getI18n(lang);
 ---
 
 <section class="py-section">
@@ -43,7 +43,7 @@ const t = useTranslations(lang);
     </div>
 
     <div class="grid grid-cols-1 md:grid-cols-3 gap-0 border border-cnv-core/10">
-      {t.ecosystem.lines.map((line, i) => (
+      {t.ecosystem.lines.map((line) => (
         <a
           href={line.link}
           class="block group p-8 bg-white transition-all duration-300 hover:bg-slate-50 border-b md:border-b-0 md:border-r last:border-0 border-cnv-core/10"
@@ -58,8 +58,8 @@ const t = useTranslations(lang);
           <p class="text-sm text-cnv-core/50 leading-relaxed mb-6">{line.description}</p>
           <div class="flex items-center gap-2 text-xs font-700 transition-all duration-200 group-hover:gap-3"
             style={`color: ${line.color}`}>
-            {/* OJO: Aquí podrías pasar estos textos a tu archivo de traducción también */}
-            {i === 0 ? 'Conocer CNV Care' : i === 1 ? 'Conocer CNV Learning' : 'Conocer CNV Research'}
+            {/* Consumimos el CTA directamente del objeto line */}
+            {line.cta}
             <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
               <path d="M1 6h10M7 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
