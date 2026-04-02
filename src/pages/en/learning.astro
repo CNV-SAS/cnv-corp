@@ -1,0 +1,24 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getI18n } from '../../i18n';
+
+// Componentes modulares
+import TrainingHero from '../../components/pages/learning/TrainingHero.astro';
+import TrainingMission from '../../components/pages/learning/TrainingMission.astro';
+import TrainingCurriculum from '../../components/pages/learning/TrainingCurriculum.astro';
+import AcademyCTA from '../../components/pages/learning/AcademyCTA.astro';
+
+const lang = Astro.currentLocale || 'es';
+const t = getI18n(lang);
+const p = t.pages.formacion;
+---
+
+<BaseLayout
+  title={`${p.title} — Connected Nutrition Ventures`}
+  description={p.hero_body}
+>
+  <TrainingHero />
+  <TrainingMission />
+  <TrainingCurriculum />
+  <AcademyCTA />
+</BaseLayout>

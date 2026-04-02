@@ -3,7 +3,7 @@ import { useState } from 'react';
 
 interface FormTranslations {
   profile_label: string;
-  profile_options: string[];
+  profile_options: readonly string[];
   name: string;
   email: string;
   profession: string;
@@ -24,7 +24,7 @@ interface ExclusivityTranslations {
   tag: string;
   title: string;
   subtitle: string;
-  requirements: string[];
+  requirements: readonly string[];
 }
 
 interface Props {

@@ -1,0 +1,31 @@
+---
+import { getI18n } from '../../../i18n';
+const lang = Astro.currentLocale || 'es';
+const t = getI18n(lang);
+const c = t.pages.formacion.curriculum;
+---
+<section class="py-section bg-slate-50">
+  <div class="max-w-7xl mx-auto px-6 lg:px-8">
+    <div class="max-w-2xl mb-16">
+      <div class="section-tag mb-6 text-cnv-transfer">
+        <span class="inline-flex items-center gap-2 text-xs font-700 tracking-[0.2em] uppercase text-cnv-transfer">
+          <span class="inline-block w-5 h-0.5 bg-cnv-transfer"></span>
+          {c.tag}
+        </span>
+      </div>
+      <h2 class="text-headline font-800 text-cnv-core animate-on-scroll">
+        {c.title}
+      </h2>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-px bg-cnv-core/10">
+      {c.modules.map((item, i) => (
+        <div class="bg-white p-8 animate-on-scroll" style={`animation-delay: ${i * 0.07}s`}>
+          <div class="text-3xl font-900 mb-4 opacity-10 text-cnv-core">{item.num}</div>
+          <div class="w-6 h-0.5 bg-cnv-transfer mb-4"></div>
+          <h3 class="text-sm font-700 text-cnv-core mb-3">{item.title}</h3>
+          <p class="text-xs text-cnv-core/50 leading-relaxed">{item.body}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

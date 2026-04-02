@@ -1,0 +1,26 @@
+---
+import { getI18n } from '../../../i18n';
+const lang = Astro.currentLocale || 'es';
+const t = getI18n(lang);
+const cp = t.pages.operacion.clinical_phases;
+---
+<section class="py-section bg-slate-50">
+  <div class="max-w-7xl mx-auto px-6 lg:px-8">
+    <div class="max-w-2xl mb-16">
+      <div class="section-tag mb-6">{cp.tag}</div>
+      <h2 class="text-headline font-800 text-cnv-core animate-on-scroll">
+        {cp.title}
+      </h2>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-px bg-cnv-core/10">
+      {cp.steps.map((step, i) => (
+        <div class="bg-white p-8 animate-on-scroll" style={`animation-delay: ${i * 0.1}s`}>
+          <div class="text-4xl font-900 text-cnv-execute/10 mb-6">{step.num}</div>
+          <div class="w-6 h-0.5 bg-cnv-execute mb-4"></div>
+          <h3 class="text-base font-700 text-cnv-core mb-3">{step.title}</h3>
+          <p class="text-sm text-cnv-core/50 leading-relaxed">{step.body}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

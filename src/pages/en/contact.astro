@@ -1,0 +1,18 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getI18n } from '../../i18n';
+import ContactHero from '../../components/pages/contact/ContactHero.astro';
+
+const lang = Astro.currentLocale || 'es';
+const t = getI18n(lang);
+
+// Generamos una descripción SEO usando el subtítulo del diccionario
+const seoDescription = t.contact.subtitle;
+---
+
+<BaseLayout
+  title={`${t.contact.title} — Connected Nutrition Ventures`}
+  description={seoDescription}
+>
+  <ContactHero />
+</BaseLayout>

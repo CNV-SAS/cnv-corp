@@ -1,0 +1,51 @@
+---
+import { getI18n } from '../../../i18n';
+const lang = Astro.currentLocale || 'es';
+const t = getI18n(lang);
+const a = t.pages.formacion.academy_cta;
+---
+<section class="py-section bg-cnv-transfer text-white">
+  <div class="max-w-7xl mx-auto px-6 lg:px-8">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+      <div>
+        <h2 class="text-headline font-800 mb-6 animate-on-scroll">
+          {a.title}
+        </h2>
+        <p class="text-base text-white/70 leading-relaxed mb-10 animate-on-scroll">
+          {a.body}
+        </p>
+        <div class="flex flex-wrap gap-4 animate-on-scroll">
+          <a
+            href={t.external_links.academy}
+            target="_blank"
+            rel="noopener"
+            class="inline-flex items-center gap-2 px-6 py-3 bg-white text-cnv-transfer text-sm font-700 hover:bg-white/90 transition-colors"
+          >
+            {a.primary_btn}
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+              <path d="M2 10L10 2M10 2H4M10 2v6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+          </a>
+          <a href={`${t.routes.contact}?perfil=professional`}
+            class="inline-flex items-center gap-2 px-6 py-3 border-2 border-white/30 text-sm font-700 text-white hover:border-white transition-colors">
+            {a.secondary_btn}
+          </a>
+        </div>
+      </div>
+      <div class="aspect-video bg-white/10 overflow-hidden">
+        <img
+          src="/images/learning-platform.jpg"
+          alt="Academia CNV Learning"
+          class="w-full h-full object-cover"
+          onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+        />
+        <div class="hidden w-full h-full items-center justify-center text-white/30 text-sm font-600 text-center p-8">
+          <div>
+            <div class="text-4xl mb-4">🎓</div>
+            <div>learning-platform.jpg</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

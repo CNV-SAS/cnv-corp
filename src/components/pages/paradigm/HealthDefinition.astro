@@ -1,0 +1,28 @@
+---
+import { getI18n } from '../../../i18n';
+const lang = Astro.currentLocale || 'es';
+const t = getI18n(lang);
+const p = t.pages.paradigma.health_def;
+---
+<section class="py-section">
+  <div class="max-w-7xl mx-auto px-6 lg:px-8">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-16">
+      <div class="lg:col-span-5">
+        <h2 class="text-headline font-800 text-cnv-core mb-6 animate-on-scroll">
+          {p.title}
+        </h2>
+      </div>
+      <div class="lg:col-span-6 lg:col-start-7">
+        <p class="text-base text-cnv-core/60 leading-relaxed mb-6 animate-on-scroll" set:html={p.p1}></p>
+        <p class="text-base text-cnv-core/60 leading-relaxed mb-6 animate-on-scroll">
+          {p.p2}
+        </p>
+        <div class="p-6 border-l-4 border-cnv-generate bg-cnv-generate/5 animate-on-scroll">
+          <p class="text-sm font-700 text-cnv-core">
+            {p.quote}
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,31 @@
+---
+import { getI18n } from '../../../i18n';
+const lang = Astro.currentLocale || 'es';
+const t = getI18n(lang);
+const r = t.pages.operacion.role;
+---
+<section class="py-section">
+  <div class="max-w-7xl mx-auto px-6 lg:px-8">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-16">
+      <div class="lg:col-span-5">
+        <h2 class="text-headline font-800 text-cnv-core mb-6 animate-on-scroll">
+          {r.title}
+        </h2>
+        <p class="text-base text-cnv-core/60 leading-relaxed mb-6 animate-on-scroll" set:html={r.body}></p>
+      </div>
+      <div class="lg:col-span-6 lg:col-start-7">
+        <div class="flex flex-col gap-4">
+          {r.items.map((item, i) => (
+            <div class="flex gap-4 p-6 border border-cnv-execute/20 animate-on-scroll" style={`animation-delay: ${i * 0.08}s`}>
+              <div class="w-2 h-2 rounded-full bg-cnv-execute flex-shrink-0 mt-1.5"></div>
+              <div>
+                <div class="text-sm font-700 text-cnv-core mb-1">{item.label}</div>
+                <div class="text-sm text-cnv-core/50">{item.desc}</div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

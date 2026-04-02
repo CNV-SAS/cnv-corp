@@ -1,0 +1,57 @@
+---
+import { getI18n } from '../../../i18n';
+const lang = Astro.currentLocale || 'es';
+const t = getI18n(lang);
+const a = t.pages.operacion.atlas;
+---
+<section class="py-section">
+  <div class="max-w-7xl mx-auto px-6 lg:px-8">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+      <div>
+        <div class="section-tag mb-6">{a.tag}</div>
+        <h2 class="text-headline font-800 text-cnv-core mb-6 animate-on-scroll">
+          {a.title}
+        </h2>
+        <p class="text-base text-cnv-core/60 leading-relaxed mb-8 animate-on-scroll">
+          {a.body}
+        </p>
+        <div class="flex flex-col gap-3 mb-10 animate-on-scroll">
+          {a.features.map(feat => (
+            <div class="flex items-center gap-3 text-sm text-cnv-core/70">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <circle cx="8" cy="8" r="7" stroke="#2563eb" stroke-width="1.5"/>
+                <path d="M4.5 8l2.5 2.5 4.5-5" stroke="#2563eb" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              {feat}
+            </div>
+          ))}
+        </div>
+        <a
+          href={t.external_links.atlas}
+          target="_blank"
+          rel="noopener"
+          class="inline-flex items-center gap-2 text-sm font-700 text-cnv-execute border-b-2 border-cnv-execute/30 pb-1 hover:border-cnv-execute transition-colors"
+        >
+          {a.link_text}
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+            <path d="M2 10L10 2M10 2H4M10 2v6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+        </a>
+      </div>
+      <div class="aspect-video bg-cnv-core/5 border border-cnv-core/10 overflow-hidden">
+        <img
+          src="/images/atlas-platform.jpg"
+          alt="Plataforma Atlas"
+          class="w-full h-full object-cover"
+          onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+        />
+        <div class="hidden w-full h-full items-center justify-center text-cnv-core/20 text-sm font-600 text-center p-8">
+          <div>
+            <div class="text-4xl mb-4">💻</div>
+            <div>atlas-platform.jpg</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

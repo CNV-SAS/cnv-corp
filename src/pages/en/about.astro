@@ -1,0 +1,28 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getI18n } from '../../i18n';
+
+// Componentes modulares
+import AboutHero from '../../components/pages/about/AboutHero.astro';
+import AboutProblem from '../../components/pages/about/AboutProblem.astro';
+import AboutSystem from '../../components/pages/about/AboutSystem.astro';
+import AboutPrinciples from '../../components/pages/about/AboutPrinciples.astro';
+import AboutDirection from '../../components/pages/about/AboutDirection.astro';
+import AboutCTA from '../../components/pages/about/AboutCTA.astro';
+
+const lang = Astro.currentLocale || 'es';
+const t = getI18n(lang);
+const p = t.pages.nosotros;
+---
+
+<BaseLayout
+  title={`${p.title} — Connected Nutrition Ventures`}
+  description={p.hero_body}
+>
+  <AboutHero />
+  <AboutProblem />
+  <AboutSystem />
+  <AboutPrinciples />
+  <AboutDirection />
+  <AboutCTA />
+</BaseLayout>

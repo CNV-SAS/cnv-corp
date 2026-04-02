@@ -1,0 +1,31 @@
+---
+import { getI18n } from '../../../i18n';
+const lang = Astro.currentLocale || 'es';
+const t = getI18n(lang);
+const f = t.pages.investigacion.framework;
+---
+<section class="py-section bg-slate-50">
+  <div class="max-w-7xl mx-auto px-6 lg:px-8">
+    <div class="max-w-2xl mb-16">
+      <div class="section-tag mb-6 text-cnv-generate">
+        <span class="inline-flex items-center gap-2 text-xs font-700 tracking-[0.2em] uppercase text-cnv-generate">
+          <span class="inline-block w-5 h-0.5 bg-cnv-generate"></span>
+          {f.tag}
+        </span>
+      </div>
+      <h2 class="text-headline font-800 text-cnv-core animate-on-scroll">
+        {f.title}
+      </h2>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-px bg-cnv-core/10">
+      {f.layers.map((item, i) => (
+        <div class="bg-white p-8 animate-on-scroll" style={`animation-delay: ${i * 0.07}s`}>
+          <div class="text-xs font-700 tracking-widest uppercase text-cnv-generate/50 mb-4">{item.ref}</div>
+          <div class="w-6 h-0.5 bg-cnv-generate mb-4"></div>
+          <h3 class="text-sm font-700 text-cnv-core mb-3">{item.title}</h3>
+          <p class="text-xs text-cnv-core/50 leading-relaxed">{item.body}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

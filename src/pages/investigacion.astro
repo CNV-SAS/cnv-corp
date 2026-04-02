@@ -1,0 +1,26 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getI18n } from '../i18n';
+
+// Componentes modulares
+import ResearchHero from '../components/pages/research/ResearchHero.astro';
+import ResearchMandate from '../components/pages/research/ResearchMandate.astro';
+import ResearchObbia from '../components/pages/research/ResearchObbia.astro';
+import ResearchFramework from '../components/pages/research/ResearchFramework.astro';
+import ResearchCTA from '../components/pages/research/ResearchCTA.astro';
+
+const lang = Astro.currentLocale || 'es';
+const t = getI18n(lang);
+const p = t.pages.investigacion;
+---
+
+<BaseLayout
+  title={`${p.title} — Connected Nutrition Ventures`}
+  description={p.hero_body}
+>
+  <ResearchHero />
+  <ResearchMandate />
+  <ResearchObbia />
+  <ResearchFramework />
+  <ResearchCTA />
+</BaseLayout>

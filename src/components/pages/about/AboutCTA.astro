@@ -1,0 +1,23 @@
+---
+import { getI18n } from '../../../i18n';
+const lang = Astro.currentLocale || 'es';
+const t = getI18n(lang);
+const cta = t.pages.nosotros.cta;
+---
+<section class="py-24 bg-cnv-core text-white">
+  <div class="max-w-4xl mx-auto px-6 lg:px-8 text-center">
+    <h2 class="text-headline font-800 mb-6 animate-on-scroll">
+      {cta.title}
+    </h2>
+    <p class="text-base text-white/50 mb-10 max-w-xl mx-auto animate-on-scroll">
+      {cta.body}
+    </p>
+    <div class="flex flex-wrap gap-4 justify-center animate-on-scroll">
+      <a href={t.routes.contact} class="btn-primary">{t.nav.cta}</a>
+      <a href={t.routes.paradigm}
+        class="inline-flex items-center gap-2 px-6 py-3 border-2 border-white/20 text-sm font-700 text-white hover:border-cnv-generate hover:text-cnv-generate transition-all duration-300">
+        {cta.btn_paradigm}
+      </a>
+    </div>
+  </div>
+</section>

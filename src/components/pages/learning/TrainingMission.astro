@@ -1,0 +1,36 @@
+---
+import { getI18n } from '../../../i18n';
+const lang = Astro.currentLocale || 'es';
+const t = getI18n(lang);
+const m = t.pages.formacion.mission;
+---
+<section class="py-section">
+  <div class="max-w-7xl mx-auto px-6 lg:px-8">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+      <div>
+        <div class="section-tag mb-6 text-cnv-transfer">
+          <span class="inline-flex items-center gap-2 text-xs font-700 tracking-[0.2em] uppercase text-cnv-transfer">
+            <span class="inline-block w-5 h-0.5 bg-cnv-transfer"></span>
+            {m.tag}
+          </span>
+        </div>
+        <h2 class="text-headline font-800 text-cnv-core mb-6 animate-on-scroll">
+          {m.title}
+        </h2>
+        <p class="text-base text-cnv-core/60 leading-relaxed mb-6 animate-on-scroll">
+          {m.p1}
+        </p>
+        <p class="text-base text-cnv-core/60 leading-relaxed animate-on-scroll" set:html={m.p2}></p>
+      </div>
+      <div class="grid grid-cols-2 gap-4">
+        {m.pillars.map((item, i) => (
+          <div class="p-6 border animate-on-scroll" style={`border-color: ${item.color}30; animation-delay: ${i * 0.1}s`}>
+            <div class="w-6 h-0.5 mb-4" style={`background-color: ${item.color}`}></div>
+            <h3 class="text-sm font-700 text-cnv-core mb-2">{item.label}</h3>
+            <p class="text-xs text-cnv-core/50">{item.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>

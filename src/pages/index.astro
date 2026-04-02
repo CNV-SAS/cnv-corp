@@ -13,8 +13,6 @@ import Partners from '../components/sections/Partners.astro';
 import Process from '../components/sections/Process.astro';
 import FinalCTA from '../components/sections/FinalCTA.astro';
 
-// Usamos el locale de Astro, y fallback a 'es'. 
-// Mucho más dinámico que hardcodear 'es' en cada página.
 const lang = Astro.currentLocale || 'es';
 const t = getI18n(lang);
 ---

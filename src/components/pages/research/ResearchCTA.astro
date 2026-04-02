@@ -1,0 +1,30 @@
+---
+import { getI18n } from '../../../i18n';
+const lang = Astro.currentLocale || 'es';
+const t = getI18n(lang);
+const c = t.pages.investigacion.cta;
+---
+<section class="py-24">
+  <div class="max-w-4xl mx-auto px-6 lg:px-8 text-center">
+    <h2 class="text-headline font-800 text-cnv-core mb-6 animate-on-scroll">
+      {c.title}
+    </h2>
+    <p class="text-base text-cnv-core/50 mb-10 max-w-xl mx-auto animate-on-scroll">
+      {c.subtitle}
+    </p>
+    <div class="flex flex-wrap gap-4 justify-center">
+      <a
+        href={t.external_links.obbia}
+        target="_blank"
+        rel="noopener"
+        class="btn-primary"
+      >
+        {c.btn_primary}
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+          <path d="M2 10L10 2M10 2H4M10 2v6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+      </a>
+      <a href={t.routes.contact} class="btn-secondary">{t.nav.cta}</a>
+    </div>
+  </div>
+</section>

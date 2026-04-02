@@ -1,0 +1,25 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getI18n } from '../../i18n';
+
+// Componentes modulares
+import ParadigmHero from '../../components/pages/paradigm/ParadigmHero.astro';
+import HealthDefinition from '../../components/pages/paradigm/HealthDefinition.astro';
+import TheGap from '../../components/pages/paradigm/TheGap.astro';
+import BioelectricMedicine from '../../components/pages/paradigm/BioelectricMedicine.astro';
+import ParadigmCTA from '../../components/pages/paradigm/ParadigmCTA.astro';
+
+const lang = Astro.currentLocale || 'es';
+const t = getI18n(lang);
+---
+
+<BaseLayout
+  title={`${t.pages.paradigma.title} — Connected Nutrition Ventures`}
+  description={t.pages.paradigma.hero_body}
+>
+  <ParadigmHero />
+  <HealthDefinition />
+  <TheGap />
+  <BioelectricMedicine />
+  <ParadigmCTA />
+</BaseLayout>

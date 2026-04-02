@@ -1,0 +1,34 @@
+---
+import { getI18n } from '../../../i18n';
+const lang = Astro.currentLocale || 'es';
+const t = getI18n(lang);
+const pr = t.pages.nosotros.problem;
+---
+<section class="py-section">
+  <div class="max-w-7xl mx-auto px-6 lg:px-8">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-16">
+      <div class="lg:col-span-5 lg:sticky lg:top-28 self-start">
+        <div class="section-tag mb-6">{pr.tag}</div>
+        <h2 class="text-headline font-800 text-cnv-core animate-on-scroll">
+          {pr.title}
+        </h2>
+      </div>
+      <div class="lg:col-span-6 lg:col-start-7 flex flex-col gap-8">
+        <p class="text-base text-cnv-core/70 leading-relaxed animate-on-scroll">
+          {pr.p1}
+        </p>
+        <p class="text-base text-cnv-core/70 leading-relaxed animate-on-scroll">
+          {pr.p2}
+        </p>
+        <p class="text-base text-cnv-core/70 leading-relaxed animate-on-scroll">
+          {pr.p3}
+        </p>
+        <div class="p-6 border-l-4 border-cnv-core bg-cnv-core/5 animate-on-scroll">
+          <p class="text-base font-700 text-cnv-core italic">
+            {pr.quote}
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

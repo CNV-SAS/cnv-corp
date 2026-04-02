@@ -1,0 +1,19 @@
+---
+import { getI18n } from '../../../i18n';
+const lang = Astro.currentLocale || 'es';
+const t = getI18n(lang);
+const p = t.pages.paradigma;
+---
+<section class="py-section border-b border-slate-100">
+  <div class="max-w-7xl mx-auto px-6 lg:px-8">
+    <div class="max-w-3xl">
+      <div class="section-tag mb-6">{p.tag}</div>
+      <h1 class="text-display font-900 text-cnv-core mb-8 text-balance animate-on-scroll">
+        {p.title}
+      </h1>
+      <p class="text-subhead text-cnv-core/50 leading-relaxed max-w-2xl animate-on-scroll">
+        {p.hero_body}
+      </p>
+    </div>
+  </div>
+</section>
