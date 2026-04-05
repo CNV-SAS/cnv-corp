@@ -1,0 +1,72 @@
+---
+import BaseLayout from './BaseLayout.astro';
+
+interface Props {
+  title: string;
+  lastUpdated: string;
+  pdfLink: string;
+}
+
+const { title, lastUpdated, pdfLink } = Astro.props;
+---
+
+<BaseLayout title={`${title} | CNV`}>
+  
+<div class="max-w-4xl mx-auto px-6 pt-16 md:pt-20 pb-32">
+    
+    <header class="mb-12 border-b border-gray-200 pb-10 animate-on-scroll">
+      
+<h1 class="text-4xl md:text-5xl lg:text-6xl font-900 text-[color:var(--color-cnv-core)] leading-tight mb-8 text-balance">
+        {title}
+      </h1>
+      
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-6">
+        <p class="text-sm font-500 text-gray-500">Última actualización: {lastUpdated}</p>
+        
+        <div class="flex flex-wrap items-center gap-4">
+          
+<button id="toggle-accordions" class="text-sm font-700 text-cnv-execute hover:text-cnv-core transition-colors cursor-pointer">
+            Expandir todo
+          </button>
+          
+          <a href={pdfLink} download class="btn-ghost text-sm py-2 px-4 border border-gray-200 rounded-sm hover:border-gray-300">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="mr-2">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+              <polyline points="7 10 12 15 17 10"></polyline>
+              <line x1="12" y1="15" x2="12" y2="3"></line>
+            </svg>
+            Descargar PDF
+          </a>
+        </div>
+      </div>
+    </header>
+
+    <div class="legal-rich-text animate-on-scroll [animation-delay:100ms]">
+      <slot />
+    </div>
+
+  </div>
+</BaseLayout>
+
+<script>
+  // Lógica nativa e impecable para expandir/contraer
+  const toggleBtn = document.getElementById('toggle-accordions');
+  
+  if (toggleBtn) {
+    toggleBtn.addEventListener('click', () => {
+      const details = document.querySelectorAll('.legal-rich-text details');
+      // Verificamos si hay al menos uno cerrado
+      const isAnyClosed = Array.from(details).some(detail => !detail.hasAttribute('open'));
+      
+      details.forEach(detail => {
+        if (isAnyClosed) {
+          detail.setAttribute('open', '');
+        } else {
+          detail.removeAttribute('open');
+        }
+      });
+      
+      toggleBtn.textContent = isAnyClosed ? 'Contraer todo' : 'Expandir todo';
+    });
+  }
+</script>

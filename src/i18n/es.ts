@@ -4,20 +4,21 @@ export const es = {
   routes: {
     home: '/',
     paradigm: '/paradigma',
-    operations: '/operacion',
-    training: '/formacion',
+    care: '/operacion',
+    learning: '/formacion',
     research: '/investigacion',
     about: '/nosotros',
     contact: '/contacto',
-    privacy: '/politica-de-privacidad',
-    terms: '/terminos-de-uso',
+    privacy: '/politica-privacidad',
+    terms: '/aviso-legal',
+    cookies: '/politica-cookies',
   },
 
   // 2. ENLACES EXTERNOS (Subdominios estáticos)
   external_links: {
-    atlas: 'https://atlas.cnvcorp.com',
-    academy: 'https://lms.cnvcorp.com',
-    obbia: 'https://obbia.cnvcorp.com',
+    atlas: 'https://atlas.cnvsystem.com',
+    academy: 'https://lms.cnvsystem.com',
+    obbia: 'https://obbia.cnvsystem.com',
   },
 
   // 3. PÁGINA 404 (No encontrada)
@@ -239,7 +240,8 @@ export const es = {
     subdomain_obbia: 'ObBIA-Latam',
     access_title: 'Acceso',
     privacy: 'Política de privacidad',
-    terms: 'Términos de uso',
+    terms: 'Aviso legal y Términos de uso',
+    cookies: 'Política de cookies',
     copyright: '© 2026 Connected Nutrition Ventures. Todos los derechos reservados.',
   },
 

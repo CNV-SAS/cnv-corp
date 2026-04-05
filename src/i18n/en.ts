@@ -6,20 +6,21 @@ export const en: Translations = {
   routes: {
     home: '/en/',
     paradigm: '/en/paradigm',
-    operations: '/en/care',
-    training: '/en/learning',
+    care: '/en/care',
+    learning: '/en/learning',
     research: '/en/research',
     about: '/en/about',
     contact: '/en/contact',
     privacy: '/en/privacy-policy',
-    terms: '/en/terms',
+    terms: '/en/legal-notice',
+    cookies: '/en/cookies-policy',
   },
 
   // 2. ENLACES EXTERNOS (Subdominios estáticos)
   external_links: {
-    atlas: 'https://atlas.cnvcorp.com',
-    academy: 'https://lms.cnvcorp.com',
-    obbia: 'https://obbia.cnvcorp.com',
+    atlas: 'https://atlas.cnvsystem.com',
+    academy: 'https://lms.cnvsystem.com',
+    obbia: 'https://obbia.cnvsystem.com',
   },
 
   // 3. PÁGINA 404 (No encontrada)
@@ -38,8 +39,8 @@ export const en: Translations = {
 
   nav: {
     paradigma: 'Paradigm',
-    operacion: 'Operations',
-    formacion: 'Training',
+    operacion: 'Care',
+    formacion: 'Learning',
     investigacion: 'Research',
     nosotros: 'About',
     cta: 'Join CNV Network',
@@ -86,18 +87,18 @@ export const en: Translations = {
         id: 'care',
         name: 'CNV Care',
         color: '#2563eb',
-        role: 'Operations',
+        role: 'Care',
         description: 'Operational line responsible for implementing, supporting, and controlling the ANI-BIS-E model in real care contexts.',
-        link: '/en/operations',
+        link: '/en/care',
         cta: 'Learn about CNV Care',
       },
       {
         id: 'learning',
         name: 'CNV Learning',
         color: '#0a76a4',
-        role: 'Training',
+        role: 'Learning',
         description: 'Academic line responsible for training, certification, and standardizing the talent that operates the new paradigm.',
-        link: '/en/training',
+        link: '/en/learning',
         cta: 'Learn about CNV Learning',
       },
       {
@@ -231,6 +232,7 @@ export const en: Translations = {
     access_title: 'Access',
     privacy: 'Privacy Policies',
     terms: 'Use Terms',
+    cookies: 'Cookies Policy',
     copyright: '© 2026 Connected Nutrition Ventures. All rights reserved.',
   },
 

@@ -11,8 +11,8 @@ const otherLangHref = getRouteInOtherLang(Astro.url);
 
 const systemLinks = [
   { href: t.routes.paradigm, label: t.nav.paradigma },
-  { href: t.routes.operations, label: 'CNV Care — ' + t.nav.operacion },
-  { href: t.routes.training, label: 'CNV Learning — ' + t.nav.formacion },
+  { href: t.routes.care, label: 'CNV Care — ' + t.nav.operacion },
+  { href: t.routes.learning, label: 'CNV Learning — ' + t.nav.formacion },
   { href: t.routes.research, label: 'CNV Research — ' + t.nav.investigacion },
   { href: t.routes.about, label: t.nav.nosotros },
 ];
@@ -94,7 +94,7 @@ const systemLinks = [
         <div class="mt-8">
           <a href={otherLangHref}
             class="text-xs font-700 tracking-widest text-white/30 hover:text-white/60 transition-colors">
-            {t.nav.switch_lang}
+            {t.nav.switch_lang} &rarr;
           </a>
         </div>
       </div>
@@ -110,6 +110,9 @@ const systemLinks = [
         </a>
         <a href={t.routes.terms} class="text-xs text-white/30 hover:text-white/60 transition-colors">
           {t.footer.terms}
+        </a>
+        <a href={t.routes.cookies} class="text-xs text-white/30 hover:text-white/60 transition-colors">
+          {t.footer.cookies}
         </a>
       </div>
     </div>

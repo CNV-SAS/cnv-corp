@@ -138,6 +138,78 @@
     opacity: 1;
     transform: translateY(0);
   }
+  /* 1. El contenedor de cada acordeón */
+  .legal-rich-text details {
+    @apply border-b border-gray-100 transition-all duration-300;
+  }
+
+  /* 2. El título principal del acordeón (Hace de H2) */
+  .legal-rich-text summary {
+    /* CORRECCIÓN: font-extrabold en lugar de font-800 */
+    @apply text-xl md:text-2xl font-extrabold cursor-pointer list-none py-8 flex justify-between items-center transition-colors duration-200;
+    color: var(--color-cnv-core);
+  }
+
+  /* Ocultar la flechita nativa del navegador */
+  .legal-rich-text summary::-webkit-details-marker {
+    display: none;
+  }
+
+  /* Hover del título */
+  .legal-rich-text summary:hover {
+    color: var(--color-cnv-execute);
+  }
+
+  /* 3. Íconos de + y - elegantes y minimalistas */
+  .legal-rich-text summary::after {
+    content: '+';
+    /* CORRECCIÓN: font-light en lugar de font-300 */
+    @apply text-3xl font-light text-gray-300 transition-transform duration-300;
+  }
+
+  .legal-rich-text details[open] summary::after {
+    content: '−';
+    @apply transform rotate-180 text-cnv-execute font-semibold;
+  }
+
+  /* Reducir espacio debajo del título cuando se abre el acordeón */
+  .legal-rich-text details[open] summary {
+    @apply pb-4; 
+  }
+
+  /* 4. El contenedor del texto oculto y su animación */
+  .legal-rich-text details > div {
+    @apply pb-10 pt-2 animate-fade-in;
+  }
+
+  /* 5. Estilos generales de tipografía para el contenido interno */
+  .legal-rich-text p {
+    @apply mb-6 text-base md:text-lg leading-relaxed text-gray-700 text-balance;
+  }
+  
+  .legal-rich-text ul {
+    @apply list-disc pl-6 mb-8 space-y-4 text-base md:text-lg text-gray-700;
+  }
+  
+  .legal-rich-text a {
+    @apply font-semibold underline transition-colors duration-200;
+    color: var(--color-cnv-execute);
+  }
+  
+  .legal-rich-text a:hover {
+    color: var(--color-cnv-core);
+  }
+  
+  .legal-rich-text strong {
+    @apply font-bold text-gray-950;
+  }
+
+  /* 6. Por si llegas a usar subtítulos (H3 o H2) dentro de un acordeón */
+  .legal-rich-text h2, 
+  .legal-rich-text h3 {
+    @apply text-lg md:text-xl font-bold mt-8 mb-4;
+    color: var(--color-cnv-core);
+  }
 }
 
 @layer utilities {

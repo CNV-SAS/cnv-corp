@@ -14,13 +14,14 @@ export function getI18n(lang: string | undefined) {
 // Mapa bidireccional de rutas para el switcher de idiomas
 const routeMap: Record<string, string> = {
   '/paradigma': '/paradigm',
-  '/operacion': '/operations',
-  '/formacion': '/training',
+  '/operacion': '/care',
+  '/formacion': '/learning',
   '/investigacion': '/research',
   '/nosotros': '/about',
   '/contacto': '/contact',
-  '/politica-de-privacidad': '/privacy-policy',
-  '/terminos-de-uso': '/terms-of-use'
+  '/politica-privacidad': '/privacy-policy',
+  '/aviso-legal': '/legal-notice',
+  '/politica-cookies': '/cookies-policy'
 };
 
 export function getRouteInOtherLang(url: URL): string {

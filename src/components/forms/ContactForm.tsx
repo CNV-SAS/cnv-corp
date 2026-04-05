@@ -33,11 +33,33 @@ interface Props {
   lang: string;
 }
 
-// Mapa de configuración para integrar Tailwind nativo según el perfil
+// ARQUITECTURA LIMPIA: Strings completos para que Tailwind los compile
 const PROFILES_CONFIG = [
-  { icon: '⚕', text: 'text-cnv-execute', border: 'border-cnv-execute', bg: 'bg-cnv-execute/10', focus: 'focus:border-cnv-execute focus:ring-1 focus:ring-cnv-execute' }, // Profesional
-  { icon: '🏛', text: 'text-cnv-bio', border: 'border-cnv-bio', bg: 'bg-cnv-bio/10', focus: 'focus:border-cnv-bio focus:ring-1 focus:ring-cnv-bio' }, // Institución
-  { icon: '🧬', text: 'text-cnv-generate', border: 'border-cnv-generate', bg: 'bg-cnv-generate/10', focus: 'focus:border-cnv-generate focus:ring-1 focus:ring-cnv-generate' }, // Paciente
+  { 
+    icon: '⚕',
+    btnClass: 'border-cnv-execute bg-cnv-execute/10 text-cnv-execute',
+    inputClass: 'focus:border-cnv-execute focus:ring-1 focus:ring-cnv-execute',
+    excBorder: 'border-cnv-execute',
+    excBg: 'bg-cnv-execute/5',
+    excText: 'text-cnv-execute'
+  },
+  { 
+    icon: '🏛',
+    // CORRECCIÓN: Usamos cnv-transfer (Azul claro) en lugar del verde
+    btnClass: 'border-cnv-transfer bg-cnv-transfer/10 text-cnv-transfer',
+    inputClass: 'focus:border-cnv-transfer focus:ring-1 focus:ring-cnv-transfer',
+    excBorder: 'border-cnv-transfer',
+    excBg: 'bg-cnv-transfer/5',
+    excText: 'text-cnv-transfer'
+  },
+  { 
+    icon: '🧬',
+    btnClass: 'border-cnv-generate bg-cnv-generate/10 text-cnv-generate',
+    inputClass: 'focus:border-cnv-generate focus:ring-1 focus:ring-cnv-generate',
+    excBorder: 'border-cnv-generate',
+    excBg: 'bg-cnv-generate/5',
+    excText: 'text-cnv-generate'
+  },
 ];
 
 export default function ContactForm({ t, exclusivity, lang }: Props) {
@@ -81,16 +103,16 @@ export default function ContactForm({ t, exclusivity, lang }: Props) {
   }
 
   const messageLabel = profile === 0 ? t.message : profile === 1 ? t.message_institution : t.message_patient;
-
-  // Clases base para todos los inputs usando Tailwind
-  const inputClasses = `w-full border-2 border-cnv-core/10 px-4 py-3 text-sm font-600 text-cnv-core outline-none transition-colors bg-white ${activeConf.focus}`;
+  
+  // Clase base para inputs (combinada con el focus dinámico)
+  const inputClasses = `w-full border-2 border-slate-200 px-4 py-3 text-sm font-600 text-cnv-core outline-none transition-colors bg-white ${activeConf.inputClass}`;
 
   if (status === 'success') {
     return (
       <div className="flex flex-col items-center justify-center py-20 text-center animate-fade-in">
-        <div className="w-16 h-16 rounded-full flex items-center justify-center mb-6 bg-cnv-generate/10 border-2 border-cnv-generate">
+        <div className={`w-16 h-16 rounded-full flex items-center justify-center mb-6 border-2 ${activeConf.excBg} ${activeConf.excBorder}`}>
           <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
-            <path d="M5 14l7 7 11-13" stroke="currentColor" className="text-cnv-generate" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
+            <path d="M5 14l7 7 11-13" stroke="currentColor" className={activeConf.excText} strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
           </svg>
         </div>
         <h3 className="text-xl font-800 text-cnv-core mb-3">
@@ -121,8 +143,8 @@ export default function ContactForm({ t, exclusivity, lang }: Props) {
                 onClick={() => setProfile(i as 0 | 1 | 2)}
                 className={`flex items-center gap-3 p-4 border-2 text-left transition-all duration-300 text-sm font-700 ${
                   isActive 
-                    ? `${conf.border} ${conf.bg} ${conf.text}` 
-                    : 'border-cnv-core/10 text-cnv-core hover:bg-slate-50 hover:border-cnv-core/30'
+                    ? conf.btnClass 
+                    : 'border-slate-200 text-cnv-core hover:bg-slate-50 hover:border-slate-300'
                 }`}
               >
                 <span className="text-xl">{conf.icon}</span>
@@ -135,8 +157,8 @@ export default function ContactForm({ t, exclusivity, lang }: Props) {
 
       {/* Exclusivity box for professionals */}
       {profile === 0 && (
-        <div className="mb-10 p-6 border-l-4 border-cnv-execute bg-cnv-execute/5 animate-fade-in">
-          <p className="text-xs font-700 tracking-[0.2em] uppercase text-cnv-execute mb-3">
+        <div className={`mb-10 p-6 border-l-4 animate-fade-in ${activeConf.excBorder} ${activeConf.excBg}`}>
+          <p className={`text-xs font-700 tracking-[0.2em] uppercase mb-3 ${activeConf.excText}`}>
             {exclusivity.tag}
           </p>
           <p className="text-sm font-700 text-cnv-core mb-4">
@@ -145,7 +167,7 @@ export default function ContactForm({ t, exclusivity, lang }: Props) {
           <div className="flex flex-col gap-2">
             {exclusivity.requirements.map((req, i) => (
               <div key={i} className="flex items-start gap-3 text-sm font-500 text-cnv-core/80">
-                <svg className="flex-shrink-0 mt-0.5 text-cnv-execute" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <svg className={`flex-shrink-0 mt-0.5 ${activeConf.excText}`} width="16" height="16" viewBox="0 0 16 16" fill="none">
                   <circle cx="8" cy="8" r="7" stroke="currentColor" strokeWidth="1.5"/>
                   <path d="M4.5 8l2.5 2.5 4.5-5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
                 </svg>

@@ -6,6 +6,13 @@ const lang = Astro.currentLocale || 'es';
 const t = getI18n(lang);
 const c = t.contact;
 const exc = t.exclusivity;
+
+// Mapa de estilos rígidos para que Tailwind JIT los compile correctamente
+const STYLES_MAP: Record<string, { border: string, bg: string, text: string, dot: string }> = {
+  'care': { border: 'border-cnv-execute/20', bg: 'bg-cnv-execute/5', text: 'text-cnv-execute', dot: 'bg-cnv-execute' },
+  'learning': { border: 'border-cnv-transfer/20', bg: 'bg-cnv-transfer/5', text: 'text-cnv-transfer', dot: 'bg-cnv-transfer' },
+  'research': { border: 'border-cnv-generate/20', bg: 'bg-cnv-generate/5', text: 'text-cnv-generate', dot: 'bg-cnv-generate' }
+};
 ---
 
 <section class="py-section">
@@ -24,19 +31,24 @@ const exc = t.exclusivity;
 
         <!-- System lines quick links -->
         <div class="flex flex-col gap-4 animate-on-scroll [animation-delay:100ms]">
-          {c.quick_links.map((link) => (
-            <div class={`flex items-start gap-3 p-4 border border-${link.color_class}/20 bg-${link.color_class}/5`}>
-              <div class={`w-2 h-2 rounded-full bg-${link.color_class} flex-shrink-0 mt-1.5`}></div>
-              <div>
-                <div class={`text-xs font-700 tracking-wider uppercase text-${link.color_class} mb-1`}>
-                  {link.title}
-                </div>
-                <div class="text-xs text-cnv-core/50">
-                  {link.desc}
+          {c.quick_links.map((link) => {
+            // Obtenemos las clases completas de nuestro mapa seguro
+            const styles = STYLES_MAP[link.id];
+            
+            return (
+              <div class={`flex items-start gap-3 p-4 border ${styles.border} ${styles.bg}`}>
+                <div class={`w-2 h-2 rounded-full flex-shrink-0 mt-1.5 ${styles.dot}`}></div>
+                <div>
+                  <div class={`text-xs font-700 tracking-wider uppercase mb-1 ${styles.text}`}>
+                    {link.title}
+                  </div>
+                  <div class="text-xs text-cnv-core/50">
+                    {link.desc}
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
 

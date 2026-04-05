@@ -1,3 +1,4 @@
+export const prerender = false; // (solo agregamos esto)
 import type { APIRoute } from 'astro';
 import { Resend } from 'resend';
 
@@ -50,6 +51,11 @@ export const POST: APIRoute = async ({ request }) => {
             ${message ? `<tr><td colspan="2" style="padding: 16px 0;"><strong style="color: #102545; font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; display: block; margin-bottom: 8px;">Mensaje</strong><p style="color: #102545; margin: 0; line-height: 1.6;">${message}</p></td></tr>` : ''}
           </table>
         </div>
+        <div style="background: #f8fafc; padding: 16px 32px; border: 2px solid #102545; border-top: none;">
+          <p style="margin: 0; font-size: 11px; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.1em;">
+            Connected Nutrition Ventures — ${new Date().toLocaleDateString('es-CO')}
+          </p>
+        </div>
       </div>
     `;
 
@@ -59,7 +65,7 @@ export const POST: APIRoute = async ({ request }) => {
     }
 
     const { data, error } = await resend.emails.send({
-      from: 'CNV Web <noreply@cnvcorp.com>', 
+      from: 'CNV Web <noreply@cnvsystem.com>', 
       to: [CONTACT_EMAIL], // Usamos la variable de entorno
       replyTo: email,
       subject: `[CNV] Nueva solicitud — ${profile} — ${name}`,
