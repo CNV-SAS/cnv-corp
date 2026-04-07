@@ -31,9 +31,9 @@ const systemLinks = [
 
       <div class="md:col-span-4">
         <img
-          src="/images/logo-horizontal-dark.png"
+          src="/images/logo-horizontal-dark.svg"
           alt="Connected Nutrition Ventures"
-          class="h-8 mb-6"
+          class="h-10 mb-6"
         />
         <p class="text-sm text-white/60 leading-relaxed max-w-xs">
           {t.footer.tagline}
@@ -42,22 +42,31 @@ const systemLinks = [
           <p class="text-xs font-700 tracking-[0.2em] uppercase text-white/30 mb-3">
             {t.footer.ecosystem_title}
           </p>
-          <div class="flex flex-col gap-2">
-            <a href={t.external_links.atlas} target="_blank" rel="noopener"
-              class="text-xs text-white/50 hover:text-cnv-bio transition-colors flex items-center gap-2">
-              <span class="w-1.5 h-1.5 rounded-full bg-cnv-execute flex-shrink-0"></span>
-              {t.footer.subdomain_atlas}
-            </a>
-            <a href={t.external_links.academy} target="_blank" rel="noopener"
-              class="text-xs text-white/50 hover:text-cnv-bio transition-colors flex items-center gap-2">
-              <span class="w-1.5 h-1.5 rounded-full bg-cnv-transfer flex-shrink-0"></span>
-              {t.footer.subdomain_academy}
-            </a>
-            <a href={t.external_links.obbia} target="_blank" rel="noopener"
-              class="text-xs text-white/50 hover:text-cnv-bio transition-colors flex items-center gap-2">
-              <span class="w-1.5 h-1.5 rounded-full bg-cnv-generate flex-shrink-0"></span>
-              {t.footer.subdomain_obbia}
-            </a>
+          <div class="flex flex-col gap-3">
+            <!-- ATLAS -->
+            <div class="text-xs text-white/40 flex items-center gap-3 cursor-not-allowed select-none">
+              <span class="w-1.5 h-1.5 rounded-full bg-cnv-execute/50 flex-shrink-0"></span>
+              <span>{t.footer.subdomain_atlas}</span>
+              <span class="text-[9px] font-800 tracking-widest uppercase bg-white/10 text-white/60 px-2 py-0.5 rounded-sm ml-auto">
+                {t.footer.coming_soon}
+              </span>
+            </div>
+            <!-- ACADEMY -->
+            <div class="text-xs text-white/40 flex items-center gap-3 cursor-not-allowed select-none">
+              <span class="w-1.5 h-1.5 rounded-full bg-cnv-transfer/50 flex-shrink-0"></span>
+              <span>{t.footer.subdomain_academy}</span>
+              <span class="text-[9px] font-800 tracking-widest uppercase bg-white/10 text-white/60 px-2 py-0.5 rounded-sm ml-auto">
+                {t.footer.coming_soon}
+              </span>
+            </div>
+            <!-- OBBIA -->
+            <div class="text-xs text-white/40 flex items-center gap-3 cursor-not-allowed select-none">
+              <span class="w-1.5 h-1.5 rounded-full bg-cnv-generate/50 flex-shrink-0"></span>
+              <span>{t.footer.subdomain_obbia}</span>
+              <span class="text-[9px] font-800 tracking-widest uppercase bg-white/10 text-white/60 px-2 py-0.5 rounded-sm ml-auto">
+                {t.footer.coming_soon}
+              </span>
+            </div>
           </div>
         </div>
       </div>

@@ -13,18 +13,25 @@ const c = t.pages.investigacion.cta;
       {c.subtitle}
     </p>
     <div class="flex flex-wrap gap-4 justify-center">
-      <a
-        href={t.external_links.obbia}
-        target="_blank"
-        rel="noopener"
-        class="btn-primary"
+      
+      <button
+        type="button"
+        disabled
+        class="btn-primary relative group cursor-not-allowed"
       >
         {c.btn_primary}
         <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
           <path d="M2 10L10 2M10 2H4M10 2v6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
         </svg>
-      </a>
+
+        <!-- El globo del Tooltip -->
+        <span class="absolute -top-10 left-1/2 -translate-x-1/2 px-3 py-1.5 bg-gray-900 text-white text-[10px] font-800 uppercase tracking-widest rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap pointer-events-none shadow-lg">
+          {t.footer.coming_soon}
+        </span>
+      </button>
+
       <a href={t.routes.contact} class="btn-secondary">{t.nav.cta}</a>
+      
     </div>
   </div>
 </section>

@@ -182,15 +182,11 @@ export const es = {
     items: [
       { title: 'Modelo Clínico', body: 'Estructura sistematizada para evaluar e interpretar el estado funcional del paciente.' },
       { title: 'Tecnología BIS', body: 'Equipo de Bioimpedancia Espectroscópica (Biody) en comodato. Sin inversión de capital.' },
-      { title: 'Certificación', body: 'Formación estructurada y certificación CNV con aval de la Universidad Autónoma de Coahuila (México).' },
+      { title: 'Certificación', body: 'Formación estructurada y certificación CNV con aval de una institución universitaria nacional o internacional.' },
       { title: 'Plataforma Atlas', body: 'Software de seguimiento, visualización de resultados y gestión de pacientes integrado.' },
     ],
   },
 
-  // ALIADOS Y CTA FINAL
-  partners: {
-    tag: 'Aliados institucionales'
-  },
   final_cta: {
     title: 'El sistema está listo.',
     highlight: '¿Lo estás tú?',
@@ -220,6 +216,8 @@ export const es = {
       message: 'Cuéntanos más sobre tu práctica actual',
       message_institution: 'Cuéntanos sobre tu organización',
       message_patient: '¿Qué estás buscando?',
+      legal_consent: 'Autorizo de manera previa, expresa e informada a CONNECTED NUTRITION VENTURES S.A.S. para el tratamiento de mis datos personales con la finalidad de atender mi solicitud y enviarme información relacionada con sus servicios, conforme a su [Política de Tratamiento de Datos Personales]. Declaro que conozco mis derechos como titular de la información.',
+      legal_error: 'Debe autorizar el tratamiento de datos personales para continuar.',
       submit: 'Enviar solicitud',
       sending: 'Enviando...',
       response_time: '< 48h respuesta',
@@ -243,6 +241,22 @@ export const es = {
     terms: 'Aviso legal y Términos de uso',
     cookies: 'Política de cookies',
     copyright: '© 2026 Connected Nutrition Ventures. Todos los derechos reservados.',
+    coming_soon: 'Próximamente',
+  },
+
+  cookies_banner: {
+    text: 'Este sitio web utiliza cookies técnicas necesarias para su funcionamiento y cookies analíticas para mejorar la experiencia de navegación. Puede aceptar o rechazar las cookies analíticas.',
+    accept: 'Aceptar todas',
+    reject: 'Rechazar analíticas',
+    manage: 'Gestionar cookies'
+  },
+
+  // INTERFAZ LEGAL
+  legal_ui: {
+    last_updated: 'Última actualización:',
+    expand_all: 'Expandir todo',
+    collapse_all: 'Contraer todo',
+    download_pdf: 'Descargar PDF'
   },
 
   // PAGES
@@ -257,13 +271,14 @@ export const es = {
         p2: 'Un individuo puede no presentar enfermedad clínica visible, pero sí encontrarse en un estado de disfunción funcional. Esta es la distinción fundamental:',
         quote: 'ausencia de enfermedad ≠ estado óptimo de salud',
       },
+      // ... (busca el bloque the_gap y reemplázalo por este)
       the_gap: {
         tag: 'El intervalo crítico',
         title: 'Las alteraciones funcionales preceden al daño estructural',
         phases: [
-          { phase: 'Fase 1', title: 'Disfunción funcional silente', body: 'Las células dejan de responder óptimamente. No hay síntomas. No hay diagnóstico. El sistema empieza a perder capacidad adaptativa.', color: '#00a388' },
-          { phase: 'Fase 2', title: 'Intervalo CNV', body: 'Aquí opera CNV. La disfunción es medible a través de variables bioeléctricas. La reversibilidad es alta. La intervención es posible.', color: '#78be34' },
-          { phase: 'Fase 3', title: 'Daño estructural visible', body: 'La medicina convencional actúa aquí. El daño ya es observable. La capacidad adaptativa ha disminuido. La reversibilidad es limitada.', color: '#0a76a4' },
+          { phase: '01. Carga Alostática', title: 'El origen del desequilibrio', body: 'Estilos de vida, alimentación, hábitos de sueño y consumo de sustancias inician procesos fisiopatológicos silenciosos en el organismo.', color: '#00a388' },
+          { phase: '02. Impacto Celular', title: 'Alteración Bioeléctrica', body: 'Se compromete la función celular, alterando drásticamente su capacidad natural de conducir electricidad y condensar energía.', color: '#78be34' },
+          { phase: '03. La Ventana CNV', title: 'Detección antes del daño', body: 'Detectamos estas deficiencias funcionales de forma temprana, mucho antes de que afecten la estructura corporal, que es donde opera la medicina tradicional.', color: '#0a76a4' },
         ]
       },
       bioelectric: {
@@ -330,7 +345,7 @@ export const es = {
         tag: 'Más allá de la educación tradicional',
         title: 'No solo enseñamos. Alineamos y certificamos.',
         p1: 'CNV Learning prepara y alinea a las personas que operan el ecosistema CNV bajo un mismo marco conceptual, técnico y ético. El objetivo no es solo transferir conocimiento, sino garantizar que cada operador del modelo reproduzca los estándares científicos con precisión.',
-        p2: 'La certificación tiene aval oficial de la <strong>Universidad Autónoma de Coahuila (México)</strong>.',
+        p2: 'La certificación tiene aval oficial de una <strong>institución universitaria nacional o internacional</strong>.',
         pillars: [
           { label: 'Formación técnica', desc: 'Medicina bioeléctrica y modelo ANI-BIS-E', color: '#0a76a4' },
           { label: 'Certificación', desc: 'Con aval universitario oficial', color: '#0a76a4' },
@@ -363,7 +378,7 @@ export const es = {
       hero_body: 'CNV Research asegura que todo el ecosistema opere bajo evidencia científica sólida, coherente y actualizada. Diseño, validación y evolución del modelo ANI-BIS-E.',
       mandate: {
         title: 'CNV Research define qué es el modelo, cómo evoluciona y bajo qué reglas opera',
-        body: 'La dirección científica del ecosistema está a cargo del <strong>Observatorio Latinoamericano de Bioimpedancia (ObBIA-Latam)</strong>, que opera como capa de análisis, validación y producción de conocimiento.',
+        body: 'La dirección científica del ecosistema está a cargo de un equipo especializado, que opera a través del <strong>Observatorio Latinoamericano de Bioimpedancia (ObBIA-Latam)</strong> como plataforma de análisis, validación y producción de conocimiento.',
         items: [
           { label: 'Diseño y validación', desc: 'Diseño, validación y evolución continua del modelo científico ANI-BIS-E con base en evidencia real.' },
           { label: 'Investigación clínica', desc: 'Investigación clínica y aplicada basada en data real del ecosistema CNV a nivel latinoamericano.' },
@@ -443,7 +458,7 @@ export const es = {
       direction: {
         tag: 'Dirección científica',
         title: 'La ciencia detrás del sistema',
-        p1: 'La dirección científica del ecosistema está a cargo del <strong>Observatorio Latinoamericano de Bioimpedancia (ObBIA-Latam)</strong>, que opera como la capa de análisis, validación y producción de conocimiento.',
+        p1: 'La dirección científica del ecosistema está a cargo de un equipo especializado, que opera a través del <strong>Observatorio Latinoamericano de Bioimpedancia (ObBIA-Latam)</strong> como plataforma de análisis, validación y producción de conocimiento.',
         p2: 'ObBIA-Latam garantiza que el modelo ANI-BIS-E se mantenga en la frontera de la evidencia científica en medicina bioeléctrica a nivel latinoamericano.',
         btn_research: 'Conocer CNV Research',
         btn_obbia: 'ObBIA-Latam'

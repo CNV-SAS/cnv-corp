@@ -12,7 +12,7 @@ const t = getI18n(lang);
       <h2 class="text-headline font-800 text-cnv-core mb-6 text-balance animate-on-scroll">
         {t.anibise.title}
       </h2>
-      <p class="text-base text-cnv-core/50 animate-on-scroll">
+      <p class="text-base text-cnv-core/80 animate-on-scroll">
         {t.anibise.subtitle}
       </p>
     </div>
@@ -20,10 +20,10 @@ const t = getI18n(lang);
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-px bg-cnv-core/10 border border-cnv-core/10">
       {t.anibise.steps.map((step, i) => (
         <div class="bg-white p-8 animate-on-scroll" style={`animation-delay: ${i * 100}ms`}>
-          <div class="text-4xl font-900 mb-6 text-cnv-core/10">{step.num}</div>
+          <div class="text-4xl font-900 mb-6 text-cnv-core">{step.num}</div>
           <div class="w-8 h-0.5 bg-cnv-generate mb-4"></div>
           <h3 class="text-base font-700 text-cnv-core mb-3">{step.title}</h3>
-          <p class="text-sm text-cnv-core/50 leading-relaxed">{step.body}</p>
+          <p class="text-sm text-cnv-core/60 leading-relaxed">{step.body}</p>
         </div>
       ))}
     </div>

@@ -13,7 +13,9 @@ const cta = t.pages.nosotros.cta;
       {cta.body}
     </p>
     <div class="flex flex-wrap gap-4 justify-center animate-on-scroll">
-      <a href={t.routes.contact} class="btn-primary">{t.nav.cta}</a>
+      <a href={t.routes.contact} class="inline-flex items-center gap-2 px-6 py-3 font-semibold text-sm tracking-wide bg-white text-cnv-core hover:bg-[#2557eb] hover:text-white transition-all duration-300">
+        {t.nav.cta}
+      </a>
       <a href={t.routes.paradigm}
         class="inline-flex items-center gap-2 px-6 py-3 border-2 border-white/20 text-sm font-700 text-white hover:border-cnv-generate hover:text-cnv-generate transition-all duration-300">
         {cta.btn_paradigm}

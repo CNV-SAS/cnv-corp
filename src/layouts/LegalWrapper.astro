@@ -1,5 +1,6 @@
 ---
 import BaseLayout from './BaseLayout.astro';
+import { getI18n } from '../i18n'; // <-- Importamos las traducciones
 
 interface Props {
   title: string;
@@ -8,25 +9,35 @@ interface Props {
 }
 
 const { title, lastUpdated, pdfLink } = Astro.props;
+
+const lang = Astro.currentLocale || 'es';
+const t = getI18n(lang);
+const l = t.legal_ui; // <-- Atajo para no escribir tanto
 ---
 
 <BaseLayout title={`${title} | CNV`}>
-  
-<div class="max-w-4xl mx-auto px-6 pt-16 md:pt-20 pb-32">
+  <div class="max-w-4xl mx-auto px-6 pt-16 md:pt-20 pb-32">
     
     <header class="mb-12 border-b border-gray-200 pb-10 animate-on-scroll">
-      
-<h1 class="text-4xl md:text-5xl lg:text-6xl font-900 text-[color:var(--color-cnv-core)] leading-tight mb-8 text-balance">
+      <h1 class="text-4xl md:text-5xl lg:text-6xl font-900 text-[color:var(--color-cnv-core)] leading-tight mb-8 text-balance">
         {title}
       </h1>
       
       <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-6">
-        <p class="text-sm font-500 text-gray-500">Última actualización: {lastUpdated}</p>
+        <p class="text-sm font-500 text-gray-500">
+          {l.last_updated} {lastUpdated}
+        </p>
         
         <div class="flex flex-wrap items-center gap-4">
           
-<button id="toggle-accordions" class="text-sm font-700 text-cnv-execute hover:text-cnv-core transition-colors cursor-pointer">
-            Expandir todo
+          <!-- Inyectamos las traducciones en atributos de datos (data-*) para que el JS las lea -->
+          <button 
+            id="toggle-accordions" 
+            class="text-sm font-700 text-cnv-execute hover:text-cnv-core transition-colors cursor-pointer"
+            data-expand={l.expand_all}
+            data-collapse={l.collapse_all}
+          >
+            {l.expand_all}
           </button>
           
           <a href={pdfLink} download class="btn-ghost text-sm py-2 px-4 border border-gray-200 rounded-sm hover:border-gray-300">
@@ -35,7 +46,7 @@ const { title, lastUpdated, pdfLink } = Astro.props;
               <polyline points="7 10 12 15 17 10"></polyline>
               <line x1="12" y1="15" x2="12" y2="3"></line>
             </svg>
-            Descargar PDF
+            {l.download_pdf}
           </a>
         </div>
       </div>
@@ -49,13 +60,15 @@ const { title, lastUpdated, pdfLink } = Astro.props;
 </BaseLayout>
 
 <script>
-  // Lógica nativa e impecable para expandir/contraer
   const toggleBtn = document.getElementById('toggle-accordions');
   
   if (toggleBtn) {
+    // Leemos las traducciones inyectadas desde el HTML
+    const textExpand = toggleBtn.getAttribute('data-expand') || 'Expandir todo';
+    const textCollapse = toggleBtn.getAttribute('data-collapse') || 'Contraer todo';
+
     toggleBtn.addEventListener('click', () => {
       const details = document.querySelectorAll('.legal-rich-text details');
-      // Verificamos si hay al menos uno cerrado
       const isAnyClosed = Array.from(details).some(detail => !detail.hasAttribute('open'));
       
       details.forEach(detail => {
@@ -66,7 +79,8 @@ const { title, lastUpdated, pdfLink } = Astro.props;
         }
       });
       
-      toggleBtn.textContent = isAnyClosed ? 'Contraer todo' : 'Expandir todo';
+      // Aplicamos el texto traducido correcto
+      toggleBtn.textContent = isAnyClosed ? textCollapse : textExpand;
     });
   }
 </script>

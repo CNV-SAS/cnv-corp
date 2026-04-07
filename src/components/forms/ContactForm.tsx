@@ -1,5 +1,6 @@
 'use client';
 import { useState } from 'react';
+import { Turnstile } from '@marsidev/react-turnstile';
 
 interface FormTranslations {
   profile_label: string;
@@ -12,6 +13,8 @@ interface FormTranslations {
   message: string;
   message_institution: string;
   message_patient: string;
+  legal_consent: string;
+  legal_error: string;
   submit: string;
   sending: string;
   response_time: string;
@@ -65,6 +68,7 @@ const PROFILES_CONFIG = [
 export default function ContactForm({ t, exclusivity, lang }: Props) {
   const [profile, setProfile] = useState<0 | 1 | 2>(0);
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
+  const [consentError, setConsentError] = useState(false);
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -72,24 +76,54 @@ export default function ContactForm({ t, exclusivity, lang }: Props) {
     institution: '',
     country: '',
     message: '',
+    consent: false,
   });
 
   const profileLabels = t.profile_options;
   const activeConf = PROFILES_CONFIG[profile];
+  const [turnstileToken, setTurnstileToken] = useState<string | null>(null);
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) {
-    setFormData(prev => ({ ...prev, [e.target.name]: e.target.value }));
+    const value = e.target.type === 'checkbox' ? (e.target as HTMLInputElement).checked : e.target.value;
+    setFormData(prev => ({ ...prev, [e.target.name]: value }));
+    if (e.target.name === 'consent' && value) setConsentError(false);
   }
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
+
+    // Validación estricta del consentimiento
+    if (!formData.consent) {
+      setConsentError(true);
+      return;
+    }
+
+    if (!turnstileToken) {
+      setStatus('error'); // Opcional: Podrías crear un estado de error específico para "Por favor verifica que eres humano"
+      return;
+    }
+
     setStatus('loading');
+
+    // Metadatos de auditoría (Nivel Alto)
+    const auditData = {
+      consent_given: true,
+      consent_text_version: 'v1.0',
+      source: 'cnvsystem.com/contact',
+      timestamp: new Date().toISOString()
+    };
 
     try {
       const res = await fetch('/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ...formData, profile: profileLabels[profile], lang }),
+        body: JSON.stringify({ 
+          ...formData, 
+          profile: profileLabels[profile], 
+          lang,
+          audit: auditData,
+          turnstileToken
+        }),
       });
 
       if (res.ok) {
@@ -265,9 +299,58 @@ export default function ContactForm({ t, exclusivity, lang }: Props) {
           />
         </div>
 
+        {/* Checkbox Legal (Prueba de Consentimiento) */}
+        <div className="flex items-start gap-3 mt-2">
+          <div className="flex items-center h-5">
+            <input
+              id="consent"
+              name="consent"
+              type="checkbox"
+              checked={formData.consent}
+              onChange={handleChange}
+              className={`w-4 h-4 border-2 rounded-sm appearance-none cursor-pointer transition-colors flex items-center justify-center
+                ${formData.consent ? 'bg-cnv-execute border-cnv-execute' : 'border-slate-300 bg-white'}
+                ${consentError ? 'border-red-500' : ''}
+              `}
+            />
+            {/* SVG Checkmark custom para que se vea elegante */}
+            {formData.consent && (
+              <svg className="absolute w-3 h-3 text-white pointer-events-none ml-0.5 mt-0.5" viewBox="0 0 14 14" fill="none">
+                <path d="M3 7.5L6 10.5L11 3.5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
+            )}
+          </div>
+          <div className="text-xs text-cnv-core/60 leading-relaxed font-500">
+            <label htmlFor="consent" className="cursor-pointer">
+              {/* Reemplazamos los corchetes por un enlace real a la política */}
+              {t.legal_consent.split('[')[0]}
+              <a href={lang === 'es' ? '/politica-privacidad' : '/en/privacy-policy'} target="_blank" className="font-700 text-cnv-execute hover:underline">
+                {t.legal_consent.match(/\[(.*?)\]/)?.[1] || 'Política de Tratamiento de Datos Personales'}
+              </a>
+              {t.legal_consent.split(']')[1]}
+            </label>
+          </div>
+        </div>
+
+        {consentError && (
+          <p className="text-xs font-700 text-red-500 animate-fade-in">{t.legal_error}</p>
+        )}
+
         {status === 'error' && (
           <p className="text-sm font-700 text-red-600 bg-red-50 p-3 border-l-2 border-red-600">{t.error}</p>
         )}
+
+        {/* Widget de Seguridad Turnstile */}
+        <div className="flex justify-start my-4">
+          <Turnstile 
+            siteKey={import.meta.env.PUBLIC_TURNSTILE_SITE_KEY} 
+            onSuccess={(token) => setTurnstileToken(token)}
+            options={{
+              theme: 'light',
+              language: lang // Para que el widget salga en EN o ES
+            }}
+          />
+        </div>
 
         <div className="flex items-center justify-between mt-4">
           <button

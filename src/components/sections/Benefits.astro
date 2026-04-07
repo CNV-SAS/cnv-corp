@@ -9,11 +9,11 @@ const t = getI18n(lang);
   <div class="max-w-7xl mx-auto px-6 lg:px-8">
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-16 items-start">
 
-      <div class="lg:col-span-5">
+      <div class="lg:col-span-6">
         <div class="sticky top-28">
           <div class="aspect-[3/4] bg-slate-50 border border-cnv-core/10 overflow-hidden relative group">
             <img
-              src="/images/benefits-professional.jpg"
+              src="/images/benefits-professional.webp"
               alt="Profesional CNV"
               class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
               onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
@@ -21,7 +21,7 @@ const t = getI18n(lang);
             <div class="hidden w-full h-full items-center justify-center text-cnv-core/20 text-sm font-600 text-center p-8 absolute inset-0 bg-slate-50">
               <div>
                 <div class="text-4xl mb-4">📷</div>
-                <div>benefits-professional.jpg</div>
+                <div>benefits-professional</div>
                 <div class="text-xs mt-2 opacity-50">Reemplaza con tu imagen</div>
               </div>
             </div>
@@ -39,7 +39,7 @@ const t = getI18n(lang);
           {t.benefits.items.map((item, i) => (
             <div class="py-8 border-b border-cnv-core/10 animate-on-scroll group" style={`animation-delay: ${i * 0.1}s`}>
               <div class="flex items-start gap-6">
-                <div class="text-xl font-900 text-cnv-core/20 flex-shrink-0 w-8 text-right transition-colors duration-300 group-hover:text-cnv-core">
+                <div class="text-xl font-900 text-cnv-core/40 flex-shrink-0 w-8 text-right transition-colors duration-300 group-hover:text-cnv-core">
                   {String(i + 1).padStart(2, '0')}
                 </div>
                 <div>

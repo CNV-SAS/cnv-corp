@@ -1,7 +1,7 @@
 ---
 import '../styles/global.css';
 import { getI18n } from '../i18n/index';
-
+import CookieBanner from '../components/cookies/CookieBanner';
 import Navbar from '../components/navigation/Navbar.astro';
 import Footer from '../components/navigation/Footer.astro';
 
@@ -54,7 +54,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     </main>
 
     <Footer lang={currentLang} />
-
+    <CookieBanner client:load t={t.cookies_banner} />
     <script>
       const observer = new IntersectionObserver(
         (entries) => {

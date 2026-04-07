@@ -1,43 +1,30 @@
-# Astro Starter Kit: Minimal
+# Connected Nutrition Ventures (CNV) — Plataforma Web y Ecosistema
 
-```sh
-pnpm create astro@latest -- --template minimal
-```
+Repositorio oficial del sitio web principal y capa de presentación del ecosistema **Connected Nutrition Ventures (CNV)**. Este proyecto sirve como la puerta de entrada a la plataforma tecnológica ATLAS y al modelo de atención preventivo ANI-BIS-E.
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+## 🧬 Sobre el Proyecto
 
-## 🚀 Project Structure
+CNV no es un prestador directo de servicios de salud, sino el operador y orquestador de un ecosistema clínico-científico con enfoque preventivo, funcional y longitudinal. Este sitio web está diseñado con arquitectura de alto rendimiento, seguridad de grado corporativo e internacionalización (i18n) nativa.
 
-Inside of your Astro project, you'll see the following folders and files:
+### 🚀 Stack Tecnológico (Core)
 
-```text
-/
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
-```
+- **Framework:** [Astro](https://astro.build/) (Static Site Generation para máximo rendimiento).
+- **UI & Interacciones:** [React](https://reactjs.org/) (Componentes aislados).
+- **Estilos:** [Tailwind CSS v4](https://tailwindcss.com/).
+- **Seguridad (Anti-Bot):** [Cloudflare Turnstile](https://www.cloudflare.com/products/turnstile/).
+- **Infraestructura de Correo:** [Resend](https://resend.com/).
+- **Analítica:** Google Analytics 4 (Con inyección condicional para cumplimiento de Ley 1581/GDPR).
+- **Despliegue:** Vercel + Cloudflare (Edge Network).
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+## ⚙️ Variables de Entorno (.env)
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+Para ejecutar este proyecto en local, necesitas configurar las siguientes variables de entorno. Solicita las credenciales al administrador de infraestructura.
 
-Any static assets, like images, can be placed in the `public/` directory.
+```env
+RESEND_API_KEY=re_...
+CONTACT_EMAIL=correo@ejemplo.com
 
-## 🧞 Commands
+PUBLIC_TURNSTILE_SITE_KEY=0x...
+TURNSTILE_SECRET_KEY=0x...
 
-All commands are run from the root of the project, from a terminal:
-
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `pnpm install`             | Installs dependencies                            |
-| `pnpm dev`             | Starts local dev server at `localhost:4321`      |
-| `pnpm build`           | Build your production site to `./dist/`          |
-| `pnpm preview`         | Preview your build locally, before deploying     |
-| `pnpm astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `pnpm astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+PUBLIC_GA_ID=G-...

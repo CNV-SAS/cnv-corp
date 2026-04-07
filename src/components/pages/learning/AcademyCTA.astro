@@ -4,7 +4,7 @@ const lang = Astro.currentLocale || 'es';
 const t = getI18n(lang);
 const a = t.pages.formacion.academy_cta;
 ---
-<section class="py-section bg-cnv-transfer text-white">
+<section class="py-section bg-cnv-core text-white">
   <div class="max-w-7xl mx-auto px-6 lg:px-8">
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
       <div>
@@ -15,17 +15,22 @@ const a = t.pages.formacion.academy_cta;
           {a.body}
         </p>
         <div class="flex flex-wrap gap-4 animate-on-scroll">
-          <a
-            href={t.external_links.academy}
-            target="_blank"
-            rel="noopener"
-            class="inline-flex items-center gap-2 px-6 py-3 bg-white text-cnv-transfer text-sm font-700 hover:bg-white/90 transition-colors"
+          
+          <button
+            type="button"
+            disabled
+            class="inline-flex items-center gap-2 px-6 py-3 bg-white/90 text-cnv-core text-sm font-700 relative group cursor-not-allowed transition-colors"
           >
-            {a.primary_btn}
-            <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+            <span>{a.primary_btn}</span>
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" class="opacity-60">
               <path d="M2 10L10 2M10 2H4M10 2v6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
             </svg>
-          </a>
+            
+            <span class="absolute -top-10 left-1/2 -translate-x-1/2 px-3 py-1.5 bg-gray-900 text-white text-[10px] font-800 uppercase tracking-widest rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap pointer-events-none shadow-lg z-10">
+              {t.footer.coming_soon}
+            </span>
+          </button>
+
           <a href={`${t.routes.contact}?perfil=professional`}
             class="inline-flex items-center gap-2 px-6 py-3 border-2 border-white/30 text-sm font-700 text-white hover:border-white transition-colors">
             {a.secondary_btn}
@@ -34,7 +39,7 @@ const a = t.pages.formacion.academy_cta;
       </div>
       <div class="aspect-video bg-white/10 overflow-hidden">
         <img
-          src="/images/learning-platform.jpg"
+          src="/images/learning-platform.webp"
           alt="Academia CNV Learning"
           class="w-full h-full object-cover"
           onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
@@ -42,7 +47,7 @@ const a = t.pages.formacion.academy_cta;
         <div class="hidden w-full h-full items-center justify-center text-white/30 text-sm font-600 text-center p-8">
           <div>
             <div class="text-4xl mb-4">🎓</div>
-            <div>learning-platform.jpg</div>
+            <div>learning-platform</div>
           </div>
         </div>
       </div>

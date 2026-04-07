@@ -175,13 +175,9 @@ export const en: Translations = {
     items: [
       { title: 'Clinical Model', body: 'Systematized structure to evaluate and interpret patient functional status.' },
       { title: 'BIS Technology', body: 'Bioelectrical Impedance Spectroscopy equipment (Biody) on loan. No capital investment required.' },
-      { title: 'Certification', body: 'Structured training and CNV certification endorsed by Universidad Autónoma de Coahuila (Mexico).' },
+      { title: 'Certification', body: 'Structured training and CNV certification endorsed by a national or international higher education institution.' },
       { title: 'Atlas Platform', body: 'Monitoring software, body result visualization and integrated patient management.' },
     ],
-  },
-
-  partners: {
-    tag: 'Institutional Partners'
   },
   
   final_cta: {
@@ -212,6 +208,8 @@ export const en: Translations = {
       message: 'Tell us more about your current practice',
       message_institution: 'Tell us about your organization',
       message_patient: 'What are you looking for?',
+      legal_consent: 'I give my prior, express, and informed authorization to CONNECTED NUTRITION VENTURES S.A.S. for the processing of my personal data in order to address my request and send me information related to its services, in accordance with its [Personal Data Processing Policy]. I declare that I know my rights as a data subject.',
+      legal_error: 'You must authorize the processing of personal data to continue.',
       submit: 'Submit application',
       sending: 'Sending...',
       response_time: '< 48h response',
@@ -234,6 +232,22 @@ export const en: Translations = {
     terms: 'Use Terms',
     cookies: 'Cookies Policy',
     copyright: '© 2026 Connected Nutrition Ventures. All rights reserved.',
+    coming_soon: 'Coming soon',
+  },
+
+  cookies_banner: {
+    text: 'This website uses necessary technical cookies for its operation and analytical cookies to improve the browsing experience. You can accept or reject analytical cookies.',
+    accept: 'Accept all',
+    reject: 'Reject analytics',
+    manage: 'Manage cookies'
+  },
+
+  // INTERFAZ LEGAL
+  legal_ui: {
+    last_updated: 'Last updated:',
+    expand_all: 'Expand all',
+    collapse_all: 'Collapse all',
+    download_pdf: 'Download PDF'
   },
 
   pages: {
@@ -247,15 +261,17 @@ export const en: Translations = {
         p2: 'An individual may not present visible clinical disease, yet still be in a state of functional dysfunction. This is the fundamental distinction:',
         quote: 'absence of disease ≠ optimal state of health',
       },
+
       the_gap: {
-        tag: 'The Critical Interval',
-        title: 'Functional Alterations Precede Structural Damage',
-        phases: [
-          { phase: 'Phase 1', title: 'Silent Functional Dysfunction', body: 'Cells stop responding optimally. There are no symptoms. There is no diagnosis. The system begins to lose adaptive capacity.', color: '#00a388' },
-          { phase: 'Phase 2', title: 'CNV Interval', body: 'This is where CNV operates. Dysfunction is measurable through bioelectric variables. Reversibility is high. Intervention is possible.', color: '#78be34' },
-          { phase: 'Phase 3', title: 'Visible Structural Damage', body: 'Conventional medicine acts here. Damage is already observable. Adaptive capacity has decreased. Reversibility is limited.', color: '#0a76a4' },
-        ]
-      },
+          tag: 'The Critical Gap',
+          title: 'Functional alterations precede structural damage',
+          phases: [
+            { phase: '01. Allostatic Load', title: 'The origin of imbalance', body: 'Lifestyle, diet, sleep habits, and substance use initiate silent pathophysiological processes in the body.', color: '#00a388' },
+            { phase: '02. Cellular Impact', title: 'Bioelectrical Alteration', body: 'Cellular function is compromised, drastically altering its natural capacity to conduct electricity and condense energy.', color: '#78be34' },
+            { phase: '03. The CNV Window', title: 'Detection before damage', body: 'We detect these functional deficiencies early, long before they affect body structure, which is where traditional medicine operates.', color: '#0a76a4' },
+          ]
+        },
+      
       bioelectric: {
         tag: 'Bioelectric Medicine',
         title: 'The Human Body is a Biophysical System Expressed Electrically',
@@ -320,7 +336,7 @@ export const en: Translations = {
         tag: 'Beyond traditional education',
         title: 'We do not just teach. We align and certify.',
         p1: 'CNV Learning prepares and aligns the people who operate the CNV ecosystem under the same conceptual, technical, and ethical framework. The goal is not just to transfer knowledge, but to guarantee that each model operator reproduces the scientific standards with precision.',
-        p2: 'The certification is officially endorsed by the <strong>Universidad Autónoma de Coahuila (Mexico)</strong>.',
+        p2: 'The certification is officially endorsed by a <strong>national or international higher education institution</strong>.',
         pillars: [
           { label: 'Technical training', desc: 'Bioelectric medicine and ANI-BIS-E model', color: '#0a76a4' },
           { label: 'Certification', desc: 'With official university endorsement', color: '#0a76a4' },
@@ -353,7 +369,7 @@ export const en: Translations = {
       hero_body: 'CNV Research ensures that the entire ecosystem operates under solid, coherent, and updated scientific evidence. Design, validation, and evolution of the ANI-BIS-E model.',
       mandate: {
         title: 'CNV Research defines what the model is, how it evolves, and under what rules it operates',
-        body: 'The scientific direction of the ecosystem is in charge of the <strong>Latin American Observatory of Bioimpedance (ObBIA-Latam)</strong>, which operates as the layer for analysis, validation, and knowledge production.',
+        body: 'The scientific direction of the ecosystem is led by a specialized team, operating through the <strong>Latin American Bioimpedance Observatory (ObBIA-Latam)</strong> as a platform for analysis, validation, and knowledge generation.',
         items: [
           { label: 'Design and validation', desc: 'Design, validation, and continuous evolution of the ANI-BIS-E scientific model based on real evidence.' },
           { label: 'Clinical research', desc: 'Clinical and applied research based on real data from the CNV ecosystem at the Latin American level.' },
@@ -433,7 +449,7 @@ export const en: Translations = {
       direction: {
         tag: 'Scientific direction',
         title: 'The science behind the system',
-        p1: 'The scientific direction of the ecosystem is led by the <strong>Latin American Observatory of Bioimpedance (ObBIA-Latam)</strong>, which operates as the layer for analysis, validation, and knowledge production.',
+        p1: 'The scientific direction of the ecosystem is led by a specialized team, operating through the <strong>Latin American Bioimpedance Observatory (ObBIA-Latam)</strong> as a platform for analysis, validation, and knowledge generation.',
         p2: 'ObBIA-Latam ensures that the ANI-BIS-E model remains at the forefront of scientific evidence in bioelectric medicine across Latin America.',
         btn_research: 'Discover CNV Research',
         btn_obbia: 'ObBIA-Latam'
