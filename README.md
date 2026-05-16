@@ -1,4 +1,4 @@
-# Connected Nutrition Ventures (CNV) — Plataforma Web principal y Ecosistema
+# Connected Nutrition Ventures (CNV) — Plataforma Web principal y Ecosistema de salud
 
 Repositorio oficial del sitio web principal y capa de presentación del ecosistema **Connected Nutrition Ventures (CNV)**. Este proyecto sirve como la puerta de entrada a la plataforma tecnológica ATLAS y al modelo de atención preventivo ANI-BIS-E.
 
