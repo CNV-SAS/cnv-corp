@@ -11,16 +11,29 @@ const t = getI18n(lang);
 const otherLang = lang === 'es' ? 'EN' : 'ES';
 const otherLangHref = getRouteInOtherLang(Astro.url);
 
-// Consumimos las rutas limpiamente desde el diccionario
+// Consumimos las rutas limpiamente desde el diccionario.
+// "Operación" tiene un submenú desplegable que incluye "Paradigma".
 const navLinks = [
-  { href: t.routes.paradigm, label: t.nav.paradigma },
-  { href: t.routes.care, label: t.nav.operacion },
+  { href: t.routes.about, label: t.nav.nosotros },
+  {
+    href: t.routes.care,
+    label: t.nav.operacion,
+    children: [
+      { href: t.routes.care, label: t.nav.operacion },
+      { href: t.routes.paradigm, label: t.nav.paradigma },
+    ],
+  },
   { href: t.routes.learning, label: t.nav.formacion },
   { href: t.routes.research, label: t.nav.investigacion },
-  { href: t.routes.about, label: t.nav.nosotros },
 ];
 
 const currentPath = Astro.url.pathname;
+
+// Una pestaña está "activa" si la ruta actual coincide con ella o con alguno de sus hijos.
+const isActive = (link: { href: string; children?: { href: string }[] }) => {
+  const paths = [link.href, ...(link.children?.map((c) => c.href) ?? [])];
+  return paths.some((p) => currentPath === p || currentPath === p + '/');
+};
 ---
 
 <header
@@ -47,16 +60,48 @@ const currentPath = Astro.url.pathname;
 
       <div class="hidden lg:flex items-center gap-8">
         {navLinks.map((link) => (
-          <a
-            href={link.href}
-            class={`text-sm font-600 tracking-wide transition-colors duration-200 nav-link ${
-              currentPath === link.href || currentPath === link.href + '/'
-                ? 'text-cnv-execute'
-                : 'text-cnv-core hover:text-cnv-execute'
-            }`}
-          >
-            {link.label}
-          </a>
+          link.children ? (
+            <div class="relative group">
+              <a
+                href={link.href}
+                class={`text-sm font-600 tracking-wide transition-colors duration-200 nav-link flex items-center gap-1.5 ${
+                  isActive(link) ? 'text-cnv-execute' : 'text-cnv-core hover:text-cnv-execute'
+                }`}
+              >
+                {link.label}
+                <svg width="10" height="10" viewBox="0 0 10 10" fill="none" class="transition-transform duration-200 group-hover:rotate-180">
+                  <path d="M2 3.5L5 6.5L8 3.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </a>
+              <div class="absolute top-full left-0 pt-3 hidden group-hover:block focus-within:block">
+                <div class="bg-white rounded-xl shadow-xl border border-slate-100/80 py-2 min-w-[200px]">
+                  {link.children.map((child) => (
+                    <a
+                      href={child.href}
+                      class={`block px-5 py-2.5 text-sm font-600 tracking-wide transition-colors ${
+                        currentPath === child.href || currentPath === child.href + '/'
+                          ? 'text-cnv-execute'
+                          : 'text-cnv-core hover:text-cnv-execute hover:bg-slate-50'
+                      }`}
+                    >
+                      {child.label}
+                    </a>
+                  ))}
+                </div>
+              </div>
+            </div>
+          ) : (
+            <a
+              href={link.href}
+              class={`text-sm font-600 tracking-wide transition-colors duration-200 nav-link ${
+                currentPath === link.href || currentPath === link.href + '/'
+                  ? 'text-cnv-execute'
+                  : 'text-cnv-core hover:text-cnv-execute'
+              }`}
+            >
+              {link.label}
+            </a>
+          )
         ))}
       </div>
 
@@ -96,12 +141,33 @@ const currentPath = Astro.url.pathname;
   >
     <div class="max-w-7xl mx-auto px-6 py-8 flex flex-col gap-6">
       {navLinks.map((link) => (
-        <a
-          href={link.href}
-          class="text-base font-600 text-cnv-core hover:text-cnv-execute transition-colors"
-        >
-          {link.label}
-        </a>
+        link.children ? (
+          <div class="flex flex-col gap-4">
+            <a
+              href={link.href}
+              class="text-base font-600 text-cnv-core hover:text-cnv-execute transition-colors"
+            >
+              {link.label}
+            </a>
+            <div class="flex flex-col gap-4 pl-4 border-l border-slate-100">
+              {link.children.filter((child) => child.href !== link.href).map((child) => (
+                <a
+                  href={child.href}
+                  class="text-sm font-600 text-cnv-core/80 hover:text-cnv-execute transition-colors"
+                >
+                  {child.label}
+                </a>
+              ))}
+            </div>
+          </div>
+        ) : (
+          <a
+            href={link.href}
+            class="text-base font-600 text-cnv-core hover:text-cnv-execute transition-colors"
+          >
+            {link.label}
+          </a>
+        )
       ))}
       <div class="pt-4 border-t border-slate-100 flex flex-col gap-4">
         <a
