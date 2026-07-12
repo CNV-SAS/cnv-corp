@@ -11,6 +11,8 @@ export const en: Translations = {
     research: '/en/research',
     about: '/en/about',
     contact: '/en/contact',
+    integrantes: '/integrantes',
+    noticias: '/noticias',
     privacy: '/en/privacy-policy',
     terms: '/en/legal-notice',
     cookies: '/en/cookies-policy',
@@ -39,11 +41,14 @@ export const en: Translations = {
 
   nav: {
     paradigma: 'Paradigm',
-    operacion: 'Care',
-    formacion: 'Learning',
-    investigacion: 'Research',
+    operacion: 'CNV Care',
+    formacion: 'CNV Learning',
+    investigacion: 'CNV Research',
+    noticias: 'News',
     nosotros: 'About',
-    cta: 'Join CNV Network',
+    cta: 'Contact us',
+    integrantes: 'Members',
+    contacto: 'Contact',
     switch_lang: 'Ver en Español',
   },
 
@@ -51,7 +56,7 @@ export const en: Translations = {
     tag: 'New Health Paradigm',
     title: 'Revolutionizing how health is measured worldwide',
     subtitle: 'What if we could prevent disease before it becomes visible?',
-    cta_primary: 'Join CNV Network',
+    cta_primary: 'Contact us',
     cta_secondary: 'See how it works',
   },
 
@@ -190,16 +195,31 @@ export const en: Translations = {
 
   contact: {
     tag: 'Contact',
-    title: 'Be part of CNV',
-    subtitle: 'Tell us about your profile. We respond in less than 48 hours.',
+    title: "Let's talk",
+    subtitle: 'Write to us about any topic. Tell us who you are so we can route your message to the right person. We respond in less than 48 hours.',
     quick_links: [
       { id: 'care', title: 'CNV Care', desc: 'Implementation of the ANI-BIS-E model with professionals and institutions', color: '#2563eb', color_class: 'cnv-execute' },
       { id: 'learning', title: 'CNV Learning', desc: 'Training, diploma, and certification for model operators', color: '#0a76a4', color_class: 'cnv-transfer' },
       { id: 'research', title: 'CNV Research', desc: 'Science, research, and evolution of the model', color: '#00a388', color_class: 'cnv-generate' }
     ],
+    info: {
+      heading: 'Contact information',
+      email_label: 'Email',
+      email: 'contacto@cnvsystem.com',
+      whatsapp_label: 'WhatsApp',
+      whatsapp: '+57 300 000 0000',
+      whatsapp_link: 'https://wa.me/573000000000',
+      address_label: 'Address',
+      address: 'Medellín, Colombia',
+      hours_label: 'Business hours',
+      hours: 'Monday to Friday, 8:00 a.m. – 6:00 p.m. (COT)',
+      social_label: 'Follow us',
+      linkedin_label: 'LinkedIn',
+      linkedin: 'https://www.linkedin.com/',
+    },
     form: {
-      profile_label: 'You are',
-      profile_options: ['Health professional', 'Institution', 'Patient / Seeking care'],
+      profile_label: 'Who are you?',
+      profile_options: ['Health professional', 'Institution / University', 'Patient', 'Other topic'],
       name: 'Full name',
       email: 'Email address',
       profession: 'Profession / Specialty',

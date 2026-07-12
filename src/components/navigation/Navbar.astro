@@ -12,19 +12,13 @@ const otherLang = lang === 'es' ? 'EN' : 'ES';
 const otherLangHref = getRouteInOtherLang(Astro.url);
 
 // Consumimos las rutas limpiamente desde el diccionario.
-// "Operación" tiene un submenú desplegable que incluye "Paradigma".
+// (Paradigma quedó integrado dentro de la página de CNV Care, por eso ya no va en el menú.)
 const navLinks = [
   { href: t.routes.about, label: t.nav.nosotros },
-  {
-    href: t.routes.care,
-    label: t.nav.operacion,
-    children: [
-      { href: t.routes.care, label: t.nav.operacion },
-      { href: t.routes.paradigm, label: t.nav.paradigma },
-    ],
-  },
+  { href: t.routes.care, label: t.nav.operacion },
   { href: t.routes.learning, label: t.nav.formacion },
   { href: t.routes.research, label: t.nav.investigacion },
+  { href: t.routes.noticias, label: t.nav.noticias },
 ];
 
 const currentPath = Astro.url.pathname;
@@ -114,9 +108,15 @@ const isActive = (link: { href: string; children?: { href: string }[] }) => {
         </a>
         <a
           href={t.routes.contact}
+          class="text-sm font-600 tracking-wide text-cnv-core hover:text-cnv-execute transition-colors"
+        >
+          {t.nav.contacto}
+        </a>
+        <a
+          href={t.routes.integrantes}
           class="btn-primary text-xs py-2.5 px-5"
         >
-          {t.nav.cta}
+          {t.nav.integrantes}
           <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
             <path d="M1 7h12M8 2l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
@@ -171,10 +171,16 @@ const isActive = (link: { href: string; children?: { href: string }[] }) => {
       ))}
       <div class="pt-4 border-t border-slate-100 flex flex-col gap-4">
         <a
-          href={t.routes.contact}
+          href={t.routes.integrantes}
           class="btn-primary text-sm justify-center"
         >
-          {t.nav.cta}
+          {t.nav.integrantes}
+        </a>
+        <a
+          href={t.routes.contact}
+          class="text-sm font-600 text-center text-cnv-core hover:text-cnv-execute transition-colors"
+        >
+          {t.nav.contacto}
         </a>
         <a
           href={otherLangHref}

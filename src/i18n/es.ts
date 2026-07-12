@@ -9,6 +9,8 @@ export const es = {
     research: '/investigacion',
     about: '/nosotros',
     contact: '/contacto',
+    integrantes: '/integrantes',
+    noticias: '/noticias',
     privacy: '/politica-privacidad',
     terms: '/aviso-legal',
     cookies: '/politica-cookies',
@@ -38,11 +40,14 @@ export const es = {
   // NAV
   nav: {
     paradigma: 'Paradigma',
-    operacion: 'Operación',
-    formacion: 'Formación',
-    investigacion: 'Investigación',
+    operacion: 'CNV Care',
+    formacion: 'CNV Learning',
+    investigacion: 'CNV Research',
+    noticias: 'Noticias',
     nosotros: 'Nosotros',
-    cta: 'Ser parte de CNV',
+    cta: 'Contáctanos',
+    integrantes: 'Integrantes',
+    contacto: 'Contáctanos',
     switch_lang: 'View in English',
   },
 
@@ -51,7 +56,7 @@ export const es = {
     tag: 'Nuevo Paradigma en Salud',
     title: 'Revolucionamos la forma en que se mide la salud en el mundo',
     subtitle: '¿Y si pudiéramos prevenir enfermedades antes de que se hagan visibles?',
-    cta_primary: 'Ser parte de CNV',
+    cta_primary: 'Contáctanos',
     cta_secondary: 'Ver cómo funciona',
   },
 
@@ -198,16 +203,31 @@ export const es = {
   // CONTACT FORM
   contact: {
     tag: 'Contacto',
-    title: 'Ser parte de CNV',
-    subtitle: 'Cuéntanos tu perfil. Respondemos en menos de 48 horas.',
+    title: 'Hablemos',
+    subtitle: 'Escríbenos sobre cualquier tema. Cuéntanos quién eres para orientar tu mensaje a la persona indicada. Respondemos en menos de 48 horas.',
     quick_links: [
       { id: 'care', title: 'CNV Care', desc: 'Implementación del modelo ANI-BIS-E con profesionales e instituciones', color: '#2563eb', color_class: 'cnv-execute' },
       { id: 'learning', title: 'CNV Learning', desc: 'Formación, diplomado y certificación para operadores del modelo', color: '#0a76a4', color_class: 'cnv-transfer' },
       { id: 'research', title: 'CNV Research', desc: 'Ciencia, investigación y evolución del modelo', color: '#00a388', color_class: 'cnv-generate' }
     ],
+    info: {
+      heading: 'Información de contacto',
+      email_label: 'Correo',
+      email: 'contacto@cnvsystem.com',
+      whatsapp_label: 'WhatsApp',
+      whatsapp: '+57 300 000 0000',
+      whatsapp_link: 'https://wa.me/573000000000',
+      address_label: 'Dirección',
+      address: 'Medellín, Colombia',
+      hours_label: 'Horario de atención',
+      hours: 'Lunes a viernes, 8:00 a. m. – 6:00 p. m. (COT)',
+      social_label: 'Síguenos',
+      linkedin_label: 'LinkedIn',
+      linkedin: 'https://www.linkedin.com/',
+    },
     form: {
-      profile_label: 'Eres',
-      profile_options: ['Profesional de salud', 'Institución', 'Paciente / Busco atención'],
+      profile_label: '¿Quién eres?',
+      profile_options: ['Profesional de la salud', 'Institución / Universidad', 'Paciente', 'Otro tema'],
       name: 'Nombre completo',
       email: 'Correo electrónico',
       profession: 'Profesión / especialidad',

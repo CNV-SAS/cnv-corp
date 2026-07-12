@@ -1,13 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { getI18n } from '../i18n';
-
-// Componentes modulares
-import OperationHero from '../components/pages/care/OperationHero.astro';
-import OperationRole from '../components/pages/care/OperationRole.astro';
-import ClinicalPhases from '../components/pages/care/ClinicalPhases.astro';
-import AtlasPlatform from '../components/pages/care/AtlasPlatform.astro';
-import ExclusivityAndProcess from '../components/pages/care/ExclusivityAndProcess.astro';
+import ModeloAniBisE from '../components/cnvcare/ModeloAniBisE.tsx';
 
 const lang = Astro.currentLocale || 'es';
 const t = getI18n(lang);
@@ -16,11 +10,417 @@ const p = t.pages.operacion;
 
 <BaseLayout
   title={`${p.title} — Connected Nutrition Ventures`}
-  description={p.hero_body}
+  description="CNV Care habilita al profesional de la salud para aplicar el modelo ANI BIS-E en su consulta, con tecnología, nutracéuticos VITACELLEBIS y ciencia integrados."
 >
-  <OperationHero />
-  <OperationRole />
-  <ClinicalPhases />
-  <AtlasPlatform />
-  <ExclusivityAndProcess />
+  <Fragment slot="head">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500;600&family=Poppins:wght@600;700;800&display=swap"
+      rel="stylesheet"
+    />
+  </Fragment>
+
+  <div class="cnvcare-root">
+
+    <!-- HERO -->
+    <header class="hero">
+      <div class="wrap">
+        <div class="kicker">CNV Care</div>
+        <h1>El sistema que opera el modelo en la consulta real.</h1>
+        <p>CNV Care habilita al profesional de la salud con todo lo necesario para aplicar el Modelo de Atención en Salud, Alimentación y Nutrición Informado, basado en Bioimpedancia Espectroscópica y Epigenética (ANI BIS-E) en su consulta externa, con tecnología, nutracéuticos y ciencia integrados.</p>
+      </div>
+      <div class="hero-deco" aria-hidden="true">C</div>
+    </header>
+
+    <!-- CÓMO FUNCIONA -->
+    <section class="how">
+      <div class="wrap">
+        <div class="kicker">Cómo funciona</div>
+        <h2>Un ecosistema que se activa con cada consulta.</h2>
+        <div class="how-grid">
+          <div class="how-card">
+            <div class="num">01</div>
+            <h3>El profesional aplica el modelo</h3>
+            <p>Con el BiodyXpert ZM3 en comodato, el software ATLAS y las apps BiodyConnect y Atlas Patients, el integrante ejecuta el modelo ANI BIS-E completo desde la primera consulta.</p>
+          </div>
+          <div class="how-card">
+            <div class="num">02</div>
+            <h3>Los datos generan ciencia</h3>
+            <p>Cada evaluación alimenta la cohorte OB BIA LATAM en CNV Research. El profesional no solo atiende pacientes; construye evidencia latinoamericana propia.</p>
+          </div>
+          <div class="how-card">
+            <div class="num">03</div>
+            <h3>La intervención cierra el ciclo</h3>
+            <p>La prescripción nutracéutica VITACELLEBIS, formulada para corregir las propiedades bioeléctricas alteradas, convierte el diagnóstico bioeléctrico en intervención concreta y medible.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TABS -->
+    <div class="tabs-wrap">
+      <div class="wrap">
+        <button class="tab-btn on" data-tab="modelo">El modelo ANI BIS-E</button>
+        <button class="tab-btn" data-tab="integrantes">Red de integrantes</button>
+        <button class="tab-btn" data-tab="vitacellebis">VITACELLEBIS</button>
+        <button class="tab-btn" data-tab="atlas">ATLAS</button>
+      </div>
+    </div>
+
+    <!-- TAB: MODELO (módulo interactivo ANI BIS-E, SVG dibujado desde datos) -->
+    <div class="tab-panel on" id="tab-modelo">
+      <ModeloAniBisE client:load />
+    </div>
+
+    <!-- TAB: RED DE INTEGRANTES -->
+    <div class="tab-panel" id="tab-integrantes">
+      <div class="wrap">
+        <div class="kicker">Tres filtros</div>
+        <h2>CNV selecciona a sus integrantes.</h2>
+        <p class="lead">No es una puerta abierta. El proceso de vinculación tiene tres filtros en secuencia. Solo quien los supera todos opera el modelo.</p>
+        <div class="filtros" id="filtrosGrid"></div>
+
+        <div style="margin-top:72px">
+          <div class="kicker">Lo que recibe el integrante</div>
+          <h2 style="margin-top:14px">Un ecosistema completo desde el primer día.</h2>
+          <div class="entrega-grid" id="entregaGrid"></div>
+        </div>
+
+        <div style="margin-top:72px">
+          <div class="kicker">Compromisos mutuos</div>
+          <h2 style="margin-top:14px">Derechos y obligaciones.</h2>
+          <div class="obligaciones" id="obligGrid"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB: VITACELLEBIS -->
+    <div class="tab-panel" id="tab-vitacellebis">
+      <div class="wrap">
+        <div class="kicker">Nutracéuticos propios</div>
+        <h2>VITACELLEBIS: la única línea con diagnóstico bioeléctrico propio.</h2>
+        <p class="lead">10 productos formulados para corregir las propiedades bioeléctricas alteradas identificadas en los 81 estados de la Diana EFR. Bajo normativa INVIMA, Decreto 3249/2006.</p>
+        <div class="vit-grid" id="vitGrid"></div>
+        <div class="vit-detail" id="vitDetail"></div>
+      </div>
+    </div>
+
+    <!-- TAB: ATLAS -->
+    <div class="tab-panel" id="tab-atlas">
+      <div class="wrap">
+        <div class="atlas-hero">
+          <div class="kicker" style="color:var(--accent)">Software del ecosistema</div>
+          <h3>ATLAS v7: el motor que conecta la consulta con la ciencia.</h3>
+          <p>ATLAS modela y conecta todo el ecosistema CNV: desde la encuesta inicial hasta el reporte de historia clínica, con trazabilidad completa hacia la cohorte OB BIA LATAM.</p>
+          <div class="modulos-atlas" id="modulosAtlas"></div>
+          <div class="atlas-deco" aria-hidden="true">A7</div>
+        </div>
+        <div style="margin-top:48px">
+          <div class="kicker">Modos de acceso</div>
+          <h2 style="margin-top:14px">Tres formas de operar el sistema.</h2>
+          <div class="atlas-accesos" id="atlasAccesos"></div>
+        </div>
+        <div style="margin-top:48px">
+          <div class="kicker">Aplicaciones móviles</div>
+          <h2 style="margin-top:14px">El sistema en el bolsillo del profesional y del paciente.</h2>
+          <div class="apps-row">
+            <a href="#" class="app-badge">BiodyConnect &rarr;</a>
+            <a href="#" class="app-badge">Atlas Patients &rarr;</a>
+          </div>
+          <p style="font-size:13.5px;color:var(--muted);margin-top:14px">Las dos apps se entregan en consignación junto con el equipo y los software.</p>
+        </div>
+      </div>
+    </div>
+
+    <p class="cc-copy">Indicadores ANI BIS-E &copy; Gildardo de Jesús Uribe Gil, 2026</p>
+
+    <!-- LIGHTBOX (modelo de imagenes igual que Nosotros) -->
+    <div class="cc-lb" id="ccLb" role="dialog" aria-modal="true">
+      <button class="cc-cls" id="ccLbClose" aria-label="Cerrar">&times;</button>
+      <img id="ccLbImg" src="" alt="" />
+      <div class="cc-cap" id="ccLbCap"></div>
+    </div>
+
+  </div>
+
+  <style is:global>
+    /* Estilos confinados a .cnvcare-root para NO afectar la barra ni el footer globales.
+       is:global porque tarjetas, filtros y productos se generan por JS en runtime. */
+    .cnvcare-root{
+      --navy:#16324F;--teal:#147F76;--gold:#C9A02C;--green:#5E9B3F;--burgundy:#7C2E50;
+      --accent:#C9A961;--ink:#1A2B3C;--muted:#5B6B7A;
+      --bg:#FFFFFF;--soft:#F6F4EF;--line:#E4DECF;
+      --display:'Spectral',Georgia,serif;
+      --body:'Inter',system-ui,sans-serif;
+      --mono:'IBM Plex Mono',monospace;
+      font-family:var(--body);color:var(--ink);background:var(--bg);line-height:1.6;-webkit-font-smoothing:antialiased;
+    }
+    .cnvcare-root a{color:inherit;text-decoration:none}
+    .cnvcare-root img{max-width:100%;display:block}
+    .cnvcare-root .wrap{max-width:1120px;margin:0 auto;padding:0 24px}
+    .cnvcare-root h2{font-family:var(--display);font-weight:700;font-size:clamp(26px,4vw,42px);color:var(--navy);line-height:1.12;margin:14px 0 0}
+    .cnvcare-root .lead{font-size:18px;color:var(--muted);max-width:640px;margin-top:16px}
+    .cnvcare-root .kicker{font-family:var(--mono);font-size:12px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:var(--accent)}
+    .cnvcare-root .kicker::before{content:"";display:inline-block;width:26px;height:1px;background:var(--accent);vertical-align:middle;margin-right:10px;transform:translateY(-3px)}
+
+    /* HERO */
+    .cnvcare-root .hero{background:var(--navy);color:#fff;padding:96px 0 84px;position:relative;overflow:hidden}
+    .cnvcare-root .hero .kicker{color:var(--accent)}
+    .cnvcare-root .hero h1{font-family:var(--display);font-weight:700;font-size:clamp(32px,5.5vw,60px);line-height:1.06;margin:18px 0 0;max-width:18ch}
+    .cnvcare-root .hero p{font-size:clamp(16px,2vw,20px);color:#cfdae6;max-width:660px;margin-top:24px}
+    .cnvcare-root .hero-deco{position:absolute;right:-40px;top:50%;transform:translateY(-50%);opacity:.06;font-family:var(--mono);font-size:220px;font-weight:600;color:#fff;pointer-events:none;user-select:none}
+
+    /* COMO FUNCIONA */
+    .cnvcare-root .how{padding:80px 0}
+    .cnvcare-root .how-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:44px}
+    @media(max-width:820px){.cnvcare-root .how-grid{grid-template-columns:1fr}}
+    .cnvcare-root .how-card{background:var(--soft);border:1px solid var(--line);border-radius:14px;padding:30px}
+    .cnvcare-root .how-card .num{font-family:var(--mono);font-size:36px;font-weight:600;color:var(--line);line-height:1;margin-bottom:14px}
+    .cnvcare-root .how-card h3{font-family:var(--display);font-size:20px;color:var(--navy);margin-bottom:10px}
+    .cnvcare-root .how-card p{font-size:15px;color:var(--muted)}
+
+    /* TABS */
+    .cnvcare-root .tabs-wrap{border-bottom:2px solid var(--line);background:#fff;padding:0 24px;position:relative;z-index:1}
+    .cnvcare-root .tabs-wrap .wrap{display:flex;gap:0;overflow-x:auto}
+    .cnvcare-root .tab-btn{font-family:var(--mono);font-size:12px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--muted);background:none;border:none;padding:20px 24px;cursor:pointer;border-bottom:3px solid transparent;margin-bottom:-2px;transition:color .2s;white-space:nowrap}
+    .cnvcare-root .tab-btn:hover{color:var(--navy)}
+    .cnvcare-root .tab-btn.on{color:var(--teal);border-bottom-color:var(--teal)}
+    .cnvcare-root .tab-panel{display:none}
+    .cnvcare-root .tab-panel.on{display:block;padding:24px 0 40px}
+    .cnvcare-root #tab-integrantes.on,.cnvcare-root #tab-vitacellebis.on,.cnvcare-root #tab-atlas.on{padding:72px 0}
+
+    /* RED DE INTEGRANTES */
+    .cnvcare-root .filtros{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:48px}
+    @media(max-width:820px){.cnvcare-root .filtros{grid-template-columns:1fr}}
+    .cnvcare-root .filtro{background:var(--soft);border:1px solid var(--line);border-radius:14px;padding:28px;position:relative}
+    .cnvcare-root .filtro .fn{position:absolute;top:-16px;left:24px;width:34px;height:34px;border-radius:50%;background:var(--navy);color:#fff;font-family:var(--mono);font-weight:700;font-size:16px;display:grid;place-items:center}
+    .cnvcare-root .filtro h3{font-family:var(--display);font-size:20px;color:var(--navy);margin:12px 0 10px}
+    .cnvcare-root .filtro p{font-size:15px;color:var(--muted)}
+    .cnvcare-root .filtro ul{margin-top:12px;padding-left:18px}
+    .cnvcare-root .filtro ul li{font-size:14px;color:var(--muted);margin-bottom:6px}
+    .cnvcare-root .entrega-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:48px}
+    @media(max-width:600px){.cnvcare-root .entrega-grid{grid-template-columns:1fr}}
+    .cnvcare-root .entrega-card{background:#fff;border:1px solid var(--line);border-radius:12px;padding:22px;display:flex;gap:16px;align-items:flex-start;transition:box-shadow .2s}
+    .cnvcare-root .entrega-card:hover{box-shadow:0 8px 24px rgba(22,50,79,.07)}
+    .cnvcare-root .entrega-ico{font-size:28px;flex:0 0 auto}
+    .cnvcare-root .entrega-card h4{font-family:var(--display);font-size:17px;color:var(--navy);margin-bottom:6px}
+    .cnvcare-root .entrega-card p{font-size:14px;color:var(--muted)}
+    .cnvcare-root .obligaciones{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:48px}
+    @media(max-width:700px){.cnvcare-root .obligaciones{grid-template-columns:1fr}}
+    .cnvcare-root .obli-box{background:var(--soft);border:1px solid var(--line);border-radius:14px;padding:26px}
+    .cnvcare-root .obli-box h3{font-family:var(--display);font-size:20px;color:var(--navy);margin-bottom:16px}
+    .cnvcare-root .obli-box ul{list-style:none;display:flex;flex-direction:column;gap:10px}
+    .cnvcare-root .obli-box ul li{font-size:14.5px;color:var(--muted);padding-left:20px;position:relative}
+    .cnvcare-root .obli-box ul li::before{content:"→";position:absolute;left:0;color:var(--teal);font-weight:600}
+
+    /* VITACELLEBIS */
+    .cnvcare-root .vit-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:16px;margin-top:48px}
+    @media(max-width:1000px){.cnvcare-root .vit-grid{grid-template-columns:repeat(3,1fr)}}
+    @media(max-width:600px){.cnvcare-root .vit-grid{grid-template-columns:repeat(2,1fr)}}
+    .cnvcare-root .vit-card{background:var(--soft);border:1px solid var(--line);border-radius:12px;overflow:hidden;cursor:pointer;transition:transform .2s,box-shadow .2s}
+    .cnvcare-root .vit-card:hover{transform:translateY(-3px);box-shadow:0 10px 28px rgba(22,50,79,.1)}
+    .cnvcare-root .vit-card.sel{border-color:var(--teal);box-shadow:0 0 0 2px var(--teal)}
+    .cnvcare-root .vit-img{position:relative;aspect-ratio:1;background:linear-gradient(135deg,#e8f4f1,#cfe8e5);display:flex;align-items:center;justify-content:center}
+    .cnvcare-root .vit-emoji{font-size:34px}
+    .cnvcare-root .vit-img img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+    .cnvcare-root .vit-body{padding:14px}
+    .cnvcare-root .vit-body .vn{font-family:var(--mono);font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--accent);font-weight:600}
+    .cnvcare-root .vit-body h4{font-family:var(--display);font-size:14px;color:var(--navy);margin-top:4px;line-height:1.2}
+    .cnvcare-root .vit-detail{margin-top:28px;background:#fff;border:1px solid var(--line);border-radius:14px;padding:32px;display:none}
+    .cnvcare-root .vit-detail.on{display:grid;grid-template-columns:280px 1fr;gap:32px}
+    @media(max-width:700px){.cnvcare-root .vit-detail.on{grid-template-columns:1fr}}
+    .cnvcare-root .vit-detail h3{font-family:var(--display);font-size:24px;color:var(--navy);grid-column:1/-1;margin-bottom:0}
+    .cnvcare-root .vit-detail .vtag{font-family:var(--mono);font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--teal);font-weight:600;grid-column:1/-1;margin-bottom:-16px}
+    .cnvcare-root .vit-cover{position:relative;aspect-ratio:1;border-radius:12px;overflow:hidden;background:linear-gradient(135deg,#e8f4f1,#cfe8e5);display:flex;align-items:center;justify-content:center}
+    .cnvcare-root .vit-cover .vit-emoji{font-size:64px}
+    .cnvcare-root .vit-cover img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+    .cnvcare-root .vit-desc{font-size:14px;color:var(--muted);line-height:1.6;margin-top:14px}
+    .cnvcare-root .vit-row{display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--line);font-size:14px}
+    .cnvcare-root .vit-row:last-of-type{border-bottom:none}
+    .cnvcare-root .vit-row .rl{color:var(--muted)}
+    .cnvcare-root .vit-row .rv{color:var(--ink);font-weight:600;text-align:right}
+    .cnvcare-root .invima-badge{display:inline-block;background:#fdf6e3;color:#8a6800;font-family:var(--mono);font-size:11px;font-weight:600;padding:4px 12px;border-radius:20px;margin-top:8px}
+
+    /* ATLAS */
+    .cnvcare-root .atlas-hero{background:var(--navy);border-radius:16px;padding:48px;color:#fff;margin-top:48px;position:relative;overflow:hidden}
+    .cnvcare-root .atlas-hero h3{font-family:var(--display);font-size:clamp(24px,4vw,38px);line-height:1.1;max-width:14ch}
+    .cnvcare-root .atlas-hero p{color:#cfdae6;font-size:17px;max-width:560px;margin-top:16px}
+    .cnvcare-root .atlas-deco{position:absolute;right:32px;bottom:-20px;font-family:var(--mono);font-size:120px;font-weight:700;color:rgba(255,255,255,.06);pointer-events:none}
+    .cnvcare-root .modulos-atlas{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin-top:32px}
+    @media(max-width:900px){.cnvcare-root .modulos-atlas{grid-template-columns:repeat(3,1fr)}}
+    @media(max-width:500px){.cnvcare-root .modulos-atlas{grid-template-columns:1fr}}
+    .cnvcare-root .mod-atlas{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);border-radius:12px;padding:20px;text-align:center;transition:background .2s}
+    .cnvcare-root .mod-atlas:hover{background:rgba(255,255,255,.14)}
+    .cnvcare-root .mod-atlas .mn{font-family:var(--mono);font-size:11px;letter-spacing:2px;color:var(--accent);text-transform:uppercase;font-weight:600}
+    .cnvcare-root .mod-atlas h4{font-family:var(--display);font-size:15px;color:#fff;margin-top:8px;line-height:1.2}
+    .cnvcare-root .atlas-accesos{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:48px}
+    @media(max-width:820px){.cnvcare-root .atlas-accesos{grid-template-columns:1fr}}
+    .cnvcare-root .acceso{background:var(--soft);border:1px solid var(--line);border-radius:14px;padding:28px}
+    .cnvcare-root .acceso .ico{font-size:32px;margin-bottom:14px}
+    .cnvcare-root .acceso h3{font-family:var(--display);font-size:19px;color:var(--navy);margin-bottom:10px}
+    .cnvcare-root .acceso p{font-size:14.5px;color:var(--muted)}
+    .cnvcare-root .apps-row{display:flex;gap:14px;margin-top:32px;flex-wrap:wrap}
+    .cnvcare-root .app-badge{background:var(--navy);color:#fff;font-size:13px;font-weight:600;padding:10px 18px;border-radius:8px;display:inline-block;transition:background .2s}
+    .cnvcare-root .app-badge:hover{background:#0e2237}
+
+    .cnvcare-root .cc-copy{text-align:center;font-family:var(--mono);font-size:12px;letter-spacing:.5px;color:var(--muted);padding:36px 24px 10px}
+
+    /* LIGHTBOX */
+    .cnvcare-root .cc-lb{position:fixed;inset:0;background:rgba(10,20,30,.92);display:none;align-items:center;justify-content:center;z-index:300;padding:32px}
+    .cnvcare-root .cc-lb.open{display:flex}
+    .cnvcare-root .cc-lb img{max-width:90vw;max-height:84vh;border-radius:10px;box-shadow:0 30px 80px rgba(0,0,0,.6)}
+    .cnvcare-root .cc-cls{position:absolute;top:24px;right:30px;color:#fff;font-size:34px;cursor:pointer;line-height:1;background:none;border:none}
+    .cnvcare-root .cc-cap{position:absolute;bottom:26px;left:0;right:0;text-align:center;color:#cfdae6;font-family:var(--mono);font-size:13px;letter-spacing:1px}
+
+    .cnvcare-root :focus-visible{outline:3px solid var(--teal);outline-offset:2px;border-radius:4px}
+    @media(prefers-reduced-motion:reduce){.cnvcare-root *{animation:none!important;transition:none!important}}
+  </style>
+
+  <script is:inline>
+  /* ====================== DATOS ====================== */
+  const FILTROS = [
+    { t:"Selección de perfil", d:"La Dirección Comercial evalúa cada candidato.", items:[
+      "Profesionales de la salud con título universitario reconocido",
+      "Especialidades: médicos, nutricionistas, nutriólogos, endocrinos, psicólogos, entrenadores, médicos deportólogos",
+      "Consulta externa privada activa (particular o en consultorios compartidos)",
+      "Mínimo 12 consultas diarias",
+      "Solo sector privado en esta etapa" ] },
+    { t:"Formación", d:"Aprobar el diplomado antes de operar el modelo.", items:[
+      "Diplomado en Medicina Bioeléctrica y Sistema ANI BIS-E",
+      "120 horas cronológicas, virtual sincrónico",
+      "Calificación mínima de aprobación: 80%",
+      "Certificación CNV + Universidad de Coahuila, México" ] },
+    { t:"Firma del contrato", d:"La firma activa derechos y obligaciones.", items:[
+      "Contrato de integrante CNV",
+      "Contrato de comodato del BiodyXpert ZM3",
+      "Acuerdo de consignación de nutracéuticos VITACELLEBIS",
+      "Consentimiento para cesión de datos de la cohorte OB BIA LATAM" ] }
+  ];
+
+  const ENTREGAS = [
+    { ico:"🔬", t:"BiodyXpert ZM3 en comodato", d:"Dispositivo BIS verdadero, 1-1000 kHz, modelo Cole-Cole completo. Nuevo o en perfecto estado, calibrado y verificado." },
+    { ico:"💻", t:"Software en consignación", d:"Biody Manager y ATLAS v7. Acceso completo desde el primer día de operación." },
+    { ico:"📱", t:"Dos apps", d:"BiodyConnect y Atlas Patients. Extensión móvil del sistema para el profesional y para el paciente." },
+    { ico:"💊", t:"VITACELLEBIS en consignación", d:"10 nutracéuticos propios. Reposición semanal. Control de vencimientos a cargo de CNV." },
+    { ico:"🎓", t:"Diplomado incluido", d:"Acceso al diplomado en Medicina Bioeléctrica a precio de integrante (USD $119)." },
+    { ico:"🔬", t:"Red científica", d:"Membresía en el grupo de investigación OB BIA LATAM y coautoría en publicaciones que usen los datos recolectados." }
+  ];
+
+  const OBLIGACIONES = [
+    { t:"El integrante se compromete a:", items:[
+      "Cuidar el BiodyXpert ZM3 y devolverlo en menos de 5 días si CNV lo solicita",
+      "Pagar el dispositivo si se daña por descuido",
+      "Aplicar el modelo ANI BIS-E completo en cada consulta",
+      "Hacer que cada paciente firme el consentimiento informado y diligencie la encuesta completa",
+      "Ceder los datos capturados por el dispositivo y recolectados en Biody Manager y ATLAS",
+      "Mantener los nutracéuticos VITACELLEBIS disponibles para sus pacientes" ] },
+    { t:"CNV se compromete a:", items:[
+      "Entregar el dispositivo nuevo o en perfecto estado, calibrado",
+      "Reemplazar el dispositivo sin costo si falla en los primeros 7 días",
+      "Proveer soporte técnico remoto y presencial permanente",
+      "Reponer los nutracéuticos en consignación dentro de 5 días hábiles",
+      "Reconocer hasta el 20% sobre los nutracéuticos colocados en pacientes",
+      "Incluir al integrante como coinvestigador en publicaciones de la cohorte" ] }
+  ];
+
+  const PRODUCTOS = [
+    { ico:"🐟", n:"OMEGA COMPLEX", eje:"Antiinflamatorio / Cardioprotector", forma:"Cápsulas blandas", diana:"55/81 estados", invima:"Registro en trámite" },
+    { ico:"🌿", n:"BERBERINA METABO", eje:"Metabolismo glucosa-insulina", forma:"Tabletas recubiertas", diana:"22/81 estados", invima:"Registro en trámite" },
+    { ico:"🟡", n:"CURCUMIN BIOACTIV", eje:"Modulación inflamatoria", forma:"Cápsulas vegetales HPMC", diana:"19/81 estados", invima:"Registro en trámite" },
+    { ico:"⚡", n:"MITO-Q10 PLUS", eje:"Función mitocondrial", forma:"Cápsulas vegetales HPMC", diana:"13/81 estados", invima:"Registro en trámite" },
+    { ico:"💪", n:"SARCO-PROTECT", eje:"Masa muscular / Anticatabólico", forma:"Polvo en sobres 25 g", diana:"26/81 estados", invima:"Registro en trámite" },
+    { ico:"🦴", n:"D3-K2 OSTEO", eje:"Metabolismo óseo", forma:"Tabletas masticables", diana:"45/81 estados", invima:"Registro en trámite" },
+    { ico:"🦠", n:"GUT-IMMUNE PRO", eje:"Barrera intestinal / Inmunidad", forma:"Polvo suspensión oral, sobres 8 g", diana:"14/81 estados", invima:"Registro en trámite" },
+    { ico:"🫀", n:"HEPA-DETOX", eje:"Hepatoprotección", forma:"Tabletas recubiertas", diana:"12/81 estados", invima:"Registro en trámite" },
+    { ico:"🧠", n:"ADAPTO-STRESS", eje:"Eje HPA / Adaptogénico", forma:"Cápsulas vegetales HPMC", diana:"8/81 estados", invima:"Registro en trámite" },
+    { ico:"🌐", n:"MULTI-CELL BASE", eje:"Micronutrición basal universal", forma:"Tableta para deglución", diana:"81/81 estados", invima:"Registro en trámite" }
+  ];
+
+  const MODULOS_ATLAS = [
+    { n:"Módulo 1", t:"Encuesta" }, { n:"Módulo 2", t:"Antrop & BIS" },
+    { n:"Módulo 3", t:"Diagnóstico" }, { n:"Módulo 4", t:"Rutas" }, { n:"Módulo 5", t:"Reporte / HC" }
+  ];
+
+  const ACCESOS_ATLAS = [
+    { ico:"👨‍⚕️", t:"Profesional integrante", d:"Acceso completo a los cinco módulos clínicos, gestión de pacientes y generación de reportes. Vinculado a su cuenta de integrante CNV." },
+    { ico:"🏢", t:"Administración CNV", d:"Visibilidad del ecosistema completo: integrantes activos, pacientes, datos de la cohorte OB BIA LATAM y métricas del modelo." },
+    { ico:"🔬", t:"CNV Research", d:"Acceso a los datos anonimizados de la cohorte para análisis, validación y producción científica en el observatorio OB BIA LATAM." }
+  ];
+
+  /* ====================== RENDER ====================== */
+  const vitPad = (i) => String(i + 1).padStart(2, '0');
+  const vitOk = new Set();
+  function markVit(i){ vitOk.add(i); }
+
+  const fg = document.getElementById('filtrosGrid');
+  FILTROS.forEach((f, i) => {
+    fg.innerHTML += `<div class="filtro"><div class="fn">${i+1}</div><h3>${f.t}</h3><p>${f.d}</p><ul>${f.items.map(it=>`<li>${it}</li>`).join('')}</ul></div>`;
+  });
+
+  const eg = document.getElementById('entregaGrid');
+  ENTREGAS.forEach(e => {
+    eg.innerHTML += `<div class="entrega-card"><div class="entrega-ico">${e.ico}</div><div><h4>${e.t}</h4><p>${e.d}</p></div></div>`;
+  });
+
+  const og = document.getElementById('obligGrid');
+  OBLIGACIONES.forEach(o => {
+    og.innerHTML += `<div class="obli-box"><h3>${o.t}</h3><ul>${o.items.map(it=>`<li>${it}</li>`).join('')}</ul></div>`;
+  });
+
+  const vg = document.getElementById('vitGrid');
+  const vd = document.getElementById('vitDetail');
+  PRODUCTOS.forEach((p, i) => {
+    vg.innerHTML += `<div class="vit-card" id="vc${i}" onclick="selVit(${i})">
+      <div class="vit-img"><span class="vit-emoji">${p.ico}</span><img src="/images/vitacellebis/vit_${vitPad(i)}.jpg" alt="${p.n}" loading="lazy" onload="markVit(${i})" onerror="this.remove()"></div>
+      <div class="vit-body"><div class="vn">VITACELLEBIS</div><h4>${p.n}</h4></div></div>`;
+  });
+  function selVit(i) {
+    document.querySelectorAll('.vit-card').forEach((c, j) => c.classList.toggle('sel', j === i));
+    const p = PRODUCTOS[i];
+    const rows = [['Eje clínico', p.eje],['Forma farmacéutica', p.forma],['Aplicable en', p.diana]]
+      .map(([l,v]) => `<div class="vit-row"><span class="rl">${l}</span><span class="rv">${v}</span></div>`).join('');
+    const zoom = vitOk.has(i) ? `onclick="openLbVit(${i})" style="cursor:zoom-in"` : '';
+    vd.className = 'vit-detail on';
+    vd.innerHTML = `
+      <div class="vtag">VITACELLEBIS</div>
+      <h3>${p.n}</h3>
+      <div class="vit-cover" ${zoom}><span class="vit-emoji">${p.ico}</span><img src="/images/vitacellebis/vit_${vitPad(i)}.jpg" alt="${p.n}" onerror="this.remove()"></div>
+      <div>
+        ${rows}
+        <span class="invima-badge">INVIMA: ${p.invima}</span>
+        <p class="vit-desc">Formulado bajo el Decreto 3249/2006 y Decreto 3863/2008 (suplementos dietarios, Colombia, INVIMA). Entregado al integrante en consignación. Prescripción dirigida según diagnóstico bioeléctrico ANI BIS-E.</p>
+      </div>`;
+  }
+
+  const ma = document.getElementById('modulosAtlas');
+  MODULOS_ATLAS.forEach(m => { ma.innerHTML += `<div class="mod-atlas"><div class="mn">${m.n}</div><h4>${m.t}</h4></div>`; });
+
+  const aa = document.getElementById('atlasAccesos');
+  ACCESOS_ATLAS.forEach(a => { aa.innerHTML += `<div class="acceso"><div class="ico">${a.ico}</div><h3>${a.t}</h3><p>${a.d}</p></div>`; });
+
+  /* TABS */
+  document.querySelectorAll('.cnvcare-root .tab-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.cnvcare-root .tab-btn').forEach(b => b.classList.remove('on'));
+      document.querySelectorAll('.cnvcare-root .tab-panel').forEach(pn => pn.classList.remove('on'));
+      btn.classList.add('on');
+      document.getElementById('tab-' + btn.dataset.tab).classList.add('on');
+    });
+  });
+
+  /* LIGHTBOX (modelo de imagenes igual que Nosotros) */
+  function openLbVit(i){
+    const im = document.getElementById('ccLbImg');
+    im.src = '/images/vitacellebis/vit_' + vitPad(i) + '.jpg';
+    im.alt = PRODUCTOS[i].n;
+    document.getElementById('ccLbCap').textContent = 'VITACELLEBIS ' + PRODUCTOS[i].n;
+    document.getElementById('ccLb').classList.add('open');
+  }
+  function closeLbVit(){ document.getElementById('ccLb').classList.remove('open'); document.getElementById('ccLbImg').src = ''; }
+  document.getElementById('ccLbClose').addEventListener('click', closeLbVit);
+  document.getElementById('ccLb').addEventListener('click', e => { if (e.target.id === 'ccLb') closeLbVit(); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLbVit(); });
+  </script>
+
 </BaseLayout>

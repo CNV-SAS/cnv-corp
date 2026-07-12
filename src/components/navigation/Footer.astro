@@ -10,10 +10,9 @@ const t = getI18n(lang);
 const otherLangHref = getRouteInOtherLang(Astro.url);
 
 const systemLinks = [
-  { href: t.routes.paradigm, label: t.nav.paradigma },
-  { href: t.routes.care, label: 'CNV Care — ' + t.nav.operacion },
-  { href: t.routes.learning, label: 'CNV Learning — ' + t.nav.formacion },
-  { href: t.routes.research, label: 'CNV Research — ' + t.nav.investigacion },
+  { href: t.routes.care, label: t.nav.operacion },
+  { href: t.routes.learning, label: t.nav.formacion },
+  { href: t.routes.research, label: t.nav.investigacion },
   { href: t.routes.about, label: t.nav.nosotros },
 ];
 ---

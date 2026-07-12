@@ -32,7 +32,6 @@ interface ExclusivityTranslations {
 
 interface Props {
   t: FormTranslations;
-  exclusivity: ExclusivityTranslations;
   lang: string;
 }
 
@@ -55,7 +54,7 @@ const PROFILES_CONFIG = [
     excBg: 'bg-cnv-transfer/5',
     excText: 'text-cnv-transfer'
   },
-  { 
+  {
     icon: '🧬',
     btnClass: 'border-cnv-generate bg-cnv-generate/10 text-cnv-generate',
     inputClass: 'focus:border-cnv-generate focus:ring-1 focus:ring-cnv-generate',
@@ -63,10 +62,18 @@ const PROFILES_CONFIG = [
     excBg: 'bg-cnv-generate/5',
     excText: 'text-cnv-generate'
   },
+  {
+    icon: '💬',
+    btnClass: 'border-cnv-core bg-cnv-core/10 text-cnv-core',
+    inputClass: 'focus:border-cnv-core focus:ring-1 focus:ring-cnv-core',
+    excBorder: 'border-cnv-core',
+    excBg: 'bg-cnv-core/5',
+    excText: 'text-cnv-core'
+  },
 ];
 
-export default function ContactForm({ t, exclusivity, lang }: Props) {
-  const [profile, setProfile] = useState<0 | 1 | 2>(0);
+export default function ContactForm({ t, lang }: Props) {
+  const [profile, setProfile] = useState<number>(0);
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
   const [consentError, setConsentError] = useState(false);
   const [formData, setFormData] = useState({
@@ -136,7 +143,7 @@ export default function ContactForm({ t, exclusivity, lang }: Props) {
     }
   }
 
-  const messageLabel = profile === 0 ? t.message : profile === 1 ? t.message_institution : t.message_patient;
+  const messageLabel = profile === 1 ? t.message_institution : profile === 2 ? t.message_patient : t.message;
   
   // Clase base para inputs (combinada con el focus dinámico)
   const inputClasses = `w-full border-2 border-slate-200 px-4 py-3 text-sm font-600 text-cnv-core outline-none transition-colors bg-white ${activeConf.inputClass}`;
@@ -166,7 +173,7 @@ export default function ContactForm({ t, exclusivity, lang }: Props) {
         <p className="text-xs font-700 tracking-[0.2em] uppercase text-cnv-core/40 mb-4">
           {t.profile_label}
         </p>
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
           {profileLabels.map((label, i) => {
             const conf = PROFILES_CONFIG[i];
             const isActive = profile === i;
@@ -174,7 +181,7 @@ export default function ContactForm({ t, exclusivity, lang }: Props) {
               <button
                 key={i}
                 type="button"
-                onClick={() => setProfile(i as 0 | 1 | 2)}
+                onClick={() => setProfile(i)}
                 className={`flex items-center gap-3 p-4 border-2 text-left transition-all duration-300 text-sm font-700 ${
                   isActive 
                     ? conf.btnClass 
@@ -189,28 +196,6 @@ export default function ContactForm({ t, exclusivity, lang }: Props) {
         </div>
       </div>
 
-      {/* Exclusivity box for professionals */}
-      {profile === 0 && (
-        <div className={`mb-10 p-6 border-l-4 animate-fade-in ${activeConf.excBorder} ${activeConf.excBg}`}>
-          <p className={`text-xs font-700 tracking-[0.2em] uppercase mb-3 ${activeConf.excText}`}>
-            {exclusivity.tag}
-          </p>
-          <p className="text-sm font-700 text-cnv-core mb-4">
-            {exclusivity.subtitle}
-          </p>
-          <div className="flex flex-col gap-2">
-            {exclusivity.requirements.map((req, i) => (
-              <div key={i} className="flex items-start gap-3 text-sm font-500 text-cnv-core/80">
-                <svg className={`flex-shrink-0 mt-0.5 ${activeConf.excText}`} width="16" height="16" viewBox="0 0 16 16" fill="none">
-                  <circle cx="8" cy="8" r="7" stroke="currentColor" strokeWidth="1.5"/>
-                  <path d="M4.5 8l2.5 2.5 4.5-5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                </svg>
-                <span>{req}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-      )}
 
       {/* Form */}
       <form onSubmit={handleSubmit} className="flex flex-col gap-6">

@@ -2,14 +2,6 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { getI18n } from '../i18n';
 
-// Componentes modulares
-import AboutHero from '../components/pages/about/AboutHero.astro';
-import AboutProblem from '../components/pages/about/AboutProblem.astro';
-import AboutSystem from '../components/pages/about/AboutSystem.astro';
-import AboutPrinciples from '../components/pages/about/AboutPrinciples.astro';
-import AboutDirection from '../components/pages/about/AboutDirection.astro';
-import AboutCTA from '../components/pages/about/AboutCTA.astro';
-
 const lang = Astro.currentLocale || 'es';
 const t = getI18n(lang);
 const p = t.pages.nosotros;
@@ -17,12 +9,354 @@ const p = t.pages.nosotros;
 
 <BaseLayout
   title={`${p.title} — Connected Nutrition Ventures`}
-  description={p.hero_body}
+  description="CNV interviene en la célula, en el intervalo silencioso entre la función celular y la enfermedad, cuando la alteración ya se puede medir pero el síntoma todavía no aparece."
 >
-  <AboutHero />
-  <AboutProblem />
-  <AboutSystem />
-  <AboutPrinciples />
-  <AboutDirection />
-  <AboutCTA />
+  <Fragment slot="head">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500;600&display=swap"
+      rel="stylesheet"
+    />
+  </Fragment>
+
+  <div class="nos-root">
+
+    <!-- HERO / PROPOSITO -->
+    <header class="hero" id="proposito">
+      <div class="wrap">
+        <div class="kicker">Connected Nutrition Ventures</div>
+        <h1>Intervenir en la célula, antes de la enfermedad.</h1>
+        <p>CNV nació de una pregunta simple: <span class="q">¿por qué esperamos a que alguien enferme para intervenir?</span> Nuestra respuesta no fue abrir otra consulta, sino construir un ecosistema empresarial que interviene en la célula, en ese intervalo silencioso entre la función celular y la enfermedad, cuando la alteración ya se puede medir pero el síntoma todavía no aparece.</p>
+      </div>
+      <svg class="signal" viewBox="0 0 1440 120" preserveAspectRatio="none" aria-hidden="true">
+        <path id="wave" d="M0,60 Q90,10 180,60 T360,60 T540,60 T720,60 T900,60 T1080,60 T1260,60 T1440,60"/>
+      </svg>
+    </header>
+
+    <!-- MISION Y VISION -->
+    <section id="mv">
+      <div class="wrap">
+        <div class="kicker">Quiénes somos</div>
+        <h2>Un sistema, no una consulta más.</h2>
+        <div class="mv">
+          <div class="card">
+            <div class="tag">Misión</div>
+            <h3>Lo que hacemos hoy</h3>
+            <p>Integramos a profesionales de la salud alrededor del paradigma de la medicina bioeléctrica y les entregamos un ecosistema completo para consolidar su consulta bajo el <span class="model-name">Modelo de Atención en Salud, Alimentación y Nutrición Informado, basado en Bioimpedancia Espectroscópica y Epigenética (ANI BIS-E)</span>.</p>
+          </div>
+          <div class="card">
+            <div class="tag">Visión</div>
+            <h3>Hacia dónde vamos</h3>
+            <p>Ser el sistema de referencia en medicina bioeléctrica en Latinoamérica, la fuente indispensable de evidencia poblacional propia y el estándar con el que se mide, interpreta e interviene la salud funcional antes de la enfermedad.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PRINCIPIOS: dial interactivo -->
+    <section class="princ" id="principios">
+      <div class="wrap">
+        <div class="kicker">En qué creemos</div>
+        <h2>Cinco principios, quince acciones.</h2>
+        <p class="lead">Cada principio se despliega en tres acciones concretas. Toca un sector de la rueda para verlas.</p>
+        <div class="princ-grid">
+          <svg class="dial" id="dial" viewBox="0 0 400 400" role="group" aria-label="Rueda de los cinco principios de CNV"></svg>
+          <div class="panel" id="panel" aria-live="polite"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- MODELO ANI BIS-E: flujo de pasos -->
+    <section id="modelo">
+      <div class="wrap">
+        <div class="kicker">Cómo se hace</div>
+        <h2>El modelo ANI BIS-E, paso a paso.</h2>
+        <p class="lead">Las acciones se ejecutan a través de un flujo único. Toca cada etapa para conocerla.</p>
+        <div class="flow" id="flow"></div>
+        <div class="step-detail" id="stepDetail"></div>
+        <p class="disclaimer">ANI BIS-E estima el riesgo y orienta la intervención. No sustituye el juicio clínico ni constituye un diagnóstico definitivo. Mediciones con BiodyXpert ZM3 (Aminogram), modeladas por el software ATLAS.</p>
+      </div>
+    </section>
+
+    <!-- GALERIA: las imagenes del sistema -->
+    <section class="gal" id="galeria">
+      <div class="wrap">
+        <div class="kicker">El sistema en imágenes</div>
+        <h2>La maquinaria que hay detrás.</h2>
+        <p class="lead">Del dato a la ciencia, y de la ciencia a la formación. Toca cada pieza para ampliarla.</p>
+        <div class="grid-img" id="gallery"></div>
+        <p class="ind-copy">Indicadores ANI BIS-E &copy; Gildardo de Jesús Uribe Gil, 2026</p>
+      </div>
+    </section>
+
+    <!-- LIGHTBOX -->
+    <div class="lb" id="lb" role="dialog" aria-modal="true">
+      <button class="cls" id="lbClose" aria-label="Cerrar">&times;</button>
+      <img id="lbImg" src="" alt="" />
+      <div class="cap2" id="lbCap"></div>
+    </div>
+
+  </div>
+
+  <style is:global>
+    /* Estilos confinados a .nos-root para NO afectar la barra ni el footer globales.
+       Se usa is:global porque la rueda, el flujo y la galería se generan por JS en
+       tiempo de ejecución (el scoping automático de Astro no alcanzaría esos nodos). */
+    .nos-root{
+      --navy:#16324F; --teal:#147F76; --gold:#C9A02C; --green:#5E9B3F; --burgundy:#7C2E50;
+      --accent:#C9A961; --ink:#1A2B3C; --muted:#5B6B7A;
+      --bg:#FFFFFF; --soft:#F6F4EF; --line:#E4DECF;
+      --display:'Spectral',Georgia,serif;
+      --body:'Inter',system-ui,sans-serif;
+      --mono:'IBM Plex Mono',monospace;
+      font-family:var(--body);color:var(--ink);background:var(--bg);line-height:1.6;-webkit-font-smoothing:antialiased;
+    }
+    .nos-root a{color:inherit;text-decoration:none}
+    .nos-root img{max-width:100%;display:block}
+    .nos-root .wrap{max-width:1120px;margin:0 auto;padding:0 24px}
+
+    .nos-root .kicker{font-family:var(--mono);font-size:12px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:var(--accent)}
+    .nos-root .kicker::before{content:"";display:inline-block;width:26px;height:1px;background:var(--accent);vertical-align:middle;margin-right:10px;transform:translateY(-3px)}
+
+    .nos-root section{padding:96px 0}
+    .nos-root h2{font-family:var(--display);font-weight:700;font-size:clamp(28px,4vw,44px);color:var(--navy);line-height:1.12;margin:14px 0 0}
+    .nos-root .lead{font-size:18px;color:var(--muted);max-width:620px;margin-top:16px}
+
+    /* HERO / PROPOSITO */
+    .nos-root .hero{position:relative;overflow:hidden;background:var(--navy);color:#fff;padding:120px 0 108px}
+    .nos-root .hero .kicker{color:var(--accent)}
+    .nos-root .hero h1{font-family:var(--display);font-weight:700;font-size:clamp(34px,6vw,66px);line-height:1.05;margin:18px 0 0;max-width:14ch}
+    .nos-root .hero p{font-size:clamp(17px,2vw,21px);color:#cfdae6;max-width:640px;margin-top:26px}
+    .nos-root .hero .q{color:#fff;font-style:italic;font-family:var(--display)}
+    .nos-root .signal{position:absolute;left:0;right:0;bottom:0;height:120px;opacity:.35;pointer-events:none}
+    .nos-root .signal path{fill:none;stroke:var(--teal);stroke-width:2}
+
+    /* MISION / VISION */
+    .nos-root .mv{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:44px}
+    @media(max-width:760px){.nos-root .mv{grid-template-columns:1fr}}
+    .nos-root .card{background:var(--soft);border:1px solid var(--line);border-radius:14px;padding:34px}
+    .nos-root .card .tag{font-family:var(--mono);font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--teal);font-weight:600}
+    .nos-root .card h3{font-family:var(--display);font-size:24px;color:var(--navy);margin:8px 0 14px}
+    .nos-root .card p{font-size:16.5px;color:#3a4a58}
+    .nos-root .model-name{color:var(--navy);font-weight:600}
+
+    /* PRINCIPIOS: dial interactivo */
+    .nos-root .princ{background:var(--soft)}
+    .nos-root .princ-grid{display:grid;grid-template-columns:420px 1fr;gap:56px;align-items:center;margin-top:48px}
+    @media(max-width:900px){.nos-root .princ-grid{grid-template-columns:1fr;gap:36px}}
+    .nos-root .dial{width:100%;max-width:420px;margin:0 auto;cursor:pointer}
+    .nos-root .dial .seg{transition:transform .25s ease,opacity .25s ease;transform-origin:200px 200px}
+    .nos-root .dial .seg:hover{opacity:.9}
+    .nos-root .dial .seg.dim{opacity:.32}
+    .nos-root .dial .seg.active{transform:scale(1.05)}
+    .nos-root .dial text{font-family:var(--body);font-weight:600;fill:#fff;font-size:13px;pointer-events:none}
+    .nos-root .dial .seg-num{font-family:var(--display);font-weight:700;font-size:28px}
+    .nos-root .hub{fill:#fff;stroke:var(--line)}
+    .nos-root .hub-txt{fill:var(--navy);font-family:var(--display);font-weight:700}
+    .nos-root .hub-sub{fill:var(--teal);font-family:var(--mono);font-weight:600}
+
+    .nos-root .panel{min-height:280px}
+    .nos-root .panel .audience{font-family:var(--mono);font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
+    .nos-root .panel h3{font-family:var(--display);font-size:30px;line-height:1.1;margin-bottom:22px}
+    .nos-root .actions{list-style:none;display:flex;flex-direction:column;gap:14px}
+    .nos-root .actions li{display:flex;gap:16px;align-items:flex-start;padding:14px 16px;background:#fff;border:1px solid var(--line);border-radius:10px;transition:transform .2s,box-shadow .2s}
+    .nos-root .actions li:hover{transform:translateX(4px);box-shadow:0 6px 20px rgba(22,50,79,.07)}
+    .nos-root .actions .n{flex:0 0 auto;width:26px;height:26px;border-radius:50%;color:#fff;font-family:var(--mono);font-size:13px;font-weight:600;display:grid;place-items:center;margin-top:1px}
+    .nos-root .actions .t{font-size:15.5px;color:#33444f}
+    .nos-root .actions li.flag .t{color:var(--burgundy);font-weight:600}
+    .nos-root .dots{display:flex;gap:8px;margin-top:26px}
+    .nos-root .dots button{width:11px;height:11px;border-radius:50%;border:none;background:var(--line);cursor:pointer;padding:0;transition:transform .2s}
+    .nos-root .dots button.on{transform:scale(1.35)}
+
+    /* MODELO: flujo de pasos */
+    .nos-root .flow{display:grid;grid-template-columns:repeat(5,1fr);gap:0;margin-top:52px;position:relative}
+    @media(max-width:820px){.nos-root .flow{grid-template-columns:1fr;gap:12px}}
+    .nos-root .node{position:relative;text-align:center;padding:0 10px}
+    .nos-root .node .bar{height:4px;background:var(--line);position:absolute;top:26px;left:0;right:0;z-index:0}
+    .nos-root .node:first-child .bar{left:50%}
+    .nos-root .node:last-child .bar{right:50%}
+    @media(max-width:820px){.nos-root .node .bar{display:none}}
+    .nos-root .node button{position:relative;z-index:1;width:54px;height:54px;border-radius:50%;border:3px solid var(--line);background:#fff;color:var(--navy);font-family:var(--mono);font-weight:600;font-size:16px;cursor:pointer;margin:0 auto;display:block;transition:all .22s}
+    .nos-root .node button:hover{border-color:var(--teal)}
+    .nos-root .node.active button{background:var(--navy);color:#fff;border-color:var(--navy);transform:scale(1.08)}
+    .nos-root .node .lbl{font-size:13.5px;font-weight:600;color:var(--muted);margin-top:14px;line-height:1.3}
+    .nos-root .node.active .lbl{color:var(--navy)}
+    .nos-root .step-detail{margin-top:44px;background:var(--soft);border:1px solid var(--line);border-radius:14px;padding:34px;display:grid;grid-template-columns:1fr;gap:8px}
+    .nos-root .step-detail h3{font-family:var(--display);font-size:26px;color:var(--navy)}
+    .nos-root .step-detail .st-tag{font-family:var(--mono);font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--teal);font-weight:600}
+    .nos-root .step-detail p{font-size:16.5px;color:#3a4a58;max-width:720px}
+    .nos-root .disclaimer{margin-top:22px;font-size:14px;color:var(--muted);border-left:3px solid var(--accent);padding-left:14px}
+
+    /* GALERIA */
+    .nos-root .gal{background:var(--navy);color:#fff}
+    .nos-root .gal h2{color:#fff}
+    .nos-root .gal .lead{color:#bcccdb}
+    .nos-root .grid-img{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:48px}
+    @media(max-width:900px){.nos-root .grid-img{grid-template-columns:repeat(2,1fr)}}
+    @media(max-width:560px){.nos-root .grid-img{grid-template-columns:1fr}}
+    .nos-root .tile{background:#fff;border-radius:12px;overflow:hidden;cursor:pointer;border:1px solid rgba(255,255,255,.12);transition:transform .25s,box-shadow .25s}
+    .nos-root .tile:hover{transform:translateY(-4px);box-shadow:0 16px 40px rgba(0,0,0,.35)}
+    .nos-root .tile img{aspect-ratio:16/10;object-fit:cover;width:100%;background:#eef1f4}
+    .nos-root .tile .cap{padding:16px 18px}
+    .nos-root .tile .cap .k{font-family:var(--mono);font-size:11px;letter-spacing:2px;color:var(--accent);text-transform:uppercase}
+    .nos-root .tile .cap .n{font-family:var(--display);font-size:18px;color:var(--navy);margin-top:4px;line-height:1.2}
+    .nos-root .ind-copy{margin-top:40px;text-align:center;font-family:var(--mono);font-size:12px;letter-spacing:1px;color:#8fa3b6}
+
+    /* LIGHTBOX */
+    .nos-root .lb{position:fixed;inset:0;background:rgba(10,20,30,.92);display:none;align-items:center;justify-content:center;z-index:300;padding:32px}
+    .nos-root .lb.open{display:flex}
+    .nos-root .lb img{max-width:94vw;max-height:86vh;border-radius:8px;box-shadow:0 30px 80px rgba(0,0,0,.6)}
+    .nos-root .lb .cls{position:absolute;top:24px;right:30px;color:#fff;font-size:34px;cursor:pointer;line-height:1;background:none;border:none}
+    .nos-root .lb .cap2{position:absolute;bottom:26px;left:0;right:0;text-align:center;color:#cfdae6;font-family:var(--mono);font-size:13px;letter-spacing:1px}
+
+    @media(prefers-reduced-motion:reduce){.nos-root *{animation:none!important;transition:none!important}}
+    .nos-root :focus-visible{outline:3px solid var(--teal);outline-offset:2px;border-radius:4px}
+  </style>
+
+  <script is:inline>
+  /* ============================ DATOS ============================ */
+  const PRINCIPIOS = [
+    { t:"Transforma la vida de tus pacientes", c:"#16324F", acc:[
+      "Evalúa la salud bioeléctrica de cada paciente desde la primera consulta",
+      "Anticipa el riesgo de enfermar, empeorar o morir antes del síntoma",
+      {x:"Mejora las propiedades bioeléctricas con nutracéuticos VITACELLEBIS", flag:true}
+    ]},
+    { t:"Amplía tus conocimientos", c:"#147F76", acc:[
+      "Realiza el diplomado en Medicina Bioeléctrica",
+      "Mantén formación continua con webinars y club de revistas OB BIA LATAM",
+      "Asiste a congresos internacionales en bioimpedancia y composición corporal"
+    ]},
+    { t:"Aumenta tus ingresos", c:"#C9A02C", acc:[
+      "Cobra una tarifa premium justificada por la tecnología y el rigor científico",
+      "Genera ingresos por nutracéuticos VITACELLEBIS entregados a pacientes",
+      "Retén pacientes con resultados visibles y seguimiento bioeléctrico mensual"
+    ]},
+    { t:"Construye ciencia", c:"#5E9B3F", acc:[
+      "Aporta datos de BIS y epigenética a la cohorte OB BIA LATAM",
+      "Coautoría de artículos científicos y libros con la red CNV",
+      "Conviértete en investigador principal en estudios de tu población local"
+    ]},
+    { t:"Aporta a la sociedad", c:"#7C2E50", acc:[
+      "Forma parte de la comunidad científica más grande de LATAM",
+      "Aporta datos y puntos de corte propios para población latinoamericana",
+      "Genera nuevos protocolos clínicos que sustituyan los importados del norte"
+    ]}
+  ];
+
+  /* STEPS: 5 etapas. Para 6, separar "Toma de datos" en "Encuesta" + "Toma de datos". */
+  const PASOS = [
+    { n:"01", k:"Toma de datos", d:"Encuesta, antropometría y bioimpedancia espectroscópica con BiodyXpert ZM3. Se capturan los ocho determinantes, desde datos personales hasta contexto social y alimentario." },
+    { n:"02", k:"Diagnóstico Funcional Integrado", d:"Se integran las cinco dimensiones del modelo: celular-eléctrica, metabólico-estructural, envejecimiento, conductual-perceptual y epigenético-contextual, en una lectura única de función celular." },
+    { n:"03", k:"Rutas de atención", d:"Plan personalizado de alimentación, ejercicio y prescripción nutracéutica dirigida VITACELLEBIS, según el estado bioeléctrico estimado del paciente." },
+    { n:"04", k:"Seguimiento", d:"Evolución bioeléctrica objetiva con curvas de capacitancia tisular y PABU, para confirmar si la intervención acerca al paciente al rango óptimo." },
+    { n:"05", k:"Reporte / HC", d:"Informe final e historia clínica con la matriz de indicadores ANI BIS-E, lista para compartir con el paciente y para alimentar la cohorte OB BIA LATAM." }
+  ];
+
+  const IMAGENES = [
+    { src:"/images/nosotros/Determinantes_en_el_Modelo_ANI_BIS_E.jpg", k:"Toma de datos", n:"Los ocho determinantes" },
+    { src:"/images/nosotros/DFI_ANI_BIS_E.jpg", k:"Diagnóstico", n:"Las cinco dimensiones del DFI" },
+    { src:"/images/nosotros/PAsos_del_modelo_ANI_BIS_E.png", k:"Flujo", n:"Los pasos del modelo" },
+    { src:"/images/nosotros/Reporte_HC_ANI_BIS_E.jpg", k:"Reporte", n:"Reporte e historia clínica" },
+    { src:"/images/nosotros/Seguimiento_ANI_BIS_E.jpg", k:"Seguimiento", n:"El seguimiento bioeléctrico" }
+  ];
+
+  /* ==================== RUEDA DE PRINCIPIOS (SVG) ==================== */
+  const CX=200, CY=200, RO=180, RI=95, N=PRINCIPIOS.length, SEG=360/N;
+  function polar(r,ang){ const a=(ang-90)*Math.PI/180; return [CX+r*Math.cos(a), CY+r*Math.sin(a)]; }
+  function segPath(rO,rI,s,e){
+    const [x1,y1]=polar(rO,s), [x2,y2]=polar(rO,e), [x3,y3]=polar(rI,e), [x4,y4]=polar(rI,s);
+    const laf=(e-s)<=180?0:1;
+    return `M${x1},${y1} A${rO},${rO} 0 ${laf} 1 ${x2},${y2} L${x3},${y3} A${rI},${rI} 0 ${laf} 0 ${x4},${y4} Z`;
+  }
+  const dial=document.getElementById('dial');
+  const panel=document.getElementById('panel');
+  let ns="http://www.w3.org/2000/svg";
+
+  PRINCIPIOS.forEach((p,i)=>{
+    const s=i*SEG-90+90, e=s+SEG;
+    const g=document.createElementNS(ns,'g');
+    g.setAttribute('class','seg'); g.setAttribute('data-i',i);
+    g.setAttribute('role','button'); g.setAttribute('tabindex','0');
+    g.setAttribute('aria-label',p.t);
+    const path=document.createElementNS(ns,'path');
+    path.setAttribute('d',segPath(RO,RI,s,e)); path.setAttribute('fill',p.c);
+    g.appendChild(path);
+    const mid=s+SEG/2, [lx,ly]=polar((RO+RI)/2,mid);
+    // Número del principio, centrado dentro del gajo (el título completo va en el panel).
+    const txt=document.createElementNS(ns,'text');
+    txt.setAttribute('x',lx); txt.setAttribute('y',ly);
+    txt.setAttribute('text-anchor','middle'); txt.setAttribute('dominant-baseline','central');
+    txt.setAttribute('class','seg-num');
+    txt.textContent=String(i+1);
+    g.appendChild(txt);
+    g.addEventListener('click',()=>select(i));
+    g.addEventListener('keydown',ev=>{ if(ev.key==='Enter'||ev.key===' '){ev.preventDefault();select(i);} });
+    dial.appendChild(g);
+  });
+  /* hub central */
+  const hub=document.createElementNS(ns,'circle');
+  hub.setAttribute('cx',CX); hub.setAttribute('cy',CY); hub.setAttribute('r',RI-6);
+  hub.setAttribute('class','hub'); dial.appendChild(hub);
+  const h1=document.createElementNS(ns,'text');
+  h1.setAttribute('x',CX); h1.setAttribute('y',CY-6); h1.setAttribute('text-anchor','middle');
+  h1.setAttribute('class','hub-txt'); h1.setAttribute('font-size','30'); h1.textContent='CNV';
+  dial.appendChild(h1);
+  const h2=document.createElementNS(ns,'text');
+  h2.setAttribute('x',CX); h2.setAttribute('y',CY+18); h2.setAttribute('text-anchor','middle');
+  h2.setAttribute('class','hub-sub'); h2.setAttribute('font-size','11'); h2.textContent='ANI BIS-E';
+  dial.appendChild(h2);
+
+  function select(i){
+    document.querySelectorAll('.dial .seg').forEach((s,j)=>{
+      s.classList.toggle('active',j===i); s.classList.toggle('dim',j!==i);
+    });
+    const p=PRINCIPIOS[i];
+    const items=p.acc.map((a,k)=>{
+      const flag=(typeof a==='object'&&a.flag)?' flag':'';
+      const text=(typeof a==='object')?a.x:a;
+      return `<li class="${flag}"><span class="n" style="background:${p.c}">${k+1}</span><span class="t">${text}</span></li>`;
+    }).join('');
+    const dots=PRINCIPIOS.map((_,k)=>`<button class="${k===i?'on':''}" style="background:${k===i?p.c:''}" onclick="select(${k})" aria-label="Principio ${k+1}"></button>`).join('');
+    panel.innerHTML=`<div class="audience">Para el profesional que se une</div>
+      <h3 style="color:${p.c}">${i+1}. ${p.t}</h3>
+      <ul class="actions">${items}</ul>
+      <div class="dots">${dots}</div>`;
+  }
+  select(0);
+
+  /* ==================== FLUJO DEL MODELO ==================== */
+  const flow=document.getElementById('flow');
+  const stepDetail=document.getElementById('stepDetail');
+  PASOS.forEach((p,i)=>{
+    const node=document.createElement('div');
+    node.className='node'; node.dataset.i=i;
+    node.innerHTML=`<div class="bar"></div><button aria-label="${p.k}">${p.n}</button><div class="lbl">${p.k}</div>`;
+    node.querySelector('button').addEventListener('click',()=>selStep(i));
+    flow.appendChild(node);
+  });
+  function selStep(i){
+    document.querySelectorAll('.node').forEach((n,j)=>n.classList.toggle('active',j===i));
+    const p=PASOS[i];
+    stepDetail.innerHTML=`<div class="st-tag">Paso ${p.n}</div><h3>${p.k}</h3><p>${p.d}</p>`;
+  }
+  selStep(0);
+
+  /* ==================== GALERIA + LIGHTBOX ==================== */
+  const gallery=document.getElementById('gallery');
+  IMAGENES.forEach(im=>{
+    const t=document.createElement('div');
+    t.className='tile';
+    t.innerHTML=`<img src="${im.src}" alt="${im.n}" loading="lazy"/><div class="cap"><div class="k">${im.k}</div><div class="n">${im.n}</div></div>`;
+    t.addEventListener('click',()=>openLb(im));
+    gallery.appendChild(t);
+  });
+  const lb=document.getElementById('lb'), lbImg=document.getElementById('lbImg'), lbCap=document.getElementById('lbCap');
+  function openLb(im){ lbImg.src=im.src; lbImg.alt=im.n; lbCap.textContent=im.n; lb.classList.add('open'); }
+  function closeLb(){ lb.classList.remove('open'); lbImg.src=''; }
+  document.getElementById('lbClose').addEventListener('click',closeLb);
+  lb.addEventListener('click',e=>{ if(e.target===lb) closeLb(); });
+  document.addEventListener('keydown',e=>{ if(e.key==='Escape') closeLb(); });
+  </script>
+
 </BaseLayout>

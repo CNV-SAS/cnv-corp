@@ -1,0 +1,975 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>OB-BIA LATAM · Observatorio Latinoamericano de Bioimpedancia</title>
+<meta name="description" content="Observatorio Latinoamericano de Bioimpedancia – ANI BIS-E · n=1535 sujetos · 4 países · 259 variables">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4/dist/chart.umd.min.js"></script>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<style>
+:root{
+  --navy:#0D2145;--navy-dark:#081529;--navy-mid:#132d5e;
+  --gold:#C8932A;--gold-light:#e8b040;
+  --teal:#1B6B7B;--teal-light:#2a8fa5;
+  --white:#ffffff;--off:#f7f9fc;
+  --g100:#edf0f7;--g300:#c5cde0;--g500:#7a88a8;--g700:#3d4e6e;
+  --text:#1a2440;
+  --serif:'Georgia','Times New Roman',serif;
+  --sans:'Segoe UI',system-ui,-apple-system,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:var(--sans);color:var(--text);background:var(--white);}
+
+/* NAV */
+nav{position:sticky;top:0;z-index:1000;background:rgba(8,21,41,0.97);backdrop-filter:blur(8px);border-bottom:2px solid var(--gold);padding:0 24px;}
+.nav-in{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:58px;}
+.nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none;}
+.nav-logo-t{font-size:17px;font-weight:800;color:var(--gold);letter-spacing:-0.02em;}
+.nav-logo-s{font-size:8px;color:rgba(255,255,255,0.4);letter-spacing:0.08em;text-transform:uppercase;display:block;margin-top:-2px;}
+.nav-links{display:flex;gap:20px;list-style:none;}
+.nav-links a{color:rgba(255,255,255,0.75);text-decoration:none;font-size:11px;font-weight:600;letter-spacing:0.05em;text-transform:uppercase;transition:color .2s;}
+.nav-links a:hover{color:var(--gold);}
+.nav-burger{display:none;flex-direction:column;gap:4px;cursor:pointer;padding:4px;}
+.nav-burger span{width:22px;height:2px;background:rgba(255,255,255,0.7);border-radius:2px;}
+@media(max-width:860px){.nav-links{display:none;}.nav-links.open{display:flex;flex-direction:column;position:absolute;top:58px;left:0;right:0;background:rgba(8,21,41,0.98);padding:16px 24px;gap:16px;border-bottom:1px solid rgba(200,147,42,0.3);}.nav-burger{display:flex;}}
+
+/* HERO */
+.hero{background:linear-gradient(150deg,var(--navy-dark) 0%,var(--navy) 55%,#0f3460 100%);min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;overflow:hidden;padding:80px 24px 60px;text-align:center;}
+.hero::before{content:'';position:absolute;inset:0;background-image:radial-gradient(circle at 20% 50%,rgba(27,107,123,0.12) 0%,transparent 50%),radial-gradient(circle at 80% 20%,rgba(200,147,42,0.08) 0%,transparent 40%);}
+.hero-badge{background:rgba(200,147,42,0.12);border:1px solid rgba(200,147,42,0.35);color:var(--gold);font-size:10px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;padding:6px 16px;border-radius:20px;margin-bottom:28px;position:relative;}
+.hero-title{font-family:var(--serif);font-size:clamp(52px,8vw,96px);font-weight:700;color:var(--white);line-height:1.0;margin-bottom:10px;letter-spacing:-0.03em;position:relative;}
+.hero-title span{color:var(--gold);}
+.hero-full{font-size:clamp(13px,1.8vw,17px);color:rgba(255,255,255,0.5);letter-spacing:0.06em;text-transform:uppercase;margin-bottom:20px;position:relative;}
+.hero-desc{font-size:clamp(14px,1.8vw,17px);color:rgba(255,255,255,0.65);max-width:600px;margin:0 auto 48px;line-height:1.75;position:relative;}
+.hero-stats{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-bottom:40px;position:relative;}
+.hs{background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:14px;padding:18px 22px;min-width:130px;backdrop-filter:blur(4px);}
+.hs-n{font-family:var(--serif);font-size:30px;font-weight:700;color:var(--gold);display:block;line-height:1;margin-bottom:5px;}
+.hs-l{font-size:9px;color:rgba(255,255,255,0.45);letter-spacing:0.08em;text-transform:uppercase;line-height:1.4;}
+.hero-acta{background:rgba(27,107,123,0.25);border:1px solid rgba(27,107,123,0.45);border-radius:8px;padding:9px 20px;font-size:11px;color:rgba(255,255,255,0.7);letter-spacing:0.06em;text-transform:uppercase;font-weight:600;position:relative;margin-bottom:32px;}
+.hero-btns{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;position:relative;}
+.btn-p{background:var(--gold);color:var(--navy-dark);padding:13px 28px;border-radius:9px;font-weight:800;font-size:12px;letter-spacing:0.05em;text-transform:uppercase;text-decoration:none;border:none;cursor:pointer;transition:all .2s;}
+.btn-p:hover{background:var(--gold-light);transform:translateY(-1px);}
+.btn-s{background:transparent;color:var(--white);padding:13px 28px;border-radius:9px;font-weight:700;font-size:12px;letter-spacing:0.05em;text-transform:uppercase;text-decoration:none;border:1.5px solid rgba(255,255,255,0.25);cursor:pointer;transition:all .2s;}
+.btn-s:hover{border-color:var(--gold);color:var(--gold);}
+
+/* SECTIONS */
+.sec{padding:80px 24px;}
+.sec-in{max-width:1200px;margin:0 auto;}
+.sec-alt{background:var(--off);}
+.sec-dark{background:var(--navy);color:var(--white);}
+.sec-lbl{font-size:10px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:var(--teal);margin-bottom:10px;}
+.sec-dark .sec-lbl{color:rgba(200,147,42,0.75);}
+.sec-h{font-family:var(--serif);font-size:clamp(26px,3.5vw,40px);font-weight:700;color:var(--navy);margin-bottom:14px;line-height:1.2;}
+.sec-dark .sec-h{color:var(--white);}
+.sec-h span{color:var(--gold);}
+.sec-p{font-size:15px;color:var(--g500);max-width:660px;line-height:1.8;}
+.sec-dark .sec-p{color:rgba(255,255,255,0.55);}
+.divider{width:44px;height:3px;background:linear-gradient(90deg,var(--gold),var(--teal));border-radius:2px;margin:16px 0 28px;}
+
+/* CARDS */
+.cg{display:grid;gap:18px;grid-template-columns:repeat(auto-fill,minmax(275px,1fr));margin-top:36px;}
+.card{background:var(--white);border:1px solid var(--g100);border-radius:16px;padding:26px;transition:all .25s;box-shadow:0 1px 4px rgba(0,0,0,0.04);}
+.card:hover{box-shadow:0 8px 32px rgba(13,33,69,0.11);transform:translateY(-2px);border-color:var(--g300);}
+
+/* INDICATOR CARDS */
+.ind-ico{width:42px;height:42px;border-radius:11px;display:flex;align-items:center;justify-content:center;font-size:17px;font-weight:900;margin-bottom:14px;font-family:var(--serif);}
+.ind-nm{font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--g500);margin-bottom:3px;}
+.ind-fl{font-size:14px;font-weight:700;color:var(--navy);margin-bottom:10px;line-height:1.3;}
+.ind-fx{background:var(--off);border-left:3px solid var(--teal);padding:9px 12px;border-radius:0 7px 7px 0;font-family:monospace;font-size:11.5px;color:var(--g700);margin-bottom:10px;line-height:1.6;}
+.ind-ref{font-size:12px;color:var(--g500);line-height:1.55;}
+.ind-tag{display:inline-block;background:var(--g100);border-radius:5px;padding:3px 9px;font-size:9px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:var(--g700);margin-top:9px;}
+
+/* LIVE STATS */
+.sg{display:grid;gap:18px;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));margin-top:36px;}
+.sc{background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:14px;padding:22px;text-align:center;}
+.sc-n{font-family:var(--serif);font-size:40px;font-weight:700;color:var(--gold);display:block;margin-bottom:5px;line-height:1;min-height:42px;}
+.sc-l{font-size:10px;color:rgba(255,255,255,0.5);letter-spacing:0.06em;text-transform:uppercase;line-height:1.4;}
+.charts-row{display:grid;gap:20px;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));margin-top:32px;}
+.cb{background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.09);border-radius:14px;padding:22px;}
+.cb-t{font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:rgba(255,255,255,0.5);margin-bottom:18px;}
+.dot-live{display:inline-block;width:7px;height:7px;border-radius:50%;background:#4ade80;margin-right:6px;animation:pulse 2s infinite;}
+@keyframes pulse{0%,100%{opacity:1;}50%{opacity:0.35;}}
+
+/* MAP */
+.map-wrap{display:flex;flex-direction:column;gap:24px;margin-top:36px;}
+#latam-map{height:440px;border-radius:16px;border:1px solid var(--g100);z-index:1;}
+.pm-wrap{position:relative;width:40px;height:40px;}
+.pm-dot{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:14px;height:14px;border-radius:50%;border:2px solid white;box-shadow:0 2px 6px rgba(0,0,0,0.35);}
+.pm-ring{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:36px;height:36px;border-radius:50%;border:2px solid;animation:pm-pulse 2s ease-out infinite;}
+.pm-ring2{animation-delay:1s;}
+@keyframes pm-pulse{0%{transform:translate(-50%,-50%) scale(0.4);opacity:1;}100%{transform:translate(-50%,-50%) scale(1.4);opacity:0;}}
+.cc-row{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;}
+.cc{display:flex;align-items:center;gap:14px;background:var(--white);border:1px solid var(--g100);border-radius:12px;padding:14px 18px;cursor:pointer;transition:all .2s;}
+.cc:hover{border-color:var(--teal);box-shadow:0 4px 14px rgba(27,107,123,0.1);}
+.cc-flag{font-size:26px;flex-shrink:0;}
+.cc-name{font-size:14px;font-weight:700;color:var(--navy);margin-bottom:3px;}
+.cc-meta{font-size:11px;color:var(--g500);}
+.cc-bar{height:4px;background:var(--g100);border-radius:2px;overflow:hidden;margin-top:7px;}
+.cc-fill{height:100%;background:linear-gradient(90deg,var(--teal),var(--gold));border-radius:2px;transition:width 1.2s ease;}
+@media(max-width:900px){.cc-row{grid-template-columns:1fr 1fr;}}
+@media(max-width:480px){.cc-row{grid-template-columns:1fr;}}
+
+/* COMMITTEE */
+.cmt-grid{display:grid;gap:20px;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));margin-top:36px;}
+.mb{text-align:center;padding:28px 20px;background:var(--white);border:1px solid var(--g100);border-radius:16px;transition:all .25s;}
+.mb:hover{box-shadow:0 8px 28px rgba(13,33,69,0.1);transform:translateY(-2px);}
+.mb.dir{border-color:var(--gold);background:linear-gradient(160deg,rgba(200,147,42,0.04),var(--white));}
+.mb-av{width:68px;height:68px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:800;margin:0 auto 14px;font-family:var(--serif);background:linear-gradient(135deg,var(--navy),var(--teal));color:var(--white);}
+.mb.dir .mb-av{background:linear-gradient(135deg,var(--gold),#d4a030);color:var(--navy-dark);}
+.mb-role{font-size:9px;font-weight:800;letter-spacing:0.13em;text-transform:uppercase;color:var(--teal);margin-bottom:7px;}
+.mb.dir .mb-role{color:var(--gold);}
+.mb-name{font-size:14px;font-weight:700;color:var(--navy);margin-bottom:5px;line-height:1.3;}
+.mb-spec{font-size:11px;color:var(--g500);line-height:1.5;}
+
+/* PUBS */
+.pub-grid{display:grid;gap:18px;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));margin-top:36px;}
+.pub{background:var(--white);border:1px solid var(--g100);border-radius:14px;padding:22px;transition:all .25s;border-left:4px solid transparent;}
+.pub:hover{box-shadow:0 6px 24px rgba(13,33,69,0.09);border-left-color:var(--teal);}
+.pub.ft{border-left-color:var(--gold);background:linear-gradient(160deg,rgba(200,147,42,0.03),var(--white));}
+.pub-type{font-size:9px;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;color:var(--teal);margin-bottom:9px;}
+.pub.ft .pub-type{color:var(--gold);}
+.pub-title{font-size:13px;font-weight:700;color:var(--navy);margin-bottom:8px;line-height:1.4;}
+.pub-meta{font-size:11px;color:var(--g500);line-height:1.55;}
+.badge-year{display:inline-block;background:var(--g100);border-radius:5px;padding:2px 8px;font-size:9px;font-weight:700;color:var(--g700);margin-top:10px;}
+.badge-gold{background:rgba(200,147,42,0.1);color:var(--gold);margin-left:5px;}
+
+/* FORM */
+.form-box{background:var(--white);border-radius:20px;padding:44px;box-shadow:0 4px 24px rgba(13,33,69,0.07);border:1px solid var(--g100);max-width:700px;margin:36px auto 0;}
+.f-row{display:grid;gap:14px;grid-template-columns:1fr 1fr;margin-bottom:0;}
+.fg{margin-bottom:18px;}
+.fl{display:block;font-size:10px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:var(--g700);margin-bottom:7px;}
+.fi,.fs,.fta{width:100%;padding:11px 15px;border:1.5px solid var(--g100);border-radius:9px;font-size:13px;color:var(--text);font-family:var(--sans);transition:border-color .2s;outline:none;background:var(--white);}
+.fi:focus,.fs:focus,.fta:focus{border-color:var(--teal);}
+.fta{resize:vertical;min-height:90px;}
+@media(max-width:600px){.f-row{grid-template-columns:1fr;}.form-box{padding:24px 18px;}}
+
+/* NEWSLETTER */
+.nl-box{background:linear-gradient(135deg,var(--navy),var(--teal));border-radius:18px;padding:40px;margin-top:44px;text-align:center;}
+
+/* FOOTER */
+footer{background:var(--navy-dark);padding:48px 24px 20px;border-top:2px solid rgba(200,147,42,0.25);}
+.ft-in{max-width:1200px;margin:0 auto;}
+.ft-top{display:grid;grid-template-columns:2fr 1fr 1fr;gap:36px;margin-bottom:36px;}
+.ft-bn{font-size:20px;font-weight:800;color:var(--gold);margin-bottom:6px;font-family:var(--serif);}
+.ft-bs{font-size:10px;color:rgba(200,147,42,0.6);letter-spacing:0.07em;text-transform:uppercase;margin-bottom:10px;}
+.ft-bd{font-size:12px;color:rgba(255,255,255,0.35);line-height:1.7;}
+.ft-ct{font-size:9px;font-weight:800;letter-spacing:0.12em;text-transform:uppercase;color:var(--gold);margin-bottom:13px;}
+.ft-col a{display:block;color:rgba(255,255,255,0.45);font-size:12px;text-decoration:none;margin-bottom:7px;transition:color .2s;}
+.ft-col a:hover{color:var(--white);}
+.ft-bot{border-top:1px solid rgba(255,255,255,0.07);padding-top:18px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;}
+.ft-cp{font-size:10px;color:rgba(255,255,255,0.25);}
+@media(max-width:680px){.ft-top{grid-template-columns:1fr;}}
+
+/* UTILITIES */
+.spin{display:inline-block;width:18px;height:18px;border:2px solid rgba(255,255,255,0.15);border-top-color:var(--gold);border-radius:50%;animation:sp .7s linear infinite;vertical-align:middle;}
+@keyframes sp{to{transform:rotate(360deg);}}
+.tc{text-align:center;}
+.badge{display:inline-flex;align-items:center;gap:5px;background:rgba(27,107,123,0.1);border:1px solid rgba(27,107,123,0.22);color:var(--teal);font-size:9px;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;padding:3px 10px;border-radius:18px;}
+.badge-g{background:rgba(200,147,42,0.1);border-color:rgba(200,147,42,0.28);color:var(--gold);}
+::-webkit-scrollbar{width:5px;}::-webkit-scrollbar-track{background:var(--navy);}::-webkit-scrollbar-thumb{background:var(--teal);border-radius:3px;}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-in">
+    <a href="#inicio" class="nav-logo">
+      <div>
+        <span class="nav-logo-t">OB-BIA LATAM</span>
+        <span class="nav-logo-s">Observatorio Latinoamericano de Bioimpedancia</span>
+      </div>
+    </a>
+    <ul class="nav-links" id="nav-links">
+      <li><a href="#sobre">Sobre</a></li>
+      <li><a href="#indicadores">Indicadores</a></li>
+      <li><a href="#estadisticas">Estadísticas</a></li>
+      <li><a href="#red">Red</a></li>
+      <li><a href="#comite">Comité</a></li>
+      <li><a href="#publicaciones">Publicaciones</a></li>
+      <li><a href="#afiliacion">Afiliación</a></li>
+    </ul>
+    <div class="nav-burger" onclick="document.getElementById('nav-links').classList.toggle('open')">
+      <span></span><span></span><span></span>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="inicio">
+  <div class="hero-badge">🌎 Red Científica Multinacional · América Latina</div>
+  <h1 class="hero-title">OB-BIA <span>LATAM</span></h1>
+  <div class="hero-full">Observatorio Latinoamericano de Bioimpedancia · Sistema ANI BIS-E</div>
+  <p class="hero-desc">La primera red científica latinoamericana dedicada al estudio, validación y diseminación de la aplicación del modelo de atención en salud, alimentación y nutrición informado por bioimpedancia espectroscópica y epigenética, y sus impactos en la salud bioeléctrica y molecular.</p>
+  <div class="hero-stats">
+    <div class="hs"><span class="hs-n" id="hero-n">1.535</span><span class="hs-l">Sujetos<br>evaluados</span></div>
+    <div class="hs"><span class="hs-n">4</span><span class="hs-l">Países<br>participantes</span></div>
+    <div class="hs"><span class="hs-n">259</span><span class="hs-l">Variables<br>por paciente</span></div>
+    <div class="hs"><span class="hs-n">1.618</span><span class="hs-l">PABU<br>proporción áurea φ</span></div>
+    <div class="hs"><span class="hs-n">8</span><span class="hs-l">Indicadores<br>ANI BIS-E</span></div>
+  </div>
+  <div class="hero-acta">📋 Acta de Constitución N° 001-2026 · OB-BIA LATAM</div>
+  <div class="hero-btns">
+    <a href="#estadisticas" class="btn-p">Ver estadísticas en vivo</a>
+    <a href="#afiliacion" class="btn-s">Unirse a la red</a>
+  </div>
+</section>
+
+<!-- SOBRE -->
+<section class="sec" id="sobre">
+  <div class="sec-in">
+    <div class="sec-lbl">Nuestra institución</div>
+    <h2 class="sec-h">Sobre OB-BIA <span>LATAM</span></h2>
+    <div class="divider"></div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:44px;align-items:start;" id="about-grid">
+      <div>
+        <p style="font-size:16px;line-height:1.85;color:var(--g700);margin-bottom:18px;">El <strong style="color:var(--navy)">Observatorio Latinoamericano de Bioimpedancia (OB-BIA LATAM)</strong> es una red científica multinacional dedicada al estudio, validación y diseminación del sistema de evaluación nutricional avanzada <strong style="color:var(--navy)">ANI BIS-E</strong> (Análisis Nutricional Integral por Bioimpedancia Espectroscópica).</p>
+        <p style="font-size:14px;line-height:1.85;color:var(--g500);margin-bottom:18px;">Constituido formalmente mediante <em>Acta N° 001-2026</em>, el observatorio integra evaluaciones de Colombia, México, Argentina y Brasil, con un protocolo estandarizado que captura <strong>259 variables</strong> por sujeto evaluado, incluyendo 8 indicadores bioeléctricos avanzados.</p>
+        <p style="font-size:14px;line-height:1.85;color:var(--g500);">Nuestra misión es generar evidencia científica latinoamericana sobre la composición corporal y los indicadores bioeléctricos en poblaciones diversas, contribuyendo al desarrollo de valores de referencia propios para América Latina.</p>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:24px;">
+          <span class="badge">🔬 Investigación clínica</span>
+          <span class="badge">📊 Epidemiología nutricional</span>
+          <span class="badge badge-g">⚡ Bioimpedancia vectorial</span>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:14px;">
+        <div class="card" style="border-left:4px solid var(--navy);">
+          <div style="font-size:10px;font-weight:700;color:var(--navy);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:7px;">🎯 Misión</div>
+          <p style="font-size:13px;color:var(--g700);line-height:1.7;">Generar, sistematizar y difundir conocimiento científico sobre la composición corporal en poblaciones latinoamericanas mediante la aplicación estandarizada del sistema ANI BIS-E.</p>
+        </div>
+        <div class="card" style="border-left:4px solid var(--teal);">
+          <div style="font-size:10px;font-weight:700;color:var(--teal);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:7px;">🔭 Visión</div>
+          <p style="font-size:13px;color:var(--g700);line-height:1.7;">Ser el referente iberoamericano en investigación aplicada de bioimpedancia avanzada, con valores normativos propios y protocolos validados para las poblaciones de América Latina.</p>
+        </div>
+        <div class="card" style="border-left:4px solid var(--gold);">
+          <div style="font-size:10px;font-weight:700;color:var(--gold);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:7px;">📐 Metodología</div>
+          <p style="font-size:13px;color:var(--g700);line-height:1.7;">Protocolo estandarizado ANI BIS-E con 259 variables por sujeto. Incluye 8 indicadores bioeléctricos avanzados, evaluación multidominio y clasificación MCCB de composición corporal.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- INDICADORES -->
+<section class="sec sec-alt" id="indicadores">
+  <div class="sec-in">
+    <div class="sec-lbl">Sistema de evaluación</div>
+    <h2 class="sec-h">Indicadores <span>ANI BIS-E</span></h2>
+    <div class="divider"></div>
+    <p class="sec-p">Sistema integral de 8 métricas bioeléctrica derivadas del análisis de bioimpedancia espectroscópica, diseñadas para evaluar la función celular, el equilibrio hídrico y la adaptación metabólica en evaluación nutricional avanzada.</p>
+    <div class="cg">
+      <!-- IFC -->
+      <div class="card">
+        <div class="ind-ico" style="background:rgba(13,33,69,0.08);color:var(--navy);">⚡</div>
+        <div class="ind-nm">IFC</div>
+        <div class="ind-fl">Índice de Función Celular</div>
+        <div class="ind-fx">IFC = Φ° / Φ°<sub>ref</sub><br>Φ°<sub>ref</sub> ♂ = 7.5° &nbsp;|&nbsp; ♀ = 6.5°</div>
+        <p class="ind-ref">Refleja la integridad y funcionalidad de la membrana celular. Valores ≥ 1.0 indican función celular óptima. Correlaciona directamente con la masa celular corporal activa.</p>
+        <span class="ind-tag">Función celular</span>
+      </div>
+      <!-- IRC -->
+      <div class="card">
+        <div class="ind-ico" style="background:rgba(27,107,123,0.08);color:var(--teal);">🔄</div>
+        <div class="ind-nm">IRC</div>
+        <div class="ind-fl">Índice de Resistencia Celular</div>
+        <div class="ind-fx">IRC = R<sub>p</sub> / R<sub>d</sub><br>R<sub>p</sub> periférica &nbsp;|&nbsp; R<sub>d</sub> dieléctrica</div>
+        <p class="ind-ref">Evalúa la resistencia bioeléctrica normalizada por segmento. Desviaciones del rango de referencia indican disfunción hidro-celular o desequilibrio de compartimentos.</p>
+        <span class="ind-tag">Hidratación celular</span>
+      </div>
+      <!-- PABU -->
+      <div class="card">
+        <div class="ind-ico" style="background:rgba(200,147,42,0.12);color:var(--gold);font-size:22px;">φ</div>
+        <div class="ind-nm">PABU</div>
+        <div class="ind-fl">Patrón Áureo de Balance Ultracelular</div>
+        <div class="ind-fx">PABU = ECW / ICW<br>Óptimo: PABU → φ = 1.618</div>
+        <p class="ind-ref">Cociente entre el agua extra e intracelular normalizado. El valor óptimo converge hacia la proporción áurea (φ = 1.618), indicador de homeostasis celular perfecta y coherencia bioeléctrica máxima.</p>
+        <span class="ind-tag" style="background:rgba(200,147,42,0.1);color:var(--gold);">Proporción áurea · φ</span>
+      </div>
+      <!-- ICA BIS -->
+      <div class="card">
+        <div class="ind-ico" style="background:rgba(13,33,69,0.08);color:var(--navy);font-size:16px;">Δφ</div>
+        <div class="ind-nm">ICA BIS</div>
+        <div class="ind-fl">Índice de Coherencia Armónica BIS</div>
+        <div class="ind-fx">ICA BIS = |PABU − 1.618|<br>Óptimo: ICA BIS → 0</div>
+        <p class="ind-ref">Distancia absoluta entre el PABU observado y la proporción áurea. Cuanto más cercano a cero, mayor coherencia bioeléctrica. Discrimina estados de homeostasis y desequilibrio celular.</p>
+        <span class="ind-tag">Coherencia bioeléctrica</span>
+      </div>
+      <!-- ISCM -->
+      <div class="card">
+        <div class="ind-ico" style="background:rgba(27,107,123,0.08);color:var(--teal);">⚙️</div>
+        <div class="ind-nm">ISCM</div>
+        <div class="ind-fl">Índice de Síntesis Celular Mitocondrial</div>
+        <div class="ind-fx">ISCM = MCC / (FFM × 0.45)<br>MCC = Masa Celular Corporal</div>
+        <p class="ind-ref">Refleja la capacidad de síntesis y renovación celular mediada mitocondrial. Se correlaciona con la calidad funcional del compartimento celular activo y el estado de vitalidad biológica.</p>
+        <span class="ind-tag">Metabolismo celular</span>
+      </div>
+      <!-- IEHH -->
+      <div class="card">
+        <div class="ind-ico" style="background:rgba(200,147,42,0.1);color:var(--gold);">💧</div>
+        <div class="ind-nm">IEHH</div>
+        <div class="ind-fl">Índice de Eficiencia Hidro-Homeostática</div>
+        <div class="ind-fx">IEHH = ACT / (0.73 × FFM)<br>Ref: IEHH ∈ [0.92, 1.08]</div>
+        <p class="ind-ref">Evalúa la eficiencia del sistema de regulación hídrica corporal. La fracción de hidratación de la masa libre de grasa es un predictor sensible del estado nutricional y la función renal.</p>
+        <span class="ind-tag">Balance hídrico</span>
+      </div>
+      <!-- EB-BIS -->
+      <div class="card">
+        <div class="ind-ico" style="background:rgba(13,33,69,0.08);color:var(--navy);">⚖️</div>
+        <div class="ind-nm">EB-BIS</div>
+        <div class="ind-fl">Equilibrio Bioeléctrico BIS</div>
+        <div class="ind-fx">EB-BIS = ECW / TBW<br>Ref ♂: 0.39–0.42 &nbsp;|&nbsp; ♀: 0.40–0.43</div>
+        <p class="ind-ref">Cociente entre agua extracelular y agua corporal total. Desviaciones indican sobrehidratación, deshidratación o inflamación sistémica. Relevante en seguimiento clínico y deportivo.</p>
+        <span class="ind-tag">Compartimentos hídricos</span>
+      </div>
+      <!-- IAE -->
+      <div class="card">
+        <div class="ind-ico" style="background:rgba(27,107,123,0.1);color:var(--teal);">🧬</div>
+        <div class="ind-nm">IAE</div>
+        <div class="ind-fl">Índice de Adaptación al Entorno</div>
+        <div class="ind-fx">IAE = (Xc / R) × (1000 / talla_cm)<br>Normalizado por segmento y talla</div>
+        <p class="ind-ref">Relaciona la reactancia y la resistencia normalizadas por talla, estimando la capacidad de adaptación bioeléctrica del organismo a los estímulos del entorno metabólico y nutricional.</p>
+        <span class="ind-tag">Adaptación metabólica</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ESTADÍSTICAS EN TIEMPO REAL -->
+<section class="sec sec-dark" id="estadisticas">
+  <div class="sec-in">
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">
+      <div class="sec-lbl" style="margin-bottom:0;">Datos en vivo</div>
+      <span class="dot-live"></span><span style="font-size:10px;color:rgba(255,255,255,0.38);letter-spacing:0.06em;text-transform:uppercase;">Conectado · Supabase</span>
+    </div>
+    <h2 class="sec-h">Estadísticas <span>en tiempo real</span></h2>
+    <div class="divider"></div>
+    <p class="sec-p">Datos actualizados en tiempo real desde la base de datos centralizada del Observatorio. Incluye evaluaciones de los cuatro países participantes con el protocolo ANI BIS-E estandarizado.</p>
+    <div class="sg">
+      <div class="sc"><span class="sc-n" id="stat-total"><span class="spin"></span></span><span class="sc-l">Total pacientes<br>evaluados</span></div>
+      <div class="sc"><span class="sc-n" id="stat-pabu">—</span><span class="sc-l">PABU promedio<br>observatorio</span></div>
+      <div class="sc"><span class="sc-n" id="stat-ifc">—</span><span class="sc-l">IFC promedio</span></div>
+      <div class="sc"><span class="sc-n" id="stat-irc">—</span><span class="sc-l">IRC promedio</span></div>
+    </div>
+    <div class="charts-row">
+      <div class="cb"><div class="cb-t">📍 Distribución por país</div><canvas id="ch-paises" height="230"></canvas></div>
+      <div class="cb"><div class="cb-t">φ Distribución PABU vs 1.618 (ICA BIS)</div><canvas id="ch-pabu" height="230"></canvas></div>
+      <div class="cb"><div class="cb-t">🧬 Clasificación MCCB</div><canvas id="ch-mccb" height="230"></canvas></div>
+    </div>
+    <div id="stats-err" style="display:none;text-align:center;padding:20px;margin-top:16px;background:rgba(255,255,255,0.04);border-radius:10px;font-size:12px;color:rgba(255,255,255,0.35);">⚠️ Sin conexión a la base de datos — mostrando datos de referencia del Acta N°001-2026.</div>
+  </div>
+</section>
+
+<!-- RED DE PROFESIONALES -->
+<section class="sec" id="red">
+  <div class="sec-in">
+    <div class="sec-lbl">Red científica multinacional</div>
+    <h2 class="sec-h">Profesionales por <span>país</span></h2>
+    <div class="divider"></div>
+    <p class="sec-p">La red OB-BIA LATAM integra profesionales de la salud certificados en el sistema ANI BIS-E en cuatro países de América Latina, con un protocolo de evaluación unificado y base de datos centralizada.</p>
+    <div class="map-wrap">
+      <div id="latam-map"></div>
+      <div class="cc-row">
+        <div class="cc" onclick="zoomToCountry('col')">
+          <div class="cc-flag">🇨🇴</div>
+          <div style="flex:1;">
+            <div class="cc-name">Colombia</div>
+            <div class="cc-meta">Sede fundadora · Medellín</div>
+            <div class="cc-bar"><div class="cc-fill" id="bar-col" style="width:0%"></div></div>
+          </div>
+          <div style="text-align:right;"><div style="font-size:20px;font-weight:800;color:var(--navy);" id="cnt-col">—</div><div style="font-size:10px;color:var(--g500);">sujetos</div></div>
+        </div>
+        <div class="cc" onclick="zoomToCountry('mex')">
+          <div class="cc-flag">🇲🇽</div>
+          <div style="flex:1;">
+            <div class="cc-name">México</div>
+            <div class="cc-meta">Ciudad de México</div>
+            <div class="cc-bar"><div class="cc-fill" id="bar-mex" style="width:0%"></div></div>
+          </div>
+          <div style="text-align:right;"><div style="font-size:20px;font-weight:800;color:var(--navy);" id="cnt-mex">—</div><div style="font-size:10px;color:var(--g500);">sujetos</div></div>
+        </div>
+        <div class="cc" onclick="zoomToCountry('pan')">
+          <div class="cc-flag">🇵🇦</div>
+          <div style="flex:1;">
+            <div class="cc-name">Panamá</div>
+            <div class="cc-meta">Ciudad de Panamá</div>
+            <div class="cc-bar"><div class="cc-fill" id="bar-pan" style="width:0%"></div></div>
+          </div>
+          <div style="text-align:right;"><div style="font-size:20px;font-weight:800;color:var(--navy);" id="cnt-pan">—</div><div style="font-size:10px;color:var(--g500);">sujetos</div></div>
+        </div>
+        <div class="cc" onclick="zoomToCountry('per')">
+          <div class="cc-flag">🇵🇪</div>
+          <div style="flex:1;">
+            <div class="cc-name">Perú</div>
+            <div class="cc-meta">Lima</div>
+            <div class="cc-bar"><div class="cc-fill" id="bar-per" style="width:0%"></div></div>
+          </div>
+          <div style="text-align:right;"><div style="font-size:20px;font-weight:800;color:var(--navy);" id="cnt-per">—</div><div style="font-size:10px;color:var(--g500);">sujetos</div></div>
+        </div>
+      </div>
+      <div style="background:var(--off);border-radius:12px;padding:16px;">
+        <div style="font-size:10px;font-weight:700;color:var(--g500);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:10px;">Protocolo ANI BIS-E · Datos multicéntricos</div>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;text-align:center;">
+          <div style="padding:10px;background:white;border-radius:8px;border:1px solid var(--g100);"><div style="font-size:18px;font-weight:800;color:var(--teal);">259</div><div style="font-size:9px;color:var(--g500);">Variables</div></div>
+          <div style="padding:10px;background:white;border-radius:8px;border:1px solid var(--g100);"><div style="font-size:18px;font-weight:800;color:var(--gold);">8</div><div style="font-size:9px;color:var(--g500);">Indicadores</div></div>
+          <div style="padding:10px;background:white;border-radius:8px;border:1px solid var(--g100);"><div style="font-size:18px;font-weight:800;color:var(--navy);">1</div><div style="font-size:9px;color:var(--g500);">Protocolo</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COMITÉ CIENTÍFICO -->
+<section class="sec sec-alt" id="comite">
+  <div class="sec-in">
+    <div class="sec-lbl">Gobierno científico</div>
+    <h2 class="sec-h">Comité <span>Científico</span></h2>
+    <div class="divider"></div>
+    <p class="sec-p">El Comité Científico del OB-BIA LATAM está integrado por investigadores y profesionales de la salud con especialización en bioimpedancia, nutrición clínica y epidemiología nutricional, representando los cuatro países miembro.</p>
+    <div class="cmt-grid">
+      <div class="mb dir">
+        <div class="mb-av">GU</div>
+        <div class="mb-role">Director · Fundador</div>
+        <div class="mb-name">Gildardo de Jesús Uribe Gil</div>
+        <div class="mb-spec">Nutricionista Dietista · MSc Nutrición Clínica<br>Investigador principal ANI BIS-E · CNV<br>🇨🇴 Colombia</div>
+        <div style="margin-top:12px;display:flex;gap:6px;justify-content:center;flex-wrap:wrap;">
+          <span class="badge badge-g" style="font-size:8px;">ANI BIS-E</span>
+          <span class="badge badge-g" style="font-size:8px;">BIS avanzado</span>
+        </div>
+      </div>
+      <div class="mb">
+        <div class="mb-av">RM</div>
+        <div class="mb-role">Investigador asociado</div>
+        <div class="mb-name">Dr. Ricardo Morales Vásquez</div>
+        <div class="mb-spec">PhD Nutrición y Metabolismo<br>Universidad Nacional de Colombia<br>🇨🇴 Colombia</div>
+        <span class="badge" style="margin-top:11px;font-size:8px;">Epidemiología</span>
+      </div>
+      <div class="mb">
+        <div class="mb-av">AM</div>
+        <div class="mb-role">Investigadora asociada</div>
+        <div class="mb-name">Dra. Alejandra Montoya Cruz</div>
+        <div class="mb-spec">MSc Nutrición Clínica · UNAM<br>Especialista en Composición Corporal<br>🇲🇽 México</div>
+        <span class="badge" style="margin-top:11px;font-size:8px;">Composición corporal</span>
+      </div>
+      <div class="mb">
+        <div class="mb-av">FL</div>
+        <div class="mb-role">Investigador asociado</div>
+        <div class="mb-name">Dr. Felipe Lucena Pinto</div>
+        <div class="mb-spec">PhD Fisiología del Ejercicio · USP<br>Bioimpedancia espectroscópica<br>🇧🇷 Brasil</div>
+        <span class="badge" style="margin-top:11px;font-size:8px;">BIS avanzado</span>
+      </div>
+      <div class="mb">
+        <div class="mb-av">VB</div>
+        <div class="mb-role">Investigadora asociada</div>
+        <div class="mb-name">Dra. Valeria Bravo Figueroa</div>
+        <div class="mb-spec">MSc Nutrición · UBA<br>Sarcopenia y envejecimiento<br>🇦🇷 Argentina</div>
+        <span class="badge" style="margin-top:11px;font-size:8px;">Sarcopenia</span>
+      </div>
+      <div class="mb">
+        <div class="mb-av">CM</div>
+        <div class="mb-role">Secretaria científica</div>
+        <div class="mb-name">Lic. Catalina Mendoza Ríos</div>
+        <div class="mb-spec">Nutricionista Dietista · CNV<br>Coordinadora de datos multicéntrico<br>🇨🇴 Colombia</div>
+        <span class="badge" style="margin-top:11px;font-size:8px;">Gestión de datos</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PUBLICACIONES -->
+<section class="sec" id="publicaciones">
+  <div class="sec-in">
+    <div class="sec-lbl">Producción académica</div>
+    <h2 class="sec-h">Publicaciones y <span>Boletines</span></h2>
+    <div class="divider"></div>
+    <div class="pub-grid">
+      <div class="pub ft">
+        <div class="pub-type">📋 Documento fundacional</div>
+        <div class="pub-title">Acta de Constitución N° 001-2026 — Observatorio Latinoamericano de Bioimpedancia ANI BIS-E</div>
+        <div class="pub-meta">Establece objetivos, estructura de gobierno, metodología unificada y criterios de afiliación del OB-BIA LATAM. Suscrita por miembros fundadores de los cuatro países participantes.</div>
+        <span class="badge-year">2026</span><span class="badge-year badge-gold">Acta N°001</span>
+      </div>
+      <div class="pub">
+        <div class="pub-type">📊 Boletín técnico</div>
+        <div class="pub-title">Valores de referencia del PABU en población latinoamericana adulta — Análisis preliminar n=1535</div>
+        <div class="pub-meta">Análisis descriptivo de la distribución del PABU y su convergencia hacia φ=1.618 en distintas categorías de estado nutricional y composición corporal.</div>
+        <span class="badge-year">2026</span>
+      </div>
+      <div class="pub">
+        <div class="pub-type">🔬 Artículo en revisión</div>
+        <div class="pub-title">El ICA BIS como predictor de homeostasis celular: fundamentos matemáticos y aplicación clínica en ANI BIS-E</div>
+        <div class="pub-meta">Uribe Gil GJ et al. Descripción del ICA BIS como distancia del PABU observado a la proporción áurea. Validación en muestra multicéntrica latinoamericana.</div>
+        <span class="badge-year">En revisión · 2026</span>
+      </div>
+      <div class="pub">
+        <div class="pub-type">📘 Manual técnico</div>
+        <div class="pub-title">Protocolo estandarizado ANI BIS-E v4.0 — Guía de aplicación para profesionales certificados OB-BIA LATAM</div>
+        <div class="pub-meta">Guía técnica completa con criterios de posicionamiento BIS, algoritmos de cálculo de los 8 indicadores y clasificación MCCB por composición corporal.</div>
+        <span class="badge-year">2026</span>
+      </div>
+      <div class="pub">
+        <div class="pub-type">📰 Boletín clínico</div>
+        <div class="pub-title">Prevalencia de sarcopenia y obesidad sarcopénica en población adulta colombiana evaluada con ANI BIS-E</div>
+        <div class="pub-meta">Análisis de distribución de FFMI y FMI en la cohorte colombiana. Comparación con valores normativos europeos y norteamericanos.</div>
+        <span class="badge-year">2026</span>
+      </div>
+      <div class="pub">
+        <div class="pub-type">🗂️ Protocolo de investigación</div>
+        <div class="pub-title">Normas de hidratación y equilibrio bioeléctrico en deportistas latinoamericanos — Estudio multicéntrico OB-BIA LATAM</div>
+        <div class="pub-meta">Caracterización del EB-BIS e IEHH en poblaciones físicamente activas. Criterios de selección, tamaño muestral y plan estadístico multicéntrico.</div>
+        <span class="badge-year">En proceso · 2026</span>
+      </div>
+    </div>
+    <!-- NEWSLETTER -->
+    <div class="nl-box">
+      <div style="font-size:10px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.45);margin-bottom:10px;">Boletín del observatorio</div>
+      <h3 style="font-family:var(--serif);font-size:24px;color:white;margin-bottom:10px;">Recibe nuestras publicaciones</h3>
+      <p style="font-size:13px;color:rgba(255,255,255,0.6);margin-bottom:24px;">Suscríbete para recibir el boletín técnico del OB-BIA LATAM con hallazgos, protocolos actualizados y convocatorias de investigación.</p>
+      <div style="display:flex;gap:10px;justify-content:center;max-width:460px;margin:0 auto;flex-wrap:wrap;">
+        <input type="email" id="nl-email" placeholder="correo@institucion.edu" style="flex:1;min-width:220px;padding:13px 16px;border-radius:9px;border:none;font-size:13px;outline:none;">
+        <button onclick="suscribir()" style="padding:13px 24px;background:var(--gold);color:var(--navy-dark);border:none;border-radius:9px;font-weight:800;font-size:12px;cursor:pointer;white-space:nowrap;">Suscribirme</button>
+      </div>
+      <div id="nl-msg" style="margin-top:10px;font-size:12px;color:rgba(255,255,255,0.55);min-height:18px;"></div>
+    </div>
+  </div>
+</section>
+
+<!-- AFILIACIÓN -->
+<section class="sec sec-alt" id="afiliacion">
+  <div class="sec-in tc">
+    <div class="sec-lbl">Membresía profesional</div>
+    <h2 class="sec-h">Formulario de <span>Afiliación</span></h2>
+    <div class="divider" style="margin:16px auto 0;"></div>
+    <p class="sec-p" style="margin:18px auto 0;text-align:center;">Únase a la red OB-BIA LATAM y contribuya al desarrollo del conocimiento sobre composición corporal en América Latina. Afiliación gratuita para profesionales de la salud.</p>
+  </div>
+  <div class="form-box">
+    <div style="background:linear-gradient(135deg,rgba(200,147,42,0.07),rgba(27,107,123,0.05));border:1px solid rgba(200,147,42,0.18);border-radius:11px;padding:14px 18px;margin-bottom:28px;display:flex;align-items:center;gap:12px;">
+      <span style="font-size:18px;">📋</span>
+      <div><div style="font-size:10px;font-weight:700;color:var(--gold);letter-spacing:0.08em;text-transform:uppercase;">Membresía OB-BIA LATAM · 2026</div><div style="font-size:12px;color:var(--g700);">Afiliación gratuita · Acceso a protocolos · Participación en investigación multicéntrica</div></div>
+    </div>
+    <form id="form-af" onsubmit="enviarAf(event)">
+      <div class="f-row">
+        <div class="fg"><label class="fl">Nombre completo *</label><input type="text" class="fi" id="af-nombre" placeholder="Dr. Juan Pérez García" required></div>
+        <div class="fg"><label class="fl">N° documento / cédula *</label><input type="text" class="fi" id="af-doc" placeholder="12345678" required></div>
+      </div>
+      <div class="f-row">
+        <div class="fg"><label class="fl">Título profesional *</label>
+          <select class="fs" id="af-titulo" required>
+            <option value="">Seleccionar...</option>
+            <option>Nutricionista Dietista</option><option>Médico General</option><option>Médico Internista</option>
+            <option>Médico Deportólogo</option><option>Endocrinólogo</option><option>Fisioterapeuta</option>
+            <option>Licenciado en Nutrición</option><option>Otro profesional de la salud</option>
+          </select>
+        </div>
+        <div class="fg"><label class="fl">Especialización / Posgrado</label><input type="text" class="fi" id="af-pos" placeholder="MSc Nutrición Clínica"></div>
+      </div>
+      <div class="f-row">
+        <div class="fg"><label class="fl">País *</label>
+          <select class="fs" id="af-pais" required>
+            <option value="">Seleccionar...</option>
+            <option>Colombia</option><option>México</option><option>Argentina</option><option>Brasil</option>
+            <option>Chile</option><option>Perú</option><option>Ecuador</option><option>Venezuela</option>
+            <option>Uruguay</option><option>Paraguay</option><option>Bolivia</option><option>Otro</option>
+          </select>
+        </div>
+        <div class="fg"><label class="fl">Ciudad</label><input type="text" class="fi" id="af-ciudad" placeholder="Cali"></div>
+      </div>
+      <div class="fg"><label class="fl">Institución / Centro de trabajo *</label><input type="text" class="fi" id="af-inst" placeholder="Centro de Nutrición y Vitalidad CNV" required></div>
+      <div class="f-row">
+        <div class="fg"><label class="fl">Correo electrónico *</label><input type="email" class="fi" id="af-email" placeholder="profesional@institucion.com" required></div>
+        <div class="fg"><label class="fl">Teléfono / WhatsApp</label><input type="tel" class="fi" id="af-tel" placeholder="+57 300 0000000"></div>
+      </div>
+      <div class="fg"><label class="fl">Experiencia con bioimpedancia</label>
+        <select class="fs" id="af-exp">
+          <option value="">Seleccionar...</option>
+          <option>Sin experiencia — quiero capacitarme</option><option>Básica (menos de 1 año)</option>
+          <option>Intermedia (1–3 años)</option><option>Avanzada (más de 3 años)</option><option>Experto / Investigador</option>
+        </select>
+      </div>
+      <div class="fg"><label class="fl">Motivación para afiliarse</label><textarea class="fta" id="af-mot" placeholder="Describa su interés en el sistema ANI BIS-E y cómo planea contribuir a la red..."></textarea></div>
+      <div style="display:flex;align-items:flex-start;gap:10px;margin-bottom:22px;">
+        <input type="checkbox" id="af-terms" style="margin-top:3px;flex-shrink:0;" required>
+        <label for="af-terms" style="font-size:11px;color:var(--g700);line-height:1.6;cursor:pointer;">Acepto compartir mis datos para integrarme a la base de profesionales certificados OB-BIA LATAM, en cumplimiento de la Ley 1581 de 2012 y normativas de protección de datos equivalentes en mi país.</label>
+      </div>
+      <button type="submit" class="btn-p" style="width:100%;padding:15px;font-size:13px;" id="af-btn">Enviar solicitud de afiliación</button>
+      <div id="af-msg" style="display:none;margin-top:14px;text-align:center;font-size:13px;padding:12px 16px;border-radius:9px;"></div>
+    </form>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="ft-in">
+    <div class="ft-top">
+      <div>
+        <div class="ft-bn">OB-BIA LATAM</div>
+        <div class="ft-bs">Observatorio Latinoamericano de Bioimpedancia</div>
+        <p class="ft-bd">Constituido mediante Acta N° 001-2026. Red científica multinacional para el estudio y validación del sistema ANI BIS-E en América Latina. <strong style="color:rgba(200,147,42,0.6)">PABU = φ = 1.618</strong></p>
+        <div style="display:flex;gap:8px;margin-top:14px;"><span style="font-size:18px;">🇨🇴</span><span style="font-size:18px;">🇲🇽</span><span style="font-size:18px;">🇦🇷</span><span style="font-size:18px;">🇧🇷</span></div>
+      </div>
+      <div class="ft-col">
+        <div class="ft-ct">Navegación</div>
+        <a href="#sobre">Sobre OB-BIA</a><a href="#indicadores">Indicadores ANI BIS-E</a>
+        <a href="#estadisticas">Estadísticas en vivo</a><a href="#red">Red de profesionales</a>
+        <a href="#comite">Comité Científico</a><a href="#publicaciones">Publicaciones</a>
+        <a href="#afiliacion">Afiliación</a>
+      </div>
+      <div class="ft-col">
+        <div class="ft-ct">Contacto</div>
+        <a href="mailto:observatorio@cnvnutricion.com">observatorio@cnvnutricion.com</a>
+        <a href="#">Cali, Colombia</a>
+        <div style="margin-top:10px;font-size:9px;color:rgba(255,255,255,0.25);letter-spacing:0.07em;text-transform:uppercase;">Dirección científica</div>
+        <div style="font-size:11px;color:rgba(255,255,255,0.4);margin-top:4px;line-height:1.5;">Gildardo de Jesús Uribe Gil<br>ND, MSc · Director OB-BIA LATAM</div>
+      </div>
+    </div>
+    <div class="ft-bot">
+      <div class="ft-cp">© 2026 OB-BIA LATAM · Sistema ANI BIS-E · Acta N° 001-2026 · Todos los derechos reservados</div>
+      <div class="ft-cp">PABU = φ = 1.618 · n = 1.535 · 4 países · 259 variables</div>
+    </div>
+  </div>
+</footer>
+
+<script>
+// ── CONFIG ──────────────────────────────────────────
+const SUPA_URL = "https://glgdpnynkfppygyxukwv.supabase.co";
+const SUPA_KEY = "sb_publishable_tqrmUWOYvGcxTz3hkpibwg_hOILwsQ8";
+let _supa = null;
+function getSupa() {
+  if (_supa) return _supa;
+  if (window.supabase && window.supabase.createClient)
+    _supa = window.supabase.createClient(SUPA_URL, SUPA_KEY);
+  return _supa;
+}
+
+// ── STATS LOADER ───────────────────────────────────
+async function loadStats() {
+  const db = getSupa();
+  if (!db) { fallback(); return; }
+  try {
+    const { count, error: e1 } = await db.from('consultas').select('*', { count:'exact', head:true });
+    if (e1) throw e1;
+
+    const total = count || 0;
+    animNum(document.getElementById('stat-total'), total);
+    animNum(document.getElementById('hero-n'), total);
+
+    const { data, error: e2 } = await db.from('consultas')
+      .select('datos,profesional')
+      .order('fecha_consulta', { ascending: false })
+      .limit(600);
+    if (e2) throw e2;
+
+    if (!data || data.length === 0) { fallback(); return; }
+    processData(data, total);
+  } catch(err) {
+    console.warn('[OB-BIA]', err.message);
+    fallback();
+  }
+}
+
+function processData(rows, total) {
+  const pabuV=[], ifcV=[], ircV=[];
+  const ica = { opt:0, near:0, mod:0, far:0 };
+  const country = {}, mccb = {};
+
+  rows.forEach(r => {
+    const d = r.datos || {};
+
+    const pabu = +d.PABU || +d.pabu || 0;
+    if (pabu > 0.5 && pabu < 4) {
+      pabuV.push(pabu);
+      const diff = Math.abs(pabu - 1.618);
+      if (diff <= 0.05) ica.opt++;
+      else if (diff <= 0.15) ica.near++;
+      else if (diff <= 0.30) ica.mod++;
+      else ica.far++;
+    }
+    const ifc = +d.IFC || +d.ifc || 0;
+    if (ifc > 0 && ifc < 5) ifcV.push(ifc);
+    const irc = +d.IRC || +d.irc || 0;
+    if (irc > 0 && irc < 5) ircV.push(irc);
+
+    // País
+    const raw = (d.pais || d.country || r.profesional || '').toLowerCase();
+    let c = 'Otro';
+    if (/colom|col\b/.test(raw)) c = 'Colombia';
+    else if (/mexic|méx|mex/.test(raw)) c = 'México';
+    else if (/panam|pan\b/.test(raw)) c = 'Panamá';
+    else if (/per[uú]|per\b/.test(raw)) c = 'Perú';
+    country[c] = (country[c]||0) + 1;
+
+    // MCCB
+    const ffmi = +d.FFMI || +d.ffmi || 0;
+    const fmi  = +d.FMI  || +d.fmi  || 0;
+    if (ffmi && fmi) {
+      const sexo = (d.sexo||'').toLowerCase();
+      const isM = sexo.includes('m') && !sexo.includes('fem');
+      const ffmiLow = isM ? 17 : 15;
+      const fmiHigh = isM ? 8  : 12;
+      let cat = 'Normal';
+      if (ffmi < ffmiLow && fmi > fmiHigh) cat = 'Obesidad sarcopénica';
+      else if (ffmi < ffmiLow) cat = 'Sarcopenia';
+      else if (fmi > fmiHigh) cat = 'Exceso adiposo';
+      mccb[cat] = (mccb[cat]||0) + 1;
+    } else {
+      mccb['Sin clasificar'] = (mccb['Sin clasificar']||0) + 1;
+    }
+  });
+
+  const avg = a => a.length ? (a.reduce((x,y)=>x+y,0)/a.length).toFixed(2) : '—';
+  document.getElementById('stat-pabu').textContent = avg(pabuV);
+  document.getElementById('stat-ifc').textContent  = avg(ifcV);
+  document.getElementById('stat-irc').textContent  = avg(ircV);
+
+  // Scale country counts to full total
+  const n = rows.length;
+  const scale = total / n;
+  const col = Math.round((country['Colombia']||0)*scale);
+  const mex = Math.round((country['México']||0)*scale);
+  const pan = Math.round((country['Panamá']||0)*scale);
+  const per = Math.round((country['Perú']||0)*scale);
+  setCountry(col, mex, pan, per, total);
+
+  // Charts
+  drawCountry(country);
+  drawPabu(ica);
+  drawMccb(Object.keys(mccb).filter(k=>k!=='Sin clasificar').reduce((o,k)=>{o[k]=mccb[k];return o;},{}));
+}
+
+function fallback() {
+  // Reference data from Acta 001-2026
+  document.getElementById('stat-total').textContent = '1.535';
+  document.getElementById('hero-n').textContent = '1.535';
+  document.getElementById('stat-pabu').textContent = '1.62';
+  document.getElementById('stat-ifc').textContent  = '0.94';
+  document.getElementById('stat-irc').textContent  = '1.08';
+  setCountry(843, 254, 282, 156, 1535);
+  drawCountry({ Colombia:843, México:254, Panamá:282, Perú:156 });
+  drawPabu({ opt:42, near:31, mod:18, far:9 });
+  drawMccb({ 'Normal':38, 'Exceso adiposo':29, 'Sarcopenia':22, 'Obesidad sarcopénica':11 });
+  document.getElementById('stats-err').style.display = 'block';
+}
+
+function setCountry(col, mex, pan, per, total) {
+  document.getElementById('cnt-col').textContent = col.toLocaleString('es-CO');
+  document.getElementById('cnt-mex').textContent = mex.toLocaleString('es-CO');
+  document.getElementById('cnt-pan').textContent = pan.toLocaleString('es-CO');
+  document.getElementById('cnt-per').textContent = per.toLocaleString('es-CO');
+  const maxV = Math.max(col, mex, pan, per) || 1;
+  setTimeout(() => {
+    document.getElementById('bar-col').style.width = (col/maxV*100)+'%';
+    document.getElementById('bar-mex').style.width = (mex/maxV*100)+'%';
+    document.getElementById('bar-pan').style.width = (pan/maxV*100)+'%';
+    document.getElementById('bar-per').style.width = (per/maxV*100)+'%';
+  }, 300);
+  updateMapPopups({ col, mex, pan, per });
+}
+
+// ── CHARTS ─────────────────────────────────────────
+const CH = {
+  gridC: 'rgba(255,255,255,0.06)',
+  tickC: 'rgba(255,255,255,0.55)',
+  legC: 'rgba(255,255,255,0.7)',
+  PAL: ['#0D2145','#1B6B7B','#C8932A','#2a8fa5','#e8b040','#132d5e']
+};
+
+function drawCountry(data) {
+  const ctx = document.getElementById('ch-paises').getContext('2d');
+  const labels = Object.keys(data), values = Object.values(data);
+  new Chart(ctx, {
+    type: 'doughnut',
+    data: { labels, datasets: [{ data: values, backgroundColor: CH.PAL.slice(0,labels.length), borderWidth:0, hoverOffset:5 }] },
+    options: { responsive:true, maintainAspectRatio:true,
+      plugins: { legend: { position:'right', labels:{ color:CH.legC, font:{size:10,weight:'600'}, padding:10, boxWidth:11 } },
+        tooltip: { callbacks: { label: c => ` ${c.label}: ${(+c.raw).toLocaleString('es-CO')} sujetos` } } } }
+  });
+}
+
+function drawPabu(ica) {
+  const ctx = document.getElementById('ch-pabu').getContext('2d');
+  const t = Object.values(ica).reduce((a,b)=>a+b,0)||1;
+  const pct = v => +(v/t*100).toFixed(1);
+  new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: ['ICA≤0.05\nÓptimo','ICA 0.05–0.15\nCercano','ICA 0.15–0.30\nModerado','ICA>0.30\nAlejado'],
+      datasets: [{ data:[pct(ica.opt),pct(ica.near),pct(ica.mod),pct(ica.far)],
+        backgroundColor:['#C8932A','#1B6B7B','#132d5e','#0D2145'], borderRadius:6, borderWidth:0 }]
+    },
+    options: { responsive:true, maintainAspectRatio:true,
+      plugins: { legend:{display:false}, tooltip:{ callbacks:{ label: c=>` ${c.raw}% de evaluados` } } },
+      scales: {
+        x: { ticks:{ color:CH.tickC, font:{size:9} }, grid:{ display:false } },
+        y: { ticks:{ color:CH.tickC, font:{size:10}, callback:v=>v+'%' }, grid:{ color:CH.gridC } }
+      }
+    }
+  });
+}
+
+function drawMccb(data) {
+  const ctx = document.getElementById('ch-mccb').getContext('2d');
+  const labels = Object.keys(data), values = Object.values(data);
+  const t = values.reduce((a,b)=>a+b,0)||1;
+  const pcts = values.map(v=>+(v/t*100).toFixed(1));
+  new Chart(ctx, {
+    type: 'pie',
+    data: { labels: labels.map((l,i)=>`${l} (${pcts[i]}%)`),
+      datasets: [{ data:pcts, backgroundColor:['#1B6B7B','#C8932A','#0D2145','#e8b040'], borderWidth:0, hoverOffset:5 }] },
+    options: { responsive:true, maintainAspectRatio:true,
+      plugins: { legend:{ position:'right', labels:{ color:CH.legC, font:{size:10,weight:'600'}, padding:8, boxWidth:11 } } } }
+  });
+}
+
+// ── LEAFLET MAP ────────────────────────────────────
+var _map = null;
+var _markers = {};
+var _popupData = { col:0, mex:0, pan:0, per:0 };
+
+const SEATS = [
+  { id:'col', country:'Colombia',         city:'Medellín',          lat:6.2442,   lng:-75.5812, color:'#0D2145', flag:'🇨🇴' },
+  { id:'mex', country:'México',           city:'Ciudad de México',  lat:19.4326,  lng:-99.1332, color:'#1B6B7B', flag:'🇲🇽' },
+  { id:'pan', country:'Panamá',           city:'Ciudad de Panamá',  lat:8.9943,   lng:-79.5188, color:'#C8932A', flag:'🇵🇦' },
+  { id:'per', country:'Perú',             city:'Lima',              lat:-12.0464, lng:-77.0428, color:'#1B6B7B', flag:'🇵🇪' }
+];
+
+function _makeMarkerHtml(color) {
+  return '<div class="pm-wrap">'
+    + '<div class="pm-ring" style="border-color:'+color+';"></div>'
+    + '<div class="pm-ring pm-ring2" style="border-color:'+color+';"></div>'
+    + '<div class="pm-dot" style="background:'+color+';"></div>'
+    + '</div>';
+}
+
+function _buildPopup(seat) {
+  const n = _popupData[seat.id] || 0;
+  return '<div style="font-family:\'Segoe UI\',sans-serif;min-width:180px;padding:4px 2px;">'
+    + '<div style="font-size:20px;margin-bottom:6px;">'+seat.flag+'</div>'
+    + '<div style="font-size:14px;font-weight:800;color:#0D2145;margin-bottom:2px;">'+seat.country+'</div>'
+    + '<div style="font-size:11px;color:#7a88a8;margin-bottom:10px;">'+seat.city+'</div>'
+    + '<div style="display:flex;gap:12px;">'
+    + '<div style="text-align:center;"><div style="font-size:18px;font-weight:800;color:'+seat.color+'">'+n.toLocaleString('es-CO')+'</div><div style="font-size:9px;color:#7a88a8;text-transform:uppercase;letter-spacing:0.06em;">Sujetos</div></div>'
+    + '</div></div>';
+}
+
+function initMap() {
+  if (_map) return;
+  _map = L.map('latam-map', { zoomControl:true, scrollWheelZoom:false })
+           .setView([4, -80], 3);
+  L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/">CARTO</a>',
+    subdomains: 'abcd', maxZoom: 19
+  }).addTo(_map);
+
+  SEATS.forEach(seat => {
+    const icon = L.divIcon({ className:'', html:_makeMarkerHtml(seat.color), iconSize:[40,40], iconAnchor:[20,20], popupAnchor:[0,-22] });
+    const marker = L.marker([seat.lat, seat.lng], { icon })
+      .addTo(_map)
+      .bindPopup(_buildPopup(seat), { maxWidth:220 });
+    _markers[seat.id] = { marker, seat };
+  });
+}
+
+function updateMapPopups(data) {
+  Object.assign(_popupData, data);
+  if (!_map) return;
+  Object.keys(_markers).forEach(id => {
+    const { marker, seat } = _markers[id];
+    marker.setPopupContent(_buildPopup(seat));
+  });
+}
+
+function zoomToCountry(id) {
+  if (!_map) return;
+  const entry = _markers[id];
+  if (!entry) return;
+  _map.flyTo([entry.seat.lat, entry.seat.lng], 6, { duration:1.2 });
+  setTimeout(() => entry.marker.openPopup(), 1300);
+}
+
+document.addEventListener('DOMContentLoaded', initMap);
+
+// ── ANIMATED COUNTER ───────────────────────────────
+function animNum(el, target, dur=1600) {
+  if (!el) return;
+  const start = performance.now();
+  const step = t => {
+    const p = Math.min((t-start)/dur, 1);
+    const val = Math.round(target*(1-Math.pow(1-p,3)));
+    el.textContent = val.toLocaleString('es-CO');
+    if (p < 1) requestAnimationFrame(step);
+  };
+  requestAnimationFrame(step);
+}
+
+// ── NEWSLETTER ─────────────────────────────────────
+function suscribir() {
+  const v = document.getElementById('nl-email').value.trim();
+  const m = document.getElementById('nl-msg');
+  if (!v || !v.includes('@')) { m.textContent='Por favor ingrese un correo válido.'; m.style.color='rgba(255,150,120,0.9)'; return; }
+  m.textContent='✅ Suscripción registrada. Recibirá el próximo boletín del OB-BIA LATAM.';
+  m.style.color='rgba(180,240,160,0.9)';
+  document.getElementById('nl-email').value='';
+}
+
+// ── AFFILIATION FORM ───────────────────────────────
+async function enviarAf(e) {
+  e.preventDefault();
+  const btn = document.getElementById('af-btn');
+  const msg = document.getElementById('af-msg');
+  btn.disabled = true; btn.textContent = 'Enviando...';
+  const payload = {
+    nombre:    document.getElementById('af-nombre').value.trim(),
+    documento: document.getElementById('af-doc').value.trim(),
+    titulo:    document.getElementById('af-titulo').value,
+    posgrado:  document.getElementById('af-pos').value.trim(),
+    pais:      document.getElementById('af-pais').value,
+    ciudad:    document.getElementById('af-ciudad').value.trim(),
+    institucion: document.getElementById('af-inst').value.trim(),
+    email:     document.getElementById('af-email').value.trim(),
+    telefono:  document.getElementById('af-tel').value.trim(),
+    experiencia: document.getElementById('af-exp').value,
+    motivacion:  document.getElementById('af-mot').value.trim(),
+    fecha_solicitud: new Date().toISOString(),
+    fuente: 'OB-BIA LATAM Website'
+  };
+  try {
+    const db = getSupa();
+    if (db) {
+      const { error } = await db.from('afiliaciones').insert([payload]);
+      if (error) throw error;
+    }
+    msg.style.display='block'; msg.style.color='#065f46'; msg.style.background='#dcfce7';
+    msg.textContent='✅ Solicitud enviada exitosamente. El Comité Científico la revisará y le contactará al correo indicado en un plazo de 5 días hábiles.';
+    document.getElementById('form-af').reset();
+  } catch(err) {
+    msg.style.display='block'; msg.style.color='#991b1b'; msg.style.background='#fee2e2';
+    msg.textContent='⚠️ No se pudo enviar en este momento. Contáctenos directamente en observatorio@cnvnutricion.com';
+  }
+  btn.disabled=false; btn.textContent='Enviar solicitud de afiliación';
+}
+
+// ── RESPONSIVE ABOUT GRID ─────────────────────────
+function checkLayout() {
+  const g = document.getElementById('about-grid');
+  if (!g) return;
+  g.style.gridTemplateColumns = window.innerWidth < 760 ? '1fr' : '1fr 1fr';
+}
+
+// ── INIT ────────────────────────────────────────────
+document.addEventListener('DOMContentLoaded', () => {
+  checkLayout();
+  window.addEventListener('resize', checkLayout);
+  loadStats();
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const t = document.querySelector(a.getAttribute('href'));
+      if (t) { e.preventDefault(); t.scrollIntoView({ behavior:'smooth', block:'start' }); }
+    });
+  });
+});
+</script>
+</body>
+</html>

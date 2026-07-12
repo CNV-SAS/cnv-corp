@@ -2,12 +2,6 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { getI18n } from '../i18n';
 
-// Componentes modulares
-import TrainingHero from '../components/pages/learning/TrainingHero.astro';
-import TrainingMission from '../components/pages/learning/TrainingMission.astro';
-import TrainingCurriculum from '../components/pages/learning/TrainingCurriculum.astro';
-import AcademyCTA from '../components/pages/learning/AcademyCTA.astro';
-
 const lang = Astro.currentLocale || 'es';
 const t = getI18n(lang);
 const p = t.pages.formacion;
@@ -15,10 +9,327 @@ const p = t.pages.formacion;
 
 <BaseLayout
   title={`${p.title} — Connected Nutrition Ventures`}
-  description={p.hero_body}
+  description="CNV Learning convierte la ciencia de CNV Research en formación continua: diplomados, cursos cortos, seminarios, talleres, congresos y alianzas universitarias en medicina bioeléctrica y bioimpedancia."
 >
-  <TrainingHero />
-  <TrainingMission />
-  <TrainingCurriculum />
-  <AcademyCTA />
+  <Fragment slot="head">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500;600&display=swap"
+      rel="stylesheet"
+    />
+  </Fragment>
+
+  <div class="cnvlearning-root">
+
+    <!-- HERO -->
+    <header class="hero">
+      <div class="wrap">
+        <div class="kicker">CNV Learning</div>
+        <h1>Convierte la ciencia en formación.</h1>
+        <p>CNV Learning transforma los datos y hallazgos generados por CNV Research en programas de formación continua: diplomados, cursos cortos, seminarios, talleres y congresos, además de alianzas con universidades para desarrollar especializaciones y maestrías.</p>
+      </div>
+      <div class="hero-deco" aria-hidden="true">L</div>
+    </header>
+
+    <!-- OFERTA EDUCATIVA -->
+    <section id="oferta">
+      <div class="wrap">
+        <div class="kicker">Qué hacemos</div>
+        <h2>Del dato científico al aula.</h2>
+        <p class="lead">Una oferta educativa que baja la evidencia del observatorio OB BIA LATAM a la práctica clínica del profesional.</p>
+        <div class="oferta-grid" id="ofertaGrid"></div>
+      </div>
+    </section>
+
+    <!-- DIPLOMADO DESTACADO -->
+    <section class="diplo" id="diplomado">
+      <div class="wrap">
+        <div class="kicker" style="color:var(--accent)">Programa insignia</div>
+        <h2 style="color:#fff">Diplomado en Medicina Bioeléctrica y Sistema ANI BIS-E</h2>
+        <p class="diplo-intro">120 horas de formación virtual sincrónica que capacitan al profesional para interpretar, reportar e intervenir clínicamente con el sistema ANI BIS-E. Es, además, requisito de selección para los integrantes de la red CNV.</p>
+
+        <div class="diplo-grid">
+          <div class="diplo-ficha" id="diploFicha"></div>
+          <aside class="diplo-precio">
+            <div class="pre-tag">Inscripción abierta</div>
+            <div class="pre-val">USD $500 <span class="pre-iva">+ IVA</span></div>
+            <div class="pre-lbl">Precio para externos</div>
+            <div class="pre-alt">Integrantes seleccionados por CNV: <strong>USD $100 + IVA</strong></div>
+            <div class="pre-sub">Certificación con aval de la Universidad de Coahuila (México). Incluye acceso al aula virtual y materiales en PDF por módulo.</div>
+            <button class="btn-cta" onclick="interesa('Diplomado en Medicina Bioeléctrica y Sistema ANI BIS-E')">Inscribirme &rarr;</button>
+            <a class="btn-pay" href="#pago" onclick="interesa('Diplomado en Medicina Bioeléctrica y Sistema ANI BIS-E')">Pagar en línea</a>
+            <div class="pre-note">El comodato del BiodyXpert ZM3 es exclusivo para los profesionales seleccionados como integrantes de CNV; cursar el diplomado no da derecho al comodato.</div>
+          </aside>
+        </div>
+
+        <div class="modulos-tit">Contenido programático · 10 módulos</div>
+        <div class="modulos" id="modulosGrid"></div>
+      </div>
+    </section>
+
+    <!-- CURSOS CORTOS -->
+    <section id="cursos">
+      <div class="wrap">
+        <div class="kicker">Cursos cortos · 40 horas</div>
+        <h2>Especialízate en aplicaciones de la BIA.</h2>
+        <p class="lead">Programas cortos y aplicados de bioimpedancia (BIA) para contextos clínicos específicos. Cada curso incluye certificación.</p>
+        <div class="cursos-grid" id="cursosGrid"></div>
+      </div>
+    </section>
+
+    <!-- CAMPUS CNV / LMS -->
+    <section class="lms" id="campus">
+      <div class="wrap">
+        <div class="kicker" style="color:var(--accent)">Plataforma propia</div>
+        <h2 style="color:#fff">Campus CNV: nuestro propio LMS.</h2>
+        <p class="lms-intro">La formación se dicta sobre una <strong>plataforma de aprendizaje (LMS) propia</strong>, desarrollada a la medida. No dependemos de plataformas genéricas: el campus está diseñado alrededor del modelo ANI BIS-E.</p>
+        <div class="lms-grid" id="lmsGrid"></div>
+      </div>
+    </section>
+
+    <!-- INSCRIPCIÓN Y PAGO -->
+    <section id="pago">
+      <div class="wrap">
+        <div class="kicker">Inscripción y pago</div>
+        <h2>¿Te interesa alguna de nuestras ofertas?</h2>
+        <p class="lead">Déjanos tus datos y la oferta que te interesa. Te contactamos para formalizar tu inscripción y el pago.</p>
+        <form class="insc-form" id="inscForm" onsubmit="return enviarInscripcion(event)">
+          <div class="insc-row">
+            <label>Nombre completo
+              <input type="text" name="nombre" required placeholder="Tu nombre" />
+            </label>
+            <label>Correo electrónico
+              <input type="email" name="email" required placeholder="tucorreo@ejemplo.com" />
+            </label>
+          </div>
+          <div class="insc-row">
+            <label>Oferta de interés
+              <select name="oferta" id="ofertaSelect" required></select>
+            </label>
+            <label>Teléfono / WhatsApp (opcional)
+              <input type="text" name="tel" placeholder="+57 ..." />
+            </label>
+          </div>
+          <label>Mensaje (opcional)
+            <textarea name="mensaje" rows="3" placeholder="Cuéntanos brevemente tu interés"></textarea>
+          </label>
+          <div class="insc-actions">
+            <button type="submit" class="btn-cta">Solicitar inscripción &rarr;</button>
+            <a class="btn-pay" href="#pago" id="btnPagar">Ir a pago en línea</a>
+          </div>
+          <div class="insc-note" id="inscNote"></div>
+        </form>
+      </div>
+    </section>
+
+    <p class="cl-copy">Modelo ANI BIS-E &copy; Gildardo de Jesús Uribe Gil, 2026 &middot; CNV Learning</p>
+
+  </div>
+
+  <style is:global>
+    .cnvlearning-root{
+      --navy:#16324F;--teal:#147F76;--gold:#C9A02C;--green:#5E9B3F;--burgundy:#7C2E50;
+      --accent:#C9A961;--ink:#1A2B3C;--muted:#5B6B7A;
+      --bg:#FFFFFF;--soft:#F6F4EF;--line:#E4DECF;
+      --display:'Spectral',Georgia,serif;
+      --body:'Inter',system-ui,sans-serif;
+      --mono:'IBM Plex Mono',monospace;
+      font-family:var(--body);color:var(--ink);background:var(--bg);line-height:1.6;-webkit-font-smoothing:antialiased;
+    }
+    .cnvlearning-root a{color:inherit;text-decoration:none}
+    .cnvlearning-root .wrap{max-width:1120px;margin:0 auto;padding:0 24px}
+    .cnvlearning-root section{padding:88px 0}
+    .cnvlearning-root h2{font-family:var(--display);font-weight:700;font-size:clamp(26px,4vw,42px);color:var(--navy);line-height:1.12;margin:14px 0 0}
+    .cnvlearning-root .lead{font-size:18px;color:var(--muted);max-width:660px;margin-top:16px}
+    .cnvlearning-root .kicker{font-family:var(--mono);font-size:12px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:var(--accent)}
+    .cnvlearning-root .kicker::before{content:"";display:inline-block;width:26px;height:1px;background:var(--accent);vertical-align:middle;margin-right:10px;transform:translateY(-3px)}
+
+    /* HERO */
+    .cnvlearning-root .hero{background:var(--navy);color:#fff;padding:96px 0 84px;position:relative;overflow:hidden}
+    .cnvlearning-root .hero .kicker{color:var(--accent)}
+    .cnvlearning-root .hero h1{font-family:var(--display);font-weight:700;font-size:clamp(32px,5.5vw,60px);line-height:1.06;margin:18px 0 0;max-width:16ch;color:#fff}
+    .cnvlearning-root .hero p{font-size:clamp(16px,2vw,20px);color:#cfdae6;max-width:660px;margin-top:24px}
+    .cnvlearning-root .hero-deco{position:absolute;right:-60px;top:50%;transform:translateY(-50%);opacity:.07;font-family:var(--mono);font-size:220px;font-weight:600;color:#fff;pointer-events:none;user-select:none}
+
+    /* OFERTA */
+    .cnvlearning-root .oferta-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:44px}
+    @media(max-width:900px){.cnvlearning-root .oferta-grid{grid-template-columns:repeat(2,1fr)}}
+    @media(max-width:560px){.cnvlearning-root .oferta-grid{grid-template-columns:1fr}}
+    .cnvlearning-root .of-card{background:var(--soft);border:1px solid var(--line);border-radius:14px;padding:26px;transition:transform .2s,box-shadow .2s}
+    .cnvlearning-root .of-card:hover{transform:translateY(-3px);box-shadow:0 10px 28px rgba(22,50,79,.08)}
+    .cnvlearning-root .of-ico{font-size:28px;margin-bottom:12px}
+    .cnvlearning-root .of-card h3{font-family:var(--display);font-size:19px;color:var(--navy);margin-bottom:8px;line-height:1.2}
+    .cnvlearning-root .of-card p{font-size:14px;color:var(--muted)}
+
+    /* DIPLOMADO */
+    .cnvlearning-root .diplo{background:var(--navy);color:#fff}
+    .cnvlearning-root .diplo-intro{color:#cfdae6;font-size:17px;max-width:720px;margin-top:18px}
+    .cnvlearning-root .diplo-grid{display:grid;grid-template-columns:1fr 320px;gap:28px;margin-top:44px;align-items:start}
+    @media(max-width:860px){.cnvlearning-root .diplo-grid{grid-template-columns:1fr}}
+    .cnvlearning-root .diplo-ficha{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    @media(max-width:560px){.cnvlearning-root .diplo-ficha{grid-template-columns:1fr}}
+    .cnvlearning-root .ficha-item{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:10px;padding:14px 16px}
+    .cnvlearning-root .ficha-item .fl{font-family:var(--mono);font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--accent);font-weight:600}
+    .cnvlearning-root .ficha-item .fv{font-size:14.5px;color:#eaf1f7;margin-top:4px;font-weight:500}
+    .cnvlearning-root .diplo-precio{background:#fff;color:var(--ink);border-radius:16px;padding:26px;position:sticky;top:90px}
+    .cnvlearning-root .pre-tag{font-family:var(--mono);font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--teal);font-weight:600}
+    .cnvlearning-root .pre-val{font-family:var(--display);font-weight:800;font-size:38px;color:var(--navy);line-height:1;margin:8px 0 2px}
+    .cnvlearning-root .pre-iva{font-family:var(--body);font-weight:600;font-size:15px;color:var(--muted)}
+    .cnvlearning-root .pre-lbl{font-family:var(--mono);font-size:11px;letter-spacing:1px;text-transform:uppercase;color:var(--muted)}
+    .cnvlearning-root .pre-alt{font-size:13px;color:var(--ink);margin:12px 0;padding:9px 12px;background:var(--soft);border:1px solid var(--line);border-radius:8px}
+    .cnvlearning-root .pre-alt strong{color:var(--navy)}
+    .cnvlearning-root .pre-sub{font-size:13.5px;color:var(--muted);line-height:1.5}
+    .cnvlearning-root .pre-note{font-size:12px;color:var(--muted);margin-top:14px;font-style:italic}
+    .cnvlearning-root .btn-cta{display:inline-block;width:100%;text-align:center;margin-top:16px;background:var(--teal);color:#fff;border:none;font-family:var(--body);font-size:14px;font-weight:600;padding:12px 18px;border-radius:9px;cursor:pointer;transition:background .2s}
+    .cnvlearning-root .btn-cta:hover{background:#0f6b63}
+    .cnvlearning-root .btn-pay{display:inline-block;width:100%;text-align:center;margin-top:10px;background:transparent;color:var(--navy);border:1.5px solid var(--navy);font-size:14px;font-weight:600;padding:11px 18px;border-radius:9px;cursor:pointer;transition:all .2s;box-sizing:border-box}
+    .cnvlearning-root .btn-pay:hover{background:var(--navy);color:#fff}
+    .cnvlearning-root .modulos-tit{font-family:var(--display);font-size:20px;color:#fff;margin:52px 0 20px}
+    .cnvlearning-root .modulos{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+    @media(max-width:760px){.cnvlearning-root .modulos{grid-template-columns:1fr}}
+    .cnvlearning-root .mod{display:flex;gap:14px;align-items:baseline;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:10px;padding:12px 16px}
+    .cnvlearning-root .mod .mn{font-family:var(--mono);font-size:13px;font-weight:600;color:var(--accent);flex:0 0 auto}
+    .cnvlearning-root .mod .mt{font-size:14px;color:#eaf1f7;flex:1}
+    .cnvlearning-root .mod .mh{font-family:var(--mono);font-size:11px;color:#9fb8cc;flex:0 0 auto}
+
+    /* CURSOS */
+    .cnvlearning-root .cursos-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:44px}
+    @media(max-width:900px){.cnvlearning-root .cursos-grid{grid-template-columns:repeat(2,1fr)}}
+    @media(max-width:560px){.cnvlearning-root .cursos-grid{grid-template-columns:1fr}}
+    .cnvlearning-root .curso{background:#fff;border:1px solid var(--line);border-radius:14px;padding:24px;display:flex;flex-direction:column;transition:transform .2s,box-shadow .2s}
+    .cnvlearning-root .curso:hover{transform:translateY(-3px);box-shadow:0 10px 28px rgba(22,50,79,.09)}
+    .cnvlearning-root .curso .cico{font-size:26px;margin-bottom:12px}
+    .cnvlearning-root .curso h3{font-family:var(--display);font-size:18px;color:var(--navy);line-height:1.2;margin-bottom:8px}
+    .cnvlearning-root .curso p{font-size:13.5px;color:var(--muted);flex:1}
+    .cnvlearning-root .curso .choras{font-family:var(--mono);font-size:11px;letter-spacing:1px;color:var(--teal);font-weight:600;margin:12px 0 4px}
+    .cnvlearning-root .curso .clink{margin-top:8px;background:none;border:none;color:var(--teal);font-family:var(--body);font-size:13px;font-weight:600;cursor:pointer;text-align:left;padding:0}
+    .cnvlearning-root .curso .clink:hover{text-decoration:underline}
+
+    /* LMS */
+    .cnvlearning-root .lms{background:var(--navy);color:#fff}
+    .cnvlearning-root .lms-intro{color:#cfdae6;font-size:17px;max-width:760px;margin-top:18px}
+    .cnvlearning-root .lms-intro strong{color:#fff}
+    .cnvlearning-root .lms-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:40px}
+    @media(max-width:820px){.cnvlearning-root .lms-grid{grid-template-columns:repeat(2,1fr)}}
+    @media(max-width:520px){.cnvlearning-root .lms-grid{grid-template-columns:1fr}}
+    .cnvlearning-root .lms-card{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:12px;padding:18px 20px}
+    .cnvlearning-root .lms-card .li{font-size:22px;margin-bottom:8px}
+    .cnvlearning-root .lms-card h4{font-family:var(--display);font-size:16px;color:#fff;margin-bottom:4px}
+    .cnvlearning-root .lms-card p{font-size:13px;color:#bcccdb}
+
+    /* INSCRIPCIÓN */
+    .cnvlearning-root .insc-form{margin-top:36px;background:var(--soft);border:1px solid var(--line);border-radius:16px;padding:28px;max-width:820px}
+    .cnvlearning-root .insc-row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+    @media(max-width:600px){.cnvlearning-root .insc-row{grid-template-columns:1fr}}
+    .cnvlearning-root .insc-form label{display:block;font-size:13px;font-weight:600;color:var(--navy);margin-top:14px}
+    .cnvlearning-root .insc-form input,.cnvlearning-root .insc-form select,.cnvlearning-root .insc-form textarea{width:100%;margin-top:6px;padding:11px 14px;border:1.5px solid var(--line);border-radius:9px;font-family:var(--body);font-size:14px;color:var(--ink);background:#fff;outline:none;box-sizing:border-box}
+    .cnvlearning-root .insc-form input:focus,.cnvlearning-root .insc-form select:focus,.cnvlearning-root .insc-form textarea:focus{border-color:var(--teal)}
+    .cnvlearning-root .insc-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:20px}
+    .cnvlearning-root .insc-actions .btn-cta,.cnvlearning-root .insc-actions .btn-pay{width:auto;margin-top:0}
+    .cnvlearning-root .insc-note{font-size:13px;color:var(--muted);margin-top:14px;min-height:18px}
+    .cnvlearning-root .insc-note.ok{color:var(--teal);font-weight:600}
+
+    .cnvlearning-root .cl-copy{text-align:center;font-family:var(--mono);font-size:12px;letter-spacing:.5px;color:var(--muted);padding:36px 24px 10px}
+    .cnvlearning-root :focus-visible{outline:3px solid var(--teal);outline-offset:2px;border-radius:4px}
+    @media(prefers-reduced-motion:reduce){.cnvlearning-root *{animation:none!important;transition:none!important}}
+  </style>
+
+  <script is:inline>
+  /* ====================== DATOS ====================== */
+  const OFERTA = [
+    { ico:"🎓", t:"Diplomados", d:"Programas robustos de certificación, como el Diplomado en Medicina Bioeléctrica y Sistema ANI BIS-E." },
+    { ico:"⚡", t:"Cursos cortos (40 h)", d:"Formación aplicada y específica en usos y aplicaciones de la bioimpedancia (BIA)." },
+    { ico:"🎤", t:"Seminarios, talleres y congresos", d:"Actualización continua y divulgación científica presencial y virtual en toda Latinoamérica." },
+    { ico:"🏛️", t:"Alianzas universitarias", d:"Convenios con universidades para desarrollar especializaciones y maestrías en el paradigma bioeléctrico." }
+  ];
+
+  const FICHA = [
+    ["Modalidad","100% virtual sincrónico (Teams / Zoom) con aula virtual"],
+    ["Duración","120 horas cronológicas · 10 módulos"],
+    ["Dirigido a","Nutricionistas, médicos, enfermeros, kinesiólogos, fisioterapeutas y profesionales de la salud"],
+    ["Idioma","Español"],
+    ["Certificación","Certificado con aval de la Universidad de Coahuila (México)"],
+    ["Libro de texto oficial","Medicina Bioeléctrica: El Paradigma de la Armonía Humana (Uribe Gil, 2025)"]
+  ];
+
+  const MODULOS = [
+    { n:"M1", t:"Composición corporal: contexto básico", h:"4 h" },
+    { n:"M2", t:"Bioimpedancia: fundamentos, principios y modelo Cole-Cole", h:"20 h" },
+    { n:"M3", t:"Mapas: MCCB, PBI y el EIEC", h:"6 h" },
+    { n:"M4", t:"La represa de las mil luces (paradigma bioeléctrico)", h:"10 h" },
+    { n:"M5", t:"Índices ANI BIS-E: IFC, IRC, PABU, ICA-BIS, IEHH, ISCM-BIS, EB-BIS, IAE y Diana EFyR", h:"20 h" },
+    { n:"M6", t:"Diagnóstico Funcional Integrado y rutas de intervención", h:"10 h" },
+    { n:"M7", t:"Nutracéuticos y modulación bioeléctrica", h:"10 h" },
+    { n:"M8", t:"Modelo de atención ANI BIS-E", h:"10 h" },
+    { n:"M9", t:"CNV SAS y software ATLAS", h:"10 h" },
+    { n:"M10", t:"Práctica clínica integradora (casos reales + plataforma)", h:"20 h" }
+  ];
+
+  const CURSOS = [
+    { ico:"📐", t:"Evaluación de la composición corporal por BIA", d:"Fundamentos y protocolo de medición de la composición corporal con bioimpedancia." },
+    { ico:"🥗", t:"Usos y aplicaciones de la BIA en nutrición", d:"Interpretación bioeléctrica aplicada a la valoración y el plan nutricional." },
+    { ico:"🎗️", t:"BIA en cáncer", d:"Bioimpedancia en el paciente oncológico: masa celular, hidratación y pronóstico." },
+    { ico:"⚖️", t:"BIA en obesidad y paciente metabólico", d:"Más allá del IMC: composición corporal y riesgo metabólico por BIA." },
+    { ico:"🫘", t:"BIA en enfermedad renal", d:"Estado de hidratación, peso seco y valoración del paciente renal." },
+    { ico:"🏥", t:"BIA en el paciente en estado crítico", d:"Monitorización bioeléctrica y nutricional del paciente crítico." }
+  ];
+
+  const LMS = [
+    { i:"📚", t:"Módulos y lecciones", d:"Estructura curso → módulo → lección, con desbloqueo por progreso." },
+    { i:"🎬", t:"Video y materiales", d:"Reproductor de video, PDFs, diapositivas y texto enriquecido por lección." },
+    { i:"✍️", t:"Evaluación", d:"Tareas, quizzes de opción múltiple autocalificados y ensayos con feedback." },
+    { i:"📈", t:"Progreso", d:"Barra de progreso por módulo, dashboard del estudiante y 'continuar donde quedé'." },
+    { i:"📜", t:"Certificación", d:"Certificado en PDF automático al completar el programa." },
+    { i:"💬", t:"Comunidad y paneles", d:"Foros del curso y paneles de docente y administrador." }
+  ];
+
+  /* ====================== RENDER ====================== */
+  const og = document.getElementById('ofertaGrid');
+  OFERTA.forEach(o => { og.innerHTML += `<div class="of-card"><div class="of-ico">${o.ico}</div><h3>${o.t}</h3><p>${o.d}</p></div>`; });
+
+  const fg = document.getElementById('diploFicha');
+  FICHA.forEach(f => { fg.innerHTML += `<div class="ficha-item"><div class="fl">${f[0]}</div><div class="fv">${f[1]}</div></div>`; });
+
+  const mg = document.getElementById('modulosGrid');
+  MODULOS.forEach(m => { mg.innerHTML += `<div class="mod"><span class="mn">${m.n}</span><span class="mt">${m.t}</span><span class="mh">${m.h}</span></div>`; });
+
+  const cg = document.getElementById('cursosGrid');
+  CURSOS.forEach(c => {
+    cg.innerHTML += `<div class="curso"><div class="cico">${c.ico}</div><h3>${c.t}</h3><p>${c.d}</p><div class="choras">40 horas · certificado</div><button class="clink" onclick="interesa('Curso: ${c.t}')">Me interesa &rarr;</button></div>`;
+  });
+
+  const lg = document.getElementById('lmsGrid');
+  LMS.forEach(l => { lg.innerHTML += `<div class="lms-card"><div class="li">${l.i}</div><h4>${l.t}</h4><p>${l.d}</p></div>`; });
+
+  /* Select de ofertas */
+  const ofertaSelect = document.getElementById('ofertaSelect');
+  const OPCIONES = ['Diplomado en Medicina Bioeléctrica y Sistema ANI BIS-E']
+    .concat(CURSOS.map(c => 'Curso: ' + c.t))
+    .concat(['Seminarios / talleres / congresos','Alianzas universitarias (especialización o maestría)']);
+  OPCIONES.forEach(op => { const o = document.createElement('option'); o.value = op; o.textContent = op; ofertaSelect.appendChild(o); });
+
+  /* "Me interesa" -> baja al formulario y preselecciona */
+  function interesa(oferta){
+    const sel = document.getElementById('ofertaSelect');
+    for (let i = 0; i < sel.options.length; i++){ if (sel.options[i].value === oferta){ sel.selectedIndex = i; break; } }
+    document.getElementById('pago').scrollIntoView({ behavior: 'smooth' });
+  }
+
+  /* Envío de inscripción (sin backend: abre el correo con los datos) */
+  function enviarInscripcion(e){
+    e.preventDefault();
+    const f = e.target;
+    const asunto = encodeURIComponent('Inscripción CNV Learning · ' + f.oferta.value);
+    const cuerpo = encodeURIComponent(
+      'Nombre: ' + f.nombre.value + '\nCorreo: ' + f.email.value + '\nTeléfono: ' + f.tel.value +
+      '\nOferta de interés: ' + f.oferta.value + '\n\nMensaje:\n' + f.mensaje.value);
+    window.location.href = 'mailto:formacion@cnvsystem.com?subject=' + asunto + '&body=' + cuerpo;
+    const note = document.getElementById('inscNote');
+    note.className = 'insc-note ok';
+    note.textContent = 'Se abrió tu correo con la solicitud. Si no se abre, escríbenos a formacion@cnvsystem.com';
+    return false;
+  }
+  </script>
+
 </BaseLayout>

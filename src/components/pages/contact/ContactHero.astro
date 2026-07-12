@@ -5,21 +5,14 @@ import ContactForm from '../../forms/ContactForm';
 const lang = Astro.currentLocale || 'es';
 const t = getI18n(lang);
 const c = t.contact;
-const exc = t.exclusivity;
-
-// Mapa de estilos rígidos para que Tailwind JIT los compile correctamente
-const STYLES_MAP: Record<string, { border: string, bg: string, text: string, dot: string }> = {
-  'care': { border: 'border-cnv-execute/20', bg: 'bg-cnv-execute/5', text: 'text-cnv-execute', dot: 'bg-cnv-execute' },
-  'learning': { border: 'border-cnv-transfer/20', bg: 'bg-cnv-transfer/5', text: 'text-cnv-transfer', dot: 'bg-cnv-transfer' },
-  'research': { border: 'border-cnv-generate/20', bg: 'bg-cnv-generate/5', text: 'text-cnv-generate', dot: 'bg-cnv-generate' }
-};
+const info = c.info;
 ---
 
 <section class="py-section">
   <div class="max-w-7xl mx-auto px-6 lg:px-8">
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-16">
 
-      <!-- Columna Izquierda: Info y Enlaces Rápidos -->
+      <!-- Columna Izquierda: Información de contacto -->
       <div class="lg:col-span-4">
         <div class="section-tag mb-6 animate-on-scroll">{c.tag}</div>
         <h1 class="text-headline font-800 text-cnv-core mb-6 text-balance animate-on-scroll">
@@ -29,37 +22,58 @@ const STYLES_MAP: Record<string, { border: string, bg: string, text: string, dot
           {c.subtitle}
         </p>
 
-        <!-- System lines quick links -->
-        <div class="flex flex-col gap-4 animate-on-scroll [animation-delay:100ms]">
-          {c.quick_links.map((link) => {
-            // Obtenemos las clases completas de nuestro mapa seguro
-            const styles = STYLES_MAP[link.id];
-            
-            return (
-              <div class={`flex items-start gap-3 p-4 border ${styles.border} ${styles.bg}`}>
-                <div class={`w-2 h-2 rounded-full flex-shrink-0 mt-1.5 ${styles.dot}`}></div>
-                <div>
-                  <div class={`text-xs font-700 tracking-wider uppercase mb-1 ${styles.text}`}>
-                    {link.title}
-                  </div>
-                  <div class="text-xs text-cnv-core/50">
-                    {link.desc}
-                  </div>
-                </div>
-              </div>
-            );
-          })}
+        <div class="flex flex-col gap-6 animate-on-scroll [animation-delay:100ms]">
+          <div class="text-xs font-700 tracking-wider uppercase text-cnv-core/40">{info.heading}</div>
+
+          <a href={`mailto:${info.email}`} class="flex items-start gap-3 group">
+            <span class="text-lg leading-none mt-0.5" aria-hidden="true">✉️</span>
+            <div>
+              <div class="text-[11px] font-700 tracking-wider uppercase text-cnv-core/40 mb-0.5">{info.email_label}</div>
+              <div class="text-sm text-cnv-core group-hover:text-cnv-execute transition-colors">{info.email}</div>
+            </div>
+          </a>
+
+          <a href={info.whatsapp_link} target="_blank" rel="noopener" class="flex items-start gap-3 group">
+            <span class="text-lg leading-none mt-0.5" aria-hidden="true">💬</span>
+            <div>
+              <div class="text-[11px] font-700 tracking-wider uppercase text-cnv-core/40 mb-0.5">{info.whatsapp_label}</div>
+              <div class="text-sm text-cnv-core group-hover:text-cnv-execute transition-colors">{info.whatsapp}</div>
+            </div>
+          </a>
+
+          <div class="flex items-start gap-3">
+            <span class="text-lg leading-none mt-0.5" aria-hidden="true">📍</span>
+            <div>
+              <div class="text-[11px] font-700 tracking-wider uppercase text-cnv-core/40 mb-0.5">{info.address_label}</div>
+              <div class="text-sm text-cnv-core">{info.address}</div>
+            </div>
+          </div>
+
+          <div class="flex items-start gap-3">
+            <span class="text-lg leading-none mt-0.5" aria-hidden="true">🕐</span>
+            <div>
+              <div class="text-[11px] font-700 tracking-wider uppercase text-cnv-core/40 mb-0.5">{info.hours_label}</div>
+              <div class="text-sm text-cnv-core">{info.hours}</div>
+            </div>
+          </div>
+
+          <a href={info.linkedin} target="_blank" rel="noopener" class="flex items-start gap-3 group">
+            <span class="text-lg leading-none mt-0.5" aria-hidden="true">🔗</span>
+            <div>
+              <div class="text-[11px] font-700 tracking-wider uppercase text-cnv-core/40 mb-0.5">{info.social_label}</div>
+              <div class="text-sm text-cnv-core group-hover:text-cnv-execute transition-colors">{info.linkedin_label}</div>
+            </div>
+          </a>
         </div>
       </div>
 
       <!-- Columna Derecha: El Formulario Dinámico -->
       <div class="lg:col-span-7 lg:col-start-6">
         <div class="border border-cnv-core/10 p-8 lg:p-12 animate-on-scroll [animation-delay:200ms]">
-          <ContactForm 
-            client:load 
-            t={c.form} 
-            exclusivity={exc} 
-            lang={lang} 
+          <ContactForm
+            client:load
+            t={c.form}
+            lang={lang}
           />
         </div>
       </div>
