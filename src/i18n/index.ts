@@ -19,6 +19,8 @@ const routeMap: Record<string, string> = {
   '/investigacion': '/research',
   '/nosotros': '/about',
   '/contacto': '/contact',
+  '/integrantes': '/members',
+  '/noticias': '/news',
   '/politica-privacidad': '/privacy-policy',
   '/aviso-legal': '/legal-notice',
   '/politica-cookies': '/cookies-policy'

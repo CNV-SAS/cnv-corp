@@ -1,0 +1,183 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getI18n } from '../../i18n';
+
+const lang = Astro.currentLocale || 'es';
+const t = getI18n(lang);
+---
+
+<BaseLayout
+  title="Members — Connected Nutrition Ventures"
+  description="The network of health professionals that make up CNV across Latin America, presented by country and city, along with the ecosystem's leadership team."
+>
+  <Fragment slot="head">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500;600&display=swap"
+      rel="stylesheet"
+    />
+  </Fragment>
+
+  <div class="integrantes-root">
+
+    <!-- HERO -->
+    <header class="hero">
+      <div class="wrap">
+        <div class="kicker">Members</div>
+        <h1>The CNV network across Latin America.</h1>
+        <p>Health professionals selected by CNV who operate the ANI BIS-E model in their practice, and the leadership team that sustains the ecosystem. A network that grows, city by city.</p>
+      </div>
+      <div class="hero-deco" aria-hidden="true">CNV</div>
+    </header>
+
+    <!-- LEADERSHIP TEAM -->
+    <section id="directivos">
+      <div class="wrap">
+        <div class="kicker">Leadership team</div>
+        <h2>Who leads the ecosystem.</h2>
+        <div class="dir-grid" id="dirGrid"></div>
+      </div>
+    </section>
+
+    <!-- MEMBER NETWORK -->
+    <section class="red" id="red">
+      <div class="wrap">
+        <div class="kicker">Member network</div>
+        <h2>Professionals by country and city.</h2>
+        <p class="lead">Every member has been trained in the Bioelectric Medicine Diploma and operates the ANI BIS-E system in their clinical practice.</p>
+        <div id="redGrid"></div>
+      </div>
+    </section>
+
+    <p class="int-copy">CNV Network &middot; Connected Nutrition Ventures SAS, 2026</p>
+
+  </div>
+
+  <style is:global>
+    .integrantes-root{
+      --navy:#16324F;--teal:#147F76;--gold:#C9A02C;--green:#5E9B3F;--burgundy:#7C2E50;
+      --accent:#C9A961;--ink:#1A2B3C;--muted:#5B6B7A;
+      --bg:#FFFFFF;--soft:#F6F4EF;--line:#E4DECF;
+      --display:'Spectral',Georgia,serif;
+      --body:'Inter',system-ui,sans-serif;
+      --mono:'IBM Plex Mono',monospace;
+      font-family:var(--body);color:var(--ink);background:var(--bg);line-height:1.6;-webkit-font-smoothing:antialiased;
+    }
+    .integrantes-root a{color:inherit;text-decoration:none}
+    .integrantes-root .wrap{max-width:1120px;margin:0 auto;padding:0 24px}
+    .integrantes-root section{padding:84px 0}
+    .integrantes-root h2{font-family:var(--display);font-weight:700;font-size:clamp(24px,3.6vw,38px);color:var(--navy);line-height:1.14;margin:14px 0 0}
+    .integrantes-root .lead{font-size:17px;color:var(--muted);max-width:680px;margin-top:14px}
+    .integrantes-root .kicker{font-family:var(--mono);font-size:12px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:var(--accent)}
+    .integrantes-root .kicker::before{content:"";display:inline-block;width:26px;height:1px;background:var(--accent);vertical-align:middle;margin-right:10px;transform:translateY(-3px)}
+
+    /* HERO */
+    .integrantes-root .hero{background:var(--navy);color:#fff;padding:96px 0 80px;position:relative;overflow:hidden}
+    .integrantes-root .hero .kicker{color:var(--accent)}
+    .integrantes-root .hero h1{font-family:var(--display);font-weight:700;font-size:clamp(32px,5.5vw,58px);line-height:1.05;margin:18px 0 0;max-width:16ch;color:#fff}
+    .integrantes-root .hero p{font-size:clamp(16px,2vw,20px);color:#cfdae6;max-width:680px;margin-top:22px}
+    .integrantes-root .hero-deco{position:absolute;right:-10px;bottom:-30px;font-family:var(--display);font-weight:700;font-size:200px;color:rgba(255,255,255,.05);pointer-events:none;user-select:none;line-height:1}
+
+    /* AVATAR */
+    .integrantes-root .avatar{width:58px;height:58px;border-radius:50%;flex:0 0 auto;display:grid;place-items:center;font-family:var(--display);font-weight:700;font-size:18px;color:#fff;background:linear-gradient(135deg,var(--teal),var(--navy))}
+    .integrantes-root img.avatar{object-fit:cover;object-position:center top;display:block}
+
+    /* DIRECTIVOS */
+    .integrantes-root .dir-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:40px}
+    @media(max-width:720px){.integrantes-root .dir-grid{grid-template-columns:1fr}}
+    .integrantes-root .dir-card{background:var(--soft);border:1px solid var(--line);border-radius:14px;padding:22px;display:flex;gap:16px;align-items:flex-start}
+    .integrantes-root .dir-card .avatar{background:linear-gradient(135deg,var(--accent),#a8842f)}
+    .integrantes-root .dir-card h3{font-family:var(--display);font-size:19px;color:var(--navy);line-height:1.2}
+    .integrantes-root .dir-card .rol{font-size:13.5px;color:var(--muted);margin-top:4px;line-height:1.5}
+    .integrantes-root .dir-card .prof{font-size:12.5px;color:var(--teal);font-weight:600;margin-top:6px;line-height:1.4}
+
+    /* RED */
+    .integrantes-root .red{background:var(--soft)}
+    .integrantes-root .ciudad-blk{margin-top:44px}
+    .integrantes-root .ciudad-head{display:flex;align-items:baseline;gap:12px;border-bottom:2px solid var(--line);padding-bottom:10px;margin-bottom:22px}
+    .integrantes-root .ciudad-head .cn{font-family:var(--display);font-weight:700;font-size:22px;color:var(--navy)}
+    .integrantes-root .ciudad-head .pais{font-family:var(--mono);font-size:12px;letter-spacing:1px;color:var(--muted);text-transform:uppercase}
+    .integrantes-root .ciudad-head .cnt{margin-left:auto;font-family:var(--mono);font-size:12px;color:var(--teal);font-weight:600}
+    .integrantes-root .int-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+    @media(max-width:900px){.integrantes-root .int-grid{grid-template-columns:repeat(2,1fr)}}
+    @media(max-width:560px){.integrantes-root .int-grid{grid-template-columns:1fr}}
+    .integrantes-root .int-card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:20px;display:flex;flex-direction:column;transition:transform .2s,box-shadow .2s}
+    .integrantes-root .int-card:hover{transform:translateY(-3px);box-shadow:0 10px 28px rgba(22,50,79,.09)}
+    .integrantes-root .int-top{display:flex;gap:14px;align-items:center}
+    .integrantes-root .int-card h3{font-family:var(--display);font-size:17px;color:var(--navy);line-height:1.2}
+    .integrantes-root .int-card .esp{font-size:12.5px;color:var(--teal);font-weight:600;margin-top:2px}
+    .integrantes-root .int-card .bio{font-size:13.5px;color:var(--muted);margin-top:14px;line-height:1.55;flex:1}
+    .integrantes-root .int-card .bio.vacio{font-style:italic;color:#9aa7b2}
+    .integrantes-root .int-card .contactar{margin-top:16px;text-align:center;background:var(--navy);color:#fff;font-size:13px;font-weight:600;padding:9px 14px;border-radius:8px;transition:background .2s}
+    .integrantes-root .int-card .contactar:hover{background:#0e2237}
+
+    .integrantes-root .int-copy{text-align:center;font-family:var(--mono);font-size:12px;letter-spacing:.5px;color:var(--muted);padding:32px 24px 10px}
+    .integrantes-root :focus-visible{outline:3px solid var(--teal);outline-offset:2px;border-radius:4px}
+    @media(prefers-reduced-motion:reduce){.integrantes-root *{animation:none!important;transition:none!important}}
+  </style>
+
+  <script is:inline>
+  /* ====================== DATA ====================== */
+  const DIRECTIVOS = [
+    { n:"Juan Carlos Jiménez López", r:"Manager · General Director", prof:"Physician · Spec. Hospital Management and Alternative Medicine", foto:"/images/integrantes/juan_carlos_jimenez.jpg" },
+    { n:"Juan Carlos Zárate", r:"Commercial Director", prof:"Physician · Spec. Administrative Management and Marketing", foto:"/images/integrantes/zarate.jpg" },
+    { n:"Santiago Arroyave Uribe", r:"Administrative Director", prof:"Business Administrator · Systems Technician", foto:"/images/integrantes/santiago.jpg" },
+    { n:"Gildardo de Jesús Uribe Gil", r:"Scientific and Academic Director · Director of OB BIA LATAM · Director of the Bioelectric Medicine research group", prof:"Registered Dietitian-Nutritionist · MSc · PhD(c) in Public Health", foto:"/images/integrantes/gildardo.jpg" }
+  ];
+
+  const RED = [
+    { pais:"Colombia", ciudad:"Pereira", integrantes:[
+      { n:"María Teresa Aragón Herrera", esp:"Registered Dietitian-Nutritionist · Spec. Financial Management", foto:"/images/integrantes/maria_teresa.jpg", bio:"Over 30 years of experience in clinical and functional nutrition, nutritional coaching, and psychonutrition. Diploma in Bioelectric Medicine and the ANI BIS-E system." },
+      { n:"Valentina Ramírez Huertas", esp:"Registered Dietitian-Nutritionist · Functional nutrition", foto:"/images/integrantes/valentina.jpg", bio:"Personalized care for children, adolescents, and adults. Complements nutritional assessment with bioimpedance spectroscopy to individualize treatment." },
+      { n:"Víctor Cano", esp:"Registered Dietitian-Nutritionist and Nurse", foto:"/images/integrantes/victor.jpg", bio:"Registered Dietitian-Nutritionist from Universidad Libre de Pereira and nurse. Diploma in Bioelectric Medicine." }
+    ]},
+    { pais:"Colombia", ciudad:"Cali", integrantes:[
+      { n:"Frank Carrera-Gil, MSc", esp:"Professor · Nutritionist · Researcher · Consultant", foto:"/images/integrantes/frank.png", bio:"Nutritionist, researcher, and consultant. Co-author of research on phase angle reference values by bioimpedance (European Journal of Clinical Nutrition)." },
+      { n:"Roberto Jarava", esp:"Clinical Nutritionist · Diabetes Educator · MSc in Clinical Nutrition", foto:"/images/integrantes/roberto.jpg", bio:"Dr. Roberto Jarava Brun. Clinical nutritionist and diabetes educator, MSc in Clinical Nutrition (Universidad de Antioquia). Practices at Clínica Imbanaco, Cali." }
+    ]},
+    { pais:"Colombia", ciudad:"Tunja", integrantes:[
+      { n:"Camilo Alberto Camargo Puerto", esp:"Physician · Spec. Sports Medicine", foto:"/images/integrantes/camilo.jpg", bio:"General physician with specialization in Sports Medicine." }
+    ]},
+    { pais:"Colombia", ciudad:"Medellín", integrantes:[
+      { n:"Camila Aristizábal", esp:"Registered Dietitian-Nutritionist · Writer", foto:"/images/integrantes/camila.jpg", bio:"Writer, with a work focus on diabetes and metabolic diseases." },
+      { n:"Diana Anchico", esp:"Registered Dietitian-Nutritionist · Spec. Health Promotion and Communication (CES)", foto:"/images/integrantes/diana.jpg", bio:"Specialist in Health Promotion and Communication from CES. Cares for all age groups and their metabolic complications." },
+      { n:"Katherine Ruz", esp:"Registered Dietitian-Nutritionist", foto:"/images/integrantes/katherine.jpg", bio:"With a focus on obesity, metabolic diseases, and gestational diabetes." }
+    ]}
+  ];
+
+  /* ====================== RENDER ====================== */
+  function iniciales(nombre){
+    const p = nombre.trim().split(/\s+/);
+    return ((p[0]||'')[0] + (p[1]||'')[0] || '').toUpperCase();
+  }
+  function avatar(x){
+    return x.foto
+      ? `<img class="avatar" src="${x.foto}" alt="${x.n}" loading="lazy"/>`
+      : `<div class="avatar">${iniciales(x.n)}</div>`;
+  }
+
+  const dg = document.getElementById('dirGrid');
+  DIRECTIVOS.forEach(d => {
+    dg.innerHTML += `<div class="dir-card">${avatar(d)}<div><h3>${d.n}</h3><div class="rol">${d.r}</div>${d.prof?`<div class="prof">${d.prof}</div>`:''}</div></div>`;
+  });
+
+  const rg = document.getElementById('redGrid');
+  RED.forEach(c => {
+    const total = c.integrantes.length;
+    const cards = c.integrantes.map(p => {
+      const bio = p.bio ? `<div class="bio">${p.bio}</div>` : `<div class="bio vacio">Profile being updated.</div>`;
+      return `<div class="int-card">
+        <div class="int-top">${avatar(p)}<div><h3>${p.n}</h3><div class="esp">${p.esp}</div></div></div>
+        ${bio}
+        <a class="contactar" href="/en/contact">Contact through CNV &rarr;</a>
+      </div>`;
+    }).join('');
+    rg.innerHTML += `<div class="ciudad-blk">
+      <div class="ciudad-head"><span class="cn">${c.ciudad}</span><span class="pais">${c.pais}</span><span class="cnt">${total} member${total>1?'s':''}</span></div>
+      <div class="int-grid">${cards}</div>
+    </div>`;
+  });
+  </script>
+
+</BaseLayout>

@@ -1,0 +1,158 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getI18n } from '../../i18n';
+
+const lang = Astro.currentLocale || 'es';
+const t = getI18n(lang);
+---
+
+<BaseLayout
+  title="News — Connected Nutrition Ventures"
+  description="News from the CNV ecosystem: the graduation of the first cohort of ANI BIS-E model professionals and the delivery of the Biody BIS bioimpedance spectroscopy devices."
+>
+  <Fragment slot="head">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500;600&display=swap"
+      rel="stylesheet"
+    />
+  </Fragment>
+
+  <div class="noticias-root">
+
+    <!-- HERO -->
+    <header class="hero">
+      <div class="wrap">
+        <div class="kicker">News</div>
+        <h1>What's happening in the ecosystem.</h1>
+        <p>Milestones, graduations, and advances of the CNV network and the ANI BIS-E model across Latin America.</p>
+      </div>
+    </header>
+
+    <!-- FEATURED NEWS -->
+    <article class="destacada">
+      <div class="wrap">
+        <div class="meta"><span class="fecha">July 2026</span><span class="etq">Graduation · First cohort</span></div>
+        <h2>We graduated the first cohort of professionals in the CNV ecosystem.</h2>
+        <p class="lead">A new generation of health professionals begins operating the ANI BIS-E model in Colombia. Welcome, pioneers.</p>
+
+        <img class="foto-hero" src="/images/noticias/graduacion_medellin.jpg" alt="Graduation of the first cohort of the Bioelectric Medicine Diploma, Medellín, July 2026" loading="lazy" onclick="abrirLb(this.src, this.alt)" />
+
+        <div class="cuerpo">
+          <p>With great pride, we announce the <strong>graduation of the first cohort of professionals in the CNV business ecosystem</strong>, trained in the Bioelectric Medicine and ANI BIS-E System Diploma. Each member received the <strong>Biody BIS Bioimpedance Spectroscopy</strong> device and was trained in the <strong>Biodymanager</strong> and <strong>ATLAS</strong> software, leaving them ready to operate the model in their practice.</p>
+          <p>We welcome our pioneers and urge them to become the <strong>ambassadors of the ANI BIS-E model to the world</strong>: to measure the invisible, to intervene in the cell before disease, and to bring bioelectric medicine to every patient.</p>
+        </div>
+
+        <div class="specs">
+          <div class="specs-tit">The device · Biody BIS</div>
+          <div class="specs-grid">
+            <div class="spec"><div class="sv">1–1000 kHz</div><div class="sl">Frequency range</div></div>
+            <div class="spec"><div class="sv">True spectroscopy</div><div class="sl">It does not estimate: it measures the full spectrum</div></div>
+            <div class="spec"><div class="sv">Multi-algorithm</div><div class="sl">Multiple analysis models</div></div>
+            <div class="spec"><div class="sv">Hand–foot · Tetrapolar</div><div class="sl">Direct measurement, 4 electrodes</div></div>
+          </div>
+        </div>
+
+        <div class="eventos">Two ceremonies marked this milestone: <strong>Pereira</strong> (July 4, 2026) and <strong>Medellín</strong> (July 11, 2026), with the handover of certificates, devices, and the signing of the bailment agreements.</div>
+
+        <div class="galeria" id="galeria"></div>
+      </div>
+    </article>
+
+    <!-- LIGHTBOX -->
+    <div class="nt-lb" id="ntLb" role="dialog" aria-modal="true">
+      <button class="nt-cls" id="ntCls" aria-label="Close">&times;</button>
+      <img id="ntLbImg" src="" alt="" />
+      <div class="nt-cap" id="ntCap"></div>
+    </div>
+
+    <p class="nt-copy">Connected Nutrition Ventures SAS &middot; 2026</p>
+
+  </div>
+
+  <style is:global>
+    .noticias-root{
+      --navy:#16324F;--teal:#147F76;--gold:#C9A02C;--accent:#C9A961;--ink:#1A2B3C;--muted:#5B6B7A;
+      --bg:#FFFFFF;--soft:#F6F4EF;--line:#E4DECF;
+      --display:'Spectral',Georgia,serif;--body:'Inter',system-ui,sans-serif;--mono:'IBM Plex Mono',monospace;
+      font-family:var(--body);color:var(--ink);background:var(--bg);line-height:1.6;-webkit-font-smoothing:antialiased;
+    }
+    .noticias-root a{color:inherit;text-decoration:none}
+    .noticias-root img{max-width:100%;display:block}
+    .noticias-root .wrap{max-width:900px;margin:0 auto;padding:0 24px}
+    .noticias-root .kicker{font-family:var(--mono);font-size:12px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:var(--accent)}
+    .noticias-root .kicker::before{content:"";display:inline-block;width:26px;height:1px;background:var(--accent);vertical-align:middle;margin-right:10px;transform:translateY(-3px)}
+
+    .noticias-root .hero{background:var(--navy);color:#fff;padding:88px 0 72px}
+    .noticias-root .hero .kicker{color:var(--accent)}
+    .noticias-root .hero h1{font-family:var(--display);font-weight:700;font-size:clamp(30px,5vw,52px);line-height:1.06;margin:18px 0 0;max-width:18ch;color:#fff}
+    .noticias-root .hero p{font-size:clamp(16px,2vw,20px);color:#cfdae6;max-width:620px;margin-top:20px}
+
+    .noticias-root .destacada{padding:72px 0}
+    .noticias-root .meta{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+    .noticias-root .fecha{font-family:var(--mono);font-size:12px;letter-spacing:1px;color:var(--muted);text-transform:uppercase}
+    .noticias-root .etq{font-family:var(--mono);font-size:11px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:var(--teal);background:#dcece9;padding:4px 12px;border-radius:999px}
+    .noticias-root .destacada h2{font-family:var(--display);font-weight:700;font-size:clamp(26px,4vw,42px);color:var(--navy);line-height:1.12;margin:14px 0 0}
+    .noticias-root .lead{font-size:18px;color:var(--muted);margin-top:14px;max-width:680px}
+    .noticias-root .foto-hero{width:100%;border-radius:16px;margin-top:28px;cursor:zoom-in;box-shadow:0 12px 40px rgba(22,50,79,.14)}
+    .noticias-root .cuerpo{margin-top:28px}
+    .noticias-root .cuerpo p{font-size:17px;color:#33444f;margin-top:16px;line-height:1.7}
+    .noticias-root .cuerpo strong{color:var(--navy)}
+
+    .noticias-root .specs{background:var(--navy);color:#fff;border-radius:16px;padding:28px;margin-top:36px}
+    .noticias-root .specs-tit{font-family:var(--display);font-weight:700;font-size:18px;color:var(--accent);margin-bottom:18px}
+    .noticias-root .specs-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+    @media(max-width:760px){.noticias-root .specs-grid{grid-template-columns:1fr 1fr}}
+    @media(max-width:440px){.noticias-root .specs-grid{grid-template-columns:1fr}}
+    .noticias-root .spec .sv{font-family:var(--display);font-weight:700;font-size:19px;color:#fff;line-height:1.15}
+    .noticias-root .spec .sl{font-size:12.5px;color:#9fb8cc;margin-top:4px}
+
+    .noticias-root .eventos{font-size:15.5px;color:var(--muted);margin-top:28px;border-left:3px solid var(--accent);padding-left:16px;line-height:1.6}
+    .noticias-root .eventos strong{color:var(--ink)}
+
+    .noticias-root .galeria{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:36px}
+    @media(max-width:700px){.noticias-root .galeria{grid-template-columns:1fr 1fr}}
+    .noticias-root .g-item{position:relative;aspect-ratio:4/3;overflow:hidden;border-radius:12px;cursor:zoom-in;background:#eef1f4}
+    .noticias-root .g-item img{width:100%;height:100%;object-fit:cover;transition:transform .3s}
+    .noticias-root .g-item:hover img{transform:scale(1.05)}
+
+    .noticias-root .nt-lb{position:fixed;inset:0;background:rgba(10,20,30,.93);display:none;align-items:center;justify-content:center;z-index:300;padding:32px}
+    .noticias-root .nt-lb.open{display:flex}
+    .noticias-root .nt-lb img{max-width:92vw;max-height:84vh;border-radius:10px;box-shadow:0 30px 80px rgba(0,0,0,.6)}
+    .noticias-root .nt-cls{position:absolute;top:22px;right:28px;color:#fff;font-size:34px;cursor:pointer;line-height:1;background:none;border:none}
+    .noticias-root .nt-cap{position:absolute;bottom:24px;left:0;right:0;text-align:center;color:#cfdae6;font-family:var(--mono);font-size:13px;letter-spacing:1px;padding:0 20px}
+
+    .noticias-root .nt-copy{text-align:center;font-family:var(--mono);font-size:12px;letter-spacing:.5px;color:var(--muted);padding:24px 24px 10px}
+    .noticias-root :focus-visible{outline:3px solid var(--teal);outline-offset:2px;border-radius:4px}
+    @media(prefers-reduced-motion:reduce){.noticias-root *{animation:none!important;transition:none!important}}
+  </style>
+
+  <script is:inline>
+  const GALERIA = [
+    { src:"/images/noticias/graduacion_medellin.jpg", cap:"First cohort graduation · Medellín, Jul 11, 2026" },
+    { src:"/images/noticias/entrega_medellin.jpg", cap:"Handover of Biody BIS devices · Medellín" },
+    { src:"/images/noticias/graduacion_pereira.jpg", cap:"First cohort graduation · Pereira, Jul 4, 2026" },
+    { src:"/images/noticias/entrega_pereira.jpg", cap:"Handover of BIS devices · Pereira" },
+    { src:"/images/noticias/entrega_gerencia.jpg", cap:"Device handover by the Management" },
+    { src:"/images/noticias/firma_comodato.jpg", cap:"Signing of the bailment agreement" }
+  ];
+
+  const g = document.getElementById('galeria');
+  GALERIA.forEach(x => {
+    g.innerHTML += `<div class="g-item" onclick="abrirLb('${x.src}','${x.cap.replace(/'/g,'')}')"><img src="${x.src}" alt="${x.cap}" loading="lazy"/></div>`;
+  });
+
+  function abrirLb(src, cap){
+    document.getElementById('ntLbImg').src = src;
+    document.getElementById('ntLbImg').alt = cap || '';
+    document.getElementById('ntCap').textContent = cap || '';
+    document.getElementById('ntLb').classList.add('open');
+  }
+  function cerrarLb(){ document.getElementById('ntLb').classList.remove('open'); document.getElementById('ntLbImg').src=''; }
+  document.getElementById('ntCls').addEventListener('click', cerrarLb);
+  document.getElementById('ntLb').addEventListener('click', e => { if(e.target.id==='ntLb') cerrarLb(); });
+  document.addEventListener('keydown', e => { if(e.key==='Escape') cerrarLb(); });
+  </script>
+
+</BaseLayout>
