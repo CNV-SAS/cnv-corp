@@ -79,24 +79,6 @@ const p = t.pages.nosotros;
       </div>
     </section>
 
-    <!-- GALERIA: las imagenes del sistema -->
-    <section class="gal" id="galeria">
-      <div class="wrap">
-        <div class="kicker">El sistema en imágenes</div>
-        <h2>La maquinaria que hay detrás.</h2>
-        <p class="lead">Del dato a la ciencia, y de la ciencia a la formación. Toca cada pieza para ampliarla.</p>
-        <div class="grid-img" id="gallery"></div>
-        <p class="ind-copy">Indicadores ANI BIS-E &copy; Gildardo de Jesús Uribe Gil, 2026</p>
-      </div>
-    </section>
-
-    <!-- LIGHTBOX -->
-    <div class="lb" id="lb" role="dialog" aria-modal="true">
-      <button class="cls" id="lbClose" aria-label="Cerrar">&times;</button>
-      <img id="lbImg" src="" alt="" />
-      <div class="cap2" id="lbCap"></div>
-    </div>
-
   </div>
 
   <style is:global>
@@ -253,14 +235,6 @@ const p = t.pages.nosotros;
     { n:"05", k:"Reporte / HC", d:"Informe final e historia clínica con la matriz de indicadores ANI BIS-E, lista para compartir con el paciente y para alimentar la cohorte OB BIA LATAM." }
   ];
 
-  const IMAGENES = [
-    { src:"/images/nosotros/Determinantes_en_el_Modelo_ANI_BIS_E.jpg", k:"Toma de datos", n:"Los ocho determinantes" },
-    { src:"/images/nosotros/DFI_ANI_BIS_E.jpg", k:"Diagnóstico", n:"Las cinco dimensiones del DFI" },
-    { src:"/images/nosotros/PAsos_del_modelo_ANI_BIS_E.png", k:"Flujo", n:"Los pasos del modelo" },
-    { src:"/images/nosotros/Reporte_HC_ANI_BIS_E.jpg", k:"Reporte", n:"Reporte e historia clínica" },
-    { src:"/images/nosotros/Seguimiento_ANI_BIS_E.jpg", k:"Seguimiento", n:"El seguimiento bioeléctrico" }
-  ];
-
   /* ==================== RUEDA DE PRINCIPIOS (SVG) ==================== */
   const CX=200, CY=200, RO=180, RI=95, N=PRINCIPIOS.length, SEG=360/N;
   function polar(r,ang){ const a=(ang-90)*Math.PI/180; return [CX+r*Math.cos(a), CY+r*Math.sin(a)]; }
@@ -342,21 +316,6 @@ const p = t.pages.nosotros;
   }
   selStep(0);
 
-  /* ==================== GALERIA + LIGHTBOX ==================== */
-  const gallery=document.getElementById('gallery');
-  IMAGENES.forEach(im=>{
-    const t=document.createElement('div');
-    t.className='tile';
-    t.innerHTML=`<img src="${im.src}" alt="${im.n}" loading="lazy"/><div class="cap"><div class="k">${im.k}</div><div class="n">${im.n}</div></div>`;
-    t.addEventListener('click',()=>openLb(im));
-    gallery.appendChild(t);
-  });
-  const lb=document.getElementById('lb'), lbImg=document.getElementById('lbImg'), lbCap=document.getElementById('lbCap');
-  function openLb(im){ lbImg.src=im.src; lbImg.alt=im.n; lbCap.textContent=im.n; lb.classList.add('open'); }
-  function closeLb(){ lb.classList.remove('open'); lbImg.src=''; }
-  document.getElementById('lbClose').addEventListener('click',closeLb);
-  lb.addEventListener('click',e=>{ if(e.target===lb) closeLb(); });
-  document.addEventListener('keydown',e=>{ if(e.key==='Escape') closeLb(); });
   </script>
 
 </BaseLayout>
