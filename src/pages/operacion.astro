@@ -100,7 +100,7 @@ const p = t.pages.operacion;
       <div class="wrap">
         <div class="kicker">Nutracéuticos propios</div>
         <h2>VITACELLEBIS: la única línea con diagnóstico bioeléctrico propio.</h2>
-        <p class="lead">10 productos formulados para corregir las propiedades bioeléctricas alteradas identificadas en los 81 estados de la Diana EFR. Bajo normativa INVIMA, Decreto 3249/2006.</p>
+        <p class="lead">10 productos en dos líneas —líquida y en polvo— formulados para corregir las propiedades bioeléctricas alteradas de la Diana EFR. Con registro sanitario INVIMA: línea líquida RSA-3987-2026 y línea en polvo NSA-3618-2026, a nombre de Connected Nutrition Ventures S.A.S.</p>
         <div class="vit-grid" id="vitGrid"></div>
         <div class="vit-detail" id="vitDetail"></div>
       </div>
@@ -325,16 +325,18 @@ const p = t.pages.operacion;
   ];
 
   const PRODUCTOS = [
-    { ico:"🐟", n:"OMEGA COMPLEX", eje:"Antiinflamatorio / Cardioprotector", forma:"Cápsulas blandas", diana:"55/81 estados", invima:"Registro en trámite" },
-    { ico:"🌿", n:"BERBERINA METABO", eje:"Metabolismo glucosa-insulina", forma:"Tabletas recubiertas", diana:"22/81 estados", invima:"Registro en trámite" },
-    { ico:"🟡", n:"CURCUMIN BIOACTIV", eje:"Modulación inflamatoria", forma:"Cápsulas vegetales HPMC", diana:"19/81 estados", invima:"Registro en trámite" },
-    { ico:"⚡", n:"MITO-Q10 PLUS", eje:"Función mitocondrial", forma:"Cápsulas vegetales HPMC", diana:"13/81 estados", invima:"Registro en trámite" },
-    { ico:"💪", n:"SARCO-PROTECT", eje:"Masa muscular / Anticatabólico", forma:"Polvo en sobres 25 g", diana:"26/81 estados", invima:"Registro en trámite" },
-    { ico:"🦴", n:"D3-K2 OSTEO", eje:"Metabolismo óseo", forma:"Tabletas masticables", diana:"45/81 estados", invima:"Registro en trámite" },
-    { ico:"🦠", n:"GUT-IMMUNE PRO", eje:"Barrera intestinal / Inmunidad", forma:"Polvo suspensión oral, sobres 8 g", diana:"14/81 estados", invima:"Registro en trámite" },
-    { ico:"🫀", n:"HEPA-DETOX", eje:"Hepatoprotección", forma:"Tabletas recubiertas", diana:"12/81 estados", invima:"Registro en trámite" },
-    { ico:"🧠", n:"ADAPTO-STRESS", eje:"Eje HPA / Adaptogénico", forma:"Cápsulas vegetales HPMC", diana:"8/81 estados", invima:"Registro en trámite" },
-    { ico:"🌐", n:"MULTI-CELL BASE", eje:"Micronutrición basal universal", forma:"Tableta para deglución", diana:"81/81 estados", invima:"Registro en trámite" }
+    /* LÍNEA LÍQUIDA · Bebida a base de agua · porción 30 mL · INVIMA RSA-3987-2026 */
+    { ico:"🐟", n:"OMEGA COMPLEX", linea:"Línea líquida", eje:"Antiinflamatorio / Cardioprotector", variedad:"Omega 3, arándano, té verde y betaglucanos de avena", forma:"Bebida a base de agua · porción 30 mL", dosis:"1 porción (30 mL) al día", diana:"55/81 estados", invima:"RSA-3987-2026" },
+    { ico:"🌿", n:"BERBERINA METABO", linea:"Línea líquida", eje:"Metabolismo glucosa-insulina", variedad:"Arándano, inulina, canela, té verde y cromo", forma:"Bebida a base de agua · porción 30 mL", dosis:"1 porción (30 mL) antes de las comidas principales, hasta 2 veces al día", diana:"22/81 estados", invima:"RSA-3987-2026" },
+    { ico:"🟡", n:"CURCUMIN BIOACTIV", linea:"Línea líquida", eje:"Modulación inflamatoria", variedad:"Cúrcuma, jengibre, pimienta negra, selenio y zinc", forma:"Bebida a base de agua · porción 30 mL", dosis:"1 porción (30 mL) al día con una comida", diana:"19/81 estados", invima:"RSA-3987-2026" },
+    { ico:"⚡", n:"MITO-Q10 PLUS", linea:"Línea líquida", eje:"Función mitocondrial", variedad:"Remolacha, espinaca, jengibre, ajo negro y complejo B", forma:"Bebida a base de agua · porción 30 mL", dosis:"1 porción (30 mL) al día", diana:"13/81 estados", invima:"RSA-3987-2026" },
+    { ico:"🫀", n:"HEPA-DETOX", linea:"Línea líquida", eje:"Hepatoprotección", variedad:"Alcachofa, ajo negro, cisteína y colina", forma:"Bebida a base de agua · porción 30 mL", dosis:"1 porción (30 mL) al día", diana:"12/81 estados", invima:"RSA-3987-2026" },
+    { ico:"🧠", n:"ADAPTO-STRESS", linea:"Línea líquida", eje:"Eje HPA / Adaptogénico", variedad:"L-teanina, inositol, colina y omega-3", forma:"Bebida a base de agua · porción 30 mL", dosis:"1 porción (30 mL) al día, en la mañana o la tarde", diana:"8/81 estados", invima:"RSA-3987-2026" },
+    { ico:"🌐", n:"MULTI-CELL BASE", linea:"Línea líquida", eje:"Micronutrición basal universal", variedad:"Calostro bovino fortificado con vitaminas y minerales", forma:"Bebida a base de agua · porción 30 mL", dosis:"1 porción (30 mL) al día", diana:"81/81 estados", invima:"RSA-3987-2026" },
+    /* LÍNEA EN POLVO · Mezcla en polvo a base de proteína aislada de suero · INVIMA NSA-3618-2026 */
+    { ico:"💪", n:"SARCO-PROTECT", linea:"Línea en polvo", eje:"Masa muscular / Anticatabólico", variedad:"BCAA, magnesio, zinc y vitaminas del complejo B", forma:"Polvo para bebida · porción 25 g", dosis:"1 porción (25 g) en 200 mL de agua, 1 a 2 veces al día", diana:"26/81 estados", invima:"NSA-3618-2026" },
+    { ico:"🦠", n:"GUT-IMMUNE PRO", linea:"Línea en polvo", eje:"Barrera intestinal / Inmunidad", variedad:"Inulina, aloe vera, probióticos y vitamina A", forma:"Polvo para bebida · porción 20 g", dosis:"1 porción (20 g) en 150 mL de agua, 1 vez al día, en ayunas", diana:"14/81 estados", invima:"NSA-3618-2026" },
+    { ico:"🦴", n:"D3-K2 OSTEO", linea:"Línea en polvo", eje:"Metabolismo óseo", variedad:"Calcio, magnesio, vitamina D y vitamina K2", forma:"Polvo para bebida · porción 10 g", dosis:"1 porción (10 g) en 150 mL de agua, 1 vez al día con una comida", diana:"45/81 estados", invima:"NSA-3618-2026" }
   ];
 
   const MODULOS_ATLAS = [
@@ -373,12 +375,12 @@ const p = t.pages.operacion;
   PRODUCTOS.forEach((p, i) => {
     vg.innerHTML += `<div class="vit-card" id="vc${i}" onclick="selVit(${i})">
       <div class="vit-img"><span class="vit-emoji">${p.ico}</span><img src="/images/vitacellebis/vit_${vitPad(i)}.jpg" alt="${p.n}" loading="lazy" onload="markVit(${i})" onerror="this.remove()"></div>
-      <div class="vit-body"><div class="vn">VITACELLEBIS</div><h4>${p.n}</h4></div></div>`;
+      <div class="vit-body"><div class="vn">${p.linea}</div><h4>${p.n}</h4></div></div>`;
   });
   function selVit(i) {
     document.querySelectorAll('.vit-card').forEach((c, j) => c.classList.toggle('sel', j === i));
     const p = PRODUCTOS[i];
-    const rows = [['Eje clínico', p.eje],['Forma farmacéutica', p.forma],['Aplicable en', p.diana]]
+    const rows = [['Línea', p.linea],['Eje clínico', p.eje],['Variedad', p.variedad],['Presentación', p.forma],['Posología', p.dosis],['Aplicable en', p.diana]]
       .map(([l,v]) => `<div class="vit-row"><span class="rl">${l}</span><span class="rv">${v}</span></div>`).join('');
     const zoom = vitOk.has(i) ? `onclick="openLbVit(${i})" style="cursor:zoom-in"` : '';
     vd.className = 'vit-detail on';
@@ -389,7 +391,7 @@ const p = t.pages.operacion;
       <div>
         ${rows}
         <span class="invima-badge">INVIMA: ${p.invima}</span>
-        <p class="vit-desc">Formulado bajo el Decreto 3249/2006 y Decreto 3863/2008 (suplementos dietarios, Colombia, INVIMA). Entregado al integrante en consignación. Prescripción dirigida según diagnóstico bioeléctrico ANI BIS-E.</p>
+        <p class="vit-desc">Registro sanitario a nombre de Connected Nutrition Ventures S.A.S., fabricado por Laboratorio Pharmazen SAS. Entregado al integrante en consignación. Prescripción dirigida según el diagnóstico bioeléctrico ANI BIS-E.</p>
       </div>`;
   }
 
