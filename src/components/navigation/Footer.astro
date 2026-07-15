@@ -108,11 +108,38 @@ const systemLinks = [
       </div>
     </div>
 
-    <div class="mt-16 pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+    <div class="mt-16 pt-10 border-t border-white/10">
+      <p class="text-xs font-700 tracking-[0.2em] uppercase text-white/30 mb-6">
+        {t.footer.contact_title}
+      </p>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-6">
+        <div>
+          <p class="text-[11px] font-700 tracking-widest uppercase text-white/30 mb-1.5">{t.footer.address_label}</p>
+          <p class="text-sm text-white/60 leading-relaxed">{t.footer.address}</p>
+        </div>
+        <div>
+          <p class="text-[11px] font-700 tracking-widest uppercase text-white/30 mb-1.5">{t.footer.email_label}</p>
+          <a href={`mailto:${t.footer.email}`} class="text-sm text-white/60 hover:text-white transition-colors break-all">{t.footer.email}</a>
+        </div>
+        <div>
+          <p class="text-[11px] font-700 tracking-widest uppercase text-white/30 mb-1.5">{t.footer.phone_label}</p>
+          <a href={`tel:${t.footer.phone_link}`} class="text-sm text-white/60 hover:text-white transition-colors">{t.footer.phone}</a>
+        </div>
+        <div>
+          <p class="text-[11px] font-700 tracking-widest uppercase text-white/30 mb-1.5">{t.footer.nit_label}</p>
+          <p class="text-sm text-white/60">{t.footer.nit}</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-12 pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
       <p class="text-xs text-white/30">
         {t.footer.copyright}
       </p>
-      <div class="flex gap-6">
+      <div class="flex flex-wrap gap-6">
+        <a href={t.routes.sitemap} class="text-xs text-white/30 hover:text-white/60 transition-colors">
+          {t.footer.sitemap}
+        </a>
         <a href={t.routes.privacy} class="text-xs text-white/30 hover:text-white/60 transition-colors">
           {t.footer.privacy}
         </a>

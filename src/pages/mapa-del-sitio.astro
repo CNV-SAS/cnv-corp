@@ -1,0 +1,13 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SiteMap from '../components/pages/SiteMap.astro';
+import { getI18n } from '../i18n';
+
+const lang = Astro.currentLocale || 'es';
+const t = getI18n(lang);
+const s = t.pages.sitemap;
+---
+
+<BaseLayout title={`${s.title} — Connected Nutrition Ventures`} description={s.hero_body}>
+  <SiteMap lang={lang} />
+</BaseLayout>

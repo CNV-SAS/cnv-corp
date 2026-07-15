@@ -37,6 +37,8 @@ nav{position:sticky;top:0;z-index:1000;background:rgba(8,21,41,0.97);backdrop-fi
 .nav-logo-s{font-size:8px;color:rgba(255,255,255,0.4);letter-spacing:0.08em;text-transform:uppercase;display:block;margin-top:-2px;}
 .nav-links{display:flex;gap:20px;list-style:none;}
 .nav-links a{color:rgba(255,255,255,0.75);text-decoration:none;font-size:11px;font-weight:600;letter-spacing:0.05em;text-transform:uppercase;transition:color .2s;}
+.nav-links a.nav-lang{border:1px solid rgba(200,147,42,0.55);color:var(--gold);border-radius:6px;padding:3px 9px;}
+.nav-links a.nav-lang:hover{background:var(--gold);color:var(--navy-dark);}
 .nav-links a:hover{color:var(--gold);}
 .nav-burger{display:none;flex-direction:column;gap:4px;cursor:pointer;padding:4px;}
 .nav-burger span{width:22px;height:2px;background:rgba(255,255,255,0.7);border-radius:2px;}
@@ -194,6 +196,11 @@ footer{background:var(--navy-dark);padding:48px 24px 20px;border-top:2px solid r
 .ft-col a:hover{color:var(--white);}
 .ft-bot{border-top:1px solid rgba(255,255,255,0.07);padding-top:18px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;}
 .ft-cp{font-size:10px;color:rgba(255,255,255,0.25);}
+.ft-contact{border-top:1px solid rgba(255,255,255,0.08);margin-top:8px;padding-top:22px;margin-bottom:22px;display:grid;grid-template-columns:repeat(4,1fr);gap:20px;}
+.ft-contact .lbl{font-size:9px;font-weight:800;letter-spacing:0.12em;text-transform:uppercase;color:var(--gold);margin-bottom:8px;}
+.ft-contact .val,.ft-contact a{font-size:12px;color:rgba(255,255,255,0.45);line-height:1.6;text-decoration:none;display:block;transition:color .2s;}
+.ft-contact a:hover{color:var(--white);}
+@media(max-width:680px){.ft-contact{grid-template-columns:1fr 1fr;}}
 @media(max-width:680px){.ft-top{grid-template-columns:1fr;}}
 
 /* UTILITIES */
@@ -225,6 +232,7 @@ footer{background:var(--navy-dark);padding:48px 24px 20px;border-top:2px solid r
       <li><a href="#comite">Comité</a></li>
       <li><a href="#publicaciones">Publicaciones</a></li>
       <li><a href="#afiliacion">Afiliación</a></li>
+      <li><a href="/en/ob-bia-latam.html" class="nav-lang">🌐 EN</a></li>
     </ul>
     <div class="nav-burger" onclick="document.getElementById('nav-links').classList.toggle('open')">
       <span></span><span></span><span></span>
@@ -582,6 +590,12 @@ footer{background:var(--navy-dark);padding:48px 24px 20px;border-top:2px solid r
         <div style="margin-top:10px;font-size:9px;color:rgba(255,255,255,0.25);letter-spacing:0.07em;text-transform:uppercase;">Dirección científica</div>
         <div style="font-size:11px;color:rgba(255,255,255,0.4);margin-top:4px;line-height:1.5;">Gildardo de Jesús Uribe Gil<br>ND, MSc · Director OB-BIA LATAM</div>
       </div>
+    </div>
+    <div class="ft-contact">
+      <div><div class="lbl">Dirección</div><div class="val">Cra 79 No. 46-36, La Floresta, Medellín, Antioquia, Colombia</div></div>
+      <div><div class="lbl">E-mail</div><a href="mailto:gerencia@cnvsystem.com">gerencia@cnvsystem.com</a></div>
+      <div><div class="lbl">Teléfono</div><a href="tel:+573216428280">+57 321 642 8280</a></div>
+      <div><div class="lbl">NIT</div><div class="val">902.045.562-3</div></div>
     </div>
     <div class="ft-bot">
       <div class="ft-cp">© 2026 OB-BIA LATAM · Sistema ANI BIS-E · Acta N° 001-2026 · Todos los derechos reservados</div>

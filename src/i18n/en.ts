@@ -16,6 +16,7 @@ export const en: Translations = {
     privacy: '/en/privacy-policy',
     terms: '/en/legal-notice',
     cookies: '/en/cookies-policy',
+    sitemap: '/en/site-map',
   },
 
   // 2. ENLACES EXTERNOS (Subdominios estáticos)
@@ -251,8 +252,19 @@ export const en: Translations = {
     privacy: 'Privacy Policies',
     terms: 'Use Terms',
     cookies: 'Cookies Policy',
+    sitemap: 'Site map',
     copyright: '© 2026 Connected Nutrition Ventures. All rights reserved.',
     coming_soon: 'Coming soon',
+    contact_title: 'Contact',
+    address_label: 'Address',
+    address: 'Cra 79 No. 46-36, La Floresta, Medellín, Antioquia, Colombia',
+    email_label: 'E-mail',
+    email: 'gerencia@cnvsystem.com',
+    phone_label: 'Phone',
+    phone: '+57 321 642 8280',
+    phone_link: '+573216428280',
+    nit_label: 'NIT',
+    nit: '902.045.562-3',
   },
 
   cookies_banner: {
@@ -479,6 +491,30 @@ export const en: Translations = {
         body: 'The CNV ecosystem grows through professionals, institutions, and partners who share the same scientific rigor.',
         btn_paradigm: 'Discover the paradigm'
       }
+    },
+    sitemap: {
+      tag: 'Site map',
+      title: 'The entire CNV ecosystem, in one place',
+      hero_body: 'Quickly find any section of the site and get answers to the most common questions about CNV, the ANI BIS-E model, and bioimpedance spectroscopy.',
+      map_title: 'Site pages',
+      sec_ecosystem: 'The ecosystem',
+      sec_company: 'The company',
+      sec_observatory: 'Observatory',
+      sec_legal: 'Legal',
+      faq_tag: 'Common questions',
+      faq_title: 'Frequently asked questions',
+      faq_body: 'Answers to what patients, professionals, and institutions ask us most.',
+      faq: [
+        { q: 'What is CNV (Connected Nutrition Ventures)?', a: 'CNV is a business ecosystem operating a new health paradigm: it measures the function of the biological system before disease appears. It is organized into three lines —CNV Care (operations), CNV Learning (training), and CNV Research (research)— connected by the ANI BIS-E care model.' },
+        { q: 'What is the ANI BIS-E model?', a: 'ANI BIS-E stands for Food and Nutrition Informed by Bioimpedance Spectroscopy and Epigenetics. It is a care model that turns the body’s bioelectrical data into structured clinical decisions for early prevention and intervention, always under professional judgment.' },
+        { q: 'What is bioimpedance spectroscopy (BIS) and how does it differ from a common bioimpedance scale?', a: 'BIS analyzes the electrical response of tissues across a wide frequency spectrum (1 kHz to 1 MHz) and, through the Cole-Cole model, estimates cellular parameters such as resistance and membrane capacitance. Unlike a home bioimpedance scale (which uses one or few frequencies), BIS makes it possible to infer the cell’s functional state with clinical precision.' },
+        { q: 'How can I receive care under the ANI BIS-E model?', a: 'Care is delivered by health professionals certified by CNV. Reach out through our contact channels and we will guide you to a certified operator of the model near you.' },
+        { q: 'I am a health professional — how do I join the network and get certified?', a: 'Through CNV Learning: your practice or institution applies, the profile is evaluated, you complete the diploma in Bioelectrical Medicine and the ANI BIS-E model with university endorsement, and you begin operating with support and access to the Atlas platform. The network is selective and requires active clinical practice.' },
+        { q: 'What is the OB-BIA LATAM Observatory?', a: 'The Latin American Bioimpedance Observatory (OB-BIA LATAM) is the scientific layer of CNV Research: it concentrates and validates the ecosystem’s clinical data, generates region-specific reference values for Latin American populations, and produces publications and reports that keep the model at the frontier of evidence.' },
+        { q: 'Does bioimpedance replace a medical diagnosis?', a: 'No. ANI BIS-E estimates risk and guides nutritional and lifestyle intervention, but it does not replace clinical judgment nor constitute a definitive diagnosis. It always operates under the supervision of a health professional.' },
+        { q: 'What is VITACELLEBIS?', a: 'It is the CNV ecosystem’s line of targeted nutraceuticals, formulated to support the cell’s bioelectrical properties within the ANI BIS-E care pathway, when the professional deems it appropriate.' },
+        { q: 'Where are you located and how do I contact you?', a: 'CNV is at Cra 79 No. 46-36, La Floresta, Medellín, Antioquia, Colombia. You can write to gerencia@cnvsystem.com or call +57 321 642 8280. The full details appear at the bottom of every page.' },
+      ],
     },
   },
 };

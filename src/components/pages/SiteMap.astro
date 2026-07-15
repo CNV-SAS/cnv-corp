@@ -1,0 +1,108 @@
+---
+import { getI18n } from '../../i18n';
+
+interface Props {
+  lang: string;
+}
+
+const { lang } = Astro.props;
+const t = getI18n(lang);
+const s = t.pages.sitemap;
+
+const obbiaHref = lang === 'en' ? '/en/ob-bia-latam.html' : '/ob-bia-latam.html';
+
+const groups = [
+  {
+    title: s.sec_ecosystem,
+    links: [
+      { href: t.routes.care, label: t.nav.operacion },
+      { href: t.routes.learning, label: t.nav.formacion },
+      { href: t.routes.research, label: t.nav.investigacion },
+    ],
+  },
+  {
+    title: s.sec_company,
+    links: [
+      { href: t.routes.about, label: t.nav.nosotros },
+      { href: t.routes.paradigm, label: t.nav.paradigma },
+      { href: t.routes.integrantes, label: t.nav.integrantes },
+      { href: t.routes.noticias, label: t.nav.noticias },
+      { href: t.routes.contact, label: t.nav.contacto },
+    ],
+  },
+  {
+    title: s.sec_observatory,
+    links: [{ href: obbiaHref, label: 'OB-BIA LATAM' }],
+  },
+  {
+    title: s.sec_legal,
+    links: [
+      { href: t.routes.privacy, label: t.footer.privacy },
+      { href: t.routes.terms, label: t.footer.terms },
+      { href: t.routes.cookies, label: t.footer.cookies },
+    ],
+  },
+];
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: s.faq.map((f) => ({
+    '@type': 'Question',
+    name: f.q,
+    acceptedAnswer: { '@type': 'Answer', text: f.a },
+  })),
+};
+---
+
+<!-- HERO -->
+<section class="bg-cnv-core text-white">
+  <div class="max-w-7xl mx-auto px-6 lg:px-8 pt-20 pb-20">
+    <p class="text-xs font-700 tracking-[0.2em] uppercase text-cnv-generate mb-4">{s.tag}</p>
+    <h1 class="text-4xl md:text-5xl font-800 leading-tight max-w-3xl">{s.title}</h1>
+    <p class="mt-6 text-lg text-white/60 max-w-2xl leading-relaxed">{s.hero_body}</p>
+  </div>
+</section>
+
+<!-- MAPA DEL SITIO -->
+<section class="max-w-7xl mx-auto px-6 lg:px-8 py-20">
+  <p class="text-xs font-700 tracking-[0.2em] uppercase text-cnv-core/40 mb-10">{s.map_title}</p>
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
+    {groups.map((g) => (
+      <div>
+        <h2 class="text-sm font-800 tracking-wide uppercase text-cnv-core mb-4">{g.title}</h2>
+        <ul class="flex flex-col gap-3">
+          {g.links.map((l) => (
+            <li>
+              <a href={l.href} class="text-sm text-cnv-core/70 hover:text-cnv-generate transition-colors">
+                {l.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    ))}
+  </div>
+</section>
+
+<!-- PREGUNTAS FRECUENTES -->
+<section class="bg-gray-50 border-t border-gray-100">
+  <div class="max-w-4xl mx-auto px-6 lg:px-8 py-20">
+    <p class="text-xs font-700 tracking-[0.2em] uppercase text-cnv-generate mb-4">{s.faq_tag}</p>
+    <h2 class="text-3xl md:text-4xl font-800 text-cnv-core">{s.faq_title}</h2>
+    <p class="mt-4 text-base text-cnv-core/60 max-w-2xl leading-relaxed">{s.faq_body}</p>
+    <div class="mt-12 flex flex-col gap-4">
+      {s.faq.map((f) => (
+        <details class="group bg-white border border-gray-200 rounded-xl px-6 py-5 [&_summary::-webkit-details-marker]:hidden">
+          <summary class="flex items-center justify-between gap-4 cursor-pointer list-none">
+            <span class="text-base font-700 text-cnv-core">{f.q}</span>
+            <span class="text-cnv-generate transition-transform duration-200 group-open:rotate-45 text-2xl leading-none flex-shrink-0">+</span>
+          </summary>
+          <p class="mt-4 text-sm text-cnv-core/70 leading-relaxed">{f.a}</p>
+        </details>
+      ))}
+    </div>
+  </div>
+</section>
+
+<script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />

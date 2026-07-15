@@ -9,16 +9,21 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4/dist/chart.umd.min.js"></script>
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
 <style>
 :root{
   --navy:#0D2145;--navy-dark:#081529;--navy-mid:#132d5e;
   --gold:#C8932A;--gold-light:#e8b040;
   --teal:#1B6B7B;--teal-light:#2a8fa5;
+  --green:#5E9B3F;--burgundy:#7C2E50;
   --white:#ffffff;--off:#f7f9fc;
   --g100:#edf0f7;--g300:#c5cde0;--g500:#7a88a8;--g700:#3d4e6e;
   --text:#1a2440;
-  --serif:'Georgia','Times New Roman',serif;
-  --sans:'Segoe UI',system-ui,-apple-system,sans-serif;
+  --serif:'Spectral',Georgia,'Times New Roman',serif;
+  --sans:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
 }
 *{box-sizing:border-box;margin:0;padding:0;}
 html{scroll-behavior:smooth;}
@@ -32,6 +37,8 @@ nav{position:sticky;top:0;z-index:1000;background:rgba(8,21,41,0.97);backdrop-fi
 .nav-logo-s{font-size:8px;color:rgba(255,255,255,0.4);letter-spacing:0.08em;text-transform:uppercase;display:block;margin-top:-2px;}
 .nav-links{display:flex;gap:20px;list-style:none;}
 .nav-links a{color:rgba(255,255,255,0.75);text-decoration:none;font-size:11px;font-weight:600;letter-spacing:0.05em;text-transform:uppercase;transition:color .2s;}
+.nav-links a.nav-lang{border:1px solid rgba(200,147,42,0.55);color:var(--gold);border-radius:6px;padding:3px 9px;}
+.nav-links a.nav-lang:hover{background:var(--gold);color:var(--navy-dark);}
 .nav-links a:hover{color:var(--gold);}
 .nav-burger{display:none;flex-direction:column;gap:4px;cursor:pointer;padding:4px;}
 .nav-burger span{width:22px;height:2px;background:rgba(255,255,255,0.7);border-radius:2px;}
@@ -61,7 +68,28 @@ nav{position:sticky;top:0;z-index:1000;background:rgba(8,21,41,0.97);backdrop-fi
 .sec-in{max-width:1200px;margin:0 auto;}
 .sec-alt{background:var(--off);}
 .sec-dark{background:var(--navy);color:var(--white);}
-.sec-lbl{font-size:10px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:var(--teal);margin-bottom:10px;}
+.sec-lbl{font-family:var(--mono);font-size:11px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:var(--teal);margin-bottom:10px;}
+
+/* PRINCIPLES WHEEL (dial) */
+.princ-grid{display:grid;grid-template-columns:420px 1fr;gap:56px;align-items:center;margin-top:44px;}
+@media(max-width:900px){.princ-grid{grid-template-columns:1fr;gap:36px;}}
+.dial{width:100%;max-width:420px;margin:0 auto;cursor:pointer;}
+.dial .seg{transition:transform .25s ease,opacity .25s ease;transform-origin:200px 200px;}
+.dial .seg:hover{opacity:.92;}
+.dial .seg.dim{opacity:.32;}
+.dial .seg.active{transform:scale(1.05);}
+.dial .seg-num{font-family:var(--serif);font-weight:700;font-size:28px;fill:#fff;pointer-events:none;}
+.dial .hub{fill:#fff;stroke:var(--g100);}
+.dial .hub-txt{fill:var(--navy);font-family:var(--serif);font-weight:700;}
+.dial .hub-sub{fill:var(--teal);font-family:var(--mono);font-weight:600;}
+.princ-panel{min-height:260px;}
+.princ-panel .pp-num{font-family:var(--mono);font-size:12px;letter-spacing:0.14em;text-transform:uppercase;color:var(--g500);margin-bottom:10px;}
+.princ-panel h3{font-family:var(--serif);font-size:clamp(22px,2.6vw,30px);font-weight:700;line-height:1.15;margin-bottom:16px;}
+.princ-panel p{font-size:15.5px;color:var(--g700);line-height:1.75;max-width:560px;}
+.princ-panel p strong{color:var(--navy);}
+.princ-dots{display:flex;gap:8px;margin-top:24px;}
+.princ-dots button{width:11px;height:11px;border-radius:50%;border:none;background:var(--g100);cursor:pointer;padding:0;transition:transform .2s;}
+.princ-dots button.on{transform:scale(1.35);}
 .sec-dark .sec-lbl{color:rgba(200,147,42,0.75);}
 .sec-h{font-family:var(--serif);font-size:clamp(26px,3.5vw,40px);font-weight:700;color:var(--navy);margin-bottom:14px;line-height:1.2;}
 .sec-dark .sec-h{color:var(--white);}
@@ -79,7 +107,7 @@ nav{position:sticky;top:0;z-index:1000;background:rgba(8,21,41,0.97);backdrop-fi
 .ind-ico{width:42px;height:42px;border-radius:11px;display:flex;align-items:center;justify-content:center;font-size:17px;font-weight:900;margin-bottom:14px;font-family:var(--serif);}
 .ind-nm{font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--g500);margin-bottom:3px;}
 .ind-fl{font-size:14px;font-weight:700;color:var(--navy);margin-bottom:10px;line-height:1.3;}
-.ind-fx{background:var(--off);border-left:3px solid var(--teal);padding:9px 12px;border-radius:0 7px 7px 0;font-family:monospace;font-size:11.5px;color:var(--g700);margin-bottom:10px;line-height:1.6;}
+.ind-fx{background:var(--off);border-left:3px solid var(--teal);padding:9px 12px;border-radius:0 7px 7px 0;font-family:var(--mono);font-size:11.5px;color:var(--g700);margin-bottom:10px;line-height:1.6;}
 .ind-ref{font-size:12px;color:var(--g500);line-height:1.55;}
 .ind-tag{display:inline-block;background:var(--g100);border-radius:5px;padding:3px 9px;font-size:9px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:var(--g700);margin-top:9px;}
 
@@ -168,6 +196,11 @@ footer{background:var(--navy-dark);padding:48px 24px 20px;border-top:2px solid r
 .ft-col a:hover{color:var(--white);}
 .ft-bot{border-top:1px solid rgba(255,255,255,0.07);padding-top:18px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;}
 .ft-cp{font-size:10px;color:rgba(255,255,255,0.25);}
+.ft-contact{border-top:1px solid rgba(255,255,255,0.08);margin-top:8px;padding-top:22px;margin-bottom:22px;display:grid;grid-template-columns:repeat(4,1fr);gap:20px;}
+.ft-contact .lbl{font-size:9px;font-weight:800;letter-spacing:0.12em;text-transform:uppercase;color:var(--gold);margin-bottom:8px;}
+.ft-contact .val,.ft-contact a{font-size:12px;color:rgba(255,255,255,0.45);line-height:1.6;text-decoration:none;display:block;transition:color .2s;}
+.ft-contact a:hover{color:var(--white);}
+@media(max-width:680px){.ft-contact{grid-template-columns:1fr 1fr;}}
 @media(max-width:680px){.ft-top{grid-template-columns:1fr;}}
 
 /* UTILITIES */
@@ -199,6 +232,7 @@ footer{background:var(--navy-dark);padding:48px 24px 20px;border-top:2px solid r
       <li><a href="#comite">Committee</a></li>
       <li><a href="#publicaciones">Publications</a></li>
       <li><a href="#afiliacion">Active members</a></li>
+      <li><a href="/ob-bia-latam.html" class="nav-lang">🌐 ES</a></li>
     </ul>
     <div class="nav-burger" onclick="document.getElementById('nav-links').classList.toggle('open')">
       <span></span><span></span><span></span>
@@ -234,9 +268,9 @@ footer{background:var(--navy-dark);padding:48px 24px 20px;border-top:2px solid r
     <div class="divider"></div>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:44px;align-items:start;" id="about-grid">
       <div>
-        <p style="font-size:16px;line-height:1.85;color:var(--g700);margin-bottom:18px;">The <strong style="color:var(--navy)">Latin American Bioimpedance Observatory (OB-BIA LATAM)</strong> is a multinational scientific network dedicated to the study, validation, and dissemination of the <strong style="color:var(--navy)">ANI BIS-E</strong> care model (a health, food, and nutrition care model informed by bioimpedance spectroscopy and epigenetics).</p>
-        <p style="font-size:14px;line-height:1.85;color:var(--g500);margin-bottom:18px;">Formally established through <em>Charter No. 001-2026</em>, the observatory integrates assessments from Colombia, Mexico, Argentina, and Brazil, with a standardized protocol that captures <strong>259 variables</strong> per subject evaluated, including 8 advanced bioelectrical indicators.</p>
-        <p style="font-size:14px;line-height:1.85;color:var(--g500);">Our mission is to generate Latin American scientific evidence on bioelectrical health in diverse populations, contributing to the development of reference values specific to Latin America.</p>
+        <p style="font-size:15px;line-height:1.85;color:var(--g700);margin-bottom:18px;">The <strong style="color:var(--navy)">Latin American Bioimpedance Observatory (OB-BIA LATAM)</strong> is a multinational scientific network dedicated to the study, validation, and dissemination of the <strong style="color:var(--navy)">ANI BIS-E</strong> care model (a health, food, and nutrition care model informed by bioimpedance spectroscopy and epigenetics).</p>
+        <p style="font-size:15px;line-height:1.85;color:var(--g700);margin-bottom:18px;">Formally established through <em>Charter No. 001-2026</em>, the observatory integrates assessments from Colombia, Mexico, Argentina, and Brazil, with a standardized protocol that captures <strong style="color:var(--navy)">259 variables</strong> per subject evaluated, including 8 advanced bioelectrical indicators.</p>
+        <p style="font-size:15px;line-height:1.85;color:var(--g700);">Our mission is to generate Latin American scientific evidence on bioelectrical health in diverse populations, contributing to the development of reference values specific to Latin America.</p>
         <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:24px;">
           <span class="badge">🔬 Clinical research</span>
           <span class="badge">📊 Nutritional epidemiology</span>
@@ -267,33 +301,10 @@ footer{background:var(--navy-dark);padding:48px 24px 20px;border-top:2px solid r
     <div class="sec-lbl">Ethical and scientific framework</div>
     <h2 class="sec-h">Observatory <span>principles</span></h2>
     <div class="divider"></div>
-    <p class="sec-p">The five principles that govern all scientific activity of OB-BIA LATAM, aligned with the CNV research framework.</p>
-    <div class="cg">
-      <div class="card" style="border-top:3px solid var(--navy);">
-        <div class="ind-ico" style="background:rgba(13,33,69,0.08);color:var(--navy);">⚖️</div>
-        <div class="ind-fl">1 · Research grounded in ethical principles</div>
-        <p class="ind-ref" style="font-size:14px;line-height:1.65;">Every assessment is carried out under <strong style="color:var(--navy)">informed consent</strong> signed by the participant, following the protocol in our survey module. We comply with national and international standards for research on human subjects (Declaration of Helsinki, CIOMS guidelines and local regulations).</p>
-      </div>
-      <div class="card" style="border-top:3px solid var(--teal);">
-        <div class="ind-ico" style="background:rgba(27,107,123,0.08);color:var(--teal);">🔬</div>
-        <div class="ind-fl">2 · Scientific independence</div>
-        <p class="ind-ref" style="font-size:14px;line-height:1.65;">Although the Observatory is an arm of CNV, <strong style="color:var(--navy)">scientific decisions are made by scientists</strong>. Evidence is generated, analyzed and interpreted free from coercion by governing bodies.</p>
-      </div>
-      <div class="card" style="border-top:3px solid var(--gold);">
-        <div class="ind-ico" style="background:rgba(200,147,42,0.12);color:var(--gold);">📐</div>
-        <div class="ind-fl">3 · Scientific rigor</div>
-        <p class="ind-ref" style="font-size:14px;line-height:1.65;">Every study follows the <strong style="color:var(--navy)">scientific method through all its steps</strong>, with oversight of ethical aspects and a documented, reproducible scientific model.</p>
-      </div>
-      <div class="card" style="border-top:3px solid var(--navy);">
-        <div class="ind-ico" style="background:rgba(13,33,69,0.08);color:var(--navy);">🧬</div>
-        <div class="ind-fl">4 · High-impact knowledge generation</div>
-        <p class="ind-ref" style="font-size:14px;line-height:1.65;">We are the <strong style="color:var(--navy)">only research group in the world</strong> that feeds its cohort every single day using the same ANI BIS-E care model, the same bioimpedance spectroscopy (BIS) device and professionals trained through a diploma program in the model.</p>
-      </div>
-      <div class="card" style="border-top:3px solid var(--teal);">
-        <div class="ind-ico" style="background:rgba(27,107,123,0.1);color:var(--teal);">🌎</div>
-        <div class="ind-fl">5 · Contribution to Latin American public health</div>
-        <p class="ind-ref" style="font-size:14px;line-height:1.65;">We generate <strong style="color:var(--navy)">Latin America–specific cut-off points</strong> for body composition, cellular health and bioelectrical health, helping to build regional reference values.</p>
-      </div>
+    <p class="sec-p">The five principles that govern all scientific activity of OB-BIA LATAM, aligned with the CNV research framework. Hover over each sector of the wheel to read it.</p>
+    <div class="princ-grid">
+      <svg class="dial" id="obDial" viewBox="0 0 400 400" role="group" aria-label="Wheel of the Observatory's five principles"></svg>
+      <div class="princ-panel" id="obPanel" aria-live="polite"></div>
     </div>
   </div>
 </section>
@@ -493,8 +504,8 @@ footer{background:var(--navy-dark);padding:48px 24px 20px;border-top:2px solid r
       <div class="mb">
         <div class="mb-av">EH</div>
         <div class="mb-role">External member</div>
-        <div class="mb-name">Edwin David Higuita</div>
-        <div class="mb-spec">Microbiologist · Master's · PhD (in progress)<br>Former Vice-Rector for Research · University professor<br>🇨🇴 Colombia</div>
+        <div class="mb-name">Edwin Higuita David</div>
+        <div class="mb-spec">Microbiologist and analyst · MSc in Biomedical Sciences<br>Former Vice-Rector for Research · Universidad del Sinú, Cartagena<br>🇨🇴 Colombia</div>
         <span class="badge" style="margin-top:11px;font-size:8px;">Research</span>
       </div>
       <div class="mb">
@@ -550,7 +561,7 @@ footer{background:var(--navy-dark);padding:48px 24px 20px;border-top:2px solid r
     <div style="font-size:44px;margin-bottom:8px;">✉️</div>
     <div style="font-size:10px;font-weight:700;color:var(--gold);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:10px;">Scientific direction · OB-BIA LATAM</div>
     <h3 style="font-family:var(--serif);font-size:24px;color:var(--navy);margin-bottom:10px;">Contact us</h3>
-    <p style="font-size:14px;color:var(--g700);line-height:1.7;max-width:460px;margin:0 auto 22px;">For scientific collaboration, use of observatory data, or institutional matters, write to our scientific direction.</p>
+    <p style="font-size:15px;color:var(--g700);line-height:1.7;max-width:460px;margin:0 auto 22px;">For scientific collaboration, use of observatory data, or institutional matters, write to our scientific direction.</p>
     <a href="mailto:direccioncientifica@cnvsystem.com" class="btn-p" style="display:inline-block;padding:14px 28px;font-size:14px;text-decoration:none;">direccioncientifica@cnvsystem.com</a>
   </div>
 </section>
@@ -579,6 +590,12 @@ footer{background:var(--navy-dark);padding:48px 24px 20px;border-top:2px solid r
         <div style="margin-top:10px;font-size:9px;color:rgba(255,255,255,0.25);letter-spacing:0.07em;text-transform:uppercase;">Scientific direction</div>
         <div style="font-size:11px;color:rgba(255,255,255,0.4);margin-top:4px;line-height:1.5;">Gildardo de Jesús Uribe Gil<br>ND, MSc · Director OB-BIA LATAM</div>
       </div>
+    </div>
+    <div class="ft-contact">
+      <div><div class="lbl">Address</div><div class="val">Cra 79 No. 46-36, La Floresta, Medellín, Antioquia, Colombia</div></div>
+      <div><div class="lbl">E-mail</div><a href="mailto:gerencia@cnvsystem.com">gerencia@cnvsystem.com</a></div>
+      <div><div class="lbl">Phone</div><a href="tel:+573216428280">+57 321 642 8280</a></div>
+      <div><div class="lbl">NIT</div><div class="val">902.045.562-3</div></div>
     </div>
     <div class="ft-bot">
       <div class="ft-cp">© 2026 OB-BIA LATAM · ANI BIS-E System · Charter No. 001-2026 · All rights reserved</div>
@@ -902,6 +919,77 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 });
+</script>
+
+<!-- PRINCIPLES WHEEL -->
+<script>
+(function(){
+  const P = [
+    { n:"⚖️", c:"#0D2145", t:"Research grounded in ethical principles",
+      d:"Every assessment is carried out under <strong>informed consent</strong> signed by the participant, following the protocol in our survey module. We comply with national and international standards for research on human subjects (Declaration of Helsinki, CIOMS guidelines and local regulations)." },
+    { n:"🔬", c:"#1B6B7B", t:"Scientific independence",
+      d:"Although the Observatory is an arm of CNV, <strong>scientific decisions are made by scientists</strong>. Evidence is generated, analyzed and interpreted free from coercion by governing bodies." },
+    { n:"📐", c:"#C8932A", t:"Scientific rigor",
+      d:"Every study follows the <strong>scientific method through all its steps</strong>, with oversight of ethical aspects and a documented, reproducible scientific model." },
+    { n:"🧬", c:"#5E9B3F", t:"High-impact knowledge generation",
+      d:"We are the <strong>only research group in the world</strong> that feeds its cohort every single day using the same ANI BIS-E care model, the same bioimpedance spectroscopy (BIS) device and professionals trained through a diploma program in the model." },
+    { n:"🌎", c:"#7C2E50", t:"Contribution to Latin American public health",
+      d:"We generate <strong>Latin America–specific cut-off points</strong> for body composition, cellular health and bioelectrical health, helping to build regional reference values." }
+  ];
+  const svg = document.getElementById('obDial');
+  const panel = document.getElementById('obPanel');
+  if(!svg || !panel) return;
+  const NS = "http://www.w3.org/2000/svg";
+  const CX=200, CY=200, RO=180, RI=95, N=P.length, SEG=360/N;
+  const polar=(r,ang)=>{ const a=(ang-90)*Math.PI/180; return [CX+r*Math.cos(a), CY+r*Math.sin(a)]; };
+  function segPath(rO,rI,s,e){
+    const [x1,y1]=polar(rO,s), [x2,y2]=polar(rO,e), [x3,y3]=polar(rI,e), [x4,y4]=polar(rI,s);
+    const laf=(e-s)<=180?0:1;
+    return `M${x1},${y1} A${rO},${rO} 0 ${laf} 1 ${x2},${y2} L${x3},${y3} A${rI},${rI} 0 ${laf} 0 ${x4},${y4} Z`;
+  }
+  P.forEach((p,i)=>{
+    const s=i*SEG, e=s+SEG;
+    const g=document.createElementNS(NS,'g');
+    g.setAttribute('class','seg'); g.setAttribute('role','button');
+    g.setAttribute('tabindex','0'); g.setAttribute('aria-label',p.t);
+    const path=document.createElementNS(NS,'path');
+    path.setAttribute('d',segPath(RO,RI,s,e)); path.setAttribute('fill',p.c);
+    g.appendChild(path);
+    const mid=s+SEG/2, [lx,ly]=polar((RO+RI)/2,mid);
+    const txt=document.createElementNS(NS,'text');
+    txt.setAttribute('x',lx); txt.setAttribute('y',ly);
+    txt.setAttribute('text-anchor','middle'); txt.setAttribute('dominant-baseline','central');
+    txt.setAttribute('class','seg-num'); txt.textContent=String(i+1);
+    g.appendChild(txt);
+    g.addEventListener('click',()=>select(i));
+    g.addEventListener('mouseenter',()=>select(i));
+    g.addEventListener('focus',()=>select(i));
+    g.addEventListener('keydown',ev=>{ if(ev.key==='Enter'||ev.key===' '){ ev.preventDefault(); select(i); } });
+    svg.appendChild(g);
+  });
+  const hub=document.createElementNS(NS,'circle');
+  hub.setAttribute('cx',CX); hub.setAttribute('cy',CY); hub.setAttribute('r',RI-6); hub.setAttribute('class','hub');
+  svg.appendChild(hub);
+  const h1=document.createElementNS(NS,'text');
+  h1.setAttribute('x',CX); h1.setAttribute('y',CY-4); h1.setAttribute('text-anchor','middle');
+  h1.setAttribute('class','hub-txt'); h1.setAttribute('font-size','26'); h1.textContent='OB·BIA';
+  svg.appendChild(h1);
+  const h2=document.createElementNS(NS,'text');
+  h2.setAttribute('x',CX); h2.setAttribute('y',CY+18); h2.setAttribute('text-anchor','middle');
+  h2.setAttribute('class','hub-sub'); h2.setAttribute('font-size','11'); h2.textContent='LATAM';
+  svg.appendChild(h2);
+  function select(i){
+    svg.querySelectorAll('.seg').forEach((s,j)=>{ s.classList.toggle('active',j===i); s.classList.toggle('dim',j!==i); });
+    const p=P[i];
+    const dots=P.map((_,k)=>`<button class="${k===i?'on':''}" style="background:${k===i?p.c:''}" data-k="${k}" aria-label="Principle ${k+1}"></button>`).join('');
+    panel.innerHTML=`<div class="pp-num">Principle ${i+1} of ${N}</div>
+      <h3 style="color:${p.c}">${p.n} &nbsp;${p.t}</h3>
+      <p>${p.d}</p>
+      <div class="princ-dots">${dots}</div>`;
+    panel.querySelectorAll('.princ-dots button').forEach(b=>b.addEventListener('click',()=>select(+b.dataset.k)));
+  }
+  select(0);
+})();
 </script>
 </body>
 </html>
