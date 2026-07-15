@@ -14,12 +14,12 @@ const otherLangHref = getRouteInOtherLang(Astro.url);
 // Consumimos las rutas limpiamente desde el diccionario.
 // (Paradigma quedó integrado dentro de la página de CNV Care, por eso ya no va en el menú.)
 const navLinks = [
+  { href: t.routes.sitemap, label: t.footer.sitemap },
   { href: t.routes.about, label: t.nav.nosotros },
   { href: t.routes.care, label: t.nav.operacion },
   { href: t.routes.learning, label: t.nav.formacion },
   { href: t.routes.research, label: t.nav.investigacion },
   { href: t.routes.noticias, label: t.nav.noticias },
-  { href: t.routes.sitemap, label: t.footer.sitemap },
 ];
 
 const currentPath = Astro.url.pathname;
