@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="theme-color" content="#1a6b5a">
+  <title>Encuesta ATLAS — CNV</title>
+  <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <style>
+    * { -webkit-tap-highlight-color: transparent; box-sizing: border-box; }
+    body { font-family: 'Segoe UI', Roboto, system-ui, sans-serif; background: #f0f4f3; margin: 0; color: #14342c; }
+    .wrap { max-width: 640px; margin: 0 auto; min-height: 100vh; background: #fff; }
+    .topbar { background: linear-gradient(135deg,#14342c,#1a6b5a); color: #fff; padding: 16px 20px; position: sticky; top: 0; z-index: 20; }
+    .topbar h1 { margin: 0; font-size: 16px; font-weight: 800; letter-spacing: .3px; }
+    .topbar p { margin: 2px 0 0; font-size: 11px; opacity: .8; }
+    .bar { height: 5px; background: rgba(255,255,255,.2); border-radius: 4px; margin-top: 12px; overflow: hidden; }
+    .bar > div { height: 100%; background: #c9a961; transition: width .3s; }
+    .pad { padding: 18px 20px 120px; }
+    .nav { position: fixed; bottom: 0; left: 0; right: 0; max-width: 640px; margin: 0 auto; background: #fff; border-top: 1px solid #e2ded4; padding: 12px 20px; display: flex; gap: 10px; }
+    .btn { flex: 1; padding: 14px; border-radius: 12px; border: none; font-size: 15px; font-weight: 800; cursor: pointer; }
+    .btn-p { background: #1a6b5a; color: #fff; }
+    .btn-s { background: #eef2f0; color: #14342c; }
+    .btn:disabled { opacity: .5; cursor: not-allowed; }
+    .msg { min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 32px; }
+    .err { background: #fdecea; border: 1px solid #f5c6c0; color: #b3261e; padding: 12px 16px; border-radius: 10px; font-size: 13px; margin-bottom: 14px; }
+    .spin { width: 34px; height: 34px; border: 4px solid #1a6b5a; border-top-color: transparent; border-radius: 50%; animation: sp 1s linear infinite; }
+    @keyframes sp { to { transform: rotate(360deg); } }
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+
+  <!-- Motor de encuesta compartido (fuente única de verdad, extraído de ATLAS_v7.html) -->
+  <script src="encuesta-motor.js"></script>
+
+  <script>
+  (function () {
+    const { useState, useEffect } = React;
+    const h = React.createElement;
+
+    // ── Config Supabase (anon/publishable key — protegido por RLS) ──
+    const SB_URL = 'https://glgdpnynkfppygyxukwv.supabase.co';
+    const SB_KEY = 'sb_publishable_tqrmUWOYvGcxTz3hkpibwg_hOILwsQ8';
+    const sb = window.supabase.createClient(SB_URL, SB_KEY);
+
+    // Versión de consentimiento FIJADA (B7.5.2). Cuando exista v1.6 vendorizado, cambiar aquí.
+    const CONSENT_VERSION = 'ATLAS_v7-2026-05';
+
+    // Dominios y etiquetas (D0–D8 vienen del motor compartido)
+    const DOMS = [D0, D1, D2, D3, D4, D5, D6, D7, D8];
+    const LABELS = ['Consulta', 'Consumo', 'Percepción', 'Hábitos', 'Conductas', 'Epigenético', 'Digestivo', 'Hidratación', 'Contexto'];
+
+    const esMenor = (fechaNac) => {
+      if (!fechaNac) return false;
+      const e = calcEdad(fechaNac);
+      return Number.isFinite(e) && e < 18;
+    };
+
+    function Cargando() {
+      return h('div', { className: 'msg' },
+        h('div', { className: 'spin' }),
+        h('p', { style: { marginTop: 18, color: '#5b6b64', fontSize: 14 } }, 'Cargando…')
+      );
+    }
+
+    function Aviso({ icon, titulo, texto, boton, onBoton }) {
+      return h('div', { className: 'msg' },
+        h('div', { style: { fontSize: 54, marginBottom: 12 } }, icon),
+        h('h2', { style: { margin: '0 0 10px', color: '#14342c' } }, titulo),
+        h('p', { style: { color: '#5b6b64', fontSize: 15, lineHeight: 1.6, maxWidth: 420 } }, texto),
+        boton && h('button', { className: 'btn btn-p', style: { marginTop: 22, flex: 'none', padding: '14px 30px' }, onClick: onBoton }, boton)
+      );
+    }
+
+    function EncuestaPublica() {
+      const [pantalla, setPantalla] = useState('cargando'); // cargando|consent|encuesta|menor|enviando|gracias|rechazado|error
+      const [profs, setProfs] = useState([]);
+      const [data, setData] = useState(DATA_INICIAL());
+      const [consent, setConsent] = useState(null);
+      const [tab, setTab] = useState(0);
+      const [err, setErr] = useState('');
+
+      // Carga la lista pública mínima de profesionales y la deja en localStorage
+      // para que el desplegable de D0 (que lee 'atlas:profesionales') la muestre.
+      useEffect(() => {
+        sb.from('profesionales_publicos').select('id,nombre,especialidad').order('nombre')
+          .then(({ data: rows, error }) => {
+            // Si la lista pública falla (p. ej. el SQL aún no está aplicado), no bloqueamos:
+            // el desplegable de D0 usa su lista de respaldo. La cola sí requiere la tabla al enviar.
+            if (error) { console.warn('[encuesta] profesionales_publicos:', error.message); }
+            const list = rows || [];
+            setProfs(list);
+            try { if (list.length) localStorage.setItem('atlas:profesionales', JSON.stringify(list.map(p => p.nombre))); } catch (e) {}
+            setPantalla('consent');
+          });
+      }, []);
+
+      const set = (k, v) => setData(p => ({ ...p, [k]: v }));
+
+      const aceptarConsent = (f) => {
+        setConsent({ version: CONSENT_VERSION, nombre_firma: f.firmaNombre, fecha: f.fechaConsentimiento });
+        setPantalla('encuesta');
+      };
+
+      const avanzar = () => {
+        setErr('');
+        if (esMenor(data.fechaNac)) { setPantalla('menor'); return; }
+        if (tab < DOMS.length - 1) { setTab(tab + 1); window.scrollTo(0, 0); }
+        else enviar();
+      };
+      const atras = () => { setErr(''); if (tab > 0) { setTab(tab - 1); window.scrollTo(0, 0); } };
+
+      const enviar = async () => {
+        setErr('');
+        if (!consent) { setErr('Falta el consentimiento.'); return; }
+        if (esMenor(data.fechaNac)) { setPantalla('menor'); return; }
+        if (!data.profesional) { setErr('Selecciona el profesional tratante en la pestaña Consulta.'); setTab(0); return; }
+        if (!data.documento) { setErr('Falta el número de documento del paciente (pestaña Consulta).'); setTab(0); return; }
+        const prof = profs.find(p => p.nombre === data.profesional);
+        setPantalla('enviando');
+        const { error } = await sb.from('encuestas_pendientes').insert({
+          payload: data,
+          profesional_id: prof ? prof.id : null,
+          profesional: data.profesional,
+          documento: data.documento,
+          consentimiento: consent,
+          estado: 'pendiente'
+        });
+        if (error) { setErr('No se pudo enviar: ' + error.message); setPantalla('encuesta'); return; }
+        setPantalla('gracias');
+      };
+
+      if (pantalla === 'cargando') return h(Cargando);
+      if (pantalla === 'error') return h(Aviso, { icon: '⚠️', titulo: 'No se pudo cargar', texto: err || 'Revisa tu conexión e inténtalo de nuevo.', boton: 'Reintentar', onBoton: () => location.reload() });
+      if (pantalla === 'rechazado') return h(Aviso, { icon: '🤝', titulo: 'Consentimiento no aceptado', texto: 'Sin tu autorización no podemos continuar con la encuesta. Si cambias de opinión, puedes volver a abrir el enlace.', boton: 'Volver', onBoton: () => setPantalla('consent') });
+      if (pantalla === 'menor') return h(Aviso, { icon: '👶', titulo: 'Atención presencial requerida', texto: 'Esta encuesta está disponible solo para personas mayores de edad. Un menor debe ser atendido de forma presencial por su profesional tratante. Por favor acércate a tu consulta.' });
+      if (pantalla === 'enviando') return h(Cargando);
+      if (pantalla === 'gracias') return h(Aviso, { icon: '✅', titulo: '¡Gracias!', texto: 'Tu encuesta fue enviada. Tu profesional la revisará y confirmará en tu próxima consulta para continuar con tu ruta de atención en ATLAS.' });
+
+      if (pantalla === 'consent') {
+        return h('div', { className: 'wrap' },
+          h(ConsentimientoScreen, { onAceptar: aceptarConsent, onRechazar: () => setPantalla('rechazado') })
+        );
+      }
+
+      // pantalla === 'encuesta'
+      const Dom = DOMS[tab];
+      const pct = Math.round(((tab + 1) / DOMS.length) * 100);
+      return h('div', { className: 'wrap' },
+        h('div', { className: 'topbar' },
+          h('h1', null, 'Encuesta ATLAS · ' + LABELS[tab]),
+          h('p', null, 'Paso ' + (tab + 1) + ' de ' + DOMS.length + ' · Connected Nutrition Ventures'),
+          h('div', { className: 'bar' }, h('div', { style: { width: pct + '%' } }))
+        ),
+        h('div', { className: 'pad' },
+          err && h('div', { className: 'err' }, err),
+          h(Dom, { data: data, set: set })
+        ),
+        h('div', { className: 'nav' },
+          tab > 0 && h('button', { className: 'btn btn-s', onClick: atras }, '← Atrás'),
+          h('button', { className: 'btn btn-p', onClick: avanzar },
+            tab < DOMS.length - 1 ? 'Siguiente →' : 'Enviar ✓')
+        )
+      );
+    }
+
+    ReactDOM.createRoot(document.getElementById('root')).render(h(EncuestaPublica));
+  })();
+  </script>
+</body>
+</html>
