@@ -109,6 +109,11 @@ const t = getI18n(lang);
     .integrantes-root .int-card .esp{font-size:12.5px;color:var(--teal);font-weight:600;margin-top:2px}
     .integrantes-root .int-card .bio{font-size:13.5px;color:var(--muted);margin-top:14px;line-height:1.55;flex:1}
     .integrantes-root .int-card .bio.vacio{font-style:italic;color:#9aa7b2}
+    .integrantes-root .int-card .vermas{align-self:flex-start;background:none;border:none;padding:8px 0 0;margin:0;font-family:var(--mono);font-size:12px;font-weight:600;letter-spacing:.5px;color:var(--teal);cursor:pointer}
+    .integrantes-root .int-card .vermas:hover{text-decoration:underline}
+    .integrantes-root .int-card .bio-full{font-size:13.5px;color:var(--muted);line-height:1.6;margin-top:10px;border-top:1px solid var(--line);padding-top:12px}
+    .integrantes-root .int-card .bio-full p{margin:0 0 10px}
+    .integrantes-root .int-card .bio-full p:last-child{margin-bottom:0}
     .integrantes-root .int-card .contactar{margin-top:16px;text-align:center;background:var(--navy);color:#fff;font-size:13px;font-weight:600;padding:9px 14px;border-radius:8px;transition:background .2s}
     .integrantes-root .int-card .contactar:hover{background:#0e2237}
 
@@ -127,22 +132,22 @@ const t = getI18n(lang);
   ];
 
   const RED = [
-    { pais:"Colombia", ciudad:"Pereira", integrantes:[
-      { n:"María Teresa Aragón Herrera", esp:"Nutricionista Dietista · Esp. Administración Financiera", foto:"/images/integrantes/maria_teresa.jpg", bio:"Más de 30 años de experiencia en nutrición clínica y funcional, coaching nutricional y psiconutrición. Diplomada en Medicina Bioeléctrica y sistema ANI BIS-E." },
-      { n:"Valentina Ramírez Huertas", esp:"Nutricionista Dietista · Nutrición funcional", foto:"/images/integrantes/valentina.jpg", bio:"Atención personalizada a niños, adolescentes y adultos. Complementa la valoración nutricional con bioimpedancia espectroscópica para individualizar el tratamiento." },
-      { n:"Víctor Cano", esp:"Nutricionista Dietista y Enfermero", foto:"/images/integrantes/victor.jpg", bio:"Nutricionista Dietista de la Universidad Libre de Pereira y enfermero. Diplomado en Medicina Bioeléctrica." }
+    { pais:"Colombia", ciudad:"Medellín", integrantes:[
+      { n:"Camila Aristizábal", esp:"Nutricionista Dietista · Escritora", foto:"/images/integrantes/camila.jpg", bio:"Escritora, con énfasis de trabajo en diabetes y enfermedades metabólicas." },
+      { n:"Diana Anchico", esp:"Nutricionista Dietista · Esp. Promoción y Comunicación en Salud (CES)", foto:"/images/integrantes/diana.jpg", bio:"Especialista en Promoción y Comunicación en Salud del CES. Atiende a todos los grupos etarios y sus complicaciones metabólicas." },
+      { n:"Katherine Ruiz Vélez", esp:"Nutricionista Dietista", foto:"/images/integrantes/katherine.jpg", bio:"Nutricionista Dietista (U. de Antioquia, 2010), fundadora y directora del Centro de Nutrición Integral Katherine Ruiz, en Medellín. Atención nutricional personalizada y basada en la evidencia científica.", bioLong:"<p>Soy Katherine Ruiz Vélez, Nutricionista Dietista egresada de la Universidad de Antioquia en el año 2010, fundadora y directora del Centro de Nutrición Integral Katherine Ruiz ubicado en la ciudad de Medellín, un espacio dedicado a promover la salud y el bienestar a través de una atención nutricional personalizada y basada en la evidencia científica.</p><p>Cuento con experiencia en nutrición clínica, nutrición funcional, control de peso, nutrición infantil, nutrición durante el embarazo y el manejo nutricional de enfermedades crónicas.</p><p>Mi formación se ha fortalecido con estudios de posgrado y diplomados en áreas de alta relevancia clínica, entre ellos el Diplomado en Medicina Bioeléctrica y ANI BIS-E — CNV, otorgado por la Facultad de Medicina de la Universidad Autónoma de Coahuila (México) y Connected Nutrition Ventures. Además, he realizado diplomados en Diabetes y Prediabetes (Universidad El Bosque, 2016), Nutrición en el Envejecimiento (Universidad El Bosque, 2016), Nutrición Infantil (Universidad CES, 2010), Diabetes y Conteo de Carbohidratos, y Nutrición en la Primera Infancia.</p>" }
     ]},
     { pais:"Colombia", ciudad:"Cali", integrantes:[
       { n:"Frank Carrera-Gil, MSc", esp:"Profesor · Nutricionista · Investigador · Consultor", foto:"/images/integrantes/frank.png", bio:"Nutricionista, investigador y consultor. Coautor de investigación en valores de referencia del ángulo de fase por bioimpedancia (European Journal of Clinical Nutrition)." },
       { n:"Roberto Jarava", esp:"Nutricionista Clínico · Educador en Diabetes · MSc en Nutrición Clínica", foto:"/images/integrantes/roberto.jpg", bio:"Dr. Roberto Jarava Brun. Nutricionista clínico y educador en diabetes, MSc en Nutrición Clínica (Universidad de Antioquia). Ejerce en la Clínica Imbanaco, Cali." }
     ]},
+    { pais:"Colombia", ciudad:"Pereira", integrantes:[
+      { n:"María Teresa Aragón Herrera", esp:"Nutricionista Dietista · Esp. Administración Financiera", foto:"/images/integrantes/maria_teresa.jpg", bio:"Más de 30 años de experiencia en nutrición clínica y funcional, coaching nutricional y psiconutrición. Diplomada en Medicina Bioeléctrica y sistema ANI BIS-E." },
+      { n:"Valentina Ramírez Huertas", esp:"Nutricionista Dietista · Nutrición funcional", foto:"/images/integrantes/valentina.jpg", bio:"Atención personalizada a niños, adolescentes y adultos. Complementa la valoración nutricional con bioimpedancia espectroscópica para individualizar el tratamiento." },
+      { n:"Víctor Cano", esp:"Nutricionista Dietista y Enfermero", foto:"/images/integrantes/victor.jpg", bio:"Nutricionista Dietista de la Universidad Libre de Pereira y enfermero. Diplomado en Medicina Bioeléctrica." }
+    ]},
     { pais:"Colombia", ciudad:"Tunja", integrantes:[
       { n:"Camilo Alberto Camargo Puerto", esp:"Médico · Esp. Medicina Deportiva", foto:"/images/integrantes/camilo.jpg", bio:"Médico general con especialización en Medicina Deportiva." }
-    ]},
-    { pais:"Colombia", ciudad:"Medellín", integrantes:[
-      { n:"Camila Aristizábal", esp:"Nutricionista Dietista · Escritora", foto:"/images/integrantes/camila.jpg", bio:"Escritora, con énfasis de trabajo en diabetes y enfermedades metabólicas." },
-      { n:"Diana Anchico", esp:"Nutricionista Dietista · Esp. Promoción y Comunicación en Salud (CES)", foto:"/images/integrantes/diana.jpg", bio:"Especialista en Promoción y Comunicación en Salud del CES. Atiende a todos los grupos etarios y sus complicaciones metabólicas." },
-      { n:"Katherine Ruz", esp:"Nutricionista Dietista", foto:"/images/integrantes/katherine.jpg", bio:"Con énfasis en obesidad, enfermedades metabólicas y diabetes gestacional." }
     ]}
   ];
 
@@ -167,9 +172,13 @@ const t = getI18n(lang);
     const total = c.integrantes.length;
     const cards = c.integrantes.map(p => {
       const bio = p.bio ? `<div class="bio">${p.bio}</div>` : `<div class="bio vacio">Perfil en actualización.</div>`;
+      const mas = p.bioLong
+        ? `<button class="vermas" type="button" aria-expanded="false">Ver más &#9662;</button><div class="bio-full" hidden>${p.bioLong}</div>`
+        : '';
       return `<div class="int-card">
         <div class="int-top">${avatar(p)}<div><h3>${p.n}</h3><div class="esp">${p.esp}</div></div></div>
         ${bio}
+        ${mas}
         <a class="contactar" href="/contacto">Contactar a través de CNV &rarr;</a>
       </div>`;
     }).join('');
@@ -177,6 +186,17 @@ const t = getI18n(lang);
       <div class="ciudad-head"><span class="cn">${c.ciudad}</span><span class="pais">${c.pais}</span><span class="cnt">${total} integrante${total>1?'s':''}</span></div>
       <div class="int-grid">${cards}</div>
     </div>`;
+  });
+
+  /* Toggle "Ver más" de las biografías extendidas */
+  rg.addEventListener('click', e => {
+    const btn = e.target.closest('.vermas');
+    if (!btn) return;
+    const full = btn.nextElementSibling;
+    const abierto = !full.hidden;
+    full.hidden = abierto;
+    btn.setAttribute('aria-expanded', String(!abierto));
+    btn.innerHTML = abierto ? 'Ver más &#9662;' : 'Ver menos &#9652;';
   });
   </script>
 

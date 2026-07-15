@@ -50,12 +50,16 @@ const p = t.pages.investigacion;
         <div class="tabs">
           <button class="tab-btn on" data-tab="libros">Libros académicos</button>
           <button class="tab-btn" data-tab="articulos">Artículos y tesis</button>
+          <button class="tab-btn" data-tab="boletines">Boletines</button>
         </div>
         <div class="tab-panel on" id="tab-libros">
           <div class="books-grid" id="booksGrid"></div>
         </div>
         <div class="tab-panel" id="tab-articulos">
           <div class="art-list" id="artList"></div>
+        </div>
+        <div class="tab-panel" id="tab-boletines">
+          <div class="bol-list" id="bolList"></div>
         </div>
       </div>
     </section>
@@ -141,6 +145,23 @@ const p = t.pages.investigacion;
     .cnvresearch-root .tab-btn.on{color:var(--teal);border-bottom-color:var(--teal)}
     .cnvresearch-root .tab-panel{display:none;padding-top:40px}
     .cnvresearch-root .tab-panel.on{display:block}
+
+    /* ESTADO EN CONSTRUCCIÓN */
+    .cnvresearch-root .soon{background:#fff;border:1px dashed var(--line);border-radius:14px;padding:56px 28px;text-align:center}
+    .cnvresearch-root .soon-ico{font-size:40px;line-height:1;margin-bottom:16px}
+    .cnvresearch-root .soon h3{font-family:var(--display);font-size:22px;color:var(--navy);margin-bottom:10px}
+    .cnvresearch-root .soon p{font-size:15px;color:var(--muted);max-width:420px;margin:0 auto}
+
+    /* BOLETINES */
+    .cnvresearch-root .bol-list{display:flex;flex-direction:column;gap:18px}
+    .cnvresearch-root .bol-card{background:#fff;border:1px solid var(--line);border-radius:12px;padding:26px 28px;display:grid;grid-template-columns:1fr auto;gap:24px;align-items:center;transition:box-shadow .2s}
+    .cnvresearch-root .bol-card:hover{box-shadow:0 8px 24px rgba(22,50,79,.07)}
+    .cnvresearch-root .bol-num{font-family:var(--mono);font-size:11px;letter-spacing:2px;text-transform:uppercase;font-weight:600;color:var(--accent);margin-bottom:6px}
+    .cnvresearch-root .bol-title{font-family:var(--display);font-size:18px;color:var(--navy);line-height:1.25;margin-bottom:8px}
+    .cnvresearch-root .bol-desc{font-size:14px;color:var(--muted);line-height:1.55;max-width:70ch}
+    .cnvresearch-root .bol-dl{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:600;padding:12px 20px;border-radius:8px;background:var(--teal);color:#fff;white-space:nowrap;transition:background .2s}
+    .cnvresearch-root .bol-dl:hover{background:#0f6b63}
+    @media(max-width:620px){.cnvresearch-root .bol-card{grid-template-columns:1fr}.cnvresearch-root .bol-dl{justify-self:start}}
 
     /* LIBROS */
     .cnvresearch-root .books-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:28px}
@@ -303,6 +324,16 @@ const p = t.pages.investigacion;
     }
   ];
 
+  /* Boletines técnicos de CNV Research. Coloca el PDF en public/docs/boletines/ con el mismo nombre del campo pdf. */
+  const BOLETINES = [
+    {
+      num:"Boletín N.º 1 · 2026",
+      titulo:"Indicadores del modelo ANI BIS-E en una muestra latina y europea de 6.049 personas mayores de 18 años",
+      desc:"Primer boletín técnico de CNV Research: caracterización de los indicadores del modelo ANI BIS-E en una muestra de 6.049 adultos mayores de 18 años de población latinoamericana y europea.",
+      pdf:"/docs/boletines/boletin-01-ani-bis-e.pdf"
+    }
+  ];
+
   const STATS = [
     { val:"BIS", lbl:"Bioimpedancia Espectroscópica como eje metodológico" },
     { val:"LATAM", lbl:"Alcance latinoamericano en expansión" },
@@ -363,6 +394,18 @@ const p = t.pages.investigacion;
         <span class="art-status ${cls}">${a.estadoLabel}</span>
         ${a.link !== '#' ? `<br><a href="${a.link}" target="_blank" rel="noopener" style="font-size:12px;color:var(--teal);font-weight:600;display:inline-block;margin-top:10px">Ver &rarr;</a>` : ''}
       </div>
+    </div>`;
+  });
+
+  const bl = document.getElementById('bolList');
+  BOLETINES.forEach(b => {
+    bl.innerHTML += `<div class="bol-card">
+      <div>
+        <div class="bol-num">${b.num}</div>
+        <div class="bol-title">${b.titulo}</div>
+        <div class="bol-desc">${b.desc}</div>
+      </div>
+      <a href="${b.pdf}" target="_blank" rel="noopener" class="bol-dl" download>&#11015; Descargar PDF</a>
     </div>`;
   });
 

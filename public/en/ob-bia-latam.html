@@ -91,6 +91,12 @@ nav{position:sticky;top:0;z-index:1000;background:rgba(8,21,41,0.97);backdrop-fi
 .charts-row{display:grid;gap:20px;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));margin-top:32px;}
 .cb{background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.09);border-radius:14px;padding:22px;}
 .cb-t{font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:rgba(255,255,255,0.5);margin-bottom:18px;}
+/* LIVE STATS on light background (sec-stats) so chart colors are not lost */
+.sec-stats .sc{background:var(--white);border-color:var(--g100);box-shadow:0 1px 4px rgba(13,33,69,0.05);}
+.sec-stats .sc-l{color:var(--g500);}
+.sec-stats .cb{background:var(--white);border-color:var(--g100);box-shadow:0 4px 20px rgba(13,33,69,0.05);}
+.sec-stats .cb-t{color:var(--g700);}
+.sec-stats .spin{border-color:rgba(13,33,69,0.12);border-top-color:var(--gold);}
 .dot-live{display:inline-block;width:7px;height:7px;border-radius:50%;background:#4ade80;margin-right:6px;animation:pulse 2s infinite;}
 @keyframes pulse{0%,100%{opacity:1;}50%{opacity:0.35;}}
 
@@ -186,6 +192,7 @@ footer{background:var(--navy-dark);padding:48px 24px 20px;border-top:2px solid r
     </a>
     <ul class="nav-links" id="nav-links">
       <li><a href="#sobre">About</a></li>
+      <li><a href="#principios">Principles</a></li>
       <li><a href="#indicadores">Indicators</a></li>
       <li><a href="#estadisticas">Statistics</a></li>
       <li><a href="#red">Network</a></li>
@@ -239,23 +246,60 @@ footer{background:var(--navy-dark);padding:48px 24px 20px;border-top:2px solid r
       <div style="display:flex;flex-direction:column;gap:14px;">
         <div class="card" style="border-left:4px solid var(--navy);">
           <div style="font-size:10px;font-weight:700;color:var(--navy);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:7px;">🎯 Mission</div>
-          <p style="font-size:13px;color:var(--g700);line-height:1.7;">Generate, systematize, and disseminate scientific knowledge about bioelectrical health in Latin American populations through the application of the ANI BIS-E model.</p>
+          <p style="font-size:15px;color:var(--g700);line-height:1.75;">Generate, systematize, and disseminate scientific knowledge about bioelectrical health in Latin American populations through the application of the ANI BIS-E model.</p>
         </div>
         <div class="card" style="border-left:4px solid var(--teal);">
           <div style="font-size:10px;font-weight:700;color:var(--teal);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:7px;">🔭 Vision</div>
-          <p style="font-size:13px;color:var(--g700);line-height:1.7;">To be the Latin American benchmark in research on the molecular bioelectrical health of Latin American populations.</p>
+          <p style="font-size:15px;color:var(--g700);line-height:1.75;">To be the Latin American benchmark in research on the molecular bioelectrical health of Latin American populations.</p>
         </div>
         <div class="card" style="border-left:4px solid var(--gold);">
           <div style="font-size:10px;font-weight:700;color:var(--gold);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:7px;">📐 Methodology</div>
-          <p style="font-size:13px;color:var(--g700);line-height:1.7;">ANI BIS-E care model with 259 variables per subject. Includes 8 bioelectrical indicators derived from the Cole-Cole model, multidomain assessment, and the map of Structure (FMI vs FFMI), Function (IFC), and Risk (IRC) BIS (EFyR BIS).</p>
+          <p style="font-size:15px;color:var(--g700);line-height:1.75;">ANI BIS-E care model with 259 variables per subject. Includes 8 bioelectrical indicators derived from the Cole-Cole model, multidomain assessment, and the map of Structure (FMI vs FFMI), Function (IFC), and Risk (IRC) BIS (EFyR BIS).</p>
         </div>
       </div>
     </div>
   </div>
 </section>
 
+<!-- PRINCIPLES -->
+<section class="sec sec-alt" id="principios">
+  <div class="sec-in">
+    <div class="sec-lbl">Ethical and scientific framework</div>
+    <h2 class="sec-h">Observatory <span>principles</span></h2>
+    <div class="divider"></div>
+    <p class="sec-p">The five principles that govern all scientific activity of OB-BIA LATAM, aligned with the CNV research framework.</p>
+    <div class="cg">
+      <div class="card" style="border-top:3px solid var(--navy);">
+        <div class="ind-ico" style="background:rgba(13,33,69,0.08);color:var(--navy);">⚖️</div>
+        <div class="ind-fl">1 · Research grounded in ethical principles</div>
+        <p class="ind-ref" style="font-size:14px;line-height:1.65;">Every assessment is carried out under <strong style="color:var(--navy)">informed consent</strong> signed by the participant, following the protocol in our survey module. We comply with national and international standards for research on human subjects (Declaration of Helsinki, CIOMS guidelines and local regulations).</p>
+      </div>
+      <div class="card" style="border-top:3px solid var(--teal);">
+        <div class="ind-ico" style="background:rgba(27,107,123,0.08);color:var(--teal);">🔬</div>
+        <div class="ind-fl">2 · Scientific independence</div>
+        <p class="ind-ref" style="font-size:14px;line-height:1.65;">Although the Observatory is an arm of CNV, <strong style="color:var(--navy)">scientific decisions are made by scientists</strong>. Evidence is generated, analyzed and interpreted free from coercion by governing bodies.</p>
+      </div>
+      <div class="card" style="border-top:3px solid var(--gold);">
+        <div class="ind-ico" style="background:rgba(200,147,42,0.12);color:var(--gold);">📐</div>
+        <div class="ind-fl">3 · Scientific rigor</div>
+        <p class="ind-ref" style="font-size:14px;line-height:1.65;">Every study follows the <strong style="color:var(--navy)">scientific method through all its steps</strong>, with oversight of ethical aspects and a documented, reproducible scientific model.</p>
+      </div>
+      <div class="card" style="border-top:3px solid var(--navy);">
+        <div class="ind-ico" style="background:rgba(13,33,69,0.08);color:var(--navy);">🧬</div>
+        <div class="ind-fl">4 · High-impact knowledge generation</div>
+        <p class="ind-ref" style="font-size:14px;line-height:1.65;">We are the <strong style="color:var(--navy)">only research group in the world</strong> that feeds its cohort every single day using the same ANI BIS-E care model, the same bioimpedance spectroscopy (BIS) device and professionals trained through a diploma program in the model.</p>
+      </div>
+      <div class="card" style="border-top:3px solid var(--teal);">
+        <div class="ind-ico" style="background:rgba(27,107,123,0.1);color:var(--teal);">🌎</div>
+        <div class="ind-fl">5 · Contribution to Latin American public health</div>
+        <p class="ind-ref" style="font-size:14px;line-height:1.65;">We generate <strong style="color:var(--navy)">Latin America–specific cut-off points</strong> for body composition, cellular health and bioelectrical health, helping to build regional reference values.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- INDICATORS -->
-<section class="sec sec-alt" id="indicadores">
+<section class="sec" id="indicadores">
   <div class="sec-in">
     <div class="sec-lbl">Indicator system</div>
     <h2 class="sec-h">Indicators <span>ANI BIS-E</span></h2>
@@ -339,11 +383,11 @@ footer{background:var(--navy-dark);padding:48px 24px 20px;border-top:2px solid r
 </section>
 
 <!-- REAL-TIME STATISTICS -->
-<section class="sec sec-dark" id="estadisticas">
+<section class="sec sec-alt sec-stats" id="estadisticas">
   <div class="sec-in">
     <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">
       <div class="sec-lbl" style="margin-bottom:0;">Live data</div>
-      <span class="dot-live"></span><span style="font-size:10px;color:rgba(255,255,255,0.38);letter-spacing:0.06em;text-transform:uppercase;">Connected · Supabase</span>
+      <span class="dot-live"></span><span style="font-size:10px;color:var(--g500);letter-spacing:0.06em;text-transform:uppercase;">Connected · Supabase</span>
     </div>
     <h2 class="sec-h">Real-time <span>statistics</span></h2>
     <div class="divider"></div>
@@ -358,7 +402,7 @@ footer{background:var(--navy-dark);padding:48px 24px 20px;border-top:2px solid r
       <div class="cb"><div class="cb-t">φ PABU distribution vs 1.618 (ICA-BIS)</div><canvas id="ch-pabu" height="230"></canvas></div>
       <div class="cb"><div class="cb-t">🧬 MCCB Classification</div><canvas id="ch-mccb" height="230"></canvas></div>
     </div>
-    <div id="stats-err" style="display:none;text-align:center;padding:20px;margin-top:16px;background:rgba(255,255,255,0.04);border-radius:10px;font-size:12px;color:rgba(255,255,255,0.35);">⚠️ No database connection — showing reference data from Charter No. 001-2026.</div>
+    <div id="stats-err" style="display:none;text-align:center;padding:20px;margin-top:16px;background:rgba(13,33,69,0.04);border-radius:10px;font-size:12px;color:var(--g500);">⚠️ No database connection — showing reference data from Charter No. 001-2026.</div>
   </div>
 </section>
 
@@ -658,9 +702,9 @@ function setCountry(col, mex, pan, per, total) {
 
 // ── CHARTS ─────────────────────────────────────────
 const CH = {
-  gridC: 'rgba(255,255,255,0.06)',
-  tickC: 'rgba(255,255,255,0.55)',
-  legC: 'rgba(255,255,255,0.7)',
+  gridC: 'rgba(13,33,69,0.08)',
+  tickC: '#3d4e6e',
+  legC: '#3d4e6e',
   PAL: ['#0D2145','#1B6B7B','#C8932A','#2a8fa5','#e8b040','#132d5e']
 };
 
