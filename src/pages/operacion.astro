@@ -221,7 +221,7 @@ const p = t.pages.operacion;
     .cnvcare-root .vit-card{background:var(--soft);border:1px solid var(--line);border-radius:12px;overflow:hidden;cursor:pointer;transition:transform .2s,box-shadow .2s}
     .cnvcare-root .vit-card:hover{transform:translateY(-3px);box-shadow:0 10px 28px rgba(22,50,79,.1)}
     .cnvcare-root .vit-card.sel{border-color:var(--teal);box-shadow:0 0 0 2px var(--teal)}
-    .cnvcare-root .vit-img{position:relative;aspect-ratio:1;background:linear-gradient(135deg,#e8f4f1,#cfe8e5);display:flex;align-items:center;justify-content:center}
+    .cnvcare-root .vit-img{position:relative;aspect-ratio:1;background:#fff;display:flex;align-items:center;justify-content:center}
     .cnvcare-root .vit-emoji{font-size:34px}
     .cnvcare-root .vit-img img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;background:#fff}
     .cnvcare-root .vit-body{padding:14px}
@@ -232,7 +232,7 @@ const p = t.pages.operacion;
     @media(max-width:700px){.cnvcare-root .vit-detail.on{grid-template-columns:1fr}}
     .cnvcare-root .vit-detail h3{font-family:var(--display);font-size:24px;color:var(--navy);grid-column:1/-1;margin-bottom:0}
     .cnvcare-root .vit-detail .vtag{font-family:var(--mono);font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--teal);font-weight:600;grid-column:1/-1;margin-bottom:-16px}
-    .cnvcare-root .vit-cover{position:relative;aspect-ratio:1;border-radius:12px;overflow:hidden;background:linear-gradient(135deg,#e8f4f1,#cfe8e5);display:flex;align-items:center;justify-content:center}
+    .cnvcare-root .vit-cover{position:relative;aspect-ratio:1;border-radius:12px;overflow:hidden;background:#fff;display:flex;align-items:center;justify-content:center}
     .cnvcare-root .vit-cover .vit-emoji{font-size:64px}
     .cnvcare-root .vit-cover img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;background:#fff}
     .cnvcare-root .vit-desc{font-size:14px;color:var(--muted);line-height:1.6;margin-top:14px}
@@ -374,20 +374,19 @@ const p = t.pages.operacion;
   const vd = document.getElementById('vitDetail');
   PRODUCTOS.forEach((p, i) => {
     vg.innerHTML += `<div class="vit-card" id="vc${i}" onclick="selVit(${i})">
-      <div class="vit-img"><span class="vit-emoji">${p.ico}</span><img src="/images/vitacellebis/vit_${vitPad(i)}.jpg" alt="${p.n}" loading="lazy" onload="markVit(${i})" onerror="this.remove()"></div>
-      <div class="vit-body"><div class="vn">${p.linea}</div><h4>${p.n}</h4></div></div>`;
+      <div class="vit-img"><span class="vit-emoji">${p.ico}</span><img src="/images/vitacellebis/bottle_${vitPad(i)}.jpg" alt="${p.n}" loading="lazy" onerror="this.remove()"></div></div>`;
   });
   function selVit(i) {
     document.querySelectorAll('.vit-card').forEach((c, j) => c.classList.toggle('sel', j === i));
     const p = PRODUCTOS[i];
     const rows = [['Línea', p.linea],['Eje clínico', p.eje],['Variedad', p.variedad],['Presentación', p.forma],['Posología', p.dosis],['Aplicable en', p.diana]]
       .map(([l,v]) => `<div class="vit-row"><span class="rl">${l}</span><span class="rv">${v}</span></div>`).join('');
-    const zoom = vitOk.has(i) ? `onclick="openLbVit(${i})" style="cursor:zoom-in"` : '';
+    const zoom = `onclick="openLbVit(${i})" style="cursor:zoom-in"`;
     vd.className = 'vit-detail on';
     vd.innerHTML = `
       <div class="vtag">Nutracéuticos</div>
       <h3>${p.n}</h3>
-      <div class="vit-cover" ${zoom}><span class="vit-emoji">${p.ico}</span><img src="/images/vitacellebis/vit_${vitPad(i)}.jpg" alt="${p.n}" onerror="this.remove()"></div>
+      <div class="vit-cover" ${zoom}><span class="vit-emoji">${p.ico}</span><img src="/images/vitacellebis/label_${vitPad(i)}.jpg" alt="Etiqueta ${p.n}" onerror="this.remove()"></div>
       <div>
         ${rows}
         <span class="invima-badge">INVIMA: ${p.invima}</span>
@@ -414,7 +413,7 @@ const p = t.pages.operacion;
   /* LIGHTBOX (modelo de imagenes igual que Nosotros) */
   function openLbVit(i){
     const im = document.getElementById('ccLbImg');
-    im.src = '/images/vitacellebis/vit_' + vitPad(i) + '.jpg';
+    im.src = '/images/vitacellebis/label_' + vitPad(i) + '.jpg';
     im.alt = PRODUCTOS[i].n;
     document.getElementById('ccLbCap').textContent = PRODUCTOS[i].n;
     document.getElementById('ccLb').classList.add('open');
