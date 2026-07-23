@@ -10,7 +10,7 @@ const p = t.pages.operacion;
 
 <BaseLayout
   title={`${p.title} — Connected Nutrition Ventures`}
-  description="CNV Care habilita al profesional de la salud para aplicar el modelo ANI BIS-E en su consulta, con tecnología, nutracéuticos VITACELLEBIS y ciencia integrados."
+  description="CNV Care habilita al profesional de la salud para aplicar el modelo ANI BIS-E en su consulta, con tecnología, nutracéuticos propios y ciencia integrados."
 >
   <Fragment slot="head">
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -52,7 +52,7 @@ const p = t.pages.operacion;
           <div class="how-card">
             <div class="num">03</div>
             <h3>La intervención cierra el ciclo</h3>
-            <p>La prescripción nutracéutica VITACELLEBIS, formulada para corregir las propiedades bioeléctricas alteradas, convierte el diagnóstico bioeléctrico en intervención concreta y medible.</p>
+            <p>La prescripción nutracéutica propia, formulada para corregir las propiedades bioeléctricas alteradas, convierte el diagnóstico bioeléctrico en intervención concreta y medible.</p>
           </div>
         </div>
       </div>
@@ -63,7 +63,7 @@ const p = t.pages.operacion;
       <div class="wrap">
         <button class="tab-btn on" data-tab="modelo">El modelo ANI BIS-E</button>
         <button class="tab-btn" data-tab="integrantes">Red de integrantes</button>
-        <button class="tab-btn" data-tab="vitacellebis">VITACELLEBIS</button>
+        <button class="tab-btn" data-tab="vitacellebis">Nutracéuticos</button>
         <button class="tab-btn" data-tab="atlas">ATLAS</button>
       </div>
     </div>
@@ -99,7 +99,7 @@ const p = t.pages.operacion;
     <div class="tab-panel" id="tab-vitacellebis">
       <div class="wrap">
         <div class="kicker">Nutracéuticos propios</div>
-        <h2>VITACELLEBIS: la única línea con diagnóstico bioeléctrico propio.</h2>
+        <h2>Nutracéuticos: la única línea con diagnóstico bioeléctrico propio.</h2>
         <p class="lead">10 productos en dos líneas —líquida y en polvo— formulados para corregir las propiedades bioeléctricas alteradas de la Diana EFR. Con registro sanitario INVIMA: línea líquida RSA-3987-2026 y línea en polvo NSA-3618-2026, a nombre de Connected Nutrition Ventures S.A.S.</p>
         <div class="vit-grid" id="vitGrid"></div>
         <div class="vit-detail" id="vitDetail"></div>
@@ -223,7 +223,7 @@ const p = t.pages.operacion;
     .cnvcare-root .vit-card.sel{border-color:var(--teal);box-shadow:0 0 0 2px var(--teal)}
     .cnvcare-root .vit-img{position:relative;aspect-ratio:1;background:linear-gradient(135deg,#e8f4f1,#cfe8e5);display:flex;align-items:center;justify-content:center}
     .cnvcare-root .vit-emoji{font-size:34px}
-    .cnvcare-root .vit-img img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+    .cnvcare-root .vit-img img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;background:#fff}
     .cnvcare-root .vit-body{padding:14px}
     .cnvcare-root .vit-body .vn{font-family:var(--mono);font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--accent);font-weight:600}
     .cnvcare-root .vit-body h4{font-family:var(--display);font-size:14px;color:var(--navy);margin-top:4px;line-height:1.2}
@@ -234,7 +234,7 @@ const p = t.pages.operacion;
     .cnvcare-root .vit-detail .vtag{font-family:var(--mono);font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--teal);font-weight:600;grid-column:1/-1;margin-bottom:-16px}
     .cnvcare-root .vit-cover{position:relative;aspect-ratio:1;border-radius:12px;overflow:hidden;background:linear-gradient(135deg,#e8f4f1,#cfe8e5);display:flex;align-items:center;justify-content:center}
     .cnvcare-root .vit-cover .vit-emoji{font-size:64px}
-    .cnvcare-root .vit-cover img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+    .cnvcare-root .vit-cover img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;background:#fff}
     .cnvcare-root .vit-desc{font-size:14px;color:var(--muted);line-height:1.6;margin-top:14px}
     .cnvcare-root .vit-row{display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--line);font-size:14px}
     .cnvcare-root .vit-row:last-of-type{border-bottom:none}
@@ -294,7 +294,7 @@ const p = t.pages.operacion;
     { t:"Firma del contrato", d:"La firma activa derechos y obligaciones.", items:[
       "Contrato de integrante CNV",
       "Contrato de comodato del BiodyXpert ZM3",
-      "Acuerdo de consignación de nutracéuticos VITACELLEBIS",
+      "Acuerdo de consignación de nutracéuticos propios",
       "Consentimiento para cesión de datos de la cohorte OB BIA LATAM" ] }
   ];
 
@@ -302,7 +302,7 @@ const p = t.pages.operacion;
     { ico:"🔬", t:"BiodyXpert ZM3 en comodato", d:"Dispositivo BIS verdadero, 1-1000 kHz, modelo Cole-Cole completo. Nuevo o en perfecto estado, calibrado y verificado." },
     { ico:"💻", t:"Software en consignación", d:"Biody Manager y ATLAS v7. Acceso completo desde el primer día de operación." },
     { ico:"📱", t:"Dos apps", d:"BiodyConnect y Atlas Patients. Extensión móvil del sistema para el profesional y para el paciente." },
-    { ico:"💊", t:"VITACELLEBIS en consignación", d:"10 nutracéuticos propios. Reposición semanal. Control de vencimientos a cargo de CNV." },
+    { ico:"💊", t:"Nutracéuticos en consignación", d:"10 nutracéuticos propios. Reposición semanal. Control de vencimientos a cargo de CNV." },
     { ico:"🎓", t:"Diplomado incluido", d:"Acceso al diplomado en Medicina Bioeléctrica a precio de integrante (USD $119)." },
     { ico:"🔬", t:"Red científica", d:"Membresía en el grupo de investigación OB BIA LATAM y coautoría en publicaciones que usen los datos recolectados." }
   ];
@@ -314,7 +314,7 @@ const p = t.pages.operacion;
       "Aplicar el modelo ANI BIS-E completo en cada consulta",
       "Hacer que cada paciente firme el consentimiento informado y diligencie la encuesta completa",
       "Ceder los datos capturados por el dispositivo y recolectados en Biody Manager y ATLAS",
-      "Mantener los nutracéuticos VITACELLEBIS disponibles para sus pacientes" ] },
+      "Mantener los nutracéuticos disponibles para sus pacientes" ] },
     { t:"CNV se compromete a:", items:[
       "Entregar el dispositivo nuevo o en perfecto estado, calibrado",
       "Reemplazar el dispositivo sin costo si falla en los primeros 7 días",
@@ -385,7 +385,7 @@ const p = t.pages.operacion;
     const zoom = vitOk.has(i) ? `onclick="openLbVit(${i})" style="cursor:zoom-in"` : '';
     vd.className = 'vit-detail on';
     vd.innerHTML = `
-      <div class="vtag">VITACELLEBIS</div>
+      <div class="vtag">Nutracéuticos</div>
       <h3>${p.n}</h3>
       <div class="vit-cover" ${zoom}><span class="vit-emoji">${p.ico}</span><img src="/images/vitacellebis/vit_${vitPad(i)}.jpg" alt="${p.n}" onerror="this.remove()"></div>
       <div>
@@ -416,7 +416,7 @@ const p = t.pages.operacion;
     const im = document.getElementById('ccLbImg');
     im.src = '/images/vitacellebis/vit_' + vitPad(i) + '.jpg';
     im.alt = PRODUCTOS[i].n;
-    document.getElementById('ccLbCap').textContent = 'VITACELLEBIS ' + PRODUCTOS[i].n;
+    document.getElementById('ccLbCap').textContent = PRODUCTOS[i].n;
     document.getElementById('ccLb').classList.add('open');
   }
   function closeLbVit(){ document.getElementById('ccLb').classList.remove('open'); document.getElementById('ccLbImg').src = ''; }
