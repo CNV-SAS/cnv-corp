@@ -26,9 +26,11 @@ const ecosystemLinks = [
   { href: t.routes.cnv_data, label: t.nav.cnv_data },
 ];
 
+// Integrantes es el botón destacado del navbar y lleva Comentarios debajo:
+// son los integrantes del modelo quienes dejan los comentarios.
+// Contáctanos queda aparte, como enlace normal.
 const membersLinks = [
   { href: t.routes.integrantes, label: t.nav.integrantes },
-  { href: t.routes.contact, label: t.nav.contacto },
   { href: t.routes.comentarios, label: t.nav.comentarios },
 ];
 
@@ -133,20 +135,33 @@ const membersActive = membersLinks.some((l) => matches(l.href));
           {t.nav.noticias}
         </a>
 
-        <!-- INTEGRANTES: con Contáctenos y Comentarios debajo -->
+      </div>
+
+      <div class="hidden lg:flex items-center gap-4">
+        <a
+          href={otherLangHref}
+          class="text-xs font-700 tracking-widest text-cnv-core/50 hover:text-cnv-core transition-colors"
+        >
+          {otherLang}
+        </a>
+        <a
+          href={t.routes.contact}
+          class="text-sm font-600 tracking-wide text-cnv-core hover:text-cnv-execute transition-colors"
+        >
+          {t.nav.contacto}
+        </a>
+
+        <!-- INTEGRANTES: botón destacado, con Comentarios colgando de él -->
         <div class="relative group">
-          <button
-            type="button"
-            aria-haspopup="true"
-            class={`text-sm font-600 tracking-wide transition-colors duration-200 nav-link flex items-center gap-1.5 ${
-              membersActive ? 'text-cnv-execute' : 'text-cnv-core hover:text-cnv-execute'
-            }`}
+          <a
+            href={t.routes.integrantes}
+            class={`btn-primary text-xs py-2.5 px-5 ${membersActive ? 'ring-2 ring-cnv-execute/30' : ''}`}
           >
             {t.nav.integrantes}
             <svg width="10" height="10" viewBox="0 0 10 10" fill="none" class="transition-transform duration-200 group-hover:rotate-180">
               <path d="M2 3.5L5 6.5L8 3.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
-          </button>
+          </a>
           <div class="absolute top-full right-0 pt-3 hidden group-hover:block focus-within:block">
             <div class="bg-white rounded-xl shadow-xl border border-slate-100/80 py-2 min-w-[210px]">
               {membersLinks.map((link) => (
@@ -164,26 +179,6 @@ const membersActive = membersLinks.some((l) => matches(l.href));
             </div>
           </div>
         </div>
-      </div>
-
-      <div class="hidden lg:flex items-center gap-4">
-        <a
-          href={otherLangHref}
-          class="text-xs font-700 tracking-widest text-cnv-core/50 hover:text-cnv-core transition-colors"
-        >
-          {otherLang}
-        </a>
-        <!-- Integrantes ya es pestaña del menú, así que el botón destacado
-             pasa a ser Contáctanos, que si no quedaría sólo dentro del desplegable. -->
-        <a
-          href={t.routes.contact}
-          class="btn-primary text-xs py-2.5 px-5"
-        >
-          {t.nav.contacto}
-          <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-            <path d="M1 7h12M8 2l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </a>
       </div>
 
       <button
@@ -218,7 +213,7 @@ const membersActive = membersLinks.some((l) => matches(l.href));
         {t.footer.sitemap}
       </a>
 
-      <!-- Ecosistema empresarial -->
+      <!-- CNV System -->
       <div class="flex flex-col gap-4">
         <p class="text-xs font-700 uppercase tracking-[0.18em] text-cnv-core/40">
           {t.nav.ecosistema}
@@ -249,24 +244,27 @@ const membersActive = membersLinks.some((l) => matches(l.href));
         {t.nav.noticias}
       </a>
 
-      <!-- Integrantes, con Contáctenos y Comentarios debajo -->
-      <div class="flex flex-col gap-4">
-        <p class="text-xs font-700 uppercase tracking-[0.18em] text-cnv-core/40">
-          {t.nav.integrantes}
-        </p>
-        <div class="flex flex-col gap-4 pl-4 border-l border-slate-100">
-          {membersLinks.map((link) => (
-            <a
-              href={link.href}
-              class="text-base font-600 text-cnv-core hover:text-cnv-execute transition-colors"
-            >
-              {link.label}
-            </a>
-          ))}
-        </div>
-      </div>
+      <a
+        href={t.routes.contact}
+        class="text-base font-600 text-cnv-core hover:text-cnv-execute transition-colors"
+      >
+        {t.nav.contacto}
+      </a>
 
+      <!-- Integrantes destacado, con Comentarios debajo -->
       <div class="pt-4 border-t border-slate-100 flex flex-col gap-4">
+        <a
+          href={t.routes.integrantes}
+          class="btn-primary text-sm justify-center"
+        >
+          {t.nav.integrantes}
+        </a>
+        <a
+          href={t.routes.comentarios}
+          class="text-sm font-600 text-center text-cnv-core hover:text-cnv-execute transition-colors"
+        >
+          {t.nav.comentarios}
+        </a>
         <a
           href={otherLangHref}
           class="text-xs font-700 tracking-widest text-center text-cnv-core/50"

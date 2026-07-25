@@ -63,7 +63,7 @@ export const es = {
     switch_lang: 'View in English',
     // Pestañas y agrupadores del menú principal
     home: 'Home',
-    ecosistema: 'Ecosistema empresarial',
+    ecosistema: 'CNV System',
     empresa: 'La empresa',
     cnv_data: 'CNV DATA',
     atlas: 'ATLAS',
@@ -593,7 +593,7 @@ export const es = {
       title: 'Todo el ecosistema CNV, en un solo lugar',
       hero_body: 'Encuentra rápidamente cualquier sección del sitio y resuelve las dudas más frecuentes sobre CNV, el modelo ANI BIS-E y la bioimpedancia espectroscópica.',
       map_title: 'Páginas del sitio',
-      sec_ecosystem: 'Ecosistema empresarial',
+      sec_ecosystem: 'CNV System',
       sec_company: 'La empresa',
       sec_observatory: 'Plataformas',
       sec_legal: 'Legal',
