@@ -11,14 +11,39 @@ const t = getI18n(lang);
 const otherLang = lang === 'es' ? 'EN' : 'ES';
 const otherLangHref = getRouteInOtherLang(Astro.url);
 
-// Consumimos las rutas limpiamente desde el diccionario.
-// (Paradigma quedó integrado dentro de la página de CNV Care, por eso ya no va en el menú.)
+// Cada pestaña despliega las subpestañas relacionadas (espejo del mapa del sitio).
+// El enlace principal de cada pestaña también es navegable.
+const obbiaHref = lang === 'en' ? '/en/ob-bia-latam.html' : '/ob-bia-latam.html';
+
 const navLinks = [
-  { href: t.routes.sitemap, label: t.footer.sitemap },
-  { href: t.routes.about, label: t.nav.nosotros },
-  { href: t.routes.care, label: t.nav.operacion },
+  {
+    href: t.routes.about,
+    label: t.nav.nosotros,
+    children: [
+      { href: t.routes.about, label: t.nav.nosotros },
+      // Paradigma sólo existe como página propia en EN; en ES vive dentro de CNV Care.
+      ...(lang === 'en' ? [{ href: t.routes.paradigm, label: t.nav.paradigma }] : []),
+      { href: t.routes.integrantes, label: t.nav.integrantes },
+    ],
+  },
+  {
+    href: t.routes.care,
+    label: t.nav.operacion,
+    children: [
+      { href: t.routes.care, label: t.nav.operacion },
+      { href: t.routes.store, label: t.nav.tienda },
+    ],
+  },
   { href: t.routes.learning, label: t.nav.formacion },
-  { href: t.routes.research, label: t.nav.investigacion },
+  {
+    href: t.routes.research,
+    label: t.nav.investigacion,
+    children: [
+      { href: t.routes.research, label: t.nav.investigacion },
+      { href: obbiaHref, label: 'OB-BIA LATAM' },
+    ],
+  },
+  { href: t.routes.store, label: t.nav.tienda },
   { href: t.routes.noticias, label: t.nav.noticias },
 ];
 

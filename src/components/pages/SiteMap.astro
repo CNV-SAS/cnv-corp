@@ -16,6 +16,7 @@ const groups = [
     title: s.sec_ecosystem,
     links: [
       { href: t.routes.care, label: t.nav.operacion },
+      { href: t.routes.store, label: t.nav.tienda },
       { href: t.routes.learning, label: t.nav.formacion },
       { href: t.routes.research, label: t.nav.investigacion },
     ],
@@ -24,7 +25,8 @@ const groups = [
     title: s.sec_company,
     links: [
       { href: t.routes.about, label: t.nav.nosotros },
-      { href: t.routes.paradigm, label: t.nav.paradigma },
+      // Paradigma sólo tiene página propia en EN; en ES vive dentro de CNV Care.
+      ...(lang === 'en' ? [{ href: t.routes.paradigm, label: t.nav.paradigma }] : []),
       { href: t.routes.integrantes, label: t.nav.integrantes },
       { href: t.routes.noticias, label: t.nav.noticias },
       { href: t.routes.contact, label: t.nav.contacto },
