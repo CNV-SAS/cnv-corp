@@ -13,69 +13,23 @@ const otherLangHref = getRouteInOtherLang(Astro.url);
 
 // Estructura del menú, espejo del mapa del sitio.
 //
-// - "Ecosistema empresarial" se despliega como panel ancho de cuatro columnas
-//   (una por unidad de negocio), porque la jerarquía real tiene tres niveles:
-//   Ecosistema → unidad → plataforma. Anidar dos dropdowns sería impracticable
-//   en móvil, así que las plataformas se listan bajo su unidad dentro del panel.
-// - "La empresa" es un dropdown simple de una columna.
-//
-// Cada unidad y cada plataforma es navegable. `soon: true` marca lo que aún no
-// tiene destino publicado: se renderiza como texto, nunca como enlace muerto.
-const obbiaHref = t.external_links.obbia;
-
-interface Platform {
-  label: string;
-  href?: string;
-  external?: boolean;
-  soon?: boolean;
-}
-
-interface Unit {
-  href: string;
-  label: string;
-  desc: string;
-  platforms: Platform[];
-}
-
-const units: Unit[] = [
-  {
-    href: t.routes.care,
-    label: t.nav.operacion,
-    desc: t.nav.unit_care,
-    platforms: [],
-  },
-  {
-    href: t.routes.research,
-    label: t.nav.investigacion,
-    desc: t.nav.unit_research,
-    platforms: [{ href: obbiaHref, label: 'OB-BIA LATAM' }],
-  },
-  {
-    href: t.routes.learning,
-    label: t.nav.formacion,
-    desc: t.nav.unit_learning,
-    platforms: [{ href: t.external_links.academy, label: t.nav.lms, external: true }],
-  },
-  {
-    href: t.routes.cnv_data,
-    label: t.nav.cnv_data,
-    desc: t.nav.unit_data,
-    platforms: [
-      // ATLAS todavía no está desplegado: sin href, se muestra "Próximamente".
-      { label: t.nav.atlas, soon: true },
-      { href: `${t.routes.cnv_data}#atlas-patients`, label: t.nav.atlas_patients },
-    ],
-  },
+// Dos desplegables, ambos de una sola columna y un solo nivel:
+//  - "Ecosistema empresarial": únicamente las cuatro unidades de negocio.
+//    Lo que pertenece a cada unidad (OB-BIA LATAM en CNV Research, el LMS en
+//    CNV Learning, ATLAS y ATLAS Patients en CNV DATA) vive DENTRO de la página
+//    de esa unidad, no como subpestaña del menú.
+//  - "Integrantes": la propia página más Contáctenos y Comentarios.
+const ecosystemLinks = [
+  { href: t.routes.care, label: t.nav.operacion },
+  { href: t.routes.learning, label: t.nav.formacion },
+  { href: t.routes.research, label: t.nav.investigacion },
+  { href: t.routes.cnv_data, label: t.nav.cnv_data },
 ];
 
-const companyLinks = [
-  { href: t.routes.about, label: t.nav.nosotros },
-  // Paradigma sólo existe como página propia en EN; en ES vive dentro de CNV Care.
-  ...(lang === 'en' ? [{ href: t.routes.paradigm, label: t.nav.paradigma }] : []),
+const membersLinks = [
   { href: t.routes.integrantes, label: t.nav.integrantes },
-  { href: t.routes.noticias, label: t.nav.noticias },
+  { href: t.routes.contact, label: t.nav.contacto },
   { href: t.routes.comentarios, label: t.nav.comentarios },
-  { href: t.routes.sitemap, label: t.footer.sitemap },
 ];
 
 const currentPath = Astro.url.pathname;
@@ -83,11 +37,8 @@ const currentPath = Astro.url.pathname;
 const matches = (href?: string) =>
   !!href && (currentPath === href || currentPath === href + '/');
 
-// El grupo "Ecosistema" se marca activo si la ruta actual es cualquier unidad o plataforma.
-const ecosystemActive = units.some(
-  (u) => matches(u.href) || u.platforms.some((p) => matches(p.href))
-);
-const companyActive = companyLinks.some((l) => matches(l.href));
+const ecosystemActive = ecosystemLinks.some((l) => matches(l.href));
+const membersActive = membersLinks.some((l) => matches(l.href));
 ---
 
 <header
@@ -123,7 +74,16 @@ const companyActive = companyLinks.some((l) => matches(l.href));
           {t.nav.home}
         </a>
 
-        <!-- ECOSISTEMA EMPRESARIAL: panel ancho de cuatro columnas -->
+        <a
+          href={t.routes.sitemap}
+          class={`text-sm font-600 tracking-wide transition-colors duration-200 nav-link ${
+            matches(t.routes.sitemap) ? 'text-cnv-execute' : 'text-cnv-core hover:text-cnv-execute'
+          }`}
+        >
+          {t.footer.sitemap}
+        </a>
+
+        <!-- ECOSISTEMA EMPRESARIAL: sólo las cuatro unidades -->
         <div class="relative group">
           <button
             type="button"
@@ -137,72 +97,9 @@ const companyActive = companyLinks.some((l) => matches(l.href));
               <path d="M2 3.5L5 6.5L8 3.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
           </button>
-          <div class="absolute top-full left-1/2 -translate-x-1/2 pt-3 hidden group-hover:block focus-within:block">
-            <div class="bg-white rounded-2xl shadow-xl border border-slate-100/80 p-7 grid grid-cols-4 gap-7 w-[860px]">
-              {units.map((unit) => (
-                <div class="flex flex-col">
-                  <a
-                    href={unit.href}
-                    class={`text-sm font-800 tracking-wide transition-colors ${
-                      matches(unit.href) ? 'text-cnv-execute' : 'text-cnv-core hover:text-cnv-execute'
-                    }`}
-                  >
-                    {unit.label}
-                  </a>
-                  <p class="mt-1 text-xs text-cnv-core/45 leading-snug">{unit.desc}</p>
-                  {unit.platforms.length > 0 && (
-                    <div class="mt-4 pt-4 border-t border-slate-100 flex flex-col gap-2.5">
-                      {unit.platforms.map((p) => (
-                        p.soon ? (
-                          <span class="flex items-center gap-2 text-xs font-600 text-cnv-core/35">
-                            {p.label}
-                            <span class="text-[10px] font-700 uppercase tracking-wider text-cnv-core/25 border border-cnv-core/15 rounded px-1.5 py-0.5">
-                              {t.nav.soon}
-                            </span>
-                          </span>
-                        ) : (
-                          <a
-                            href={p.href}
-                            target={p.external ? '_blank' : undefined}
-                            rel={p.external ? 'noopener' : undefined}
-                            class={`flex items-center gap-1.5 text-xs font-600 transition-colors ${
-                              matches(p.href) ? 'text-cnv-execute' : 'text-cnv-core/70 hover:text-cnv-execute'
-                            }`}
-                          >
-                            {p.label}
-                            {p.external && (
-                              <svg width="9" height="9" viewBox="0 0 10 10" fill="none" aria-hidden="true">
-                                <path d="M3 1h6v6M9 1L1 9" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
-                              </svg>
-                            )}
-                          </a>
-                        )
-                      ))}
-                    </div>
-                  )}
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-
-        <!-- LA EMPRESA: dropdown simple -->
-        <div class="relative group">
-          <button
-            type="button"
-            aria-haspopup="true"
-            class={`text-sm font-600 tracking-wide transition-colors duration-200 nav-link flex items-center gap-1.5 ${
-              companyActive ? 'text-cnv-execute' : 'text-cnv-core hover:text-cnv-execute'
-            }`}
-          >
-            {t.nav.empresa}
-            <svg width="10" height="10" viewBox="0 0 10 10" fill="none" class="transition-transform duration-200 group-hover:rotate-180">
-              <path d="M2 3.5L5 6.5L8 3.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-          </button>
           <div class="absolute top-full left-0 pt-3 hidden group-hover:block focus-within:block">
             <div class="bg-white rounded-xl shadow-xl border border-slate-100/80 py-2 min-w-[210px]">
-              {companyLinks.map((link) => (
+              {ecosystemLinks.map((link) => (
                 <a
                   href={link.href}
                   class={`block px-5 py-2.5 text-sm font-600 tracking-wide transition-colors ${
@@ -219,15 +116,6 @@ const companyActive = companyLinks.some((l) => matches(l.href));
         </div>
 
         <a
-          href={t.routes.contact}
-          class={`text-sm font-600 tracking-wide transition-colors duration-200 nav-link ${
-            matches(t.routes.contact) ? 'text-cnv-execute' : 'text-cnv-core hover:text-cnv-execute'
-          }`}
-        >
-          {t.nav.contacto}
-        </a>
-
-        <a
           href={t.routes.store}
           class={`text-sm font-600 tracking-wide transition-colors duration-200 nav-link ${
             matches(t.routes.store) ? 'text-cnv-execute' : 'text-cnv-core hover:text-cnv-execute'
@@ -235,6 +123,47 @@ const companyActive = companyLinks.some((l) => matches(l.href));
         >
           {t.nav.tienda}
         </a>
+
+        <a
+          href={t.routes.noticias}
+          class={`text-sm font-600 tracking-wide transition-colors duration-200 nav-link ${
+            matches(t.routes.noticias) ? 'text-cnv-execute' : 'text-cnv-core hover:text-cnv-execute'
+          }`}
+        >
+          {t.nav.noticias}
+        </a>
+
+        <!-- INTEGRANTES: con Contáctenos y Comentarios debajo -->
+        <div class="relative group">
+          <button
+            type="button"
+            aria-haspopup="true"
+            class={`text-sm font-600 tracking-wide transition-colors duration-200 nav-link flex items-center gap-1.5 ${
+              membersActive ? 'text-cnv-execute' : 'text-cnv-core hover:text-cnv-execute'
+            }`}
+          >
+            {t.nav.integrantes}
+            <svg width="10" height="10" viewBox="0 0 10 10" fill="none" class="transition-transform duration-200 group-hover:rotate-180">
+              <path d="M2 3.5L5 6.5L8 3.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+          <div class="absolute top-full right-0 pt-3 hidden group-hover:block focus-within:block">
+            <div class="bg-white rounded-xl shadow-xl border border-slate-100/80 py-2 min-w-[210px]">
+              {membersLinks.map((link) => (
+                <a
+                  href={link.href}
+                  class={`block px-5 py-2.5 text-sm font-600 tracking-wide transition-colors ${
+                    matches(link.href)
+                      ? 'text-cnv-execute'
+                      : 'text-cnv-core hover:text-cnv-execute hover:bg-slate-50'
+                  }`}
+                >
+                  {link.label}
+                </a>
+              ))}
+            </div>
+          </div>
+        </div>
       </div>
 
       <div class="hidden lg:flex items-center gap-4">
@@ -244,12 +173,13 @@ const companyActive = companyLinks.some((l) => matches(l.href));
         >
           {otherLang}
         </a>
-        <!-- Contáctenos ya es pestaña del menú; aquí sólo queda el CTA de la red. -->
+        <!-- Integrantes ya es pestaña del menú, así que el botón destacado
+             pasa a ser Contáctanos, que si no quedaría sólo dentro del desplegable. -->
         <a
-          href={t.routes.integrantes}
+          href={t.routes.contact}
           class="btn-primary text-xs py-2.5 px-5"
         >
-          {t.nav.integrantes}
+          {t.nav.contacto}
           <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
             <path d="M1 7h12M8 2l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
@@ -281,48 +211,20 @@ const companyActive = companyLinks.some((l) => matches(l.href));
         {t.nav.home}
       </a>
 
-      <!-- Ecosistema: el panel de columnas se aplana en lista con sangrías. -->
+      <a
+        href={t.routes.sitemap}
+        class="text-base font-600 text-cnv-core hover:text-cnv-execute transition-colors"
+      >
+        {t.footer.sitemap}
+      </a>
+
+      <!-- Ecosistema empresarial -->
       <div class="flex flex-col gap-4">
         <p class="text-xs font-700 uppercase tracking-[0.18em] text-cnv-core/40">
           {t.nav.ecosistema}
         </p>
         <div class="flex flex-col gap-4 pl-4 border-l border-slate-100">
-          {units.map((unit) => (
-            <div class="flex flex-col gap-2.5">
-              <a
-                href={unit.href}
-                class="text-base font-600 text-cnv-core hover:text-cnv-execute transition-colors"
-              >
-                {unit.label}
-              </a>
-              {unit.platforms.map((p) => (
-                p.soon ? (
-                  <span class="pl-4 text-sm font-600 text-cnv-core/35">
-                    {p.label} · {t.nav.soon}
-                  </span>
-                ) : (
-                  <a
-                    href={p.href}
-                    target={p.external ? '_blank' : undefined}
-                    rel={p.external ? 'noopener' : undefined}
-                    class="pl-4 text-sm font-600 text-cnv-core/70 hover:text-cnv-execute transition-colors"
-                  >
-                    {p.label}
-                  </a>
-                )
-              ))}
-            </div>
-          ))}
-        </div>
-      </div>
-
-      <!-- La empresa -->
-      <div class="flex flex-col gap-4">
-        <p class="text-xs font-700 uppercase tracking-[0.18em] text-cnv-core/40">
-          {t.nav.empresa}
-        </p>
-        <div class="flex flex-col gap-4 pl-4 border-l border-slate-100">
-          {companyLinks.map((link) => (
+          {ecosystemLinks.map((link) => (
             <a
               href={link.href}
               class="text-base font-600 text-cnv-core hover:text-cnv-execute transition-colors"
@@ -334,26 +236,37 @@ const companyActive = companyLinks.some((l) => matches(l.href));
       </div>
 
       <a
-        href={t.routes.contact}
-        class="text-base font-600 text-cnv-core hover:text-cnv-execute transition-colors"
-      >
-        {t.nav.contacto}
-      </a>
-
-      <a
         href={t.routes.store}
         class="text-base font-600 text-cnv-core hover:text-cnv-execute transition-colors"
       >
         {t.nav.tienda}
       </a>
 
-      <div class="pt-4 border-t border-slate-100 flex flex-col gap-4">
-        <a
-          href={t.routes.integrantes}
-          class="btn-primary text-sm justify-center"
-        >
+      <a
+        href={t.routes.noticias}
+        class="text-base font-600 text-cnv-core hover:text-cnv-execute transition-colors"
+      >
+        {t.nav.noticias}
+      </a>
+
+      <!-- Integrantes, con Contáctenos y Comentarios debajo -->
+      <div class="flex flex-col gap-4">
+        <p class="text-xs font-700 uppercase tracking-[0.18em] text-cnv-core/40">
           {t.nav.integrantes}
-        </a>
+        </p>
+        <div class="flex flex-col gap-4 pl-4 border-l border-slate-100">
+          {membersLinks.map((link) => (
+            <a
+              href={link.href}
+              class="text-base font-600 text-cnv-core hover:text-cnv-execute transition-colors"
+            >
+              {link.label}
+            </a>
+          ))}
+        </div>
+      </div>
+
+      <div class="pt-4 border-t border-slate-100 flex flex-col gap-4">
         <a
           href={otherLangHref}
           class="text-xs font-700 tracking-widest text-center text-cnv-core/50"

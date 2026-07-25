@@ -19,8 +19,8 @@ const groups = [
     title: s.sec_ecosystem,
     links: [
       { href: t.routes.care, label: t.nav.operacion },
-      { href: t.routes.research, label: t.nav.investigacion },
       { href: t.routes.learning, label: t.nav.formacion },
+      { href: t.routes.research, label: t.nav.investigacion },
       { href: t.routes.cnv_data, label: t.nav.cnv_data },
       { href: t.routes.store, label: t.nav.tienda },
     ],
@@ -28,14 +28,14 @@ const groups = [
   {
     title: s.sec_company,
     links: [
+      // Nosotros dejó de ser página propia: su contenido es ahora la portada.
       { href: t.routes.home, label: t.nav.home },
-      { href: t.routes.about, label: t.nav.nosotros },
       // Paradigma sólo tiene página propia en EN; en ES vive dentro de CNV Care.
       ...(lang === 'en' ? [{ href: t.routes.paradigm, label: t.nav.paradigma }] : []),
-      { href: t.routes.integrantes, label: t.nav.integrantes },
       { href: t.routes.noticias, label: t.nav.noticias },
-      { href: t.routes.comentarios, label: t.nav.comentarios },
+      { href: t.routes.integrantes, label: t.nav.integrantes },
       { href: t.routes.contact, label: t.nav.contacto },
+      { href: t.routes.comentarios, label: t.nav.comentarios },
     ],
   },
   {
