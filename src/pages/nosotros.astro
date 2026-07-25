@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import Testimonials from '../components/sections/Testimonials.astro';
 import { getI18n } from '../i18n';
 
 const lang = Astro.currentLocale || 'es';
@@ -80,6 +81,8 @@ const p = t.pages.nosotros;
     </section>
 
   </div>
+
+  <Testimonials lang={lang} />
 
   <style is:global>
     /* Estilos confinados a .nos-root para NO afectar la barra ni el footer globales.

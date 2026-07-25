@@ -8,6 +8,7 @@ import OperationRole from '../../components/pages/care/OperationRole.astro';
 import ClinicalPhases from '../../components/pages/care/ClinicalPhases.astro';
 import AtlasPlatform from '../../components/pages/care/AtlasPlatform.astro';
 import ExclusivityAndProcess from '../../components/pages/care/ExclusivityAndProcess.astro';
+import Testimonials from '../../components/sections/Testimonials.astro';
 
 const lang = Astro.currentLocale || 'es';
 const t = getI18n(lang);
@@ -23,4 +24,5 @@ const p = t.pages.operacion;
   <ClinicalPhases />
   <AtlasPlatform />
   <ExclusivityAndProcess />
+  <Testimonials lang={lang} dark />
 </BaseLayout>

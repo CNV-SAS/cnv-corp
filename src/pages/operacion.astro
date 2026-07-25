@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import Testimonials from '../components/sections/Testimonials.astro';
 import { getI18n } from '../i18n';
 import ModeloAniBisE from '../components/cnvcare/ModeloAniBisE.tsx';
 
@@ -144,6 +145,8 @@ const p = t.pages.operacion;
 
   </div>
 
+  <Testimonials lang={lang} dark />
+
   <style is:global>
     /* Estilos confinados a .cnvcare-root para NO afectar la barra ni el footer globales.
        is:global porque tarjetas, filtros y productos se generan por JS en runtime. */
@@ -228,7 +231,9 @@ const p = t.pages.operacion;
     .cnvcare-root .vit-body .vn{font-family:var(--mono);font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--accent);font-weight:600}
     .cnvcare-root .vit-body h4{font-family:var(--display);font-size:14px;color:var(--navy);margin-top:4px;line-height:1.2}
     .cnvcare-root .vit-detail{margin-top:28px;background:#fff;border:1px solid var(--line);border-radius:14px;padding:32px;display:none}
-    .cnvcare-root .vit-detail.on{display:grid;grid-template-columns:280px 1fr;gap:32px}
+    .cnvcare-root .vit-detail.on{display:block}
+    .cnvcare-root .vit-label{margin-top:18px;text-align:center;background:#fff}
+    .cnvcare-root .vit-label img{max-width:100%;height:auto;border:1px solid var(--line);border-radius:10px;box-shadow:0 6px 20px rgba(22,50,79,.06)}
     @media(max-width:700px){.cnvcare-root .vit-detail.on{grid-template-columns:1fr}}
     .cnvcare-root .vit-detail h3{font-family:var(--display);font-size:24px;color:var(--navy);grid-column:1/-1;margin-bottom:0}
     .cnvcare-root .vit-detail .vtag{font-family:var(--mono);font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--teal);font-weight:600;grid-column:1/-1;margin-bottom:-16px}
@@ -379,18 +384,11 @@ const p = t.pages.operacion;
   function selVit(i) {
     document.querySelectorAll('.vit-card').forEach((c, j) => c.classList.toggle('sel', j === i));
     const p = PRODUCTOS[i];
-    const rows = [['Línea', p.linea],['Eje clínico', p.eje],['Variedad', p.variedad],['Presentación', p.forma],['Posología', p.dosis],['Aplicable en', p.diana]]
-      .map(([l,v]) => `<div class="vit-row"><span class="rl">${l}</span><span class="rv">${v}</span></div>`).join('');
-    const zoom = `onclick="openLbVit(${i})" style="cursor:zoom-in"`;
     vd.className = 'vit-detail on';
     vd.innerHTML = `
-      <div class="vtag">Nutracéuticos</div>
       <h3>${p.n}</h3>
-      <div class="vit-cover" ${zoom}><span class="vit-emoji">${p.ico}</span><img src="/images/vitacellebis/label_${vitPad(i)}.jpg" alt="Etiqueta ${p.n}" onerror="this.remove()"></div>
-      <div>
-        ${rows}
-        <span class="invima-badge">INVIMA: ${p.invima}</span>
-        <p class="vit-desc">Registro sanitario a nombre de Connected Nutrition Ventures S.A.S., fabricado por Laboratorio Pharmazen SAS. Entregado al integrante en consignación. Prescripción dirigida según el diagnóstico bioeléctrico ANI BIS-E.</p>
+      <div class="vit-label" onclick="openLbVit(${i})" title="Clic para ampliar la etiqueta" style="cursor:zoom-in">
+        <img src="/images/vitacellebis/label_${vitPad(i)}.jpg" alt="Etiqueta ${p.n}" onerror="this.remove()">
       </div>`;
   }
 

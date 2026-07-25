@@ -1,0 +1,40 @@
+---
+import { getI18n } from '../../i18n';
+
+interface Props {
+  lang?: string;
+  dark?: boolean; // variante sobre fondo oscuro (p.ej. dentro de CNV Care)
+}
+
+const { lang = Astro.currentLocale || 'es', dark = false } = Astro.props;
+const t = getI18n(lang);
+const s = t.testimonials;
+---
+
+<section class={`${dark ? 'bg-cnv-core text-white' : 'bg-gray-50'} border-t border-gray-100`}>
+  <div class="max-w-7xl mx-auto px-6 lg:px-8 py-20">
+    <p class={`text-xs font-700 tracking-[0.2em] uppercase mb-4 ${dark ? 'text-cnv-generate' : 'text-cnv-generate'}`}>{s.tag}</p>
+    <h2 class={`text-3xl md:text-4xl font-800 max-w-3xl ${dark ? 'text-white' : 'text-cnv-core'}`}>{s.title}</h2>
+    <p class={`mt-4 text-base max-w-2xl leading-relaxed ${dark ? 'text-white/60' : 'text-cnv-core/60'}`}>{s.subtitle}</p>
+
+    <div class="mt-12 grid grid-cols-1 md:grid-cols-2 gap-6">
+      {s.items.map((item) => (
+        <figure class={`flex flex-col rounded-2xl p-8 ${dark ? 'bg-white/5 border border-white/10' : 'bg-white border border-gray-100 shadow-sm'}`}>
+          <div class="text-cnv-generate text-4xl leading-none mb-4" aria-hidden="true">&ldquo;</div>
+          <blockquote class={`flex-1 text-base leading-relaxed ${dark ? 'text-white/85' : 'text-cnv-core/80'}`}>
+            {item.quote}
+          </blockquote>
+          <figcaption class={`mt-6 flex items-center gap-3 border-t pt-5 ${dark ? 'border-white/10' : 'border-gray-100'}`}>
+            <span class={`h-8 w-1 flex-shrink-0 rounded-full ${dark ? 'bg-cnv-generate' : 'bg-cnv-generate'}`} aria-hidden="true"></span>
+            <div>
+              <p class={`text-sm font-800 ${dark ? 'text-white' : 'text-cnv-core'}`}>{item.role}</p>
+              <p class={`text-xs ${dark ? 'text-white/50' : 'text-cnv-core/50'}`}>{item.location}</p>
+            </div>
+          </figcaption>
+        </figure>
+      ))}
+    </div>
+
+    <p class={`mt-8 text-xs leading-relaxed max-w-3xl ${dark ? 'text-white/40' : 'text-cnv-core/40'}`}>{s.note}</p>
+  </div>
+</section>

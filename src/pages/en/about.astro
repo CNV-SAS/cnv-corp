@@ -9,6 +9,7 @@ import AboutSystem from '../../components/pages/about/AboutSystem.astro';
 import AboutPrinciples from '../../components/pages/about/AboutPrinciples.astro';
 import AboutDirection from '../../components/pages/about/AboutDirection.astro';
 import AboutCTA from '../../components/pages/about/AboutCTA.astro';
+import Testimonials from '../../components/sections/Testimonials.astro';
 
 const lang = Astro.currentLocale || 'es';
 const t = getI18n(lang);
@@ -24,5 +25,6 @@ const p = t.pages.nosotros;
   <AboutSystem />
   <AboutPrinciples />
   <AboutDirection />
+  <Testimonials lang={lang} />
   <AboutCTA />
 </BaseLayout>
