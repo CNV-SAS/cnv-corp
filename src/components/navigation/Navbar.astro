@@ -16,6 +16,8 @@ const otherLangHref = getRouteInOtherLang(Astro.url);
 const obbiaHref = lang === 'en' ? '/en/ob-bia-latam.html' : '/ob-bia-latam.html';
 
 const navLinks = [
+  // Mapa del sitio va primero, como puerta de entrada a todo el árbol.
+  { href: t.routes.sitemap, label: t.footer.sitemap },
   {
     href: t.routes.about,
     label: t.nav.nosotros,
