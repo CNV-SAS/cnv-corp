@@ -24,7 +24,8 @@ const routeMap: Record<string, string> = {
   '/politica-privacidad': '/privacy-policy',
   '/aviso-legal': '/legal-notice',
   '/politica-cookies': '/cookies-policy',
-  '/mapa-del-sitio': '/site-map'
+  '/mapa-del-sitio': '/site-map',
+  '/tienda': '/store'
 };
 
 export function getRouteInOtherLang(url: URL): string {

@@ -1,0 +1,42 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getI18n } from '../../i18n';
+import StoreApp from '../../components/store/StoreApp.tsx';
+
+const lang = 'en';
+const t = getI18n(lang);
+const s = t.store;
+
+const usdRate = Number(import.meta.env.PUBLIC_USD_RATE) || 4200;
+const paypalClientId = import.meta.env.PUBLIC_PAYPAL_CLIENT_ID || '';
+const whatsappPhone = (import.meta.env.PUBLIC_WHATSAPP || t.footer.phone_link || '').replace('+', '');
+---
+
+<BaseLayout
+  title={`${s.title} — Connected Nutrition Ventures`}
+  description={s.subtitle}
+>
+  <section class="bg-cnv-core text-white">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8 pt-20 pb-16">
+      <p class="text-xs font-700 tracking-[0.2em] uppercase text-cnv-generate mb-4">{s.tag}</p>
+      <h1 class="text-4xl md:text-5xl font-800 leading-tight max-w-3xl">{s.title}</h1>
+      <p class="mt-6 text-lg text-white/60 max-w-2xl leading-relaxed">{s.subtitle}</p>
+      <div class="mt-8 flex flex-wrap gap-x-6 gap-y-2 text-xs font-600 text-white/50">
+        <span>🔒 {s.secure_note}</span>
+        <span>🇨🇴 Bre-B · PSE · Nequi · Bancolombia</span>
+        <span>💳 Visa · Mastercard · PayPal</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="max-w-7xl mx-auto px-6 lg:px-8 py-16">
+    <StoreApp
+      client:load
+      t={s}
+      lang={lang}
+      usdRate={usdRate}
+      paypalClientId={paypalClientId}
+      whatsappPhone={whatsappPhone}
+    />
+  </section>
+</BaseLayout>

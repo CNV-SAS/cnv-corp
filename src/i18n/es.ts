@@ -15,6 +15,7 @@ export const es = {
     terms: '/aviso-legal',
     cookies: '/politica-cookies',
     sitemap: '/mapa-del-sitio',
+    store: '/tienda',
   },
 
   // 2. ENLACES EXTERNOS (Subdominios estáticos)
@@ -49,6 +50,7 @@ export const es = {
     cta: 'Contáctanos',
     integrantes: 'Integrantes',
     contacto: 'Contáctanos',
+    tienda: 'Tienda',
     switch_lang: 'View in English',
   },
 
@@ -289,6 +291,67 @@ export const es = {
     expand_all: 'Expandir todo',
     collapse_all: 'Contraer todo',
     download_pdf: 'Descargar PDF'
+  },
+
+  // COMENTARIOS POR PERFIL PROFESIONAL
+  // ⚠️ EDITABLE: comentarios anónimos por perfil, redactados por CNV (no son
+  // testimonios verificados). Cuando tengas citas REALES y autorizadas, añade
+  // el campo `name` a cada item, muéstralo en Testimonials.astro y borra `note`.
+  testimonials: {
+    tag: 'Voces de la red',
+    title: 'Lo que cambia en la consulta',
+    subtitle: 'Así describen los perfiles profesionales de la red CNV el paso a la medicina bioeléctrica.',
+    note: 'Comentarios ilustrativos agrupados por perfil profesional. No corresponden a personas identificadas.',
+    items: [
+      { role: 'Medicina funcional', location: 'Medellín, Colombia', quote: 'Por primera vez se le puede mostrar al paciente, con datos objetivos, qué está pasando en su célula antes de que aparezca el síntoma. Cambia por completo la conversación en la consulta.' },
+      { role: 'Nutrición y dietética', location: 'Bogotá, Colombia', quote: 'La prescripción nutracéutica deja de ser intuición: responde a un diagnóstico bioeléctrico medible, y el seguimiento mensual mantiene al paciente comprometido.' },
+      { role: 'Medicina interna', location: 'Cali, Colombia', quote: 'Integrar ATLAS y el BiodyXpert permite sustentar una tarifa premium con rigor científico. El paciente valora ver su evolución con curvas reales.' },
+      { role: 'Medicina del deporte', location: 'Barranquilla, Colombia', quote: 'Pertenecer a la cohorte OB BIA LATAM convierte al profesional en investigador de su propia población: ciencia y práctica clínica en el mismo flujo.' },
+    ],
+  },
+
+  // TIENDA VIRTUAL
+  store: {
+    tag: 'Tienda oficial',
+    title: 'Nutracéuticos VITACELLEBIS',
+    subtitle: 'La única línea de nutracéuticos con diagnóstico bioeléctrico propio. Envío a toda Colombia y pago seguro con Bre-B, tarjetas, PSE, Nequi o PayPal.',
+    line_liquida: 'Línea líquida',
+    line_polvo: 'Línea en polvo',
+    price_iva_note: 'IVA incluido',
+    add: 'Agregar',
+    added: 'Agregado ✓',
+    view_label: 'Ver etiqueta',
+    badge_invima: 'Registro INVIMA',
+    cart_title: 'Tu carrito',
+    cart_empty: 'Tu carrito está vacío.',
+    cart_open: 'Carrito',
+    unit: 'c/u',
+    remove: 'Quitar',
+    subtotal: 'Subtotal (sin IVA)',
+    iva: 'IVA (19%)',
+    total: 'Total',
+    checkout: 'Finalizar compra',
+    keep_shopping: 'Seguir comprando',
+    qty: 'Cantidad',
+    customer_title: 'Tus datos',
+    form_name: 'Nombre completo',
+    form_email: 'Correo electrónico',
+    form_phone: 'Teléfono / WhatsApp',
+    pay_co_title: 'Pagar desde Colombia',
+    pay_co_desc: 'Bre-B, tarjetas, PSE, Nequi y Bancolombia vía Wompi.',
+    pay_co_btn: 'Pagar con Wompi',
+    pay_intl_title: 'Pago internacional',
+    pay_intl_desc: 'Tarjetas internacionales y saldo PayPal (cobro en USD).',
+    pay_wa_title: '¿Prefieres coordinar por WhatsApp?',
+    pay_wa_btn: 'Pedir por WhatsApp',
+    processing: 'Procesando…',
+    error_generic: 'No pudimos iniciar el pago. Intenta de nuevo o escríbenos por WhatsApp.',
+    error_form: 'Completa tu nombre y correo para continuar.',
+    secure_note: 'Pago 100% seguro. CNV no almacena los datos de tu tarjeta.',
+    disclaimer: 'Los nutracéuticos VITACELLEBIS son un complemento y no sustituyen un tratamiento médico. Producto respaldado por registro sanitario INVIMA. Consulta a tu profesional de la salud.',
+    thanks_title: '¡Gracias por tu compra!',
+    thanks_body: 'Estamos confirmando tu pago. Recibirás un correo con el detalle de tu pedido y el estado del envío. Si tienes dudas, escríbenos.',
+    thanks_back: 'Volver a la tienda',
   },
 
   // PAGES

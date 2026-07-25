@@ -17,6 +17,7 @@ export const en: Translations = {
     terms: '/en/legal-notice',
     cookies: '/en/cookies-policy',
     sitemap: '/en/site-map',
+    store: '/en/store',
   },
 
   // 2. ENLACES EXTERNOS (Subdominios estáticos)
@@ -50,6 +51,7 @@ export const en: Translations = {
     cta: 'Contact us',
     integrantes: 'Members',
     contacto: 'Contact',
+    tienda: 'Store',
     switch_lang: 'Ver en Español',
   },
 
@@ -280,6 +282,67 @@ export const en: Translations = {
     expand_all: 'Expand all',
     collapse_all: 'Collapse all',
     download_pdf: 'Download PDF'
+  },
+
+  // COMMENTS BY PROFESSIONAL PROFILE
+  // ⚠️ EDITABLE: anonymous comments by profile, written by CNV (not verified
+  // testimonials). Once you have REAL, authorized quotes, add a `name` field to
+  // each item, render it in Testimonials.astro and delete `note`.
+  testimonials: {
+    tag: 'Voices of the network',
+    title: 'What changes in the consultation',
+    subtitle: 'How the professional profiles in the CNV network describe the shift to bioelectric medicine.',
+    note: 'Illustrative comments grouped by professional profile. They do not correspond to identified individuals.',
+    items: [
+      { role: 'Functional medicine', location: 'Medellín, Colombia', quote: 'For the first time you can show the patient, with objective data, what is happening inside their cell before the symptom appears. It completely changes the conversation in the consultation.' },
+      { role: 'Nutrition and dietetics', location: 'Bogotá, Colombia', quote: 'Nutraceutical prescription is no longer guesswork: it responds to a measurable bioelectric diagnosis, and the monthly follow-up keeps the patient engaged.' },
+      { role: 'Internal medicine', location: 'Cali, Colombia', quote: 'Integrating ATLAS and the BiodyXpert makes it possible to justify a premium fee with scientific rigor. Patients value seeing their progress with real curves.' },
+      { role: 'Sports medicine', location: 'Barranquilla, Colombia', quote: 'Belonging to the OB BIA LATAM cohort turns the professional into a researcher of their own population: science and clinical practice in the same workflow.' },
+    ],
+  },
+
+  // ONLINE STORE
+  store: {
+    tag: 'Official store',
+    title: 'VITACELLEBIS Nutraceuticals',
+    subtitle: 'The only nutraceutical line with its own bioelectric diagnosis. Shipping across Colombia and secure payment with Bre-B, cards, PSE, Nequi or PayPal.',
+    line_liquida: 'Liquid line',
+    line_polvo: 'Powder line',
+    price_iva_note: 'VAT included',
+    add: 'Add',
+    added: 'Added ✓',
+    view_label: 'View label',
+    badge_invima: 'INVIMA registration',
+    cart_title: 'Your cart',
+    cart_empty: 'Your cart is empty.',
+    cart_open: 'Cart',
+    unit: 'each',
+    remove: 'Remove',
+    subtotal: 'Subtotal (excl. VAT)',
+    iva: 'VAT (19%)',
+    total: 'Total',
+    checkout: 'Checkout',
+    keep_shopping: 'Keep shopping',
+    qty: 'Quantity',
+    customer_title: 'Your details',
+    form_name: 'Full name',
+    form_email: 'Email',
+    form_phone: 'Phone / WhatsApp',
+    pay_co_title: 'Pay from Colombia',
+    pay_co_desc: 'Bre-B, cards, PSE, Nequi and Bancolombia via Wompi.',
+    pay_co_btn: 'Pay with Wompi',
+    pay_intl_title: 'International payment',
+    pay_intl_desc: 'International cards and PayPal balance (charged in USD).',
+    pay_wa_title: 'Prefer to arrange via WhatsApp?',
+    pay_wa_btn: 'Order on WhatsApp',
+    processing: 'Processing…',
+    error_generic: 'We could not start the payment. Please try again or message us on WhatsApp.',
+    error_form: 'Please enter your name and email to continue.',
+    secure_note: '100% secure payment. CNV never stores your card details.',
+    disclaimer: 'VITACELLEBIS nutraceuticals are a supplement and do not replace medical treatment. Product backed by INVIMA sanitary registration. Consult your health professional.',
+    thanks_title: 'Thank you for your purchase!',
+    thanks_body: 'We are confirming your payment. You will receive an email with your order details and shipping status. If you have questions, reach out.',
+    thanks_back: 'Back to store',
   },
 
   pages: {
