@@ -9,32 +9,44 @@ const { lang } = Astro.props;
 const t = getI18n(lang);
 const s = t.pages.sitemap;
 
-const obbiaHref = lang === 'en' ? '/en/ob-bia-latam.html' : '/ob-bia-latam.html';
+// El Observatorio se sirve como HTML estático desde public/ (el subdominio
+// obbia.cnvsystem.com no existe), por eso la ruta viene de external_links.
+const obbiaHref = t.external_links.obbia;
 
+// Mismos grupos que el menú principal, para que mapa y navegación coincidan.
 const groups = [
   {
     title: s.sec_ecosystem,
     links: [
       { href: t.routes.care, label: t.nav.operacion },
-      { href: t.routes.store, label: t.nav.tienda },
-      { href: t.routes.learning, label: t.nav.formacion },
       { href: t.routes.research, label: t.nav.investigacion },
+      { href: t.routes.learning, label: t.nav.formacion },
+      { href: t.routes.cnv_data, label: t.nav.cnv_data },
+      { href: t.routes.store, label: t.nav.tienda },
     ],
   },
   {
     title: s.sec_company,
     links: [
+      { href: t.routes.home, label: t.nav.home },
       { href: t.routes.about, label: t.nav.nosotros },
       // Paradigma sólo tiene página propia en EN; en ES vive dentro de CNV Care.
       ...(lang === 'en' ? [{ href: t.routes.paradigm, label: t.nav.paradigma }] : []),
       { href: t.routes.integrantes, label: t.nav.integrantes },
       { href: t.routes.noticias, label: t.nav.noticias },
+      { href: t.routes.comentarios, label: t.nav.comentarios },
       { href: t.routes.contact, label: t.nav.contacto },
     ],
   },
   {
     title: s.sec_observatory,
-    links: [{ href: obbiaHref, label: 'OB-BIA LATAM' }],
+    links: [
+      { href: obbiaHref, label: 'OB-BIA LATAM' },
+      { href: t.external_links.academy, label: t.nav.lms },
+      { href: `${t.routes.cnv_data}#atlas-patients`, label: t.nav.atlas_patients },
+      // ATLAS todavía no está publicado: se lista sin enlace.
+      { label: `${t.nav.atlas} · ${t.nav.soon}` },
+    ],
   },
   {
     title: s.sec_legal,
@@ -76,9 +88,13 @@ const faqSchema = {
         <ul class="flex flex-col gap-3">
           {g.links.map((l) => (
             <li>
-              <a href={l.href} class="text-sm text-cnv-core/70 hover:text-cnv-generate transition-colors">
-                {l.label}
-              </a>
+              {l.href ? (
+                <a href={l.href} class="text-sm text-cnv-core/70 hover:text-cnv-generate transition-colors">
+                  {l.label}
+                </a>
+              ) : (
+                <span class="text-sm text-cnv-core/35">{l.label}</span>
+              )}
             </li>
           ))}
         </ul>

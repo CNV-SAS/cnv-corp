@@ -1,0 +1,13 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import CnvData from '../../components/pages/CnvData.astro';
+import { getI18n } from '../../i18n';
+
+const lang = Astro.currentLocale || 'en';
+const t = getI18n(lang);
+const s = t.pages.cnv_data;
+---
+
+<BaseLayout title={`${s.tag} — Connected Nutrition Ventures`} description={s.hero_body}>
+  <CnvData lang={lang} />
+</BaseLayout>

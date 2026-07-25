@@ -1,4 +1,31 @@
 ---
-// La página de inicio entra directamente a "Nosotros".
-return Astro.redirect('/nosotros');
+// Portada en español. Antes esta ruta sólo hacía redirect('/nosotros'), así que
+// el sitio ES no tenía landing: se replican las mismas secciones que /en/,
+// que ya leen sus textos de es.ts vía getI18n.
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getI18n } from '../i18n';
+
+// Secciones
+import Hero from '../components/sections/Hero.astro';
+import Paradigm from '../components/sections/Paradigm.astro';
+import AnibiseModel from '../components/sections/AnibiseModel.astro';
+import Ecosystem from '../components/sections/Ecosystem.astro';
+import Audiences from '../components/sections/Audiences.astro';
+import Benefits from '../components/sections/Benefits.astro';
+import Process from '../components/sections/Process.astro';
+import FinalCTA from '../components/sections/FinalCTA.astro';
+
+const lang = Astro.currentLocale || 'es';
+const t = getI18n(lang);
 ---
+
+<BaseLayout title={t.seo.title} description={t.seo.description}>
+  <Hero />
+  <Paradigm />
+  <AnibiseModel />
+  <Ecosystem />
+  <Audiences />
+  <Benefits />
+  <Process />
+  <FinalCTA />
+</BaseLayout>

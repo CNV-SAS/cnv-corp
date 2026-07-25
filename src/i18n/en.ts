@@ -18,13 +18,18 @@ export const en: Translations = {
     cookies: '/en/cookies-policy',
     sitemap: '/en/site-map',
     store: '/en/store',
+    cnv_data: '/en/cnv-data',
+    comentarios: '/en/comments',
   },
 
-  // 2. ENLACES EXTERNOS (Subdominios estáticos)
+  // 2. ENLACES EXTERNOS
+  // OJO: los subdominios atlas.cnvsystem.com y obbia.cnvsystem.com NO tienen
+  // registro DNS (no resuelven). No los uses hasta que existan.
   external_links: {
-    atlas: 'https://atlas.cnvsystem.com',
     academy: 'https://lms.cnvsystem.com',
-    obbia: 'https://obbia.cnvsystem.com',
+    obbia: '/en/ob-bia-latam.html',
+    atlas: '',
+    atlas_patients_demo: 'https://atlas-gil.vercel.app/encuesta/demo-encuesta-inicial-0001',
   },
 
   // 3. PÁGINA 404 (No encontrada)
@@ -53,6 +58,19 @@ export const en: Translations = {
     contacto: 'Contact',
     tienda: 'Store',
     switch_lang: 'Ver en Español',
+    home: 'Home',
+    ecosistema: 'Business ecosystem',
+    empresa: 'The company',
+    cnv_data: 'CNV DATA',
+    atlas: 'ATLAS',
+    atlas_patients: 'ATLAS Patients',
+    lms: 'CNV LMS',
+    comentarios: 'Comments',
+    soon: 'Coming soon',
+    unit_care: 'Clinical operation',
+    unit_research: 'Research and evidence',
+    unit_learning: 'Professional training',
+    unit_data: 'Data core',
   },
 
   hero: {
@@ -560,9 +578,9 @@ export const en: Translations = {
       title: 'The entire CNV ecosystem, in one place',
       hero_body: 'Quickly find any section of the site and get answers to the most common questions about CNV, the ANI BIS-E model, and bioimpedance spectroscopy.',
       map_title: 'Site pages',
-      sec_ecosystem: 'The ecosystem',
+      sec_ecosystem: 'Business ecosystem',
       sec_company: 'The company',
-      sec_observatory: 'Observatory',
+      sec_observatory: 'Platforms',
       sec_legal: 'Legal',
       faq_tag: 'Common questions',
       faq_title: 'Frequently asked questions',
@@ -578,6 +596,40 @@ export const en: Translations = {
         { q: 'What is VITACELLEBIS?', a: 'It is the CNV ecosystem’s line of targeted nutraceuticals, formulated to support the cell’s bioelectrical properties within the ANI BIS-E care pathway, when the professional deems it appropriate.' },
         { q: 'Where are you located and how do I contact you?', a: 'CNV is at Cra 79 No. 46-36, La Floresta, Medellín, Antioquia, Colombia. You can write to gerencia@cnvsystem.com or call +57 321 642 8280. The full details appear at the bottom of every page.' },
       ],
+    },
+
+    // CNV DATA — the ecosystem's data core
+    cnv_data: {
+      tag: 'CNV DATA',
+      title: 'The core that holds the whole ecosystem together',
+      hero_body: 'CNV DATA is the central infrastructure: it integrates, organizes and activates the information the ecosystem produces. It supports the company’s mission-critical processes — clinical care, training and research — as well as the administrative ones.',
+      pillars_tag: 'What it solves',
+      pillars_title: 'A single data layer for the entire system',
+      pillars: [
+        { title: 'Integration', body: 'Brings bioimpedance measurements, surveys, anthropometry and each patient’s context into one place, regardless of which practice in the network captured them.' },
+        { title: 'Traceability', body: 'Every data point is tied to its origin, its moment and the person responsible. That is what makes a clinical record auditable and sustains the validity of population evidence.' },
+        { title: 'Scalability', body: 'The same structure serves a single practice or the entire Latin American network, without rebuilding the information model every time a new operator joins.' },
+        { title: 'Administrative support', body: 'Beyond the clinical side, it organizes operations: network follow-up, process status and the reports the company needs in order to decide.' },
+      ],
+      platforms_tag: 'Platforms',
+      platforms_title: 'The applications running on CNV DATA',
+      platforms_body: 'ATLAS and ATLAS Patients are two faces of the same core: one for the professional who measures and interprets, one for the patient who contributes information and follows their progress.',
+      atlas_title: 'ATLAS',
+      atlas_role: 'For the professional',
+      atlas_body: 'The software that models BiodyXpert ZM3 measurements, computes the Integrated Functional Diagnosis and builds the clinical record with the ANI BIS-E indicator matrix.',
+      atlas_patients_title: 'ATLAS Patients',
+      atlas_patients_role: 'For the patient',
+      atlas_patients_body: 'The application where the patient completes their initial assessment, contributes dietary and lifestyle context, and reviews how their bioelectrical status evolves.',
+      atlas_patients_cta: 'See the initial assessment demo',
+      lms_note: 'The training LMS belongs to CNV Learning and the OB-BIA LATAM Observatory to CNV Research; both draw on this same data layer.',
+      disclaimer: 'ATLAS and ATLAS Patients are professional decision-support tools. They do not issue autonomous diagnoses nor replace clinical judgment.',
+    },
+
+    // COMMENTS — standalone page for the network voices section
+    comentarios: {
+      tag: 'Comments',
+      title: 'What the professionals in the network say',
+      hero_body: 'How those already running the ANI BIS-E model in their practice describe the shift to bioelectric medicine.',
     },
   },
 };

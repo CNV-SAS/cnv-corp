@@ -1,0 +1,100 @@
+---
+import { getI18n } from '../../i18n';
+
+interface Props {
+  lang: string;
+}
+
+const { lang } = Astro.props;
+const t = getI18n(lang);
+const s = t.pages.cnv_data;
+
+// ATLAS aún no está desplegado: t.external_links.atlas queda vacío a propósito,
+// así que la tarjeta se muestra sin enlace y con la etiqueta "Próximamente".
+const atlasHref = t.external_links.atlas;
+const demoHref = t.external_links.atlas_patients_demo;
+---
+
+<!-- HERO -->
+<section class="bg-cnv-core text-white">
+  <div class="max-w-7xl mx-auto px-6 lg:px-8 pt-20 pb-20">
+    <p class="text-xs font-700 tracking-[0.2em] uppercase text-cnv-generate mb-4">{s.tag}</p>
+    <h1 class="text-4xl md:text-5xl font-800 leading-tight max-w-3xl">{s.title}</h1>
+    <p class="mt-6 text-lg text-white/60 max-w-3xl leading-relaxed">{s.hero_body}</p>
+  </div>
+</section>
+
+<!-- PILARES -->
+<section class="max-w-7xl mx-auto px-6 lg:px-8 py-20">
+  <p class="text-xs font-700 tracking-[0.2em] uppercase text-cnv-generate mb-4">{s.pillars_tag}</p>
+  <h2 class="text-3xl md:text-4xl font-800 text-cnv-core max-w-3xl">{s.pillars_title}</h2>
+
+  <div class="mt-12 grid grid-cols-1 md:grid-cols-2 gap-6">
+    {s.pillars.map((p, i) => (
+      <div class="rounded-2xl border border-gray-100 bg-white shadow-sm p-8">
+        <span class="text-xs font-700 tracking-widest text-cnv-generate">
+          {String(i + 1).padStart(2, '0')}
+        </span>
+        <h3 class="mt-3 text-lg font-800 text-cnv-core">{p.title}</h3>
+        <p class="mt-3 text-sm text-cnv-core/70 leading-relaxed">{p.body}</p>
+      </div>
+    ))}
+  </div>
+</section>
+
+<!-- PLATAFORMAS -->
+<section class="bg-gray-50 border-t border-gray-100">
+  <div class="max-w-7xl mx-auto px-6 lg:px-8 py-20">
+    <p class="text-xs font-700 tracking-[0.2em] uppercase text-cnv-generate mb-4">{s.platforms_tag}</p>
+    <h2 class="text-3xl md:text-4xl font-800 text-cnv-core max-w-3xl">{s.platforms_title}</h2>
+    <p class="mt-4 text-base text-cnv-core/60 max-w-2xl leading-relaxed">{s.platforms_body}</p>
+
+    <div class="mt-12 grid grid-cols-1 lg:grid-cols-2 gap-6">
+
+      <!-- ATLAS (profesional) -->
+      <article id="atlas" class="flex flex-col rounded-2xl border border-gray-200 bg-white p-8">
+        <div class="flex items-start justify-between gap-4">
+          <div>
+            <p class="text-xs font-700 tracking-widest uppercase text-cnv-core/40">{s.atlas_role}</p>
+            <h3 class="mt-2 text-2xl font-800 text-cnv-core">{s.atlas_title}</h3>
+          </div>
+          {!atlasHref && (
+            <span class="flex-shrink-0 text-[10px] font-700 uppercase tracking-wider text-cnv-core/40 border border-cnv-core/15 rounded px-2 py-1">
+              {t.nav.soon}
+            </span>
+          )}
+        </div>
+        <p class="mt-4 flex-1 text-sm text-cnv-core/70 leading-relaxed">{s.atlas_body}</p>
+        {atlasHref && (
+          <a href={atlasHref} target="_blank" rel="noopener" class="btn-primary text-xs mt-6 self-start py-2.5 px-5">
+            {s.atlas_title}
+          </a>
+        )}
+      </article>
+
+      <!-- ATLAS PATIENTS (paciente) -->
+      <article id="atlas-patients" class="flex flex-col rounded-2xl border border-gray-200 bg-white p-8">
+        <p class="text-xs font-700 tracking-widest uppercase text-cnv-core/40">{s.atlas_patients_role}</p>
+        <h3 class="mt-2 text-2xl font-800 text-cnv-core">{s.atlas_patients_title}</h3>
+        <p class="mt-4 flex-1 text-sm text-cnv-core/70 leading-relaxed">{s.atlas_patients_body}</p>
+        <a
+          href={demoHref}
+          target="_blank"
+          rel="noopener"
+          class="btn-primary text-xs mt-6 self-start py-2.5 px-5"
+        >
+          {s.atlas_patients_cta}
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+            <path d="M1 7h12M8 2l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
+      </article>
+    </div>
+
+    <!-- Aclaración de a quién pertenecen el LMS y el Observatorio -->
+    <p class="mt-10 text-sm text-cnv-core/50 max-w-3xl leading-relaxed border-l-2 border-cnv-generate/40 pl-4">
+      {s.lms_note}
+    </p>
+    <p class="mt-6 text-xs text-cnv-core/40 max-w-3xl leading-relaxed">{s.disclaimer}</p>
+  </div>
+</section>

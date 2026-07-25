@@ -1,0 +1,21 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Testimonials from '../../components/sections/Testimonials.astro';
+import { getI18n } from '../../i18n';
+
+const lang = Astro.currentLocale || 'en';
+const t = getI18n(lang);
+const s = t.pages.comentarios;
+---
+
+<BaseLayout title={`${s.title} — Connected Nutrition Ventures`} description={s.hero_body}>
+  <section class="bg-cnv-core text-white">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8 pt-20 pb-20">
+      <p class="text-xs font-700 tracking-[0.2em] uppercase text-cnv-generate mb-4">{s.tag}</p>
+      <h1 class="text-4xl md:text-5xl font-800 leading-tight max-w-3xl">{s.title}</h1>
+      <p class="mt-6 text-lg text-white/60 max-w-2xl leading-relaxed">{s.hero_body}</p>
+    </div>
+  </section>
+
+  <Testimonials lang={lang} />
+</BaseLayout>

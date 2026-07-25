@@ -9,11 +9,13 @@ const { lang } = Astro.props;
 const t = getI18n(lang);
 const otherLangHref = getRouteInOtherLang(Astro.url);
 
+// Mismo orden que el menú: las cuatro unidades del ecosistema y luego la tienda.
 const systemLinks = [
   { href: t.routes.care, label: t.nav.operacion },
-  { href: t.routes.store, label: t.nav.tienda },
-  { href: t.routes.learning, label: t.nav.formacion },
   { href: t.routes.research, label: t.nav.investigacion },
+  { href: t.routes.learning, label: t.nav.formacion },
+  { href: t.routes.cnv_data, label: t.nav.cnv_data },
+  { href: t.routes.store, label: t.nav.tienda },
   { href: t.routes.about, label: t.nav.nosotros },
 ];
 ---
