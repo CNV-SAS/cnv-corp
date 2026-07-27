@@ -155,6 +155,8 @@ nav{position:sticky;top:0;z-index:1000;background:rgba(8,21,41,0.97);backdrop-fi
 .mb.dir{border-color:var(--gold);background:linear-gradient(160deg,rgba(200,147,42,0.04),var(--white));}
 .mb-av{width:68px;height:68px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:800;margin:0 auto 14px;font-family:var(--serif);background:linear-gradient(135deg,var(--navy),var(--teal));color:var(--white);}
 .mb.dir .mb-av{background:linear-gradient(135deg,var(--gold),#d4a030);color:var(--navy-dark);}
+.mb-av img{width:100%;height:100%;border-radius:50%;object-fit:cover;display:block;}
+.mb-av.has-photo{background:none;padding:0;overflow:hidden;}
 .mb-role{font-size:9px;font-weight:800;letter-spacing:0.13em;text-transform:uppercase;color:var(--teal);margin-bottom:7px;}
 .mb.dir .mb-role{color:var(--gold);}
 .mb-name{font-size:14px;font-weight:700;color:var(--navy);margin-bottom:5px;line-height:1.3;}
@@ -231,7 +233,7 @@ footer{background:var(--navy-dark);padding:48px 24px 20px;border-top:2px solid r
       <li><a href="#indicadores">Indicators</a></li>
       <li><a href="#estadisticas">Statistics</a></li>
       <li><a href="#red">Network</a></li>
-      <li><a href="#comite">Committee</a></li>
+      <li><a href="#comite">Ethics Committee</a></li>
       <li><a href="#publicaciones">Publications</a></li>
       <li><a href="#afiliacion">Active members</a></li>
       <li><a href="/ob-bia-latam.html" class="nav-lang">🌐 ES</a></li>
@@ -478,13 +480,13 @@ footer{background:var(--navy-dark);padding:48px 24px 20px;border-top:2px solid r
   </div>
 </section>
 
-<!-- SCIENTIFIC COMMITTEE -->
+<!-- ETHICS COMMITTEE -->
 <section class="sec sec-alt" id="comite">
   <div class="sec-in">
     <div class="sec-lbl">Scientific governance</div>
-    <h2 class="sec-h">Scientific <span>Committee</span></h2>
+    <h2 class="sec-h">Ethics <span>Committee</span></h2>
     <div class="divider"></div>
-    <p class="sec-p">The OB-BIA LATAM Scientific Committee is composed of its director and three external members with backgrounds in obesity, research, clinical nutrition, and nutritional support.</p>
+    <p class="sec-p">The OB-BIA LATAM Ethics Committee is composed of its director and three external members with backgrounds in research ethics, biomedical research, clinical nutrition, and nutritional support.</p>
     <div class="cmt-grid">
       <div class="mb dir">
         <div class="mb-av">GU</div>
@@ -497,11 +499,11 @@ footer{background:var(--navy-dark);padding:48px 24px 20px;border-top:2px solid r
         </div>
       </div>
       <div class="mb">
-        <div class="mb-av">JT</div>
+        <div class="mb-av has-photo"><img src="/images/comite/diego-cruz.jpg" alt="Diego Ernesto Cruz Sarabia" loading="lazy" width="240" height="240"></div>
         <div class="mb-role">External member</div>
-        <div class="mb-name">Dr. Jorge Tupayachi</div>
-        <div class="mb-spec">Obesity specialist<br>Vice President of the Peruvian Society of Obesity, Atherosclerosis and Nutrition (APOA)<br>🇵🇪 Peru</div>
-        <span class="badge" style="margin-top:11px;font-size:8px;">Obesity</span>
+        <div class="mb-name">Diego Ernesto Cruz Sarabia</div>
+        <div class="mb-spec">Speech-language pathologist, Specialist in Special Education and Social Inclusion, and Master in Education, with experience in university teaching and research. He has served as a researcher and evaluator of research projects, with knowledge of the ethical regulations applicable to research involving human subjects, bioethical principles, and methodological review processes. His professional practice is characterised by integrity, objectivity, and a commitment to protecting participants, contributing ethical and scientific criteria to the evaluation of research projects.</div>
+        <span class="badge" style="margin-top:11px;font-size:8px;">Research ethics</span>
       </div>
       <div class="mb">
         <div class="mb-av">EH</div>
@@ -582,7 +584,7 @@ footer{background:var(--navy-dark);padding:48px 24px 20px;border-top:2px solid r
         <div class="ft-ct">Navigation</div>
         <a href="#sobre">About OB-BIA</a><a href="#indicadores">ANI BIS-E Indicators</a>
         <a href="#estadisticas">Live statistics</a><a href="#red">Professional network</a>
-        <a href="#comite">Scientific Committee</a><a href="#publicaciones">Publications</a>
+        <a href="#comite">Ethics Committee</a><a href="#publicaciones">Publications</a>
         <a href="#afiliacion">Active members</a>
       </div>
       <div class="ft-col">
@@ -893,7 +895,7 @@ async function enviarAf(e) {
       if (error) throw error;
     }
     msg.style.display='block'; msg.style.color='#065f46'; msg.style.background='#dcfce7';
-    msg.textContent='✅ Application submitted successfully. The Scientific Committee will review it and contact you at the email provided within 5 business days.';
+    msg.textContent='✅ Application submitted successfully. The Ethics Committee will review it and contact you at the email provided within 5 business days.';
     document.getElementById('form-af').reset();
   } catch(err) {
     msg.style.display='block'; msg.style.color='#991b1b'; msg.style.background='#fee2e2';
