@@ -161,6 +161,12 @@ nav{position:sticky;top:0;z-index:1000;background:rgba(8,21,41,0.97);backdrop-fi
 .mb.dir .mb-role{color:var(--gold);}
 .mb-name{font-size:14px;font-weight:700;color:var(--navy);margin-bottom:5px;line-height:1.3;}
 .mb-spec{font-size:11px;color:var(--g500);line-height:1.5;}
+.mb-more{margin-top:10px;text-align:left;}
+.mb-more summary{cursor:pointer;list-style:none;text-align:center;font-size:9px;font-weight:800;letter-spacing:0.11em;text-transform:uppercase;color:var(--teal);padding:4px 0;}
+.mb-more summary::-webkit-details-marker{display:none;}
+.mb-more summary::after{content:" BE";}
+.mb-more[open] summary::after{content:" B4";}
+.mb-more p{font-size:11px;color:var(--g500);line-height:1.6;margin-top:8px;}
 
 /* PUBS */
 .pub-grid{display:grid;gap:18px;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));margin-top:36px;}
@@ -502,8 +508,12 @@ footer{background:var(--navy-dark);padding:48px 24px 20px;border-top:2px solid r
         <div class="mb-av has-photo"><img src="/images/comite/diego-cruz.jpg" alt="Diego Ernesto Cruz Sarabia" loading="lazy" width="240" height="240"></div>
         <div class="mb-role">External member</div>
         <div class="mb-name">Diego Ernesto Cruz Sarabia</div>
-        <div class="mb-spec">Speech-language pathologist, Specialist in Special Education and Social Inclusion, and Master in Education, with experience in university teaching and research. He has served as a researcher and evaluator of research projects, with knowledge of the ethical regulations applicable to research involving human subjects, bioethical principles, and methodological review processes. His professional practice is characterised by integrity, objectivity, and a commitment to protecting participants, contributing ethical and scientific criteria to the evaluation of research projects.</div>
+        <div class="mb-spec">Speech-language pathologist · Specialist in Special Education and Social Inclusion · Master in Education<br>University teaching and research</div>
         <span class="badge" style="margin-top:11px;font-size:8px;">Research ethics</span>
+        <details class="mb-more">
+          <summary>See more</summary>
+          <p>He has served as a researcher and evaluator of research projects, with knowledge of the ethical regulations applicable to research involving human subjects, bioethical principles, and methodological review processes. His professional practice is characterised by integrity, objectivity, and a commitment to protecting participants, contributing ethical and scientific criteria to the evaluation of research projects.</p>
+        </details>
       </div>
       <div class="mb">
         <div class="mb-av">EH</div>
