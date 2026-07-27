@@ -30,8 +30,9 @@ export const es = {
     obbia: '/ob-bia-latam.html',
     // ATLAS (profesional) aún no está publicado: se muestra como "Próximamente".
     atlas: '',
-    // Demo pública de la evaluación inicial de ATLAS Patients.
-    atlas_patients_demo: 'https://atlas-gil.vercel.app/encuesta/demo-encuesta-inicial-0001',
+    // NO publicar aquí el enlace a la encuesta: el acceso a la evaluación es
+    // exclusivo de los pacientes de la red, que entran con su cédula por el
+    // enlace que les entrega su profesional.
   },
 
   // 3. PÁGINA 404 (No encontrada)
@@ -641,7 +642,7 @@ export const es = {
       atlas_patients_title: 'ATLAS Patients',
       atlas_patients_role: 'Para el paciente',
       atlas_patients_body: 'La aplicación con la que el paciente responde su evaluación inicial, aporta el contexto alimentario y de estilo de vida, y consulta la evolución de su estado bioeléctrico.',
-      atlas_patients_cta: 'Ver demo de la evaluación inicial',
+      atlas_patients_access: 'Acceso restringido: la evaluación es exclusiva para pacientes de los profesionales de la red CNV. Tu profesional te entrega el enlace y accedes con tu número de cédula.',
       lms_note: 'El LMS de formación pertenece a CNV Learning y el Observatorio OB-BIA LATAM a CNV Research; ambos se alimentan de esta misma capa de datos.',
       disclaimer: 'ATLAS y ATLAS Patients son herramientas de apoyo a la decisión profesional. No emiten diagnósticos autónomos ni sustituyen el juicio clínico.',
     },

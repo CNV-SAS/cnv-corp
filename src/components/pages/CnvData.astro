@@ -11,8 +11,11 @@ const s = t.pages.cnv_data;
 
 // ATLAS aún no está desplegado: t.external_links.atlas queda vacío a propósito,
 // así que la tarjeta se muestra sin enlace y con la etiqueta "Próximamente".
+//
+// ATLAS Patients no se enlaza desde aquí: el acceso a la evaluación es sólo
+// para pacientes de la red, que entran con su cédula por el enlace que les
+// entrega su profesional. No publicar aquí ninguna URL de encuesta.
 const atlasHref = t.external_links.atlas;
-const demoHref = t.external_links.atlas_patients_demo;
 ---
 
 <!-- HERO -->
@@ -77,17 +80,12 @@ const demoHref = t.external_links.atlas_patients_demo;
         <p class="text-xs font-700 tracking-widest uppercase text-cnv-core/40">{s.atlas_patients_role}</p>
         <h3 class="mt-2 text-2xl font-800 text-cnv-core">{s.atlas_patients_title}</h3>
         <p class="mt-4 flex-1 text-sm text-cnv-core/70 leading-relaxed">{s.atlas_patients_body}</p>
-        <a
-          href={demoHref}
-          target="_blank"
-          rel="noopener"
-          class="btn-primary text-xs mt-6 self-start py-2.5 px-5"
-        >
-          {s.atlas_patients_cta}
-          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
-            <path d="M1 7h12M8 2l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        <p class="mt-6 flex items-start gap-2.5 text-xs text-cnv-core/50 leading-relaxed border-l-2 border-cnv-generate/40 pl-4">
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="none" class="mt-0.5 flex-shrink-0" aria-hidden="true">
+            <path d="M4 7V5a4 4 0 0 1 8 0v2m-9 0h10v7H3V7Z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/>
           </svg>
-        </a>
+          <span>{s.atlas_patients_access}</span>
+        </p>
       </article>
     </div>
 

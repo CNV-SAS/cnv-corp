@@ -29,7 +29,9 @@ export const en: Translations = {
     academy: 'https://lms.cnvsystem.com',
     obbia: '/en/ob-bia-latam.html',
     atlas: '',
-    atlas_patients_demo: 'https://atlas-gil.vercel.app/encuesta/demo-encuesta-inicial-0001',
+    // Do NOT publish the survey link here: access to the assessment is
+    // restricted to network patients, who sign in with their ID document
+    // through the link their professional gives them.
   },
 
   // 3. PÁGINA 404 (No encontrada)
@@ -626,7 +628,7 @@ export const en: Translations = {
       atlas_patients_title: 'ATLAS Patients',
       atlas_patients_role: 'For the patient',
       atlas_patients_body: 'The application where the patient completes their initial assessment, contributes dietary and lifestyle context, and reviews how their bioelectrical status evolves.',
-      atlas_patients_cta: 'See the initial assessment demo',
+      atlas_patients_access: 'Restricted access: the assessment is exclusive to patients of professionals in the CNV network. Your professional gives you the link and you sign in with your ID document number.',
       lms_note: 'The training LMS belongs to CNV Learning and the OB-BIA LATAM Observatory to CNV Research; both draw on this same data layer.',
       disclaimer: 'ATLAS and ATLAS Patients are professional decision-support tools. They do not issue autonomous diagnoses nor replace clinical judgment.',
     },
