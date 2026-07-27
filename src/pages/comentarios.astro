@@ -1,6 +1,11 @@
 ---
+// Se renderiza en servidor para que un comentario recién enviado aparezca en
+// la siguiente carga, sin esperar a un redespliegue.
+export const prerender = false;
+
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Testimonials from '../components/sections/Testimonials.astro';
+import LiveComments from '../components/sections/LiveComments.astro';
 import CommentForm from '../components/forms/CommentForm.tsx';
 import { getI18n } from '../i18n';
 
@@ -41,6 +46,8 @@ const labels = {
   </section>
 
   <Testimonials lang={lang} />
+
+  <LiveComments lang={lang} />
 
   <!-- DEJA TU COMENTARIO -->
   <section class="border-t border-gray-100">

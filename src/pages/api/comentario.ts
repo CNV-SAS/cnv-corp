@@ -1,11 +1,18 @@
 export const prerender = false;
 import type { APIRoute } from 'astro';
 import { Resend } from 'resend';
+import { saveComentario } from '../../lib/comentarios';
 
 // Recibe los comentarios que dejan los integrantes de la red en /comentarios.
-// NO publica nada: envía el comentario por correo para que CNV lo revise y
-// decida si lo agrega a t.testimonials.items. La moderación es deliberada:
-// es el sitio de una empresa de salud, no un muro abierto.
+//
+// Hace dos cosas:
+//  1. Guarda el comentario en Supabase, con visible = true, así queda a la
+//     vista en la página apenas se envía.
+//  2. Avisa por correo a CNV, para que pueda bajar cualquier comentario
+//     inapropiado (visible = false en el Table Editor) sin depender de nadie.
+//
+// Todas las escrituras pasan por aquí: el navegador no puede insertar directo
+// en la tabla, así que Turnstile no se puede saltar.
 
 const RESEND_API_KEY = import.meta.env.RESEND_API_KEY;
 const CONTACT_EMAIL = import.meta.env.CONTACT_EMAIL || 'cnvcorporate@gmail.com';
@@ -75,18 +82,33 @@ export const POST: APIRoute = async ({ request }) => {
     const userAgent = request.headers.get('user-agent') || 'User-Agent no detectado';
     const timestamp = new Date().toISOString();
 
-    // Bloque listo para copiar y pegar en es.ts / en.ts si se aprueba.
-    const snippet = `{ name: '${name.replace(/'/g, "\\'")}', role: '${role.replace(/'/g, "\\'")}', location: '${location.replace(/'/g, "\\'")}', quote: '${comment.replace(/'/g, "\\'")}' },`;
+    // Se guarda primero: si Supabase falla, el correo igual sale y el
+    // comentario no se pierde, sólo no aparece en la página todavía.
+    const saved = await saveComentario({
+      name,
+      role,
+      location,
+      comment,
+      email,
+      lang: lang === 'en' ? 'en' : 'es',
+      consent: true,
+      ip: ipAddress,
+      user_agent: userAgent,
+    });
 
     const emailContent = `
       <div style="font-family: Montserrat, sans-serif; max-width: 620px; margin: 0 auto; background: white;">
 
         <div style="background: #102545; padding: 32px;">
           <h1 style="color: white; font-size: 20px; margin: 0; font-weight: 800;">
-            Nuevo comentario para revisión — CNV
+            Nuevo comentario — CNV
           </h1>
-          <p style="color: #9fb3cc; font-size: 12px; margin: 8px 0 0;">
-            No se ha publicado nada. Revisa el contenido antes de agregarlo al sitio.
+          <p style="color: ${saved ? '#7dd3a0' : '#fbbf24'}; font-size: 12px; margin: 8px 0 0;">
+            ${
+              saved
+                ? 'Ya está publicado en cnvsystem.com/comentarios. Si no debe estar, ponlo en visible = false desde Supabase.'
+                : '⚠️ No se pudo guardar en la base de datos, así que NO aparece en la página. Revisa la configuración de Supabase.'
+            }
           </p>
         </div>
 
@@ -115,13 +137,6 @@ export const POST: APIRoute = async ({ request }) => {
               </td>
             </tr>
           </table>
-        </div>
-
-        <div style="background:#f1f5f9;padding:20px 32px;border:2px solid #102545;border-top:none;">
-          <h2 style="font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:#64748b;margin:0 0 10px;">
-            Para publicarlo: pega esto en testimonials.items de es.ts / en.ts
-          </h2>
-          <code style="display:block;font-family:monospace;font-size:11px;color:#0f172a;background:#fff;border:1px solid #cbd5e1;padding:12px;word-break:break-word;white-space:pre-wrap;">${snippet}</code>
         </div>
 
         <div style="background:#f8fafc;padding:24px 32px;border:2px solid #102545;border-top:none;">

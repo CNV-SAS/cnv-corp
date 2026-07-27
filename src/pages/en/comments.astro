@@ -1,6 +1,10 @@
 ---
+// Server-rendered so a newly submitted comment shows up on the next load.
+export const prerender = false;
+
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Testimonials from '../../components/sections/Testimonials.astro';
+import LiveComments from '../../components/sections/LiveComments.astro';
 import CommentForm from '../../components/forms/CommentForm.tsx';
 import { getI18n } from '../../i18n';
 
@@ -39,6 +43,8 @@ const labels = {
   </section>
 
   <Testimonials lang={lang} />
+
+  <LiveComments lang={lang} />
 
   <!-- LEAVE YOUR COMMENT -->
   <section class="border-t border-gray-100">
