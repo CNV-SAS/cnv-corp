@@ -9,6 +9,11 @@ interface Props {
 const { lang = Astro.currentLocale || 'es', dark = false } = Astro.props;
 const t = getI18n(lang);
 const s = t.testimonials;
+
+// Los items con `name` son comentarios reales y autorizados: se muestran con
+// nombre propio. Los que no lo tienen son ilustrativos por perfil, y sólo a
+// ellos aplica la nota aclaratoria del pie.
+const hayIlustrativos = s.items.some((item) => !('name' in item) || !item.name);
 ---
 
 <section class={`${dark ? 'bg-cnv-core text-white' : 'bg-gray-50'} border-t border-gray-100`}>
@@ -25,16 +30,28 @@ const s = t.testimonials;
             {item.quote}
           </blockquote>
           <figcaption class={`mt-6 flex items-center gap-3 border-t pt-5 ${dark ? 'border-white/10' : 'border-gray-100'}`}>
-            <span class={`h-8 w-1 flex-shrink-0 rounded-full ${dark ? 'bg-cnv-generate' : 'bg-cnv-generate'}`} aria-hidden="true"></span>
+            {item.name ? (
+              <div class={`flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-full text-sm font-800 ${dark ? 'bg-cnv-generate/20 text-cnv-generate' : 'bg-cnv-core/5 text-cnv-core'}`}>
+                {item.name.trim().split(/\s+/).slice(0, 2).map((w) => w[0]).join('')}
+              </div>
+            ) : (
+              <span class="h-8 w-1 flex-shrink-0 rounded-full bg-cnv-generate" aria-hidden="true"></span>
+            )}
             <div>
-              <p class={`text-sm font-800 ${dark ? 'text-white' : 'text-cnv-core'}`}>{item.role}</p>
-              <p class={`text-xs ${dark ? 'text-white/50' : 'text-cnv-core/50'}`}>{item.location}</p>
+              <p class={`text-sm font-800 ${dark ? 'text-white' : 'text-cnv-core'}`}>
+                {item.name || item.role}
+              </p>
+              <p class={`text-xs ${dark ? 'text-white/50' : 'text-cnv-core/50'}`}>
+                {item.name ? [item.role, item.location].filter(Boolean).join(' · ') : item.location}
+              </p>
             </div>
           </figcaption>
         </figure>
       ))}
     </div>
 
-    <p class={`mt-8 text-xs leading-relaxed max-w-3xl ${dark ? 'text-white/40' : 'text-cnv-core/40'}`}>{s.note}</p>
+    {hayIlustrativos && (
+      <p class={`mt-8 text-xs leading-relaxed max-w-3xl ${dark ? 'text-white/40' : 'text-cnv-core/40'}`}>{s.note}</p>
+    )}
   </div>
 </section>

@@ -310,10 +310,16 @@ export const en: Translations = {
     tag: 'Voices of the network',
     title: 'What changes in the consultation',
     subtitle: 'How the professional profiles in the CNV network describe the shift to bioelectric medicine.',
-    note: 'Illustrative comments grouped by professional profile. They do not correspond to identified individuals.',
+    note: 'Unsigned comments are illustrative and grouped by professional profile; they do not correspond to identified individuals. Signed comments are real and published with the author’s authorization.',
     items: [
+      // Real comment, published with authorization. Translated from Spanish.
+      {
+        name: 'María Teresa Aragón',
+        role: 'Nutrition and dietetics',
+        location: '',
+        quote: 'It is a privilege for me to be part of CNV, because it represents an opportunity to keep growing as a professional and as a human being. After more than 30 years devoted to nutrition, I remain convinced that continuous learning is the path to delivering excellent care. Integrating the ANI-BIS-E model into my practice lets me update my knowledge, exchange experiences with professionals who are passionate about science, and strengthen my clinical judgment. What motivates me most is knowing that all this learning will be reflected in my patients, offering them a more complete assessment, genuinely personalized and preventive treatment, and evidence-based support. My purpose is to keep transforming lives through nutrition, combining scientific knowledge with close, humane care committed to the wellbeing and health of the people who trust me.',
+      },
       { role: 'Functional medicine', location: 'Medellín, Colombia', quote: 'For the first time you can show the patient, with objective data, what is happening inside their cell before the symptom appears. It completely changes the conversation in the consultation.' },
-      { role: 'Nutrition and dietetics', location: 'Bogotá, Colombia', quote: 'Nutraceutical prescription is no longer guesswork: it responds to a measurable bioelectric diagnosis, and the monthly follow-up keeps the patient engaged.' },
       { role: 'Internal medicine', location: 'Cali, Colombia', quote: 'Integrating ATLAS and the BiodyXpert makes it possible to justify a premium fee with scientific rigor. Patients value seeing their progress with real curves.' },
       { role: 'Sports medicine', location: 'Barranquilla, Colombia', quote: 'Belonging to the OB BIA LATAM cohort turns the professional into a researcher of their own population: science and clinical practice in the same workflow.' },
     ],

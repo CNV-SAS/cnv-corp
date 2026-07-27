@@ -325,10 +325,16 @@ export const es = {
     tag: 'Voces de la red',
     title: 'Lo que cambia en la consulta',
     subtitle: 'Así describen los perfiles profesionales de la red CNV el paso a la medicina bioeléctrica.',
-    note: 'Comentarios ilustrativos agrupados por perfil profesional. No corresponden a personas identificadas.',
+    note: 'Los comentarios sin nombre son ilustrativos y están agrupados por perfil profesional; no corresponden a personas identificadas. Los firmados son reales y publicados con autorización de quien los escribió.',
     items: [
+      // Comentario real, publicado con autorización.
+      {
+        name: 'María Teresa Aragón',
+        role: 'Nutrición y dietética',
+        location: '',
+        quote: 'Para mí es un privilegio hacer parte de CNV, porque representa una oportunidad de seguir creciendo como profesional y como ser humano. Después de más de 30 años dedicados a la nutrición, sigo convencida de que el aprendizaje continuo es el camino para brindar una atención de excelencia. Integrar el modelo ANI-BIS-E en mi consulta me permite actualizar mis conocimientos, intercambiar experiencias con profesionales apasionados por la ciencia y fortalecer mi criterio clínico. Lo que más me motiva es saber que todo este aprendizaje se verá reflejado en mis pacientes, ofreciéndoles una evaluación más completa, un tratamiento verdaderamente personalizado y preventivo, y un acompañamiento basado en evidencia. Mi propósito es continuar transformando vidas a través de la nutrición, combinando el conocimiento científico con una atención cercana, humana y comprometida con el bienestar y la salud de las personas que confían en mí.',
+      },
       { role: 'Medicina funcional', location: 'Medellín, Colombia', quote: 'Por primera vez se le puede mostrar al paciente, con datos objetivos, qué está pasando en su célula antes de que aparezca el síntoma. Cambia por completo la conversación en la consulta.' },
-      { role: 'Nutrición y dietética', location: 'Bogotá, Colombia', quote: 'La prescripción nutracéutica deja de ser intuición: responde a un diagnóstico bioeléctrico medible, y el seguimiento mensual mantiene al paciente comprometido.' },
       { role: 'Medicina interna', location: 'Cali, Colombia', quote: 'Integrar ATLAS y el BiodyXpert permite sustentar una tarifa premium con rigor científico. El paciente valora ver su evolución con curvas reales.' },
       { role: 'Medicina del deporte', location: 'Barranquilla, Colombia', quote: 'Pertenecer a la cohorte OB BIA LATAM convierte al profesional en investigador de su propia población: ciencia y práctica clínica en el mismo flujo.' },
     ],
