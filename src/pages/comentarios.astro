@@ -1,11 +1,34 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Testimonials from '../components/sections/Testimonials.astro';
+import CommentForm from '../components/forms/CommentForm.tsx';
 import { getI18n } from '../i18n';
 
 const lang = Astro.currentLocale || 'es';
 const t = getI18n(lang);
 const s = t.pages.comentarios;
+
+// Los textos del formulario se resuelven aquí y se pasan a la isla de React,
+// para no duplicar la lógica de i18n dentro del componente.
+const labels = {
+  f_name: s.f_name,
+  f_role: s.f_role,
+  f_role_ph: s.f_role_ph,
+  f_location: s.f_location,
+  f_email: s.f_email,
+  f_email_help: s.f_email_help,
+  f_comment: s.f_comment,
+  f_comment_ph: s.f_comment_ph,
+  f_consent: s.f_consent,
+  f_consent_error: s.f_consent_error,
+  submit: s.submit,
+  sending: s.sending,
+  ok_title: s.ok_title,
+  ok_body: s.ok_body,
+  err: s.err,
+  err_fields: s.err_fields,
+  err_captcha: s.err_captcha,
+};
 ---
 
 <BaseLayout title={`${s.title} — Connected Nutrition Ventures`} description={s.hero_body}>
@@ -18,4 +41,21 @@ const s = t.pages.comentarios;
   </section>
 
   <Testimonials lang={lang} />
+
+  <!-- DEJA TU COMENTARIO -->
+  <section class="border-t border-gray-100">
+    <div class="max-w-3xl mx-auto px-6 lg:px-8 py-20">
+      <p class="text-xs font-700 tracking-[0.2em] uppercase text-cnv-generate mb-4">{s.form_tag}</p>
+      <h2 class="text-3xl md:text-4xl font-800 text-cnv-core">{s.form_title}</h2>
+      <p class="mt-4 text-base text-cnv-core/60 leading-relaxed">{s.form_body}</p>
+
+      <div class="mt-10">
+        <CommentForm client:visible labels={labels} lang={lang} />
+      </div>
+
+      <p class="mt-8 text-xs text-cnv-core/40 leading-relaxed border-l-2 border-cnv-generate/40 pl-4">
+        {s.moderation_note}
+      </p>
+    </div>
+  </section>
 </BaseLayout>
