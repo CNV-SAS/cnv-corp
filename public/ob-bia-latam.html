@@ -221,13 +221,26 @@ footer{background:var(--navy-dark);padding:48px 24px 20px;border-top:2px solid r
 .badge-g{background:rgba(200,147,42,0.1);border-color:rgba(200,147,42,0.28);color:var(--gold);}
 ::-webkit-scrollbar{width:5px;}::-webkit-scrollbar-track{background:var(--navy);}::-webkit-scrollbar-thumb{background:var(--teal);border-radius:3px;}
 </style>
+
+<style>
+/* ---- PESTANAS DEL OBSERVATORIO ---- */
+.nav-links a.tab-link.on{color:var(--gold);}
+.nav-links a.tab-link.on::after{width:100%;}
+.tab-panel{display:none;}
+.tab-panel.on{display:block;animation:tabIn .28s ease;}
+@keyframes tabIn{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:none;}}
+@media(prefers-reduced-motion:reduce){.tab-panel.on{animation:none;}}
+.sub-h{font-family:var(--serif);font-size:22px;font-weight:700;color:var(--navy);margin:56px 0 12px;line-height:1.2;}
+.sub-h:first-of-type{margin-top:40px;}
+.sub-h span{color:var(--gold);}
+</style>
 </head>
 <body>
 
 <!-- NAV -->
 <nav>
   <div class="nav-in">
-    <a href="#inicio" class="nav-logo">
+    <a href="#panel-home" class="nav-logo" data-tab="home">
       <img src="/images/logo-obbia-latam.png" alt="ObBIA Latam" class="nav-logo-img" />
       <div>
         <span class="nav-logo-t">OB-BIA LATAM</span>
@@ -235,16 +248,10 @@ footer{background:var(--navy-dark);padding:48px 24px 20px;border-top:2px solid r
       </div>
     </a>
     <ul class="nav-links" id="nav-links">
-      <li><a href="#sobre">Sobre</a></li>
-      <li><a href="#principios">Principios</a></li>
-      <li><a href="#indicadores">Indicadores</a></li>
-      <li><a href="#estadisticas">Estadísticas</a></li>
-      <li><a href="#red">Red</a></li>
-      <li><a href="#comite">Comité de Ética</a></li>
-      <li><a href="#comite-editorial">Comité Editorial</a></li>
-      <li><a href="#grupo-investigacion">GIM-BIS</a></li>
-      <li><a href="#publicaciones">Publicaciones</a></li>
-      <li><a href="#afiliacion">Afiliación</a></li>
+      <li><a href="#panel-home" class="tab-link" data-tab="home">Home</a></li>
+      <li><a href="#panel-publicaciones" class="tab-link" data-tab="publicaciones">Publicaciones</a></li>
+      <li><a href="#panel-red" class="tab-link" data-tab="red">Red científica</a></li>
+      <li><a href="#panel-contacto" class="tab-link" data-tab="contacto">Contáctenos</a></li>
       <li><a href="/en/ob-bia-latam.html" class="nav-lang">🌐 EN</a></li>
     </ul>
     <div class="nav-burger" onclick="document.getElementById('nav-links').classList.toggle('open')">
@@ -253,6 +260,7 @@ footer{background:var(--navy-dark);padding:48px 24px 20px;border-top:2px solid r
   </div>
 </nav>
 
+<div class="tab-panel" id="panel-home" role="tabpanel">
 <!-- HERO -->
 <section class="hero" id="inicio">
   <div class="hero-badge">🌎 Red Científica Multinacional · América Latina</div>
@@ -268,11 +276,10 @@ footer{background:var(--navy-dark);padding:48px 24px 20px;border-top:2px solid r
   </div>
   <div class="hero-acta">📋 Acta de Constitución N° 001-2026 · OB-BIA LATAM</div>
   <div class="hero-btns">
-    <a href="#estadisticas" class="btn-p">Ver estadísticas en vivo</a>
-    <a href="#afiliacion" class="btn-s">Unirse a la red</a>
+    <a href="#panel-publicaciones" class="btn-p" data-tab="publicaciones">Ver estadísticas en vivo</a>
+    <a href="#panel-contacto" class="btn-s" data-tab="contacto">Unirse a la red</a>
   </div>
 </section>
-
 <!-- SOBRE -->
 <section class="sec" id="sobre">
   <div class="sec-in">
@@ -307,7 +314,6 @@ footer{background:var(--navy-dark);padding:48px 24px 20px;border-top:2px solid r
     </div>
   </div>
 </section>
-
 <!-- PRINCIPIOS -->
 <section class="sec sec-alt" id="principios">
   <div class="sec-in">
@@ -321,7 +327,6 @@ footer{background:var(--navy-dark);padding:48px 24px 20px;border-top:2px solid r
     </div>
   </div>
 </section>
-
 <!-- INDICADORES -->
 <section class="sec" id="indicadores">
   <div class="sec-in">
@@ -405,7 +410,9 @@ footer{background:var(--navy-dark);padding:48px 24px 20px;border-top:2px solid r
     </div>
   </div>
 </section>
+</div>
 
+<div class="tab-panel" id="panel-publicaciones" role="tabpanel">
 <!-- ESTADÍSTICAS EN TIEMPO REAL -->
 <section class="sec sec-alt sec-stats" id="estadisticas">
   <div class="sec-in">
@@ -429,158 +436,38 @@ footer{background:var(--navy-dark);padding:48px 24px 20px;border-top:2px solid r
     <div id="stats-err" style="display:none;text-align:center;padding:20px;margin-top:16px;background:rgba(13,33,69,0.04);border-radius:10px;font-size:12px;color:var(--g500);">⚠️ Sin conexión a la base de datos — mostrando datos de referencia del Acta N°001-2026.</div>
   </div>
 </section>
-
-<!-- RED DE PROFESIONALES -->
-<section class="sec" id="red">
+<!-- PUBLICACIONES -->
+<section class="sec" id="publicaciones">
   <div class="sec-in">
-    <div class="sec-lbl">Red CNV en Colombia</div>
-    <h2 class="sec-h">Integrantes por <span>ciudad</span></h2>
+    <div class="sec-lbl">Producción académica</div>
+    <h2 class="sec-h">Publicaciones y <span>Boletines</span></h2>
     <div class="divider"></div>
-    <p class="sec-p">La red CNV integra hoy profesionales de la salud certificados en el sistema ANI BIS-E en cuatro ciudades de Colombia, con un protocolo de evaluación unificado y base de datos centralizada.</p>
-    <div class="map-wrap">
-      <div id="latam-map"></div>
-      <div class="cc-row">
-        <div class="cc" onclick="zoomToCountry('medellin')">
-          <div class="cc-flag">🇨🇴</div>
-          <div style="flex:1;">
-            <div class="cc-name">Medellín</div>
-            <div class="cc-meta">Antioquia · Sede</div>
-            <div class="cc-bar"><div class="cc-fill" style="width:100%"></div></div>
-          </div>
-          <div style="text-align:right;"><div style="font-size:20px;font-weight:800;color:var(--navy);">3</div><div style="font-size:10px;color:var(--g500);">integrantes</div></div>
-        </div>
-        <div class="cc" onclick="zoomToCountry('pereira')">
-          <div class="cc-flag">🇨🇴</div>
-          <div style="flex:1;">
-            <div class="cc-name">Pereira</div>
-            <div class="cc-meta">Risaralda</div>
-            <div class="cc-bar"><div class="cc-fill" style="width:100%"></div></div>
-          </div>
-          <div style="text-align:right;"><div style="font-size:20px;font-weight:800;color:var(--navy);">3</div><div style="font-size:10px;color:var(--g500);">integrantes</div></div>
-        </div>
-        <div class="cc" onclick="zoomToCountry('cali')">
-          <div class="cc-flag">🇨🇴</div>
-          <div style="flex:1;">
-            <div class="cc-name">Cali</div>
-            <div class="cc-meta">Valle del Cauca</div>
-            <div class="cc-bar"><div class="cc-fill" style="width:67%"></div></div>
-          </div>
-          <div style="text-align:right;"><div style="font-size:20px;font-weight:800;color:var(--navy);">2</div><div style="font-size:10px;color:var(--g500);">integrantes</div></div>
-        </div>
-        <div class="cc" onclick="zoomToCountry('tunja')">
-          <div class="cc-flag">🇨🇴</div>
-          <div style="flex:1;">
-            <div class="cc-name">Tunja</div>
-            <div class="cc-meta">Boyacá</div>
-            <div class="cc-bar"><div class="cc-fill" style="width:33%"></div></div>
-          </div>
-          <div style="text-align:right;"><div style="font-size:20px;font-weight:800;color:var(--navy);">1</div><div style="font-size:10px;color:var(--g500);">integrantes</div></div>
-        </div>
+    <p class="sec-p">La producción académica del observatorio se organiza en tres líneas. Estas secciones están en desarrollo y se publicarán próximamente.</p>
+    <div class="pub-grid">
+      <div class="pub">
+        <div class="pub-type">📄 Artículos de revista</div>
+        <div class="pub-title">Próximamente</div>
+        <div class="pub-meta">Sección en desarrollo. Aquí se publicarán los artículos científicos del observatorio.</div>
+        <span class="badge-year">En desarrollo</span>
       </div>
-      <div style="background:var(--off);border-radius:12px;padding:16px;">
-        <div style="font-size:10px;font-weight:700;color:var(--g500);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:10px;">Protocolo ANI BIS-E · Datos multicéntricos</div>
-        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;text-align:center;">
-          <div style="padding:10px;background:white;border-radius:8px;border:1px solid var(--g100);"><div style="font-size:18px;font-weight:800;color:var(--teal);">259</div><div style="font-size:9px;color:var(--g500);">Variables</div></div>
-          <div style="padding:10px;background:white;border-radius:8px;border:1px solid var(--g100);"><div style="font-size:18px;font-weight:800;color:var(--gold);">8</div><div style="font-size:9px;color:var(--g500);">Indicadores</div></div>
-          <div style="padding:10px;background:white;border-radius:8px;border:1px solid var(--g100);"><div style="font-size:18px;font-weight:800;color:var(--navy);">1</div><div style="font-size:9px;color:var(--g500);">Protocolo</div></div>
-        </div>
+      <div class="pub">
+        <div class="pub-type">📰 Boletines</div>
+        <div class="pub-title">Próximamente</div>
+        <div class="pub-meta">Sección en desarrollo. Aquí se publicarán los boletines técnicos del observatorio.</div>
+        <span class="badge-year">En desarrollo</span>
+      </div>
+      <div class="pub">
+        <div class="pub-type">📚 Libros</div>
+        <div class="pub-title">Próximamente</div>
+        <div class="pub-meta">Sección en desarrollo. Aquí se publicarán los libros del observatorio.</div>
+        <span class="badge-year">En desarrollo</span>
       </div>
     </div>
   </div>
 </section>
+</div>
 
-<!-- COMITÉ DE ÉTICA -->
-<section class="sec sec-alt" id="comite">
-  <div class="sec-in">
-    <div class="sec-lbl">Gobierno científico</div>
-    <h2 class="sec-h">Comité de <span>Ética</span></h2>
-    <div class="divider"></div>
-    <p class="sec-p">El Comité de Ética del OB-BIA LATAM está integrado por su director y tres miembros externos con trayectoria en ética de la investigación, investigación biomédica, nutrición clínica y soporte nutricional.</p>
-    <div class="cmt-grid">
-      <div class="mb dir">
-        <div class="mb-av has-photo"><img src="/images/comite/gildardo.jpg" alt="Gildardo de Jesús Uribe Gil" loading="lazy" width="240" height="240"></div>
-        <div class="mb-role">Director científico</div>
-        <div class="mb-name">Gildardo de Jesús Uribe Gil</div>
-        <div class="mb-spec">Nutricionista Dietista · MSc · PhD(c) Salud Pública<br>Director científico OB-BIA LATAM · CNV<br>🇨🇴 Colombia</div>
-        <div style="margin-top:12px;display:flex;gap:6px;justify-content:center;flex-wrap:wrap;">
-          <span class="badge badge-g" style="font-size:8px;">ANI BIS-E</span>
-          <span class="badge badge-g" style="font-size:8px;">Medicina bioeléctrica</span>
-        </div>
-      </div>
-      <div class="mb">
-        <div class="mb-av has-photo"><img src="/images/comite/diego-cruz.jpg" alt="Diego Ernesto Cruz Sarabia" loading="lazy" width="240" height="240"></div>
-        <div class="mb-role">Miembro externo</div>
-        <div class="mb-name">Diego Ernesto Cruz Sarabia</div>
-        <div class="mb-spec">Fonoaudiólogo · Especialista en Educación Especial e Inclusión Social · Magíster en Educación<br>Docencia universitaria e investigación<br>🇨🇴 Colombia</div>
-        <span class="badge" style="margin-top:11px;font-size:8px;">Ética en investigación</span>
-        <details class="mb-more">
-          <summary>Ver más</summary>
-          <p>He participado como investigador y evaluador de proyectos de investigación, con conocimiento de la normatividad ética aplicable a investigaciones con seres humanos, los principios bioéticos y los procesos de revisión metodológica. Mi ejercicio profesional se caracteriza por la integridad, la objetividad y el compromiso con la protección de los participantes, aportando criterios éticos y científicos para la evaluación de proyectos de investigación.</p>
-        </details>
-      </div>
-      <div class="mb">
-        <div class="mb-av has-photo"><img src="/images/comite/edwin-higuita.jpg" alt="Edwin Higuita David" loading="lazy" width="240" height="240"></div>
-        <div class="mb-role">Miembro externo</div>
-        <div class="mb-name">Edwin Higuita David</div>
-        <div class="mb-spec">Microbiólogo y analista · Magíster en Ciencias Biomédicas<br>Exvicerrector de Investigación · Universidad del Sinú, Cartagena<br>🇨🇴 Colombia</div>
-        <span class="badge" style="margin-top:11px;font-size:8px;">Investigación</span>
-      </div>
-      <div class="mb">
-        <div class="mb-av has-photo"><img src="/images/comite/pereira.jpg" alt="Dr. Fernando José Pereira Paternina" loading="lazy" width="240" height="240"></div>
-        <div class="mb-role">Miembro externo</div>
-        <div class="mb-name">Dr. Fernando José Pereira Paternina</div>
-        <div class="mb-spec">Médico · Especialista en enfermedades críticas<br>Director del Grupo de Soporte Nutricional, Clínica Las Américas (Medellín) · Miembro de la Asociación Colombiana de Nutrición Clínica<br>🇨🇴 Colombia</div>
-        <span class="badge" style="margin-top:11px;font-size:8px;">Soporte nutricional</span>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- COMITÉ EDITORIAL -->
-<section class="sec" id="comite-editorial">
-  <div class="sec-in">
-    <div class="sec-lbl">Gobierno científico</div>
-    <h2 class="sec-h">Comité <span>Editorial</span></h2>
-    <div class="divider"></div>
-    <p class="sec-p">El Comité Editorial del OB-BIA LATAM revisa y avala la producción académica del observatorio: artículos de revista, boletines técnicos y libros. Lo integran tres profesionales con trayectoria en nutrición clínica, psicología de la salud, docencia universitaria e investigación.</p>
-    <div class="cmt-grid">
-      <div class="mb">
-        <div class="mb-av has-photo"><img src="/images/comite/diana-villa.jpg" alt="Diana Patricia Villa Montoya" loading="lazy" width="240" height="240"></div>
-        <div class="mb-role">Miembro</div>
-        <div class="mb-name">Diana Patricia Villa Montoya</div>
-        <div class="mb-spec">Nutricionista · MSc en Nutrición Clínica<br>Profesional independiente · Autora de un libro sobre nutrición y ejercicio<br>🇨🇴 Colombia</div>
-        <span class="badge" style="margin-top:11px;font-size:8px;">Nutrición clínica</span>
-        <details class="mb-more">
-          <summary>Ver más</summary>
-          <p>Fue directora del programa de Nutrición de la Universidad de Pereira (Colombia); miembro de la Asociación Colombiana de Facultades de Nutrición y Dietética (ACOFANUD) y presidenta del capítulo Pereira del Colegio Colombiano de Nutricionistas Dietistas (COLNUD).</p>
-        </details>
-      </div>
-      <div class="mb">
-        <div class="mb-av has-photo"><img src="/images/comite/frank-ceballos.jpg" alt="Frank Ceballos" loading="lazy" width="240" height="240"></div>
-        <div class="mb-role">Miembro</div>
-        <div class="mb-name">Frank Ceballos</div>
-        <div class="mb-spec">Nutricionista Dietista especializado en Nutrición Clínica · MSc en Educación<br>Docente universitario e investigador<br>🇨🇴 Colombia</div>
-        <span class="badge" style="margin-top:11px;font-size:8px;">Nutrición clínica</span>
-        <details class="mb-more">
-          <summary>Ver más</summary>
-          <p>Miembro del Colegio Colombiano de Nutricionistas Dietistas. Autor de dos artículos en revistas indexadas.</p>
-        </details>
-      </div>
-      <div class="mb">
-        <div class="mb-av has-photo"><img src="/images/comite/paulo-gonzalez.jpg" alt="Paulo César González S." loading="lazy" width="240" height="240"></div>
-        <div class="mb-role">Miembro</div>
-        <div class="mb-name">Paulo César González S.</div>
-        <div class="mb-spec">Psicólogo · PhD en Psicología · MSc en Desarrollo Humano<br>Docente e investigador universitario<br>🇨🇴 Colombia</div>
-        <span class="badge" style="margin-top:11px;font-size:8px;">Psicología de la salud</span>
-        <details class="mb-more">
-          <summary>Ver más</summary>
-          <p>Especialista en Pedagogía para el Aprendizaje Autónomo. Ha publicado 12 artículos en revistas indexadas. Miembro de la Red de Investigación sobre el Suicidio en el Eje Cafetero y representante del campo de la Psicología de la Salud del Colegio Colombiano de Psicólogos. Recibió el Reconocimiento Regional por Desempeño Profesional Sobresaliente (2021) y el Reconocimiento Orden Mérito al Servicio Miguel Antonio Ramón Martínez en categoría Plata (2023).</p>
-        </details>
-      </div>
-    </div>
-  </div>
-</section>
-
+<div class="tab-panel" id="panel-red" role="tabpanel">
 <!-- GRUPO DE INVESTIGACIÓN GIM-BIS -->
 <section class="sec sec-alt" id="grupo-investigacion">
   <div class="sec-in">
@@ -589,12 +476,12 @@ footer{background:var(--navy-dark);padding:48px 24px 20px;border-top:2px solid r
     <div class="divider"></div>
     <p class="sec-p">El GIM-BIS es la unidad científica del OB-BIA LATAM, adscrita a Connected Nutrition Ventures SAS. Produce, valida y publica el conocimiento derivado del sistema ANI BIS-E: sus índices, sus sistemas de clasificación y la base de datos integrada latinoamericana. Opera bajo el modelo de investigación iniciada por el investigador, con protocolo estandarizado, plataforma de datos trazable y agenda de difusión propia.</p>
     <div class="pub-grid">
-      <div class="pub"><div class="pub-type">Identificación</div><div class="pub-title">GIM-BIS</div><div class="pub-meta">Grupo de Investigación en Medicina Bioeléctrica. Fundado en 2022. Sede: Medellín, Antioquia, Colombia.</div><span class="badge-year">Desde 2022</span></div>
+      <div class="pub"><div class="pub-type">Identificación</div><div class="pub-title">GIM-BIS</div><div class="pub-meta">Grupo de Investigación en Medicina Bioeléctrica. Fundado en 2026. Sede: Medellín, Antioquia, Colombia.</div><span class="badge-year">Desde 2026</span></div>
       <div class="pub"><div class="pub-type">Entidad responsable</div><div class="pub-title">Connected Nutrition Ventures SAS</div><div class="pub-meta">NIT 902045562-3. Observatorio adscrito: Observatorio Latinoamericano de Bioimpedancia (OB-BIA LATAM).</div><span class="badge-year">Colombia</span></div>
       <div class="pub"><div class="pub-type">Objeto de investigación</div><div class="pub-title">Sistema ANI BIS-E</div><div class="pub-meta">Ocho índices clínicos y tres sistemas de clasificación construidos sobre los parámetros Cole-Cole de bioimpedancia espectroscópica.</div><span class="badge-year">Más de 400 variables por consulta</span></div>
     </div>
 
-    <h3 class="sec-h" style="font-size:22px;margin-top:56px;">Líneas de <span>investigación</span></h3>
+    <h3 class="sub-h">Líneas de <span>investigación</span></h3>
     <div class="pub-grid">
       <div class="pub"><div class="pub-type">Línea 1</div><div class="pub-title">Calibración y validación poblacional del sistema ANI BIS-E</div><div class="pub-meta">Validación externa de los 81 fenotipos del Mapa EFRC y construcción de valores de referencia por sexo, edad y etnia para Colombia, México, Panamá, Perú y Chile.</div></div>
       <div class="pub"><div class="pub-type">Línea 2</div><div class="pub-title">Envejecimiento biológico celular en adultos latinoamericanos</div><div class="pub-meta">Validación longitudinal del Índice de Aceleración del Envejecimiento (IAE) mediante seguimiento con mediciones BIS trimestrales.</div></div>
@@ -605,7 +492,7 @@ footer{background:var(--navy-dark);padding:48px 24px 20px;border-top:2px solid r
       <div class="pub"><div class="pub-type">Línea 7</div><div class="pub-title">Composición corporal por niveles de Wang (II al V)</div><div class="pub-meta">Construcción de puntos de corte de composición corporal por niveles de Wang para la población latinoamericana.</div></div>
     </div>
 
-    <h3 class="sec-h" style="font-size:22px;margin-top:56px;">Investigador <span>principal</span></h3>
+    <h3 class="sub-h">Investigador <span>principal</span></h3>
     <div class="cmt-grid">
       <div class="mb dir">
         <div class="mb-av has-photo"><img src="/images/comite/gildardo.jpg" alt="Gildardo de Jesús Uribe Gil" loading="lazy" width="240" height="240"></div>
@@ -623,7 +510,7 @@ footer{background:var(--navy-dark);padding:48px 24px 20px;border-top:2px solid r
       </div>
     </div>
 
-    <h3 class="sec-h" style="font-size:22px;margin-top:56px;">Investigadores de campo · <span>Colombia</span></h3>
+    <h3 class="sub-h">Investigadores de campo · <span>Colombia</span></h3>
     <p class="sec-p">Profesionales de la salud que desarrollan el modelo ANI BIS-E en su práctica clínica y aportan datos estandarizados al repositorio del observatorio. Quienes acumulan producción científica se incorporan formalmente al grupo como investigadores asociados, con coautoría en las publicaciones derivadas de los datos que aportaron.</p>
     <div class="cmt-grid">
       <div class="mb">
@@ -682,7 +569,7 @@ footer{background:var(--navy-dark);padding:48px 24px 20px;border-top:2px solid r
       </div>
     </div>
 
-    <h3 class="sec-h" style="font-size:22px;margin-top:56px;">Colaboradores <span>internacionales</span></h3>
+    <h3 class="sub-h">Colaboradores <span>internacionales</span></h3>
     <div class="pub-grid">
       <div class="pub"><div class="pub-type">🇲🇽 México</div><div class="pub-title">Raúl Pineda</div><div class="pub-meta">Aporte de base de datos clínicos BIS · Co-validación del sistema ANI BIS-E en contexto clínico mexicano.</div></div>
       <div class="pub"><div class="pub-type">🇲🇽 México</div><div class="pub-title">Pedro Yniesta</div><div class="pub-meta">Aporte de base de datos BIS · Calibración del sistema.</div></div>
@@ -690,39 +577,154 @@ footer{background:var(--navy-dark);padding:48px 24px 20px;border-top:2px solid r
     </div>
   </div>
 </section>
-
-<!-- PUBLICACIONES -->
-<section class="sec" id="publicaciones">
+<!-- COMITES -->
+<section class="sec" id="comites">
   <div class="sec-in">
-    <div class="sec-lbl">Producción académica</div>
-    <h2 class="sec-h">Publicaciones y <span>Boletines</span></h2>
+    <div class="sec-lbl">Gobierno científico</div>
+    <h2 class="sec-h">Comités del <span>observatorio</span></h2>
     <div class="divider"></div>
-    <p class="sec-p">La producción académica del observatorio se organiza en tres líneas. Estas secciones están en desarrollo y se publicarán próximamente.</p>
-    <div class="pub-grid">
-      <div class="pub">
-        <div class="pub-type">📄 Artículos de revista</div>
-        <div class="pub-title">Próximamente</div>
-        <div class="pub-meta">Sección en desarrollo. Aquí se publicarán los artículos científicos del observatorio.</div>
-        <span class="badge-year">En desarrollo</span>
+    <p class="sec-p">El gobierno científico del OB-BIA LATAM descansa en dos comités. El Comité de Ética vela por la protección de los participantes y la integridad de los protocolos; el Comité Editorial revisa y avala la producción académica del observatorio.</p>
+    <h3 class="sub-h" id="comite">Comité de <span>Ética</span></h3>
+    <p class="sec-p">El Comité de Ética del OB-BIA LATAM está integrado por su director y tres miembros externos con trayectoria en ética de la investigación, investigación biomédica, nutrición clínica y soporte nutricional.</p>
+    <div class="cmt-grid">
+      <div class="mb dir">
+        <div class="mb-av has-photo"><img src="/images/comite/gildardo.jpg" alt="Gildardo de Jesús Uribe Gil" loading="lazy" width="240" height="240"></div>
+        <div class="mb-role">Director científico</div>
+        <div class="mb-name">Gildardo de Jesús Uribe Gil</div>
+        <div class="mb-spec">Nutricionista Dietista · MSc · PhD(c) Salud Pública<br>Director científico OB-BIA LATAM · CNV<br>🇨🇴 Colombia</div>
+        <div style="margin-top:12px;display:flex;gap:6px;justify-content:center;flex-wrap:wrap;">
+          <span class="badge badge-g" style="font-size:8px;">ANI BIS-E</span>
+          <span class="badge badge-g" style="font-size:8px;">Medicina bioeléctrica</span>
+        </div>
       </div>
-      <div class="pub">
-        <div class="pub-type">📰 Boletines</div>
-        <div class="pub-title">Próximamente</div>
-        <div class="pub-meta">Sección en desarrollo. Aquí se publicarán los boletines técnicos del observatorio.</div>
-        <span class="badge-year">En desarrollo</span>
+      <div class="mb">
+        <div class="mb-av has-photo"><img src="/images/comite/diego-cruz.jpg" alt="Diego Ernesto Cruz Sarabia" loading="lazy" width="240" height="240"></div>
+        <div class="mb-role">Miembro externo</div>
+        <div class="mb-name">Diego Ernesto Cruz Sarabia</div>
+        <div class="mb-spec">Fonoaudiólogo · Especialista en Educación Especial e Inclusión Social · Magíster en Educación<br>Docencia universitaria e investigación<br>🇨🇴 Colombia</div>
+        <span class="badge" style="margin-top:11px;font-size:8px;">Ética en investigación</span>
+        <details class="mb-more">
+          <summary>Ver más</summary>
+          <p>He participado como investigador y evaluador de proyectos de investigación, con conocimiento de la normatividad ética aplicable a investigaciones con seres humanos, los principios bioéticos y los procesos de revisión metodológica. Mi ejercicio profesional se caracteriza por la integridad, la objetividad y el compromiso con la protección de los participantes, aportando criterios éticos y científicos para la evaluación de proyectos de investigación.</p>
+        </details>
       </div>
-      <div class="pub">
-        <div class="pub-type">📚 Libros</div>
-        <div class="pub-title">Próximamente</div>
-        <div class="pub-meta">Sección en desarrollo. Aquí se publicarán los libros del observatorio.</div>
-        <span class="badge-year">En desarrollo</span>
+      <div class="mb">
+        <div class="mb-av has-photo"><img src="/images/comite/edwin-higuita.jpg" alt="Edwin Higuita David" loading="lazy" width="240" height="240"></div>
+        <div class="mb-role">Miembro externo</div>
+        <div class="mb-name">Edwin Higuita David</div>
+        <div class="mb-spec">Microbiólogo y analista · Magíster en Ciencias Biomédicas<br>Exvicerrector de Investigación · Universidad del Sinú, Cartagena<br>🇨🇴 Colombia</div>
+        <span class="badge" style="margin-top:11px;font-size:8px;">Investigación</span>
+      </div>
+      <div class="mb">
+        <div class="mb-av has-photo"><img src="/images/comite/pereira.jpg" alt="Dr. Fernando José Pereira Paternina" loading="lazy" width="240" height="240"></div>
+        <div class="mb-role">Miembro externo</div>
+        <div class="mb-name">Dr. Fernando José Pereira Paternina</div>
+        <div class="mb-spec">Médico · Especialista en enfermedades críticas<br>Director del Grupo de Soporte Nutricional, Clínica Las Américas (Medellín) · Miembro de la Asociación Colombiana de Nutrición Clínica<br>🇨🇴 Colombia</div>
+        <span class="badge" style="margin-top:11px;font-size:8px;">Soporte nutricional</span>
+      </div>
+    </div>
+    <h3 class="sub-h" id="comite-editorial">Comité <span>Editorial</span></h3>
+    <p class="sec-p">El Comité Editorial del OB-BIA LATAM revisa y avala la producción académica del observatorio: artículos de revista, boletines técnicos y libros. Lo integran tres profesionales con trayectoria en nutrición clínica, psicología de la salud, docencia universitaria e investigación.</p>
+    <div class="cmt-grid">
+      <div class="mb">
+        <div class="mb-av has-photo"><img src="/images/comite/diana-villa.jpg" alt="Diana Patricia Villa Montoya" loading="lazy" width="240" height="240"></div>
+        <div class="mb-role">Miembro</div>
+        <div class="mb-name">Diana Patricia Villa Montoya</div>
+        <div class="mb-spec">Nutricionista · MSc en Nutrición Clínica<br>Profesional independiente · Autora de un libro sobre nutrición y ejercicio<br>🇨🇴 Colombia</div>
+        <span class="badge" style="margin-top:11px;font-size:8px;">Nutrición clínica</span>
+        <details class="mb-more">
+          <summary>Ver más</summary>
+          <p>Fue directora del programa de Nutrición de la Universidad de Pereira (Colombia); miembro de la Asociación Colombiana de Facultades de Nutrición y Dietética (ACOFANUD) y presidenta del capítulo Pereira del Colegio Colombiano de Nutricionistas Dietistas (COLNUD).</p>
+        </details>
+      </div>
+      <div class="mb">
+        <div class="mb-av has-photo"><img src="/images/comite/frank-ceballos.jpg" alt="Frank Ceballos" loading="lazy" width="240" height="240"></div>
+        <div class="mb-role">Miembro</div>
+        <div class="mb-name">Frank Ceballos</div>
+        <div class="mb-spec">Nutricionista Dietista especializado en Nutrición Clínica · MSc en Educación<br>Docente universitario e investigador<br>🇨🇴 Colombia</div>
+        <span class="badge" style="margin-top:11px;font-size:8px;">Nutrición clínica</span>
+        <details class="mb-more">
+          <summary>Ver más</summary>
+          <p>Miembro del Colegio Colombiano de Nutricionistas Dietistas. Autor de dos artículos en revistas indexadas.</p>
+        </details>
+      </div>
+      <div class="mb">
+        <div class="mb-av has-photo"><img src="/images/comite/paulo-gonzalez.jpg" alt="Paulo César González S." loading="lazy" width="240" height="240"></div>
+        <div class="mb-role">Miembro</div>
+        <div class="mb-name">Paulo César González S.</div>
+        <div class="mb-spec">Psicólogo · PhD en Psicología · MSc en Desarrollo Humano<br>Docente e investigador universitario<br>🇨🇴 Colombia</div>
+        <span class="badge" style="margin-top:11px;font-size:8px;">Psicología de la salud</span>
+        <details class="mb-more">
+          <summary>Ver más</summary>
+          <p>Especialista en Pedagogía para el Aprendizaje Autónomo. Ha publicado 12 artículos en revistas indexadas. Miembro de la Red de Investigación sobre el Suicidio en el Eje Cafetero y representante del campo de la Psicología de la Salud del Colegio Colombiano de Psicólogos. Recibió el Reconocimiento Regional por Desempeño Profesional Sobresaliente (2021) y el Reconocimiento Orden Mérito al Servicio Miguel Antonio Ramón Martínez en categoría Plata (2023).</p>
+        </details>
       </div>
     </div>
   </div>
 </section>
+<!-- RED DE PROFESIONALES -->
+<section class="sec sec-alt" id="red">
+  <div class="sec-in">
+    <div class="sec-lbl">Red CNV en Colombia</div>
+    <h2 class="sec-h">Integrantes por <span>ciudad</span></h2>
+    <div class="divider"></div>
+    <p class="sec-p">La red CNV integra hoy profesionales de la salud certificados en el sistema ANI BIS-E en cuatro ciudades de Colombia, con un protocolo de evaluación unificado y base de datos centralizada.</p>
+    <div class="map-wrap">
+      <div id="latam-map"></div>
+      <div class="cc-row">
+        <div class="cc" onclick="zoomToCountry('medellin')">
+          <div class="cc-flag">🇨🇴</div>
+          <div style="flex:1;">
+            <div class="cc-name">Medellín</div>
+            <div class="cc-meta">Antioquia · Sede</div>
+            <div class="cc-bar"><div class="cc-fill" style="width:100%"></div></div>
+          </div>
+          <div style="text-align:right;"><div style="font-size:20px;font-weight:800;color:var(--navy);">3</div><div style="font-size:10px;color:var(--g500);">integrantes</div></div>
+        </div>
+        <div class="cc" onclick="zoomToCountry('pereira')">
+          <div class="cc-flag">🇨🇴</div>
+          <div style="flex:1;">
+            <div class="cc-name">Pereira</div>
+            <div class="cc-meta">Risaralda</div>
+            <div class="cc-bar"><div class="cc-fill" style="width:100%"></div></div>
+          </div>
+          <div style="text-align:right;"><div style="font-size:20px;font-weight:800;color:var(--navy);">3</div><div style="font-size:10px;color:var(--g500);">integrantes</div></div>
+        </div>
+        <div class="cc" onclick="zoomToCountry('cali')">
+          <div class="cc-flag">🇨🇴</div>
+          <div style="flex:1;">
+            <div class="cc-name">Cali</div>
+            <div class="cc-meta">Valle del Cauca</div>
+            <div class="cc-bar"><div class="cc-fill" style="width:67%"></div></div>
+          </div>
+          <div style="text-align:right;"><div style="font-size:20px;font-weight:800;color:var(--navy);">2</div><div style="font-size:10px;color:var(--g500);">integrantes</div></div>
+        </div>
+        <div class="cc" onclick="zoomToCountry('tunja')">
+          <div class="cc-flag">🇨🇴</div>
+          <div style="flex:1;">
+            <div class="cc-name">Tunja</div>
+            <div class="cc-meta">Boyacá</div>
+            <div class="cc-bar"><div class="cc-fill" style="width:33%"></div></div>
+          </div>
+          <div style="text-align:right;"><div style="font-size:20px;font-weight:800;color:var(--navy);">1</div><div style="font-size:10px;color:var(--g500);">integrantes</div></div>
+        </div>
+      </div>
+      <div style="background:var(--off);border-radius:12px;padding:16px;">
+        <div style="font-size:10px;font-weight:700;color:var(--g500);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:10px;">Protocolo ANI BIS-E · Datos multicéntricos</div>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;text-align:center;">
+          <div style="padding:10px;background:white;border-radius:8px;border:1px solid var(--g100);"><div style="font-size:18px;font-weight:800;color:var(--teal);">259</div><div style="font-size:9px;color:var(--g500);">Variables</div></div>
+          <div style="padding:10px;background:white;border-radius:8px;border:1px solid var(--g100);"><div style="font-size:18px;font-weight:800;color:var(--gold);">8</div><div style="font-size:9px;color:var(--g500);">Indicadores</div></div>
+          <div style="padding:10px;background:white;border-radius:8px;border:1px solid var(--g100);"><div style="font-size:18px;font-weight:800;color:var(--navy);">1</div><div style="font-size:9px;color:var(--g500);">Protocolo</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+</div>
 
+<div class="tab-panel" id="panel-contacto" role="tabpanel">
 <!-- AFILIACIÓN -->
-<section class="sec sec-alt" id="afiliacion">
+<section class="sec" id="afiliacion">
   <div class="sec-in tc">
     <div class="sec-lbl">Membresía</div>
     <h2 class="sec-h">Miembros <span>activos</span></h2>
@@ -737,6 +739,8 @@ footer{background:var(--navy-dark);padding:48px 24px 20px;border-top:2px solid r
     <a href="mailto:direccioncientifica@cnvsystem.com" class="btn-p" style="display:inline-block;padding:14px 28px;font-size:14px;text-decoration:none;">direccioncientifica@cnvsystem.com</a>
   </div>
 </section>
+</div>
+
 
 <!-- FOOTER -->
 <footer>
@@ -750,10 +754,7 @@ footer{background:var(--navy-dark);padding:48px 24px 20px;border-top:2px solid r
       </div>
       <div class="ft-col">
         <div class="ft-ct">Navegación</div>
-        <a href="#sobre">Sobre OB-BIA</a><a href="#indicadores">Indicadores ANI BIS-E</a>
-        <a href="#estadisticas">Estadísticas en vivo</a><a href="#red">Red de profesionales</a>
-        <a href="#comite">Comité de Ética</a><a href="#comite-editorial">Comité Editorial</a><a href="#grupo-investigacion">GIM-BIS</a><a href="#publicaciones">Publicaciones</a>
-        <a href="#afiliacion">Miembros activos</a>
+        <a href="#panel-home" data-tab="home">Home</a><a href="#panel-publicaciones" data-tab="publicaciones">Publicaciones</a><a href="#panel-red" data-tab="red">Red científica</a><a href="#panel-contacto" data-tab="contacto">Contáctenos</a>
       </div>
       <div class="ft-col">
         <div class="ft-ct">Contacto</div>
@@ -1010,7 +1011,6 @@ function zoomToCountry(id) {
   setTimeout(() => entry.marker.openPopup(), 1300);
 }
 
-document.addEventListener('DOMContentLoaded', initMap);
 
 // ── ANIMATED COUNTER ───────────────────────────────
 function animNum(el, target, dur=1600) {
@@ -1083,8 +1083,8 @@ function checkLayout() {
 document.addEventListener('DOMContentLoaded', () => {
   checkLayout();
   window.addEventListener('resize', checkLayout);
-  loadStats();
   document.querySelectorAll('a[href^="#"]').forEach(a => {
+    if (a.dataset.tab) return;
     a.addEventListener('click', e => {
       const t = document.querySelector(a.getAttribute('href'));
       if (t) { e.preventDefault(); t.scrollIntoView({ behavior:'smooth', block:'start' }); }
@@ -1161,6 +1161,68 @@ document.addEventListener('DOMContentLoaded', () => {
     panel.querySelectorAll('.princ-dots button').forEach(b=>b.addEventListener('click',()=>select(+b.dataset.k)));
   }
   select(0);
+})();
+</script>
+
+<!-- CONTROL DE PESTANAS -->
+<script>
+(function(){
+  var MAP = {
+    'inicio':'home','sobre':'home','principios':'home','indicadores':'home',
+    'estadisticas':'publicaciones','publicaciones':'publicaciones',
+    'grupo-investigacion':'red','comites':'red','comite':'red','comite-editorial':'red','red':'red',
+    'afiliacion':'contacto','contacto':'contacto'
+  };
+  var started = {};
+  function boot(tab){
+    if (started[tab]) return;
+    started[tab] = true;
+    if (tab === 'publicaciones' && typeof loadStats === 'function') loadStats();
+    if (tab === 'red') {
+      if (typeof initMap === 'function') initMap();
+      if (window._map) setTimeout(function(){ window._map.invalidateSize(); }, 80);
+    }
+  }
+  function show(tab, scroll){
+    if (!document.getElementById('panel-' + tab)) tab = 'home';
+    document.querySelectorAll('.tab-panel').forEach(function(p){
+      p.classList.toggle('on', p.id === 'panel-' + tab);
+    });
+    document.querySelectorAll('.tab-link').forEach(function(a){
+      a.classList.toggle('on', a.dataset.tab === tab);
+      a.setAttribute('aria-current', a.dataset.tab === tab ? 'page' : 'false');
+    });
+    document.getElementById('nav-links').classList.remove('open');
+    boot(tab);
+    if (scroll) window.scrollTo({ top:0, behavior:'smooth' });
+  }
+  window.showTab = show;
+  function fromHash(){
+    var h = (location.hash || '').replace('#','');
+    if (!h) return 'home';
+    if (h.indexOf('panel-') === 0) return h.slice(6);
+    return MAP[h] || 'home';
+  }
+  document.addEventListener('DOMContentLoaded', function(){
+    document.querySelectorAll('[data-tab]').forEach(function(a){
+      a.addEventListener('click', function(e){
+        e.preventDefault();
+        var tab = a.dataset.tab;
+        history.replaceState(null, '', '#panel-' + tab);
+        show(tab, true);
+      });
+    });
+    var h = (location.hash || '').replace('#','');
+    var tab = fromHash();
+    show(tab, false);
+    /* enlace profundo a una seccion concreta dentro de la pestana */
+    if (h && h.indexOf('panel-') !== 0 && document.getElementById(h)) {
+      setTimeout(function(){
+        document.getElementById(h).scrollIntoView({ behavior:'smooth', block:'start' });
+      }, 160);
+    }
+  });
+  window.addEventListener('hashchange', function(){ show(fromHash(), false); });
 })();
 </script>
 </body>
