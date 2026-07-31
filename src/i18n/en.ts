@@ -321,8 +321,20 @@ export const en: Translations = {
         location: '',
         quote: 'It is a privilege for me to be part of CNV, because it represents an opportunity to keep growing as a professional and as a human being. After more than 30 years devoted to nutrition, I remain convinced that continuous learning is the path to delivering excellent care. Integrating the ANI-BIS-E model into my practice lets me update my knowledge, exchange experiences with professionals who are passionate about science, and strengthen my clinical judgment. What motivates me most is knowing that all this learning will be reflected in my patients, offering them a more complete assessment, genuinely personalized and preventive treatment, and evidence-based support. My purpose is to keep transforming lives through nutrition, combining scientific knowledge with close, humane care committed to the wellbeing and health of the people who trust me.',
       },
-      { role: 'Functional medicine', location: 'Medellín, Colombia', quote: 'For the first time you can show the patient, with objective data, what is happening inside their cell before the symptom appears. It completely changes the conversation in the consultation.' },
-      { role: 'Internal medicine', location: 'Cali, Colombia', quote: 'Integrating ATLAS and the BiodyXpert makes it possible to justify a premium fee with scientific rigor. Patients value seeing their progress with real curves.' },
+      // Real comment, published with authorization. Translated from Spanish.
+      {
+        name: 'María Camila Aristizábal Foronda',
+        role: 'Dietitian-Nutritionist · Specialist in Diabetes',
+        location: 'Medellín, Colombia',
+        quote: 'I came to CNV looking to keep growing as a professional, and what I value most so far is the scientific grounding behind the model. I am in the ANI BIS-E training stage, and I find it very valuable to be able to update my knowledge from the evidence and alongside a community of professionals who share that same standard. It excites me to think about how this view of health from the cell will add to the way I support my patients.',
+      },
+      // Real comment, published with authorization. Translated from Spanish.
+      {
+        name: 'Valentina Ramírez Huertas',
+        role: 'Functional nutritionist',
+        location: 'Pereira, Colombia',
+        quote: 'After getting to know the ANI BIS-E model, I reaffirm my conviction that the future of nutrition lies in prevention and precision medicine. As a functional nutritionist, I find in this model a tool that makes it possible to understand health from cellular function and to act before damage turns into disease. More than treating pathologies, ANI BIS-E offers the possibility of identifying functional risks early and guiding personalised nutritional interventions, with the aim of preserving health, optimising biological function, and improving people’s quality of life.',
+      },
       { role: 'Sports medicine', location: 'Barranquilla, Colombia', quote: 'Belonging to the OB BIA LATAM cohort turns the professional into a researcher of their own population: science and clinical practice in the same workflow.' },
     ],
   },

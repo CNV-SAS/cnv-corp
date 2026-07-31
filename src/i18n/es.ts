@@ -335,8 +335,20 @@ export const es = {
         location: '',
         quote: 'Para mí es un privilegio hacer parte de CNV, porque representa una oportunidad de seguir creciendo como profesional y como ser humano. Después de más de 30 años dedicados a la nutrición, sigo convencida de que el aprendizaje continuo es el camino para brindar una atención de excelencia. Integrar el modelo ANI-BIS-E en mi consulta me permite actualizar mis conocimientos, intercambiar experiencias con profesionales apasionados por la ciencia y fortalecer mi criterio clínico. Lo que más me motiva es saber que todo este aprendizaje se verá reflejado en mis pacientes, ofreciéndoles una evaluación más completa, un tratamiento verdaderamente personalizado y preventivo, y un acompañamiento basado en evidencia. Mi propósito es continuar transformando vidas a través de la nutrición, combinando el conocimiento científico con una atención cercana, humana y comprometida con el bienestar y la salud de las personas que confían en mí.',
       },
-      { role: 'Medicina funcional', location: 'Medellín, Colombia', quote: 'Por primera vez se le puede mostrar al paciente, con datos objetivos, qué está pasando en su célula antes de que aparezca el síntoma. Cambia por completo la conversación en la consulta.' },
-      { role: 'Medicina interna', location: 'Cali, Colombia', quote: 'Integrar ATLAS y el BiodyXpert permite sustentar una tarifa premium con rigor científico. El paciente valora ver su evolución con curvas reales.' },
+      // Comentario real, publicado con autorización.
+      {
+        name: 'María Camila Aristizábal Foronda',
+        role: 'Nutricionista Dietista · Especialista en Diabetes',
+        location: 'Medellín, Colombia',
+        quote: 'Llegué a CNV buscando seguir creciendo como profesional, y lo que más valoro hasta ahora es el respaldo científico detrás del modelo. Estoy en la etapa de formación en ANI BIS-E, y me parece muy valioso poder actualizarme desde la evidencia y con una comunidad de profesionales que comparten esa misma exigencia. Me emociona pensar en cómo esta mirada de la salud desde la célula va a sumar a mi forma de acompañar a mis pacientes.',
+      },
+      // Comentario real, publicado con autorización.
+      {
+        name: 'Valentina Ramírez Huertas',
+        role: 'Nutricionista funcional',
+        location: 'Pereira, Colombia',
+        quote: 'Después de conocer el modelo ANI BIS-E, reafirmo mi convicción de que el futuro de la nutrición está en la prevención y en la medicina de precisión. Como nutricionista funcional, encuentro en este modelo una herramienta que permite comprender la salud desde la función celular y actuar antes de que el daño se traduzca en enfermedad. Más que tratar patologías, ANI BIS-E ofrece la posibilidad de identificar riesgos funcionales de manera temprana y orientar intervenciones nutricionales personalizadas, con el objetivo de preservar la salud, optimizar la función biológica y mejorar la calidad de vida de las personas.',
+      },
       { role: 'Medicina del deporte', location: 'Barranquilla, Colombia', quote: 'Pertenecer a la cohorte OB BIA LATAM convierte al profesional en investigador de su propia población: ciencia y práctica clínica en el mismo flujo.' },
     ],
   },
