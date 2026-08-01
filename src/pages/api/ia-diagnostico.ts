@@ -19,9 +19,14 @@ const ATLAS_IA_TOKEN = import.meta.env.ATLAS_IA_TOKEN;
 
 // Sólo se permiten estos modelos y este techo de tokens: si alguien alcanzara el
 // endpoint, no podría pedir modelos caros ni respuestas ilimitadas.
+// Los dos primeros son de texto (diagnóstico). Los de visión leen la captura de
+// la pantalla de espectroscopía del Biody BIS y proponen los siete parámetros;
+// el profesional siempre confirma o corrige antes de que entren al cálculo.
 const MODELOS_PERMITIDOS = new Set([
   'llama-3.3-70b-versatile',
   'llama-3.1-8b-instant',
+  'meta-llama/llama-4-scout-17b-16e-instruct',
+  'meta-llama/llama-4-maverick-17b-128e-instruct',
 ]);
 const MAX_TOKENS_TECHO = 4096;
 
