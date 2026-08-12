@@ -330,6 +330,13 @@ export const en: Translations = {
       },
       // Real comment, published with authorization. Translated from Spanish.
       {
+        name: 'Frank Carrera',
+        role: 'Nutritionist',
+        location: 'Cali, Colombia',
+        quote: 'The model is approachable, easy to apply and efficient for real practice, both for the patient and for the health professional. It also moves beyond the traditional biomedical paradigm towards proactive, preventive and personalised care, drawing on cellular biophysics, technology and standardised methods that turn complex data into clear, clinically useful information, improving diagnostic precision and treatment effectiveness.',
+      },
+      // Real comment, published with authorization. Translated from Spanish.
+      {
         name: 'Valentina Ramírez Huertas',
         role: 'Functional nutritionist',
         location: 'Pereira, Colombia',

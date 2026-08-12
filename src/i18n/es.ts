@@ -344,6 +344,13 @@ export const es = {
       },
       // Comentario real, publicado con autorización.
       {
+        name: 'Frank Carrera',
+        role: 'Nutricionista',
+        location: 'Cali, Colombia',
+        quote: 'El modelo es amigable, fácil de aplicar y eficiente para la práctica real, tanto para el paciente como para el profesional de la salud. Además, trasciende el paradigma biomédico tradicional hacia una atención proactiva, preventiva y personalizada, integrando fundamentos de biofísica celular, tecnología y métodos estandarizados que permiten convertir datos complejos en información clara y clínicamente útil, mejorando la precisión de los diagnósticos y la eficacia de los tratamientos.',
+      },
+      // Comentario real, publicado con autorización.
+      {
         name: 'Valentina Ramírez Huertas',
         role: 'Nutricionista funcional',
         location: 'Pereira, Colombia',

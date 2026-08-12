@@ -32,12 +32,12 @@ const p = t.pages.formacion;
       <div class="hero-deco" aria-hidden="true">L</div>
     </header>
 
-    <!-- OFERTA EDUCATIVA -->
+    <!-- LAS DOS ESCUELAS -->
     <section id="oferta">
       <div class="wrap">
         <div class="kicker">Qué hacemos</div>
         <h2>Del dato científico al aula.</h2>
-        <p class="lead">Una oferta educativa que baja la evidencia del observatorio OB BIA LATAM a la práctica clínica del profesional.</p>
+        <p class="lead">La formación se organiza en dos escuelas, según a quién va dirigida. Cada una tiene su propio recorrido, sus requisitos y su certificación.</p>
         <div class="oferta-grid" id="ofertaGrid"></div>
       </div>
     </section>
@@ -45,7 +45,7 @@ const p = t.pages.formacion;
     <!-- DIPLOMADO DESTACADO -->
     <section class="diplo" id="diplomado">
       <div class="wrap">
-        <div class="kicker" style="color:var(--accent)">Programa insignia</div>
+        <div class="kicker" style="color:var(--accent)">Escuela para profesionales de la salud · Programa insignia</div>
         <h2 style="color:#fff">Diplomado en Medicina Bioeléctrica y Sistema ANI BIS-E</h2>
         <p class="diplo-intro">120 horas de formación virtual sincrónica que capacitan al profesional para interpretar, reportar e intervenir clínicamente con el sistema ANI BIS-E. Es, además, requisito de selección para los integrantes de la red CNV.</p>
 
@@ -71,10 +71,22 @@ const p = t.pages.formacion;
     <!-- CURSOS CORTOS -->
     <section id="cursos">
       <div class="wrap">
-        <div class="kicker">Cursos cortos · 40 horas</div>
+        <div class="kicker">Escuela para profesionales de la salud · Cursos cortos, 40 horas</div>
         <h2>Especialízate en aplicaciones de la BIA.</h2>
         <p class="lead">Programas cortos y aplicados de bioimpedancia (BIA) para contextos clínicos específicos. Cada curso incluye certificación.</p>
         <div class="cursos-grid" id="cursosGrid"></div>
+        <p class="nota-iva">Precios por certificación, en dólares estadounidenses. A los valores se les aplica IVA del 19 %.</p>
+      </div>
+    </section>
+
+    <!-- ESCUELA PARA NO PROFESIONALES -->
+    <section id="general">
+      <div class="wrap">
+        <div class="kicker">Escuela para el público general</div>
+        <h2>Entender tu cuerpo, sin ser profesional de la salud.</h2>
+        <p class="lead">Formación en lenguaje ciudadano sobre composición corporal, envejecimiento y salud. Sin requisitos previos y sin acreditación documental: solo hay que querer entender.</p>
+        <div class="cursos-grid" id="generalGrid"></div>
+        <p class="nota-iva">Precios por certificación, en dólares estadounidenses. A los valores se les aplica IVA del 19 %.</p>
       </div>
     </section>
 
@@ -200,6 +212,8 @@ const p = t.pages.formacion;
     .cnvlearning-root .curso{background:#fff;border:1px solid var(--line);border-radius:14px;padding:24px;display:flex;flex-direction:column;transition:transform .2s,box-shadow .2s}
     .cnvlearning-root .curso:hover{transform:translateY(-3px);box-shadow:0 10px 28px rgba(22,50,79,.09)}
     .cnvlearning-root .curso .cico{font-size:26px;margin-bottom:12px}
+    .cnvlearning-root .cprecio{font-family:var(--display);font-weight:700;font-size:20px;color:var(--navy);margin-top:6px}
+    .cnvlearning-root .nota-iva{font-size:13px;color:#5b6b7a;margin-top:14px}
     .cnvlearning-root .curso h3{font-family:var(--display);font-size:18px;color:var(--navy);line-height:1.2;margin-bottom:8px}
     .cnvlearning-root .curso p{font-size:13.5px;color:var(--muted);flex:1}
     .cnvlearning-root .curso .choras{font-family:var(--mono);font-size:11px;letter-spacing:1px;color:var(--teal);font-weight:600;margin:12px 0 4px}
@@ -238,10 +252,17 @@ const p = t.pages.formacion;
   <script is:inline>
   /* ====================== DATOS ====================== */
   const OFERTA = [
-    { ico:"🎓", t:"Diplomados", d:"Programas robustos de certificación, como el Diplomado en Medicina Bioeléctrica y Sistema ANI BIS-E." },
-    { ico:"⚡", t:"Cursos cortos (40 h)", d:"Formación aplicada y específica en usos y aplicaciones de la bioimpedancia (BIA)." },
+    { ico:"🩺", t:"Escuela para profesionales de la salud", d:"Diplomados y cursos cortos con certificación. Exige acreditar título o tarjeta profesional. Incluye el Diplomado en Medicina Bioeléctrica y Sistema ANI BIS-E." },
+    { ico:"🌱", t:"Escuela para el público general", d:"Formación en lenguaje ciudadano sobre composición corporal y salud. Sin requisitos previos ni acreditación documental." },
     { ico:"🎤", t:"Seminarios, talleres y congresos", d:"Actualización continua y divulgación científica presencial y virtual en toda Latinoamérica." },
     { ico:"🏛️", t:"Alianzas universitarias", d:"Convenios con universidades para desarrollar especializaciones y maestrías en el paradigma bioeléctrico." }
+  ];
+
+  /* Escuela para el público general. Los dos primeros programas salen del
+     diseño curricular de fase 1; el resto del paquete se añade cuando esté. */
+  const GENERAL = [
+    { ico:"⚖️", t:"Entender tu cuerpo más allá del peso", d:"Por qué el peso es un indicador incompleto, qué distingue la masa grasa de la masa magra y qué preguntar ante un informe de composición corporal.", h:"12 horas · certificación", p:29 },
+    { ico:"🕰️", t:"Diplomado en envejecimiento saludable", d:"Cómo cambia el cuerpo con los años y qué se puede hacer al respecto, contado sin tecnicismos.", h:"60 horas · certificación", p:89 }
   ];
 
   const FICHA = [
@@ -294,9 +315,14 @@ const p = t.pages.formacion;
   const mg = document.getElementById('modulosGrid');
   MODULOS.forEach(m => { mg.innerHTML += `<div class="mod"><span class="mn">${m.n}</span><span class="mt">${m.t}</span><span class="mh">${m.h}</span></div>`; });
 
+  const gg = document.getElementById('generalGrid');
+  GENERAL.forEach(c => {
+    gg.innerHTML += `<div class="curso"><div class="cico">${c.ico}</div><h3>${c.t}</h3><p>${c.d}</p><div class="choras">${c.h}</div><div class="cprecio">USD $${c.p}</div><button class="clink" onclick="interesa('${c.t.replace(/'/g,"\\'")}')">Me interesa &rarr;</button></div>`;
+  });
+
   const cg = document.getElementById('cursosGrid');
   CURSOS.forEach(c => {
-    cg.innerHTML += `<div class="curso"><div class="cico">${c.ico}</div><h3>${c.t}</h3><p>${c.d}</p><div class="choras">40 horas · certificado</div><button class="clink" onclick="interesa('Curso: ${c.t}')">Me interesa &rarr;</button></div>`;
+    cg.innerHTML += `<div class="curso"><div class="cico">${c.ico}</div><h3>${c.t}</h3><p>${c.d}</p><div class="choras">40 horas · certificación</div><div class="cprecio">USD $99</div><button class="clink" onclick="interesa('Curso: ${c.t}')">Me interesa &rarr;</button></div>`;
   });
 
   const lg = document.getElementById('lmsGrid');
@@ -306,6 +332,7 @@ const p = t.pages.formacion;
   const ofertaSelect = document.getElementById('ofertaSelect');
   const OPCIONES = ['Diplomado en Medicina Bioeléctrica y Sistema ANI BIS-E']
     .concat(CURSOS.map(c => 'Curso: ' + c.t))
+    .concat(GENERAL.map(c => 'Público general: ' + c.t))
     .concat(['Seminarios / talleres / congresos','Alianzas universitarias (especialización o maestría)']);
   OPCIONES.forEach(op => { const o = document.createElement('option'); o.value = op; o.textContent = op; ofertaSelect.appendChild(o); });
 
