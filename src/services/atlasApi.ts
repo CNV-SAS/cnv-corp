@@ -17,15 +17,18 @@ const DEMO: ModeloData = {
     { n: '05', titulo: 'Reporte / HC', descripcion: 'Informe final e historia clínica.' },
   ],
 
+  // `icon` es un nombre del set de src/lib/icons.ts, no un emoji: estos van
+  // dibujados DENTRO del SVG del octágono, donde un emoji entra como glifo de
+  // color del sistema y rompe el trazo del diagrama.
   determinants: [
-    { id: 'D1', titulo: 'Patrón usual de consumo alimentario', icon: '🍽️', resumen: 'Frecuencia habitual de consumo de los grupos de alimentos que definen el patrón alimentario de la persona.' },
-    { id: 'D2', titulo: 'Imagen corporal y conducta alimentaria', icon: '🪞', resumen: 'Percepción del propio cuerpo, satisfacción con el peso y conductas frente a la comida.' },
-    { id: 'D3', titulo: 'Hábitos de vida', icon: '🏃', resumen: 'Actividad física, sueño, estrés y relación con el tabaco y el alcohol.' },
-    { id: 'D4', titulo: 'Patrón horario alimentario', icon: '🕐', resumen: 'Distribución de comidas y ayunos a lo largo del día, clave para el ritmo metabólico.' },
-    { id: 'D5', titulo: 'Determinantes y epigenética', icon: '🧬', resumen: 'Factores hereditarios y de estilo de vida que modulan la expresión de la salud.' },
-    { id: 'D6', titulo: 'Salud digestiva', icon: '🩺', resumen: 'Función intestinal, síntomas y antecedentes que afectan la absorción y el metabolismo.' },
-    { id: 'D7', titulo: 'Hidratación', icon: '💧', resumen: 'Balance de líquidos y equilibrio hídrico, base de la función celular.' },
-    { id: 'D8', titulo: 'Contexto social y alimentario', icon: '🌐', resumen: 'Entorno, acceso a alimentos y determinantes sociales que condicionan la nutrición.' },
+    { id: 'D1', titulo: 'Patrón usual de consumo alimentario', icon: 'apple', resumen: 'Frecuencia habitual de consumo de los grupos de alimentos que definen el patrón alimentario de la persona.' },
+    { id: 'D2', titulo: 'Imagen corporal y conducta alimentaria', icon: 'user', resumen: 'Percepción del propio cuerpo, satisfacción con el peso y conductas frente a la comida.' },
+    { id: 'D3', titulo: 'Hábitos de vida', icon: 'activity', resumen: 'Actividad física, sueño, estrés y relación con el tabaco y el alcohol.' },
+    { id: 'D4', titulo: 'Patrón horario alimentario', icon: 'clock', resumen: 'Distribución de comidas y ayunos a lo largo del día, clave para el ritmo metabólico.' },
+    { id: 'D5', titulo: 'Determinantes y epigenética', icon: 'dna', resumen: 'Factores hereditarios y de estilo de vida que modulan la expresión de la salud.' },
+    { id: 'D6', titulo: 'Salud digestiva', icon: 'stethoscope', resumen: 'Función intestinal, síntomas y antecedentes que afectan la absorción y el metabolismo.' },
+    { id: 'D7', titulo: 'Hidratación', icon: 'droplet', resumen: 'Balance de líquidos y equilibrio hídrico, base de la función celular.' },
+    { id: 'D8', titulo: 'Contexto social y alimentario', icon: 'globe', resumen: 'Entorno, acceso a alimentos y determinantes sociales que condicionan la nutrición.' },
   ],
 
   dfi: {

@@ -157,7 +157,7 @@ export const es = {
     profiles: [
       {
         id: 'professional',
-        icon: '⚕',
+        icon: 'stethoscope',
         title: 'Soy profesional de salud',
         description: 'Nutricionista, médico funcional u otro profesional con práctica activa. Quiero implementar el modelo ANI-BIS-E.',
         cta: 'Postular al modelo',
@@ -165,7 +165,7 @@ export const es = {
       },
       {
         id: 'institution',
-        icon: '🏛',
+        icon: 'landmark',
         title: 'Represento una institución',
         description: 'Clínica, hospital, empresa u organización interesada en adoptar el modelo dentro de sus estructuras.',
         cta: 'Hablar con el equipo',
@@ -173,7 +173,7 @@ export const es = {
       },
       {
         id: 'patient',
-        icon: '🧬',
+        icon: 'heartPulse',
         title: 'Busco atención bajo el modelo',
         description: 'Soy paciente y quiero acceder a un profesional certificado que opere el modelo ANI-BIS-E.',
         cta: 'Encontrar un operador',

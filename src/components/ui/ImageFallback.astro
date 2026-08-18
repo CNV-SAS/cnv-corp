@@ -1,0 +1,32 @@
+---
+// Respaldo silencioso para cuando una imagen no carga.
+//
+// Antes cada uno de estos bloques mostraba un emoji (📷, 💻, 👥, 🎓, 🔬), el
+// nombre del archivo —"hero-bis.jpg"— y la nota "Reemplaza con tu imagen".
+// Eran notas internas de desarrollo: si una imagen se cae en producción, el
+// visitante ve el pendiente del equipo. Ahora queda una marca neutra y, como
+// mucho, una etiqueta descriptiva.
+//
+// El div nace con `hidden`; lo revela el `onerror` del <img> hermano, que le
+// pone display:flex.
+import { icon } from '../../lib/icons';
+
+interface Props {
+  /** Texto corto y presentable. Nunca el nombre del archivo. */
+  label?: string;
+  /** `light` para fondos oscuros. */
+  tone?: 'dark' | 'light';
+  /** Clases extra del contenedor (p. ej. posicionamiento absoluto). */
+  class?: string;
+}
+
+const { label = '', tone = 'dark', class: extra = '' } = Astro.props;
+const toneClass = tone === 'light' ? 'text-white/30' : 'text-cnv-core/20';
+---
+
+<div class:list={['hidden w-full h-full items-center justify-center text-center p-8', toneClass, extra]}>
+  <div>
+    <div class="mx-auto mb-3 w-fit" set:html={icon('image', 32)} />
+    {label && <div class="text-xs font-600">{label}</div>}
+  </div>
+</div>

@@ -1,6 +1,7 @@
 ---
 import { getI18n } from '../../../i18n';
 import ContactForm from '../../forms/ContactForm';
+import { icon } from '../../../lib/icons';
 
 const lang = Astro.currentLocale || 'es';
 const t = getI18n(lang);
@@ -26,7 +27,7 @@ const info = c.info;
           <div class="text-xs font-700 tracking-wider uppercase text-cnv-core/40">{info.heading}</div>
 
           <a href={`mailto:${info.email}`} class="flex items-start gap-3 group">
-            <span class="text-lg leading-none mt-0.5" aria-hidden="true">✉️</span>
+            <span class="mt-0.5 text-cnv-execute" set:html={icon('mail', 18)} />
             <div>
               <div class="text-[11px] font-700 tracking-wider uppercase text-cnv-core/40 mb-0.5">{info.email_label}</div>
               <div class="text-sm text-cnv-core group-hover:text-cnv-execute transition-colors">{info.email}</div>
@@ -34,7 +35,7 @@ const info = c.info;
           </a>
 
           <a href={info.whatsapp_link} target="_blank" rel="noopener" class="flex items-start gap-3 group">
-            <span class="text-lg leading-none mt-0.5" aria-hidden="true">💬</span>
+            <span class="mt-0.5 text-cnv-execute" set:html={icon('message', 18)} />
             <div>
               <div class="text-[11px] font-700 tracking-wider uppercase text-cnv-core/40 mb-0.5">{info.whatsapp_label}</div>
               <div class="text-sm text-cnv-core group-hover:text-cnv-execute transition-colors">{info.whatsapp}</div>
@@ -42,7 +43,7 @@ const info = c.info;
           </a>
 
           <div class="flex items-start gap-3">
-            <span class="text-lg leading-none mt-0.5" aria-hidden="true">📍</span>
+            <span class="mt-0.5 text-cnv-execute" set:html={icon('mapPin', 18)} />
             <div>
               <div class="text-[11px] font-700 tracking-wider uppercase text-cnv-core/40 mb-0.5">{info.address_label}</div>
               <div class="text-sm text-cnv-core">{info.address}</div>
@@ -50,7 +51,7 @@ const info = c.info;
           </div>
 
           <div class="flex items-start gap-3">
-            <span class="text-lg leading-none mt-0.5" aria-hidden="true">🕐</span>
+            <span class="mt-0.5 text-cnv-execute" set:html={icon('clock', 18)} />
             <div>
               <div class="text-[11px] font-700 tracking-wider uppercase text-cnv-core/40 mb-0.5">{info.hours_label}</div>
               <div class="text-sm text-cnv-core">{info.hours}</div>
@@ -58,7 +59,7 @@ const info = c.info;
           </div>
 
           <a href={info.linkedin} target="_blank" rel="noopener" class="flex items-start gap-3 group">
-            <span class="text-lg leading-none mt-0.5" aria-hidden="true">🔗</span>
+            <span class="mt-0.5 text-cnv-execute" set:html={icon('link', 18)} />
             <div>
               <div class="text-[11px] font-700 tracking-wider uppercase text-cnv-core/40 mb-0.5">{info.social_label}</div>
               <div class="text-sm text-cnv-core group-hover:text-cnv-execute transition-colors">{info.linkedin_label}</div>

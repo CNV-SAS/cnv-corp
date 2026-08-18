@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { getI18n } from '../i18n';
+import { iconScript } from '../lib/icons';
 
 const lang = Astro.currentLocale || 'es';
 const t = getI18n(lang);
@@ -134,7 +135,8 @@ const p = t.pages.investigacion;
     @media(max-width:560px){.cnvresearch-root .func-grid{grid-template-columns:1fr}}
     .cnvresearch-root .func-card{background:var(--soft);border:1px solid var(--line);border-radius:14px;padding:28px;transition:transform .2s,box-shadow .2s}
     .cnvresearch-root .func-card:hover{transform:translateY(-3px);box-shadow:0 10px 28px rgba(22,50,79,.08)}
-    .cnvresearch-root .func-icon{width:44px;height:44px;border-radius:10px;display:grid;place-items:center;margin-bottom:16px;font-size:22px}
+    .cnvresearch-root .func-icon{width:44px;height:44px;border-radius:10px;display:grid;place-items:center;margin-bottom:16px;color:var(--navy)}
+    .cnvresearch-root .func-icon svg{width:22px;height:22px}
     .cnvresearch-root .func-card h3{font-family:var(--display);font-size:19px;color:var(--navy);margin-bottom:10px}
     .cnvresearch-root .func-card p{font-size:15px;color:var(--muted)}
 
@@ -149,7 +151,6 @@ const p = t.pages.investigacion;
 
     /* ESTADO EN CONSTRUCCIÓN */
     .cnvresearch-root .soon{background:#fff;border:1px dashed var(--line);border-radius:14px;padding:56px 28px;text-align:center}
-    .cnvresearch-root .soon-ico{font-size:40px;line-height:1;margin-bottom:16px}
     .cnvresearch-root .soon h3{font-family:var(--display);font-size:22px;color:var(--navy);margin-bottom:10px}
     .cnvresearch-root .soon p{font-size:15px;color:var(--muted);max-width:420px;margin:0 auto}
 
@@ -241,14 +242,17 @@ const p = t.pages.investigacion;
     @media(prefers-reduced-motion:reduce){.cnvresearch-root *{animation:none!important;transition:none!important}}
   </style>
 
+  <script is:inline set:html={iconScript()}></script>
+
   <script is:inline>
   /* ====================== DATOS ====================== */
+  /* `color` es el fondo del azulejo; el trazo del ícono lo pone .func-icon. */
   const FUNCIONES = [
-    { icon:"🔬", color:"#e8f4f1", t:"Diseño y validación", d:"Diseño, validación y evolución continua del modelo ANI BIS-E con base en evidencia real de población latinoamericana." },
-    { icon:"🧬", color:"#eef0f8", t:"Investigación clínica", d:"Investigación clínica y aplicada basada en data real del ecosistema CNV a nivel latinoamericano." },
-    { icon:"📐", color:"#fdf6e3", t:"Estandarización", d:"Estandarización técnica, metodológica y de interpretación para toda la red de operadores CNV." },
-    { icon:"💡", color:"#f4eef0", t:"Consultoría científica", d:"Consultoría especializada en medicina bioeléctrica y nutrición funcional para instituciones y aliados." },
-    { icon:"📚", color:"#f0f4ee", t:"Producción editorial", d:"Divulgación científica, publicaciones y posicionamiento del modelo bajo el paradigma de salud bioeléctrica." }
+    { icon:CNVICO.flask, color:"#e8f4f1", t:"Diseño y validación", d:"Diseño, validación y evolución continua del modelo ANI BIS-E con base en evidencia real de población latinoamericana." },
+    { icon:CNVICO.microscope, color:"#eef0f8", t:"Investigación clínica", d:"Investigación clínica y aplicada basada en data real del ecosistema CNV a nivel latinoamericano." },
+    { icon:CNVICO.ruler, color:"#fdf6e3", t:"Estandarización", d:"Estandarización técnica, metodológica y de interpretación para toda la red de operadores CNV." },
+    { icon:CNVICO.lightbulb, color:"#f4eef0", t:"Consultoría científica", d:"Consultoría especializada en medicina bioeléctrica y nutrición funcional para instituciones y aliados." },
+    { icon:CNVICO.book, color:"#f0f4ee", t:"Producción editorial", d:"Divulgación científica, publicaciones y posicionamiento del modelo bajo el paradigma de salud bioeléctrica." }
   ];
 
   const LIBROS = [

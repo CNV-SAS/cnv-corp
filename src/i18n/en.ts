@@ -148,7 +148,7 @@ export const en: Translations = {
     profiles: [
       {
         id: 'professional',
-        icon: '⚕',
+        icon: 'stethoscope',
         title: 'I am a health professional',
         description: 'Nutritionist, functional physician or other professional with active practice. I want to implement the ANI-BIS-E model.',
         cta: 'Apply to the model',
@@ -156,7 +156,7 @@ export const en: Translations = {
       },
       {
         id: 'institution',
-        icon: '🏛',
+        icon: 'landmark',
         title: 'I represent an institution',
         description: 'Clinic, hospital, company or organization interested in adopting the model within its structure.',
         cta: 'Talk to the team',
@@ -164,7 +164,7 @@ export const en: Translations = {
       },
       {
         id: 'patient',
-        icon: '🧬',
+        icon: 'heartPulse',
         title: 'I seek care under the model',
         description: 'I am a patient and want to access a certified professional who operates the ANI-BIS-E model.',
         cta: 'Find an operator',

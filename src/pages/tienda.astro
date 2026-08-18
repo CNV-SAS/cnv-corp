@@ -2,6 +2,10 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { getI18n } from '../i18n';
 import StoreApp from '../components/store/StoreApp.tsx';
+import { icon } from '../lib/icons';
+// Nota: la fila de medios de pago llevaba una bandera de Colombia como emoji.
+// Windows no trae glifo de banderas, así que el navegador la degrada a las
+// letras "CO" y la línea se leía «CO Bre-B · PSE…». Va un ícono del set.
 
 const lang = Astro.currentLocale || 'es';
 const t = getI18n(lang);
@@ -23,9 +27,15 @@ const whatsappPhone = (import.meta.env.PUBLIC_WHATSAPP || t.footer.phone_link ||
       <h1 class="text-4xl md:text-5xl font-800 leading-tight max-w-3xl">{s.title}</h1>
       <p class="mt-6 text-lg text-white/60 max-w-2xl leading-relaxed">{s.subtitle}</p>
       <div class="mt-8 flex flex-wrap gap-x-6 gap-y-2 text-xs font-600 text-white/50">
-        <span>🔒 {s.secure_note}</span>
-        <span>🇨🇴 Bre-B · PSE · Nequi · Bancolombia</span>
-        <span>💳 Visa · Mastercard · PayPal</span>
+        <span class="inline-flex items-center gap-2">
+          <span set:html={icon('lock', 14)} />{s.secure_note}
+        </span>
+        <span class="inline-flex items-center gap-2">
+          <span set:html={icon('landmark', 14)} />Bre-B · PSE · Nequi · Bancolombia
+        </span>
+        <span class="inline-flex items-center gap-2">
+          <span set:html={icon('card', 14)} />Visa · Mastercard · PayPal
+        </span>
       </div>
     </div>
   </section>

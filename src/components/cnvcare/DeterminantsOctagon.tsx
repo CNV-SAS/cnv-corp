@@ -2,6 +2,11 @@
 import { useEffect, useMemo, useState } from 'react';
 import type { Determinant } from '../../types/anibise';
 import { TOKENS } from './tokens';
+import { ICON_PATHS, icon } from '../../lib/icons';
+
+// El ícono se dibuja en el sistema 24×24 del set; aquí se quiere de 22 px.
+const ICON_BOX = 22;
+const ICON_SCALE = ICON_BOX / 24;
 
 interface Props {
   determinants: Determinant[];
@@ -57,14 +62,14 @@ export default function DeterminantsOctagon({ determinants, onSelect }: Props) {
         <style>{`
           .oct-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;font-family:${TOKENS.body}}
           .oct-c{background:#fff;border:1px solid ${TOKENS.line};border-radius:12px;padding:14px}
-          .oct-c .ic{font-size:24px}
+          .oct-c .ic{color:${TOKENS.teal};line-height:0}
           .oct-c .id{font-family:${TOKENS.display};font-weight:700;font-size:12px;color:${TOKENS.teal};margin-top:6px}
           .oct-c .tt{font-family:${TOKENS.display};font-weight:600;font-size:14px;color:${TOKENS.navy};margin-top:2px;line-height:1.2}
           .oct-c .rs{font-size:12.5px;color:${TOKENS.muted};margin-top:8px;line-height:1.45}
         `}</style>
         {determinants.map((d) => (
           <div key={d.id} className="oct-c">
-            <div className="ic" aria-hidden="true">{d.icon}</div>
+            <div className="ic" aria-hidden="true" dangerouslySetInnerHTML={{ __html: icon(d.icon, 24) }} />
             <div className="id">{d.id}</div>
             <div className="tt">{d.titulo}</div>
             <div className="rs">{d.resumen}</div>
@@ -86,13 +91,13 @@ export default function DeterminantsOctagon({ determinants, onSelect }: Props) {
         .oct-sector:focus-visible{outline:none}
         .oct-sector:focus-visible .oct-shape{stroke:${TOKENS.navy};stroke-width:3}
         .oct-num{font-family:${TOKENS.display};font-weight:700;fill:#fff;font-size:13px;pointer-events:none}
-        .oct-ic{font-size:22px;pointer-events:none}
+        .oct-ic{pointer-events:none}
         .oct-hub{fill:${TOKENS.navy}}
         .oct-hub-t{fill:#fff;font-family:${TOKENS.display};font-weight:800;font-size:26px;pointer-events:none}
         .oct-hub-s{fill:${TOKENS.teal};font-family:${TOKENS.body};font-weight:600;font-size:9.5px;letter-spacing:1.5px;pointer-events:none}
         .oct-panel{background:${TOKENS.soft};border:1px solid ${TOKENS.line};border-radius:16px;padding:26px}
         .oct-panel .pid{font-family:${TOKENS.display};font-weight:700;font-size:12px;letter-spacing:2px;color:${TOKENS.teal};text-transform:uppercase}
-        .oct-panel .pic{font-size:34px;margin:6px 0 2px}
+        .oct-panel .pic{color:${TOKENS.teal};margin:8px 0 6px;line-height:0}
         .oct-panel h4{font-family:${TOKENS.display};font-weight:700;font-size:22px;color:${TOKENS.navy};line-height:1.15;margin:0}
         .oct-panel p{font-size:15px;color:${TOKENS.ink};margin-top:12px;line-height:1.6}
       `}</style>
@@ -125,7 +130,16 @@ export default function DeterminantsOctagon({ determinants, onSelect }: Props) {
                 stroke="#fff"
                 strokeWidth={2}
               />
-              <text className="oct-ic" x={lx} y={ly - 8} textAnchor="middle" dominantBaseline="central">{d.icon}</text>
+              <g
+                className="oct-ic"
+                transform={`translate(${lx - ICON_BOX / 2}, ${ly - 8 - ICON_BOX / 2}) scale(${ICON_SCALE})`}
+                fill="none"
+                stroke={isSel ? '#fff' : TOKENS.navy}
+                strokeWidth={1.75}
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                dangerouslySetInnerHTML={{ __html: ICON_PATHS[d.icon] ?? '' }}
+              />
               <text className="oct-num" x={lx} y={ly + 14} textAnchor="middle" dominantBaseline="central" fill={isSel ? '#fff' : TOKENS.navy}>{d.id}</text>
             </g>
           );
@@ -138,7 +152,11 @@ export default function DeterminantsOctagon({ determinants, onSelect }: Props) {
 
       <aside className="oct-panel" aria-live="polite">
         <div className="pid">Determinante {sel?.id}</div>
-        <div className="pic" aria-hidden="true">{sel?.icon}</div>
+        <div
+          className="pic"
+          aria-hidden="true"
+          dangerouslySetInnerHTML={{ __html: icon(sel?.icon ?? '', 34) }}
+        />
         <h4>{sel?.titulo}</h4>
         <p>{sel?.resumen}</p>
       </aside>

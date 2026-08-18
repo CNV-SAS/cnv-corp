@@ -1,6 +1,7 @@
 'use client';
 import { useState } from 'react';
 import { Turnstile } from '@marsidev/react-turnstile';
+import { icon } from '../../lib/icons';
 
 interface FormTranslations {
   profile_label: string;
@@ -38,7 +39,7 @@ interface Props {
 // ARQUITECTURA LIMPIA: Strings completos para que Tailwind los compile
 const PROFILES_CONFIG = [
   { 
-    icon: '⚕',
+    icon: 'stethoscope',
     btnClass: 'border-cnv-execute bg-cnv-execute/10 text-cnv-execute',
     inputClass: 'focus:border-cnv-execute focus:ring-1 focus:ring-cnv-execute',
     excBorder: 'border-cnv-execute',
@@ -46,8 +47,8 @@ const PROFILES_CONFIG = [
     excText: 'text-cnv-execute'
   },
   { 
-    icon: '🏛',
     // CORRECCIÓN: Usamos cnv-transfer (Azul claro) en lugar del verde
+    icon: 'landmark',
     btnClass: 'border-cnv-transfer bg-cnv-transfer/10 text-cnv-transfer',
     inputClass: 'focus:border-cnv-transfer focus:ring-1 focus:ring-cnv-transfer',
     excBorder: 'border-cnv-transfer',
@@ -55,7 +56,7 @@ const PROFILES_CONFIG = [
     excText: 'text-cnv-transfer'
   },
   {
-    icon: '🧬',
+    icon: 'heartPulse',
     btnClass: 'border-cnv-generate bg-cnv-generate/10 text-cnv-generate',
     inputClass: 'focus:border-cnv-generate focus:ring-1 focus:ring-cnv-generate',
     excBorder: 'border-cnv-generate',
@@ -63,7 +64,7 @@ const PROFILES_CONFIG = [
     excText: 'text-cnv-generate'
   },
   {
-    icon: '💬',
+    icon: 'message',
     btnClass: 'border-cnv-core bg-cnv-core/10 text-cnv-core',
     inputClass: 'focus:border-cnv-core focus:ring-1 focus:ring-cnv-core',
     excBorder: 'border-cnv-core',
@@ -188,7 +189,7 @@ export default function ContactForm({ t, lang }: Props) {
                     : 'border-slate-200 text-cnv-core hover:bg-slate-50 hover:border-slate-300'
                 }`}
               >
-                <span className="text-xl">{conf.icon}</span>
+                <span dangerouslySetInnerHTML={{ __html: icon(conf.icon, 20) }} />
                 <span>{label}</span>
               </button>
             );

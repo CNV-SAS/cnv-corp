@@ -86,7 +86,14 @@ export default function CommentForm({ labels, lang }: Props) {
   if (status === 'success') {
     return (
       <div className="rounded-2xl border-2 border-cnv-generate/30 bg-white p-10 text-center">
-        <div className="text-4xl mb-4" aria-hidden="true">✓</div>
+        {/* Mismo check que la página de gracias de la tienda, para que el
+            estado de éxito se vea igual en todo el sitio. */}
+        <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-cnv-generate/10 text-cnv-generate">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+            strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+            <path d="M20 6 9 17l-5-5" />
+          </svg>
+        </div>
         <h3 className="text-2xl font-800 text-cnv-core">{labels.ok_title}</h3>
         <p className="mt-4 text-sm text-cnv-core/70 leading-relaxed max-w-md mx-auto">
           {labels.ok_body}

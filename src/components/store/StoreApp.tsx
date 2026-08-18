@@ -318,7 +318,6 @@ function ProductGroup({
           <article key={p.id} className="group flex flex-col overflow-hidden rounded-2xl border border-slate-100 bg-white transition-shadow hover:shadow-xl">
             <div className="relative flex aspect-square items-center justify-center bg-gradient-to-b from-slate-50 to-white p-6">
               <span className="absolute left-3 top-3 rounded-full bg-cnv-core/5 px-2.5 py-1 text-[10px] font-700 text-cnv-core/60">{p.invima}</span>
-              <span className="absolute right-3 top-3 text-2xl">{p.ico}</span>
               <img
                 src={`/images/vitacellebis/bottle_${pad(p.img)}.jpg`}
                 alt={p.n}

@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { getI18n } from '../i18n';
+import { iconScript } from '../lib/icons';
 
 const lang = Astro.currentLocale || 'es';
 const t = getI18n(lang);
@@ -170,7 +171,8 @@ const p = t.pages.formacion;
     @media(max-width:560px){.cnvlearning-root .oferta-grid{grid-template-columns:1fr}}
     .cnvlearning-root .of-card{background:var(--soft);border:1px solid var(--line);border-radius:14px;padding:26px;transition:transform .2s,box-shadow .2s}
     .cnvlearning-root .of-card:hover{transform:translateY(-3px);box-shadow:0 10px 28px rgba(22,50,79,.08)}
-    .cnvlearning-root .of-ico{font-size:28px;margin-bottom:12px}
+    .cnvlearning-root .of-ico{color:var(--teal);margin-bottom:12px;line-height:0}
+    .cnvlearning-root .of-ico svg{width:28px;height:28px}
     .cnvlearning-root .of-card h3{font-family:var(--display);font-size:19px;color:var(--navy);margin-bottom:8px;line-height:1.2}
     .cnvlearning-root .of-card p{font-size:14px;color:var(--muted)}
 
@@ -211,7 +213,8 @@ const p = t.pages.formacion;
     @media(max-width:560px){.cnvlearning-root .cursos-grid{grid-template-columns:1fr}}
     .cnvlearning-root .curso{background:#fff;border:1px solid var(--line);border-radius:14px;padding:24px;display:flex;flex-direction:column;transition:transform .2s,box-shadow .2s}
     .cnvlearning-root .curso:hover{transform:translateY(-3px);box-shadow:0 10px 28px rgba(22,50,79,.09)}
-    .cnvlearning-root .curso .cico{font-size:26px;margin-bottom:12px}
+    .cnvlearning-root .curso .cico{color:var(--teal);margin-bottom:12px;line-height:0}
+    .cnvlearning-root .curso .cico svg{width:26px;height:26px}
     .cnvlearning-root .cprecio{font-family:var(--display);font-weight:700;font-size:20px;color:var(--navy);margin-top:6px}
     .cnvlearning-root .nota-iva{font-size:13px;color:#5b6b7a;margin-top:14px}
     .cnvlearning-root .curso h3{font-family:var(--display);font-size:18px;color:var(--navy);line-height:1.2;margin-bottom:8px}
@@ -228,7 +231,8 @@ const p = t.pages.formacion;
     @media(max-width:820px){.cnvlearning-root .lms-grid{grid-template-columns:repeat(2,1fr)}}
     @media(max-width:520px){.cnvlearning-root .lms-grid{grid-template-columns:1fr}}
     .cnvlearning-root .lms-card{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:12px;padding:18px 20px}
-    .cnvlearning-root .lms-card .li{font-size:22px;margin-bottom:8px}
+    .cnvlearning-root .lms-card .li{color:var(--accent);margin-bottom:8px;line-height:0}
+    .cnvlearning-root .lms-card .li svg{width:22px;height:22px}
     .cnvlearning-root .lms-card h4{font-family:var(--display);font-size:16px;color:#fff;margin-bottom:4px}
     .cnvlearning-root .lms-card p{font-size:13px;color:#bcccdb}
 
@@ -249,20 +253,22 @@ const p = t.pages.formacion;
     @media(prefers-reduced-motion:reduce){.cnvlearning-root *{animation:none!important;transition:none!important}}
   </style>
 
+  <script is:inline set:html={iconScript()}></script>
+
   <script is:inline>
   /* ====================== DATOS ====================== */
   const OFERTA = [
-    { ico:"🩺", t:"Escuela para profesionales de la salud", d:"Diplomados y cursos cortos con certificación. Exige acreditar título o tarjeta profesional. Incluye el Diplomado en Medicina Bioeléctrica y Sistema ANI BIS-E." },
-    { ico:"🌱", t:"Escuela para el público general", d:"Formación en lenguaje ciudadano sobre composición corporal y salud. Sin requisitos previos ni acreditación documental." },
-    { ico:"🎤", t:"Seminarios, talleres y congresos", d:"Actualización continua y divulgación científica presencial y virtual en toda Latinoamérica." },
-    { ico:"🏛️", t:"Alianzas universitarias", d:"Convenios con universidades para desarrollar especializaciones y maestrías en el paradigma bioeléctrico." }
+    { ico:CNVICO.stethoscope, t:"Escuela para profesionales de la salud", d:"Diplomados y cursos cortos con certificación. Exige acreditar título o tarjeta profesional. Incluye el Diplomado en Medicina Bioeléctrica y Sistema ANI BIS-E." },
+    { ico:CNVICO.users, t:"Escuela para el público general", d:"Formación en lenguaje ciudadano sobre composición corporal y salud. Sin requisitos previos ni acreditación documental." },
+    { ico:CNVICO.presentation, t:"Seminarios, talleres y congresos", d:"Actualización continua y divulgación científica presencial y virtual en toda Latinoamérica." },
+    { ico:CNVICO.landmark, t:"Alianzas universitarias", d:"Convenios con universidades para desarrollar especializaciones y maestrías en el paradigma bioeléctrico." }
   ];
 
   /* Escuela para el público general. Los dos primeros programas salen del
      diseño curricular de fase 1; el resto del paquete se añade cuando esté. */
   const GENERAL = [
-    { ico:"⚖️", t:"Entender tu cuerpo más allá del peso", d:"Por qué el peso es un indicador incompleto, qué distingue la masa grasa de la masa magra y qué preguntar ante un informe de composición corporal.", h:"12 horas · certificación", p:29 },
-    { ico:"🕰️", t:"Diplomado en envejecimiento saludable", d:"Cómo cambia el cuerpo con los años y qué se puede hacer al respecto, contado sin tecnicismos.", h:"60 horas · certificación", p:89 }
+    { ico:CNVICO.scale, t:"Entender tu cuerpo más allá del peso", d:"Por qué el peso es un indicador incompleto, qué distingue la masa grasa de la masa magra y qué preguntar ante un informe de composición corporal.", h:"12 horas · certificación", p:29 },
+    { ico:CNVICO.hourglass, t:"Diplomado en envejecimiento saludable", d:"Cómo cambia el cuerpo con los años y qué se puede hacer al respecto, contado sin tecnicismos.", h:"60 horas · certificación", p:89 }
   ];
 
   const FICHA = [
@@ -288,21 +294,21 @@ const p = t.pages.formacion;
   ];
 
   const CURSOS = [
-    { ico:"📐", t:"Evaluación de la composición corporal por BIA", d:"Fundamentos y protocolo de medición de la composición corporal con bioimpedancia." },
-    { ico:"🥗", t:"Usos y aplicaciones de la BIA en nutrición", d:"Interpretación bioeléctrica aplicada a la valoración y el plan nutricional." },
-    { ico:"🎗️", t:"BIA en cáncer", d:"Bioimpedancia en el paciente oncológico: masa celular, hidratación y pronóstico." },
-    { ico:"⚖️", t:"BIA en obesidad y paciente metabólico", d:"Más allá del IMC: composición corporal y riesgo metabólico por BIA." },
-    { ico:"🫘", t:"BIA en enfermedad renal", d:"Estado de hidratación, peso seco y valoración del paciente renal." },
-    { ico:"🏥", t:"BIA en el paciente en estado crítico", d:"Monitorización bioeléctrica y nutricional del paciente crítico." }
+    { ico:CNVICO.ruler, t:"Evaluación de la composición corporal por BIA", d:"Fundamentos y protocolo de medición de la composición corporal con bioimpedancia." },
+    { ico:CNVICO.apple, t:"Usos y aplicaciones de la BIA en nutrición", d:"Interpretación bioeléctrica aplicada a la valoración y el plan nutricional." },
+    { ico:CNVICO.ribbon, t:"BIA en cáncer", d:"Bioimpedancia en el paciente oncológico: masa celular, hidratación y pronóstico." },
+    { ico:CNVICO.scale, t:"BIA en obesidad y paciente metabólico", d:"Más allá del IMC: composición corporal y riesgo metabólico por BIA." },
+    { ico:CNVICO.droplet, t:"BIA en enfermedad renal", d:"Estado de hidratación, peso seco y valoración del paciente renal." },
+    { ico:CNVICO.heartPulse, t:"BIA en el paciente en estado crítico", d:"Monitorización bioeléctrica y nutricional del paciente crítico." }
   ];
 
   const LMS = [
-    { i:"📚", t:"Módulos y lecciones", d:"Estructura curso → módulo → lección, con desbloqueo por progreso." },
-    { i:"🎬", t:"Video y materiales", d:"Reproductor de video, PDFs, diapositivas y texto enriquecido por lección." },
-    { i:"✍️", t:"Evaluación", d:"Tareas, quizzes de opción múltiple autocalificados y ensayos con feedback." },
-    { i:"📈", t:"Progreso", d:"Barra de progreso por módulo, dashboard del estudiante y 'continuar donde quedé'." },
-    { i:"📜", t:"Certificación", d:"Certificado en PDF automático al completar el programa." },
-    { i:"💬", t:"Comunidad y paneles", d:"Foros del curso y paneles de docente y administrador." }
+    { i:CNVICO.layers, t:"Módulos y lecciones", d:"Estructura curso → módulo → lección, con desbloqueo por progreso." },
+    { i:CNVICO.video, t:"Video y materiales", d:"Reproductor de video, PDFs, diapositivas y texto enriquecido por lección." },
+    { i:CNVICO.edit, t:"Evaluación", d:"Tareas, quizzes de opción múltiple autocalificados y ensayos con feedback." },
+    { i:CNVICO.trending, t:"Progreso", d:"Barra de progreso por módulo, dashboard del estudiante y 'continuar donde quedé'." },
+    { i:CNVICO.certificate, t:"Certificación", d:"Certificado en PDF automático al completar el programa." },
+    { i:CNVICO.chat, t:"Comunidad y paneles", d:"Foros del curso y paneles de docente y administrador." }
   ];
 
   /* ====================== RENDER ====================== */

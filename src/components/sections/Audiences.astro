@@ -1,5 +1,6 @@
 ---
 import { getI18n } from '../../i18n';
+import { icon } from '../../lib/icons';
 
 const lang = Astro.currentLocale || 'es';
 const t = getI18n(lang);
@@ -35,7 +36,7 @@ const t = getI18n(lang);
           }`}
           style={`animation-delay: ${i * 0.1}s`}
         >
-          <div class="text-3xl mb-6">{profile.icon}</div>
+          <div class={`mb-6 ${profile.highlight ? 'text-white' : 'text-cnv-execute'}`} set:html={icon(profile.icon, 30)} />
           
           <h3 class={`text-lg font-800 mb-4 ${profile.highlight ? 'text-white' : 'text-cnv-core'}`}>
             {profile.title}
