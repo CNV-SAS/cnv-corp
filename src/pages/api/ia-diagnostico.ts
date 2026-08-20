@@ -14,8 +14,16 @@ import type { APIRoute } from 'astro';
 //                      en la cabecera x-atlas-token; sin ella el endpoint queda
 //                      abierto y un tercero podría consumir tu cuota de Groq.
 
-const GROQ_API_KEY = import.meta.env.GROQ_API_KEY;
-const ATLAS_IA_TOKEN = import.meta.env.ATLAS_IA_TOKEN;
+// Se leen con `process.env`, en EJECUCIÓN, y no con `import.meta.env`, que Astro
+// resuelve en TIEMPO DE COMPILACIÓN. Con `import.meta.env` el valor se hornea en
+// el build: si la variable no está presente en el entorno de construcción, el
+// despliegue nace con la llave en `undefined` y el endpoint responde 503 aunque
+// la variable sí exista en el proyecto. Eso fue lo que pasó el 18-ago-2026 —un
+// push que sólo tocaba iconos redesplegó el sitio y dejó sin IA al módulo de
+// tratamiento, al diagnóstico y a la lectura de espectroscopía de ATLAS—.
+// Leyéndolas en ejecución, rotar la llave tampoco obliga a reconstruir.
+const GROQ_API_KEY = process.env.GROQ_API_KEY;
+const ATLAS_IA_TOKEN = process.env.ATLAS_IA_TOKEN;
 
 // Sólo se permiten estos modelos y este techo de tokens: si alguien alcanzara el
 // endpoint, no podría pedir modelos caros ni respuestas ilimitadas.

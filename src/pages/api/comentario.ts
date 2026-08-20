@@ -14,9 +14,12 @@ import { saveComentario } from '../../lib/comentarios';
 // Todas las escrituras pasan por aquí: el navegador no puede insertar directo
 // en la tabla, así que Turnstile no se puede saltar.
 
-const RESEND_API_KEY = import.meta.env.RESEND_API_KEY;
-const CONTACT_EMAIL = import.meta.env.CONTACT_EMAIL || 'cnvcorporate@gmail.com';
-const TURNSTILE_SECRET_KEY = import.meta.env.TURNSTILE_SECRET_KEY;
+// `process.env` (ejecución) y no `import.meta.env` (compilación): con el segundo
+// el valor se hornea en el build y un despliegue puede nacer con la llave en
+// `undefined` aunque la variable exista en Vercel. Ver ia-diagnostico.ts.
+const RESEND_API_KEY = process.env.RESEND_API_KEY;
+const CONTACT_EMAIL = process.env.CONTACT_EMAIL || 'cnvcorporate@gmail.com';
+const TURNSTILE_SECRET_KEY = process.env.TURNSTILE_SECRET_KEY;
 
 const resend = RESEND_API_KEY ? new Resend(RESEND_API_KEY) : null;
 

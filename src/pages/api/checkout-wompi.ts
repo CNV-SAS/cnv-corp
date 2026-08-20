@@ -5,8 +5,11 @@ import { PRODUCTOS_BY_ID, totalPrice, type Producto } from '../../data/nutraceut
 
 // Llaves de Wompi (configúralas en Vercel → Settings → Environment Variables).
 // La PÚBLICA puede ir en el navegador; el SECRETO DE INTEGRIDAD nunca sale del servidor.
-const WOMPI_PUBLIC_KEY = import.meta.env.WOMPI_PUBLIC_KEY;
-const WOMPI_INTEGRITY_SECRET = import.meta.env.WOMPI_INTEGRITY_SECRET;
+// `process.env` (ejecución) y no `import.meta.env` (compilación): con el segundo
+// el valor se hornea en el build y un despliegue puede nacer con la llave en
+// `undefined` aunque la variable exista en Vercel. Ver ia-diagnostico.ts.
+const WOMPI_PUBLIC_KEY = process.env.WOMPI_PUBLIC_KEY;
+const WOMPI_INTEGRITY_SECRET = process.env.WOMPI_INTEGRITY_SECRET;
 
 // URL del Checkout Web de Wompi (producción). Para pruebas se usa la misma con llaves de sandbox.
 const WOMPI_CHECKOUT_URL = 'https://checkout.wompi.co/p/';
