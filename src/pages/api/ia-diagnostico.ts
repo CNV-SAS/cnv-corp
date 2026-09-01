@@ -27,11 +27,23 @@ const ATLAS_IA_TOKEN = process.env.ATLAS_IA_TOKEN;
 
 // Sólo se permiten estos modelos y este techo de tokens: si alguien alcanzara el
 // endpoint, no podría pedir modelos caros ni respuestas ilimitadas.
-// Los dos primeros son de texto (diagnóstico). Qwen es el único modelo de la
-// cuenta que acepta imágenes: lee la captura de la pantalla de espectroscopía del
-// Biody BIS y propone los siete parámetros, que el profesional confirma o corrige
-// antes de que entren al cálculo.
+//
+// Qwen acepta imágenes y es el que lee la captura de la pantalla de espectroscopía
+// del Biody BIS: propone los siete parámetros y el profesional los confirma o los
+// corrige antes de que entren al cálculo. Para eso se queda.
+//
+// Para TEXTO (el diagnóstico) se añaden los GPT-OSS, y la razón es de tiempo de
+// consulta. Los dos Llama responden 404 «does not exist or you do not have access
+// to it»: la cuenta no los tiene, aunque Groq los liste como activos. Eso dejaba
+// como única opción de texto a Qwen, que es un modelo de RAZONAMIENTO: antepone su
+// borrador entre <think>…</think>, gasta ahí la mayor parte del presupuesto y del
+// tiempo, y el diagnóstico completo tardaba cinco minutos. Un profesional no puede
+// esperar eso con el paciente delante. El 20B va a 1.000 tokens/s —contra los 280
+// del Llama 70B— y no razona en voz alta: todo el presupuesto va a la respuesta.
+// El 120B queda como alternativa si el 20B se queda corto en calidad.
 const MODELOS_PERMITIDOS = new Set([
+  'openai/gpt-oss-20b',
+  'openai/gpt-oss-120b',
   'llama-3.3-70b-versatile',
   'llama-3.1-8b-instant',
   'qwen/qwen3.6-27b',
@@ -74,7 +86,8 @@ export const POST: APIRoute = async ({ request }) => {
     return json({ error: 'Cuerpo JSON inválido.' }, 400);
   }
 
-  const { messages, model = 'llama-3.3-70b-versatile', max_tokens = 2048, temperature = 0.3 } = body || {};
+  // Por defecto, el modelo de texto que la cuenta sí tiene y que no razona en voz alta.
+  const { messages, model = 'openai/gpt-oss-20b', max_tokens = 2048, temperature = 0.3 } = body || {};
 
   if (!Array.isArray(messages) || messages.length === 0) {
     return json({ error: 'Falta el arreglo messages.' }, 400);
