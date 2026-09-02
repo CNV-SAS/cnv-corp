@@ -55,7 +55,13 @@ const ATLAS_IA_TOKEN = process.env.ATLAS_IA_TOKEN;
 // cabe por diseño, y ningún ajuste de presupuesto lo arregla. El plan gratuito de
 // Gemini da 250.000 por minuto. Groq se conserva como respaldo y porque Qwen es
 // quien lee la captura de la pantalla del Biody BIS, que necesita imágenes.
+// La serie 2.5 quedó cerrada a cuentas nuevas —«no longer available to new
+// users»—, así que la vigente para esta llave es la 3.6. Se conservan las
+// anteriores por si alguna otra llave sí las tiene.
 const MODELOS_PERMITIDOS = new Set([
+  'gemini-3.6-flash',
+  'gemini-3.6-flash-lite',
+  'gemini-3.6-pro',
   'gemini-2.5-flash',
   'gemini-2.5-flash-lite',
   'gemini-2.0-flash',
