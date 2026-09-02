@@ -143,27 +143,33 @@ export const POST: APIRoute = async ({ request }) => {
           parts: [{ text: String(m.content ?? '') }],
         }));
 
-      const r = await fetch(
-        `https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(model)}:generateContent`,
-        {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json', 'x-goog-api-key': GEMINI_API_KEY },
-          body: JSON.stringify({
-            ...(sys ? { system_instruction: { parts: [{ text: sys }] } } : {}),
-            contents: turnos,
-            generationConfig: {
-              maxOutputTokens: Math.min(Number(max_tokens) || 2048, MAX_TOKENS_TECHO),
-              temperature: Number(temperature) ?? 0.3,
-              // Sin esto, la serie 2.5 razona antes de responder y se gasta el
-              // presupuesto en el borrador, igual que hacía Qwen: la respuesta
-              // salía vacía y la pantalla en blanco.
-              thinkingConfig: { thinkingBudget: 0 },
-            },
-          }),
-        }
-      );
+      // `thinkingConfig` apaga el razonamiento previo, que si no se gasta el
+      // presupuesto en el borrador y devuelve la respuesta vacía —lo que ya pasó
+      // con Qwen—. Pero es propio de la serie 2.5: la 3.6 responde 400 «invalid
+      // argument». Como el catálogo cambia bajo los pies, no se codifica qué serie
+      // lo admite: se intenta con él y, si lo rechaza, se repite sin él.
+      const url = `https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(model)}:generateContent`;
+      const cuerpo = (conThinking: boolean) => JSON.stringify({
+        ...(sys ? { system_instruction: { parts: [{ text: sys }] } } : {}),
+        contents: turnos,
+        generationConfig: {
+          maxOutputTokens: Math.min(Number(max_tokens) || 2048, MAX_TOKENS_TECHO),
+          temperature: Number(temperature) ?? 0.3,
+          ...(conThinking ? { thinkingConfig: { thinkingBudget: 0 } } : {}),
+        },
+      });
+      const pedir = (conThinking: boolean) => fetch(url, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'x-goog-api-key': GEMINI_API_KEY },
+        body: cuerpo(conThinking),
+      });
 
-      const data: any = await r.json();
+      let r = await pedir(true);
+      let data: any = await r.json();
+      if (!r.ok && r.status === 400 && /invalid argument|thinking/i.test(JSON.stringify(data?.error || ''))) {
+        r = await pedir(false);
+        data = await r.json();
+      }
       if (!r.ok) {
         console.error('Gemini error:', r.status, data);
         return json({ error: data?.error?.message || 'Error de Gemini', status: r.status }, r.status);
