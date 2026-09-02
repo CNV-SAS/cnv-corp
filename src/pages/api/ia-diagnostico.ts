@@ -143,32 +143,45 @@ export const POST: APIRoute = async ({ request }) => {
           parts: [{ text: String(m.content ?? '') }],
         }));
 
-      // `thinkingConfig` apaga el razonamiento previo, que si no se gasta el
-      // presupuesto en el borrador y devuelve la respuesta vacía —lo que ya pasó
-      // con Qwen—. Pero es propio de la serie 2.5: la 3.6 responde 400 «invalid
-      // argument». Como el catálogo cambia bajo los pies, no se codifica qué serie
-      // lo admite: se intenta con él y, si lo rechaza, se repite sin él.
+      // Hay que frenar el razonamiento previo del modelo. Si se le deja suelto,
+      // piensa hasta 8.192 tokens antes de escribir: medido, el diagnóstico de
+      // cuatro pasos tardaba 80 s y devolvía 24 tokens de texto por paso.
+      //
+      // Y cada serie se frena distinto, sin compatibilidad entre ellas:
+      //   · serie 3.x  → thinkingLevel: 'low'   (thinkingBudget da 400)
+      //   · serie 2.5  → thinkingBudget: 0      (thinkingLevel da 400)
+      //   · enviar los dos a la vez es error en la 3.x
+      // Como el catálogo cambia cada pocas semanas, no se codifica qué serie usa
+      // qué: se prueban en cascada y se conserva la primera que el modelo acepte.
       const url = `https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(model)}:generateContent`;
-      const cuerpo = (conThinking: boolean) => JSON.stringify({
-        ...(sys ? { system_instruction: { parts: [{ text: sys }] } } : {}),
-        contents: turnos,
-        generationConfig: {
-          maxOutputTokens: Math.min(Number(max_tokens) || 2048, MAX_TOKENS_TECHO),
-          temperature: Number(temperature) ?? 0.3,
-          ...(conThinking ? { thinkingConfig: { thinkingBudget: 0 } } : {}),
-        },
-      });
-      const pedir = (conThinking: boolean) => fetch(url, {
+      const FRENOS: Array<Record<string, unknown> | null> = [
+        { thinkingLevel: 'low' },
+        { thinkingBudget: 0 },
+        null,                     // último recurso: se deja pensar, pero responde
+      ];
+      const pedir = (freno: Record<string, unknown> | null) => fetch(url, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', 'x-goog-api-key': GEMINI_API_KEY },
-        body: cuerpo(conThinking),
+        body: JSON.stringify({
+          ...(sys ? { system_instruction: { parts: [{ text: sys }] } } : {}),
+          contents: turnos,
+          generationConfig: {
+            maxOutputTokens: Math.min(Number(max_tokens) || 2048, MAX_TOKENS_TECHO),
+            temperature: Number(temperature) ?? 0.3,
+            ...(freno ? { thinkingConfig: freno } : {}),
+          },
+        }),
       });
 
-      let r = await pedir(true);
-      let data: any = await r.json();
-      if (!r.ok && r.status === 400 && /invalid argument|thinking/i.test(JSON.stringify(data?.error || ''))) {
-        r = await pedir(false);
+      let r!: Response, data: any;
+      for (const freno of FRENOS) {
+        r = await pedir(freno);
         data = await r.json();
+        if (r.ok) break;
+        // Solo se pasa al siguiente si el rechazo es por el freno en sí.
+        const esDelFreno = r.status === 400 &&
+          /invalid argument|thinking/i.test(JSON.stringify(data?.error || ''));
+        if (!esDelFreno) break;
       }
       if (!r.ok) {
         console.error('Gemini error:', r.status, data);
