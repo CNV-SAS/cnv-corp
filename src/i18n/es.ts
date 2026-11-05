@@ -18,6 +18,7 @@ export const es = {
     store: '/tienda',
     cnv_data: '/cnv-data',
     comentarios: '/comentarios',
+    booking: '/agendar',
   },
 
   // 2. ENLACES EXTERNOS
@@ -61,6 +62,7 @@ export const es = {
     integrantes: 'Integrantes',
     contacto: 'Contáctanos',
     tienda: 'Tienda',
+    agendar: 'Agendar cita',
     switch_lang: 'View in English',
     // Pestañas y agrupadores del menú principal
     home: 'Home',

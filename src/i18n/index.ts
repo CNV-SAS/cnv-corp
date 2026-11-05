@@ -27,7 +27,8 @@ const routeMap: Record<string, string> = {
   '/mapa-del-sitio': '/site-map',
   '/tienda': '/store',
   '/cnv-data': '/cnv-data',
-  '/comentarios': '/comments'
+  '/comentarios': '/comments',
+  '/agendar': '/book'
 };
 
 export function getRouteInOtherLang(url: URL): string {

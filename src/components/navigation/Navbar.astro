@@ -151,6 +151,17 @@ const membersActive = membersLinks.some((l) => matches(l.href));
           {t.nav.contacto}
         </a>
 
+        <!-- AGENDAR: punto de entrada del paciente a la valoración en casa -->
+        <a
+          href={t.routes.booking}
+          class={`text-sm font-700 tracking-wide transition-colors inline-flex items-center gap-2 ${
+            matches(t.routes.booking) ? 'text-cnv-execute' : 'text-cnv-generate hover:text-cnv-execute'
+          }`}
+        >
+          <span class="w-2 h-2 rounded-full bg-cnv-generate animate-pulse"></span>
+          {t.nav.agendar}
+        </a>
+
         <!-- INTEGRANTES: botón destacado, con Comentarios colgando de él -->
         <div class="relative group">
           <a
@@ -249,6 +260,14 @@ const membersActive = membersLinks.some((l) => matches(l.href));
         class="text-base font-600 text-cnv-core hover:text-cnv-execute transition-colors"
       >
         {t.nav.contacto}
+      </a>
+
+      <a
+        href={t.routes.booking}
+        class="text-base font-700 text-cnv-generate hover:text-cnv-execute transition-colors inline-flex items-center gap-2"
+      >
+        <span class="w-2 h-2 rounded-full bg-cnv-generate animate-pulse"></span>
+        {t.nav.agendar}
       </a>
 
       <!-- Integrantes destacado, con Comentarios debajo -->

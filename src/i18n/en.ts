@@ -20,6 +20,7 @@ export const en: Translations = {
     store: '/en/store',
     cnv_data: '/en/cnv-data',
     comentarios: '/en/comments',
+    booking: '/en/book',
   },
 
   // 2. ENLACES EXTERNOS
@@ -59,6 +60,7 @@ export const en: Translations = {
     integrantes: 'Members',
     contacto: 'Contact',
     tienda: 'Store',
+    agendar: 'Book a visit',
     switch_lang: 'Ver en Español',
     home: 'Home',
     ecosistema: 'CNV System',
